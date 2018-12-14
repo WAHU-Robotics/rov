@@ -1,7 +1,7 @@
 logging:
   level:
     Root: degug
-    net.wachsmuths.rov: debug
+    me.jbuelow.rov: debug
 
 vehicle:
   name: Nautilus
