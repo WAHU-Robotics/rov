@@ -9,6 +9,7 @@ import me.jbuelow.rov.common.Response;
 import me.jbuelow.rov.common.VehicleCapabilities;
 
 /**
+ * @author Jacob Buelow
  * @author Brian Wachsmuth
  */
 public interface VehicleControlService {

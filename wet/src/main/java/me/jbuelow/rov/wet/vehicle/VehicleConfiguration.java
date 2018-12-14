@@ -8,7 +8,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * @author Brian Wachsmuth
+ * @author Jacob Buelow
  *
  * Loads our vehicles capability configurtion from our properties file(s)
  */

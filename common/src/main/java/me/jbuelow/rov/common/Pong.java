@@ -4,6 +4,7 @@
 package me.jbuelow.rov.common;
 
 /**
+ * @author Jacob Buelow
  * @author Brian Wachsmuth
  */
 public class Pong implements Response {

@@ -19,6 +19,7 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 
 /**
+ * @author Jacob Buelow
  * @author Brian Wachsmuth
  */
 @Service

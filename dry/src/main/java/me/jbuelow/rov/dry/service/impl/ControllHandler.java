@@ -19,6 +19,7 @@ import me.jbuelow.rov.common.VehicleCapabilities;
 import org.apache.commons.io.IOUtils;
 
 /**
+ * @author Jacob Buelow
  * @author Brian Wachsmuth
  */
 @Slf4j

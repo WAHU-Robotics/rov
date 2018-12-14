@@ -8,6 +8,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 //this is good code.
 
 /**
+ * @author Jacob Buelow
  * @author Brian Wachsmuth
  */
 @SpringBootApplication

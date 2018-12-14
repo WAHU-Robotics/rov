@@ -10,6 +10,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
+ * @author Jacob Buelow
  * @author Brian Wachsmuth
  */
 @Getter

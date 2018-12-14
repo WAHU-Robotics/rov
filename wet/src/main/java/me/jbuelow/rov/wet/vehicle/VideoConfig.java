@@ -8,6 +8,7 @@ import lombok.EqualsAndHashCode;
 import me.jbuelow.rov.common.capabilities.Video;
 
 /**
+ * @author Jacob Buelow
  * @author Brian Wachsmuth
  */
 @Data

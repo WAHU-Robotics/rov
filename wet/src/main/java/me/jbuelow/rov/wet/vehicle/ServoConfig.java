@@ -9,6 +9,7 @@ import me.jbuelow.rov.common.capabilities.Servo;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
+ * @author Jacob Buelow
  * @author Brian Wachsmuth
  */
 @Data

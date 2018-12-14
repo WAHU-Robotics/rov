@@ -10,6 +10,7 @@ import me.jbuelow.rov.wet.service.CommandHandler;
 import org.springframework.stereotype.Service;
 
 /**
+ * @author Jacob Buelow
  * @author Brian Wachsmuth
  */
 @Service

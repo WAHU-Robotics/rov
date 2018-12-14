@@ -13,7 +13,7 @@ import lombok.ToString;
 import me.jbuelow.rov.common.capabilities.Capability;
 
 /**
- * @author Brian Wachsmuth
+ * @author Jacob Buelow
  *
  * This class is used to respond to the Hello broadcast.
  *

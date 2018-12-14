@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
+ * @author Jacob Buelow
  * @author Brian Wachsmuth
  */
 @Data

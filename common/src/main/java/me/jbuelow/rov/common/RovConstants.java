@@ -6,6 +6,7 @@ package me.jbuelow.rov.common;
 import java.nio.charset.Charset;
 
 /**
+ * @author Jacob Buelow
  * @author Brian Wachsmuth
  */
 public abstract class RovConstants {

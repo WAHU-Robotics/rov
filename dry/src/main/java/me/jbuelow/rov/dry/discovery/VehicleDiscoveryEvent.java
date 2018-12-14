@@ -8,6 +8,7 @@ import lombok.Getter;
 import org.springframework.context.ApplicationEvent;
 
 /**
+ * @author Jacob Buelow
  * @author Brian Wachsmuth
  */
 @Getter

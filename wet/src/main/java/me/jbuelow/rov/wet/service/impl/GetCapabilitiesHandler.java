@@ -13,6 +13,7 @@ import me.jbuelow.rov.wet.vehicle.VehicleConfiguration;
 import org.springframework.stereotype.Service;
 
 /**
+ * @author Jacob Buelow
  * @author Brian Wachsmuth
  */
 @Service
