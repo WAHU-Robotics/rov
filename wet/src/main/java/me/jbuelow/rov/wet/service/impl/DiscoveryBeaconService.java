@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package me.jbuelow.rov.wet.service.impl;
 
@@ -11,29 +11,29 @@ import java.net.InterfaceAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.Enumeration;
+import lombok.extern.slf4j.Slf4j;
+import me.jbuelow.rov.common.RovConstants;
 import org.apache.commons.io.IOUtils;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import lombok.extern.slf4j.Slf4j;
-import me.jbuelow.rov.common.RovConstants;
 
 /**
  * @author Brian Wachsmuth
- *
  */
 @Service
 @Slf4j
 public class DiscoveryBeaconService {
+
   private static final long BEACON_INTERVAL = 10000; // Ten seconds
   private boolean sendBeacon = true;
-  
+
   @Scheduled(fixedRate = BEACON_INTERVAL)
   public void sendDiscoveryBeacon() {
     if (!sendBeacon) {
       return;
     }
-    
+
     log.debug("Sending Discovery Beacon.");
     DatagramSocket socketOut = null;
 
@@ -58,7 +58,7 @@ public class DiscoveryBeaconService {
   public void controllerConnected(ControllerConnectedEvent event) {
     sendBeacon = false;
   }
-  
+
   @EventListener
   public void controllerDisconnec(ControllerDisconnectedEvent event) {
     sendBeacon = true;
@@ -67,13 +67,14 @@ public class DiscoveryBeaconService {
   public InetAddress getBroadcastAddrs() throws SocketException {
     Enumeration<NetworkInterface> nicList = NetworkInterface.getNetworkInterfaces();
 
-    for (; nicList.hasMoreElements();) {
+    for (; nicList.hasMoreElements(); ) {
       NetworkInterface nic = nicList.nextElement();
       if (nic.isUp() && !nic.isLoopback()) {
-        for (InterfaceAddress ia : nic.getInterfaceAddresses())
+        for (InterfaceAddress ia : nic.getInterfaceAddresses()) {
           if (ia.getBroadcast() != null) {
             return ia.getBroadcast();
           }
+        }
       }
     }
 

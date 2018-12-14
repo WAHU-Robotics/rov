@@ -1,17 +1,16 @@
 /**
- * 
+ *
  */
 package me.jbuelow.rov.wet.service.impl;
 
-import org.springframework.stereotype.Service;
 import me.jbuelow.rov.common.Ping;
 import me.jbuelow.rov.common.Pong;
 import me.jbuelow.rov.common.Response;
 import me.jbuelow.rov.wet.service.CommandHandler;
+import org.springframework.stereotype.Service;
 
 /**
  * @author Brian Wachsmuth
- *
  */
 @Service
 public class PingHandler implements CommandHandler<Ping> {

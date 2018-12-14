@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package me.jbuelow.rov.common.capabilities;
 
@@ -8,10 +8,10 @@ import lombok.EqualsAndHashCode;
 
 /**
  * @author Brian Wachsmuth
- *
  */
 @Data
-@EqualsAndHashCode(callSuper=true)
+@EqualsAndHashCode(callSuper = true)
 public class Video extends AbstractCapability {
+
   private String videoStreamAddress;
 }

@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package me.jbuelow.rov.common;
 
@@ -11,13 +11,13 @@ import lombok.ToString;
 
 /**
  * @author Brian Wachsmuth
- *
  */
 @Getter
 @Setter
 @EqualsAndHashCode
 @ToString
 public class MotorPower implements Serializable {
+
   private static final long serialVersionUID = 2812485476244706951L;
 
   private String id;

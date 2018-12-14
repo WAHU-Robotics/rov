@@ -2,7 +2,7 @@ logging:
   level:
     Root: degug
     net.wachsmuths.rov: debug
-    
+
 vehicle:
   name: Nautilus
   motor-configuration:

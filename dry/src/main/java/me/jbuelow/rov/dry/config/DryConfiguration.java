@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package me.jbuelow.rov.dry.config;
 
@@ -10,10 +10,10 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * @author Brian Wachsmuth
- *
  */
 @Configuration
 public class DryConfiguration {
+
   @Bean
   public ExecutorService executorService() {
     return Executors.newFixedThreadPool(10);

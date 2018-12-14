@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package me.jbuelow.rov.dry.service;
 
@@ -10,12 +10,12 @@ import me.jbuelow.rov.common.VehicleCapabilities;
 
 /**
  * @author Brian Wachsmuth
- *
  */
 public interface VehicleControlService {
+
   boolean activeConnections();
-  
+
   Response sendCommand(int vehicleId, Command command);
-  
+
   List<VehicleCapabilities> getAttatchedVehicles();
 }

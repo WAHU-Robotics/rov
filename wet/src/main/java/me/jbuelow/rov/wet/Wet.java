@@ -9,13 +9,12 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * @author Brian Wachsmuth
- *
  */
 @SpringBootApplication
 @EnableScheduling
 public class Wet {
 
-    public static void main(String[] args) {
-        SpringApplication.run(Wet.class, args);
-    }
+  public static void main(String[] args) {
+    SpringApplication.run(Wet.class, args);
+  }
 }

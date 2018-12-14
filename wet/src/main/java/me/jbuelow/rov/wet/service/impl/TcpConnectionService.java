@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package me.jbuelow.rov.wet.service.impl;
 
@@ -13,6 +13,9 @@ import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
+import me.jbuelow.rov.common.Command;
+import me.jbuelow.rov.common.RovConstants;
 import me.jbuelow.rov.wet.service.CommandProcessorService;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.DisposableBean;
@@ -20,25 +23,23 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
-import lombok.extern.slf4j.Slf4j;
-import me.jbuelow.rov.common.Command;
-import me.jbuelow.rov.common.RovConstants;
 
 /**
  * @author Brian Wachsmuth
- *
  */
 @Service
 @Slf4j
 public class TcpConnectionService implements DisposableBean {
+
   public static final long IDLE_TIME = 1000;  //One second
   public static final int SOCKET_TIMEOUT = 100;
-  
+
   private CommandProcessorService commandProcessorService;
   private ConnectionServer connectionServer;
   private ApplicationEventPublisher eventPublisher;
-  
-  public TcpConnectionService(CommandProcessorService commandProcessorService,ApplicationEventPublisher eventPublisher) {
+
+  public TcpConnectionService(CommandProcessorService commandProcessorService,
+      ApplicationEventPublisher eventPublisher) {
     this.commandProcessorService = commandProcessorService;
     this.eventPublisher = eventPublisher;
     connectionServer = new ConnectionServer();
@@ -49,13 +50,14 @@ public class TcpConnectionService implements DisposableBean {
     log.debug("Starting TcpConnectionService server.");
     connectionServer.start();
   }
-  
+
   @Override
   public void destroy() throws Exception {
     connectionServer.abort();
   }
 
   private class ConnectionServer extends Thread {
+
     private ServerSocket listener;
     private volatile boolean running = true;
     private List<ConnectionHandler> handlers = new ArrayList<>();
@@ -69,7 +71,7 @@ public class TcpConnectionService implements DisposableBean {
         log.error("Failed to start connection server.", e);
         return;
       }
-      
+
       while (running) {
         try {
           ConnectionHandler handler = new ConnectionHandler(listener.accept());
@@ -81,9 +83,9 @@ public class TcpConnectionService implements DisposableBean {
         } catch (IOException e) {
           log.error("Error starting a new connection.", e);
         }
-        
+
         cleanupHandlers();
-        
+
         try {
           sleep(IDLE_TIME);
         } catch (InterruptedException e) {
@@ -91,10 +93,10 @@ public class TcpConnectionService implements DisposableBean {
         }
       }
     }
-    
+
     public void abort() {
       running = false;
-      
+
       Iterator<ConnectionHandler> it = handlers.iterator();
       while (it.hasNext()) {
         ConnectionHandler handler = it.next();
@@ -102,31 +104,32 @@ public class TcpConnectionService implements DisposableBean {
         it.remove();
       }
     }
-    
+
     private void cleanupHandlers() {
       Iterator<ConnectionHandler> it = handlers.iterator();
       while (it.hasNext()) {
         ConnectionHandler handler = it.next();
-        
+
         if (!handler.isConnected()) {
           it.remove();
         }
       }
     }
   }
-  
+
   private class ConnectionHandler extends Thread {
+
     private boolean running = true;
     private Socket socket;
     private ObjectOutputStream out;
     private ObjectInputStream in;
-    
+
     public ConnectionHandler(Socket clientSocket) throws IOException {
       log.debug("Received new connection from client: " + clientSocket.getInetAddress());
       this.socket = clientSocket;
       this.socket.setSoTimeout(SOCKET_TIMEOUT);
       this.out = new ObjectOutputStream(clientSocket.getOutputStream());
-      this.in= new ObjectInputStream(clientSocket.getInputStream());
+      this.in = new ObjectInputStream(clientSocket.getInputStream());
     }
 
     @Override
@@ -144,25 +147,25 @@ public class TcpConnectionService implements DisposableBean {
         } catch (ClassNotFoundException | IOException e) {
           log.error("Error handling command stream.", e);
         }
-        
+
         try {
           sleep(IDLE_TIME);
         } catch (InterruptedException e) {
           break;
         }
       }
-      
+
       IOUtils.closeQuietly(in);
       IOUtils.closeQuietly(out);
       IOUtils.closeQuietly(socket);
-      
+
       log.debug("Controller " + socket.getInetAddress() + " disconnected.");
     }
-    
+
     public void abort() {
       running = false;
     }
-    
+
     public boolean isConnected() {
       return (socket != null && socket.isConnected());
     }

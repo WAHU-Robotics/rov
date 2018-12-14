@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package me.jbuelow.rov.wet.vehicle;
 
@@ -9,10 +9,9 @@ import me.jbuelow.rov.common.capabilities.Video;
 
 /**
  * @author Brian Wachsmuth
- *
  */
 @Data
-@EqualsAndHashCode(callSuper=true)
+@EqualsAndHashCode(callSuper = true)
 public class VideoConfig extends Video implements AccessoryConfig {
 
 }

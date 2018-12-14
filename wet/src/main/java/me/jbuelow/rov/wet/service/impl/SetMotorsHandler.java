@@ -1,17 +1,16 @@
 /**
- * 
+ *
  */
 package me.jbuelow.rov.wet.service.impl;
 
-import me.jbuelow.rov.wet.service.CommandHandler;
-import org.springframework.stereotype.Service;
 import lombok.extern.slf4j.Slf4j;
 import me.jbuelow.rov.common.Response;
 import me.jbuelow.rov.common.SetMotors;
+import me.jbuelow.rov.wet.service.CommandHandler;
+import org.springframework.stereotype.Service;
 
 /**
  * @author Brian Wachsmuth
- *
  */
 @Service
 @Slf4j
@@ -23,7 +22,7 @@ public class SetMotorsHandler implements CommandHandler<SetMotors> {
   @Override
   public Response execute(SetMotors command) {
     log.debug("Got Set Motors Command!");
-    
+
     return null;
   }
 
