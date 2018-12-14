@@ -1,0 +1,4 @@
+logging:
+  level:
+    Root: info
+    net.wachsmuths.rov: debug

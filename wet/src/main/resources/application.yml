@@ -1,0 +1,39 @@
+logging:
+  level:
+    Root: degug
+    net.wachsmuths.rov: debug
+    
+vehicle:
+  name: Nautilus
+  motor-configuration:
+  - id: 1
+    name: "Starboard Thrustor"
+    motorType: THRUSTOR
+    motorOrientation: X_AXIS
+    pwm-port: 1
+  - id: 2
+    name: "Port Thrustor"
+    motorType: THRUSTOR
+    motorOrientation: X_AXIS
+    pwm-port: 2
+  - id: 3
+    name: "Bow Thrustor"
+    motorType: THRUSTOR
+    motorOrientation: Z_AXIS
+    pwm-port: 3
+  - id: 4
+    name: "Stern Thrustor"
+    motorType: THRUSTOR
+    motorOrientation: Z_AXIS
+    pwm-port: 4
+  servo-configuration:
+  - id: 1
+    name: "Claw"
+    pwm-port: 5
+  video-configuration:
+  - id: 1
+    name: "Front Camera"
+    videoStreamAddress: "localhost:1234"
+    
+  
+   
