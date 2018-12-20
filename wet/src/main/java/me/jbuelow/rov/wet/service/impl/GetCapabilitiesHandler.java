@@ -26,7 +26,7 @@ public class GetCapabilitiesHandler implements CommandHandler<GetCapabilities> {
     this.vehicleConfiguration = vehicleConfiguration;
   }
 
-  public VehicleCapabilities getCapabilities() {
+  private VehicleCapabilities getCapabilities() {
     //Lazy load and cache the vehicle capabilities
     if (capabilities == null) {
       capabilities = new VehicleCapabilities();

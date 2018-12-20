@@ -15,6 +15,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.exceptions.verification.NoInteractionsWanted;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.mock.mockito.SpyBean;
@@ -37,27 +38,27 @@ import me.jbuelow.rov.wet.vehicle.VehicleConfiguration;
 @Import({CommandProcessorServiceImpl.class, PingHandler.class, GetCapabilitiesHandler.class, SetMotorsHandler.class})
 public class CommandProcessorServiceImplTest {
   private static boolean firstTest = true;
-  
+
   @SpyBean
   private PingHandler pingHandler;
-  
+
   @SpyBean
   private GetCapabilitiesHandler capabilitiesHandler;
-  
+
   @SpyBean
   private SetMotorsHandler setMotorsHandler;
-  
+
   @MockBean
   private VehicleConfiguration vehicleConfiguration;
-  
+
   @Autowired
   private CommandProcessorService commandProcessor;
-  
+
   @Before
   public void setup() {
     when(vehicleConfiguration.getAllConfiguration()).thenReturn(new ArrayList<>());
   }
-  
+
   @After
   public void finish() {
     if (firstTest) {
@@ -66,10 +67,10 @@ public class CommandProcessorServiceImplTest {
       verify(setMotorsHandler, times(1)).getCommandType();
       firstTest = false;
     }
-    
+
     verifyNoMoreInteractions(pingHandler, capabilitiesHandler, setMotorsHandler);
   }
-  
+
   /**
    * Test method for {@link me.jbuelow.rov.wet.service.impl.CommandProcessorServiceImpl#handleCommand(me.jbuelow.rov.common.Command)}.
    */
@@ -105,9 +106,10 @@ public class CommandProcessorServiceImplTest {
     Command command = new Command() {
 
       /**
-       * 
+       *
        */
       private static final long serialVersionUID = 1L;};
     commandProcessor.handleCommand(command);
   }
 }
+
