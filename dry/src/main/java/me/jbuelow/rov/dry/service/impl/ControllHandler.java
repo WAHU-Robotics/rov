@@ -13,9 +13,11 @@ import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
 import me.jbuelow.rov.common.Command;
 import me.jbuelow.rov.common.GetCapabilities;
+import me.jbuelow.rov.common.OpenVideo;
 import me.jbuelow.rov.common.Response;
 import me.jbuelow.rov.common.RovConstants;
 import me.jbuelow.rov.common.VehicleCapabilities;
+import me.jbuelow.rov.common.VideoStreamAddress;
 import org.apache.commons.io.IOUtils;
 
 /**
@@ -29,6 +31,7 @@ public class ControllHandler implements Closeable {
   private Socket vehicleSocket;
   private ObjectOutputStream out;
   private ObjectInputStream in;
+  private VideoStreamAddress video;
 
   public ControllHandler(InetAddress vehicleAddress) throws IOException, ClassNotFoundException {
     vehicleSocket = new Socket(vehicleAddress, RovConstants.ROV_PORT);
@@ -37,6 +40,7 @@ public class ControllHandler implements Closeable {
 
     //Get Capabilities
     capabilities = (VehicleCapabilities) sendCommand(new GetCapabilities());
+    video = (VideoStreamAddress) sendCommand(new OpenVideo()); //Test my own crappy command
   }
 
   public Response sendCommand(Command command) throws IOException, ClassNotFoundException {
@@ -60,7 +64,7 @@ public class ControllHandler implements Closeable {
   }
 
   @Override
-  public void close() throws IOException {
+  public void close() {
     IOUtils.closeQuietly(in);
     IOUtils.closeQuietly(out);
     IOUtils.closeQuietly(vehicleSocket);

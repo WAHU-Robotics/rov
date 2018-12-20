@@ -9,15 +9,9 @@ package me.jbuelow.rov.common;
  */
 public class VideoStreamAddress implements Response {
 
-  public int port;
+  public String url;
 
-  public VideoStreamAddress(int port) {
-    try {
-      Runtime.getRuntime().exec(
-          "raspivid -o - -t 9999999 |cvlc -vvv stream:///dev/stdin --sout '#rtp{sdp=rtsp://:" + port
-              + "/}' :demux=h264");
-    } catch (Exception e) {
-    }
+  public VideoStreamAddress(String url) {
+    this.url = url;
   }
-
 }
