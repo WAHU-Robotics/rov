@@ -4,9 +4,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
-//TODO: java vlc embedded thingy
-//this is good code.
-
 /**
  * @author Jacob Buelow
  * @author Brian Wachsmuth
