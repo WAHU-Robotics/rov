@@ -1,4 +1,4 @@
 logging:
   level:
     Root: info
-    net.wachsmuths.rov: debug
+    me.jbuelow.rov: debug

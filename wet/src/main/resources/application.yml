@@ -1,6 +1,6 @@
 logging:
   level:
-    Root: degug
+    Root: info
     me.jbuelow.rov: debug
 
 vehicle:
