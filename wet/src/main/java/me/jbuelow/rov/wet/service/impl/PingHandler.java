@@ -3,6 +3,7 @@
  */
 package me.jbuelow.rov.wet.service.impl;
 
+import java.util.Random;
 import me.jbuelow.rov.common.Ping;
 import me.jbuelow.rov.common.Pong;
 import me.jbuelow.rov.common.Response;
@@ -21,7 +22,8 @@ public class PingHandler implements CommandHandler<Ping> {
    */
   @Override
   public Response execute(Ping command) {
-    return new Pong();
+    Random r = new Random();
+    return new Pong(String.valueOf(r.nextInt(255)));
   }
 
   /* (non-Javadoc)

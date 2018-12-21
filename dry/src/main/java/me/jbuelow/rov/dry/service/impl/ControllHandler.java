@@ -34,6 +34,7 @@ public class ControllHandler implements Closeable {
   private ObjectOutputStream out;
   private ObjectInputStream in;
   private VideoStreamAddress video;
+  private Gui gui;
 
   public ControllHandler(InetAddress vehicleAddress) throws IOException, ClassNotFoundException {
     vehicleSocket = new Socket(vehicleAddress, RovConstants.ROV_PORT);
@@ -44,6 +45,8 @@ public class ControllHandler implements Closeable {
     capabilities = (VehicleCapabilities) sendCommand(new GetCapabilities());
     video = (VideoStreamAddress) sendCommand(
         new OpenVideo(vehicleAddress)); //Test my own crappy command
+
+    gui = new Gui();
 
     Loop loop = new Loop();
     loop.run();
@@ -56,11 +59,14 @@ public class ControllHandler implements Closeable {
     @Override
     public void run() {
       while (running) {
+        Pong pong = null;
         try {
-          Pong pong = (Pong) sendCommand(new Ping());
+          pong = (Pong) sendCommand(new Ping());
         } catch (IOException | ClassNotFoundException e) {
           e.printStackTrace();
         }
+
+        gui.setLabel(pong.message);
 
         try {
           sleep(1000);
