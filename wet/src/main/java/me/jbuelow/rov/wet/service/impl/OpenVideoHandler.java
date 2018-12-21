@@ -30,9 +30,9 @@ public class OpenVideoHandler implements CommandHandler<OpenVideo> {
               + "/}' :demux=h264");
     } catch (IOException e) {
       log.error("Could not start raspivid server as requested.");
-      e.printStackTrace();
+      //e.printStackTrace();
     }
-    return new VideoStreamAddress("rtsp://" + command.address + ":1234");
+    return new VideoStreamAddress("rtsp:/" + command.address + ":1234");
   }
 
   /* (non-Javadoc)

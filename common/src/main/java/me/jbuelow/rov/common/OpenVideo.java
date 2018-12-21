@@ -12,4 +12,8 @@ import java.net.InetAddress;
 public class OpenVideo implements Command {
 
   public InetAddress address;
+
+  public OpenVideo(InetAddress address) {
+    this.address = address;
+  }
 }

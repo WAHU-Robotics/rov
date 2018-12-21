@@ -4,7 +4,10 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import me.jbuelow.rov.common.OpenVideo;
 import me.jbuelow.rov.common.Response;
 import me.jbuelow.rov.common.VideoStreamAddress;
@@ -29,8 +32,16 @@ public class OpenVideoHandlerTest {
    */
   @Test
   public void testExecute() {
-    Response response = handler.execute(new OpenVideo());
+    InetAddress addr = null;
+    try {
+      addr = InetAddress.getByName("127.0.0.1");
+    } catch (UnknownHostException e) {
+      fail();
+    }
+    Response response = handler.execute(new OpenVideo(addr));
     assertThat(response, instanceOf(VideoStreamAddress.class));
+    VideoStreamAddress vidaddr = (VideoStreamAddress) response;
+    assertThat(vidaddr.url, equalTo("rtsp://127.0.0.1:1234"));
   }
 
   /**

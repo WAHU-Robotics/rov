@@ -40,7 +40,14 @@ public class ControllHandler implements Closeable {
 
     //Get Capabilities
     capabilities = (VehicleCapabilities) sendCommand(new GetCapabilities());
-    video = (VideoStreamAddress) sendCommand(new OpenVideo()); //Test my own crappy command
+    video = (VideoStreamAddress) sendCommand(
+        new OpenVideo(vehicleAddress)); //Test my own crappy command
+    try {
+      Runtime.getRuntime().exec("\"C:\\Program Files\\VideoLAN\\VLC\\vlc.exe\" " + video.url);
+    } catch (Exception e) {
+      log.error("An error occurred while opening VLC Media Player.");
+      //e.printStackTrace();
+    }
   }
 
   public Response sendCommand(Command command) throws IOException, ClassNotFoundException {
