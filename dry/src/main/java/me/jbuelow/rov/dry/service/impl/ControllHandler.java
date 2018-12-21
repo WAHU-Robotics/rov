@@ -14,6 +14,8 @@ import lombok.extern.slf4j.Slf4j;
 import me.jbuelow.rov.common.Command;
 import me.jbuelow.rov.common.GetCapabilities;
 import me.jbuelow.rov.common.OpenVideo;
+import me.jbuelow.rov.common.Ping;
+import me.jbuelow.rov.common.Pong;
 import me.jbuelow.rov.common.Response;
 import me.jbuelow.rov.common.RovConstants;
 import me.jbuelow.rov.common.VehicleCapabilities;
@@ -42,6 +44,31 @@ public class ControllHandler implements Closeable {
     capabilities = (VehicleCapabilities) sendCommand(new GetCapabilities());
     video = (VideoStreamAddress) sendCommand(
         new OpenVideo(vehicleAddress)); //Test my own crappy command
+
+    Loop loop = new Loop();
+    loop.run();
+  }
+
+  private class Loop extends Thread {
+
+    private boolean running = true;
+
+    @Override
+    public void run() {
+      while (running) {
+        try {
+          Pong pong = (Pong) sendCommand(new Ping());
+        } catch (IOException | ClassNotFoundException e) {
+          e.printStackTrace();
+        }
+
+        try {
+          sleep(1000);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
+      }
+    }
   }
 
   public Response sendCommand(Command command) throws IOException, ClassNotFoundException {
