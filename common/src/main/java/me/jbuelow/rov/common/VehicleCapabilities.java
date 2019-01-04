@@ -23,7 +23,7 @@ import me.jbuelow.rov.common.capabilities.Capability;
 @Setter
 @EqualsAndHashCode
 @ToString
-public class VehicleCapabilities implements Response {
+public class VehicleCapabilities extends Response {
 
   private static final long serialVersionUID = 8772769635819601589L;
 

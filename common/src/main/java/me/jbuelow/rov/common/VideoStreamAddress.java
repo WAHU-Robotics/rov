@@ -7,7 +7,7 @@ package me.jbuelow.rov.common;
  * @author Jacob Buelow
  * @author Brian Wachsmuth
  */
-public class VideoStreamAddress implements Response {
+public class VideoStreamAddress extends Response {
 
   public String url;
 

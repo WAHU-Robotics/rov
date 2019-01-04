@@ -47,7 +47,10 @@ public class GetCapabilitiesHandler implements CommandHandler<GetCapabilities> {
    */
   @Override
   public Response execute(GetCapabilities command) {
-    return getCapabilities();
+    VehicleCapabilities response = getCapabilities();
+    response.setRequest(
+        command); //TODO: Find a way to make this line automatic in the constructor for Response
+    return response;
   }
 
   /* (non-Javadoc)

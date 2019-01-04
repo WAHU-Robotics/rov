@@ -32,7 +32,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class TcpConnectionService implements DisposableBean {
 
-  public static final long IDLE_TIME = 1000;  //One second
+  public static final long IDLE_TIME = 10;  //One second
   public static final int SOCKET_TIMEOUT = 100;
 
   private CommandProcessorService commandProcessorService;
@@ -53,7 +53,7 @@ public class TcpConnectionService implements DisposableBean {
   }
 
   @Override
-  public void destroy() throws Exception {
+  public void destroy() {
     connectionServer.abort();
   }
 

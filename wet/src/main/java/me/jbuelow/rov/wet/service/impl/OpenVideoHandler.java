@@ -32,7 +32,10 @@ public class OpenVideoHandler implements CommandHandler<OpenVideo> {
       log.error("Could not start raspivid server as requested.");
       //e.printStackTrace();
     }
-    return new VideoStreamAddress("rtsp:/" + command.address + ":1234");
+    VideoStreamAddress response = new VideoStreamAddress("rtsp:/" + command.address + ":1234");
+    response.setRequest(
+        command); //TODO: Find a way to make this line automatic in the constructor for Response
+    return response;
   }
 
   /* (non-Javadoc)

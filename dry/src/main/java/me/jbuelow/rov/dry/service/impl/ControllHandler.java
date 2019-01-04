@@ -68,11 +68,11 @@ public class ControllHandler implements Closeable {
 
         gui.setLabel(pong.message);
 
-        try {
+        /*try {
           sleep(1000);
         } catch (InterruptedException e) {
           e.printStackTrace();
-        }
+        }*/
       }
     }
   }

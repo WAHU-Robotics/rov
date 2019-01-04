@@ -9,7 +9,7 @@ import java.net.InetAddress;
  * @author Jacob Buelow
  * @author Brian Wachsmuth
  */
-public class OpenVideo implements Command {
+public class OpenVideo extends Command {
 
   public InetAddress address;
 
