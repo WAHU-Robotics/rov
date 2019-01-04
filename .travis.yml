@@ -1,7 +1,3 @@
 language: java
 jdk:
 - openjdk8
-
-notifications:
-  webhooks:
-  - https://vz6m592kka.execute-api.us-east-1.amazonaws.com/default/TravisCIToDiscord
