@@ -33,8 +33,8 @@ public class GetSystemStatsHandler implements CommandHandler<GetSystemStats> {
       response.setProperties(System.getProperties());
     }
 
-    response.setRequest(
-        command); //TODO: Find a way to make this line automatic in the constructor for Response
+    //TODO: Find a way to make this line automatic in the constructor for Response
+    response.setRequest(command);
 
     return response;
   }

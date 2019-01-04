@@ -3,32 +3,36 @@
  */
 package me.jbuelow.rov.wet.service.impl;
 
-import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
+import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
+
 import java.util.ArrayList;
-import static org.hamcrest.CoreMatchers.*;
+import me.jbuelow.rov.common.Command;
+import me.jbuelow.rov.common.GetCapabilities;
+import me.jbuelow.rov.common.GetSystemStats;
+import me.jbuelow.rov.common.Ping;
+import me.jbuelow.rov.common.Pong;
+import me.jbuelow.rov.common.SetMotors;
+import me.jbuelow.rov.common.SystemStats;
+import me.jbuelow.rov.common.VehicleCapabilities;
+import me.jbuelow.rov.wet.service.CommandProcessorService;
+import me.jbuelow.rov.wet.vehicle.VehicleConfiguration;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.exceptions.verification.NoInteractionsWanted;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import me.jbuelow.rov.common.Command;
-import me.jbuelow.rov.common.GetCapabilities;
-import me.jbuelow.rov.common.Ping;
-import me.jbuelow.rov.common.Pong;
-import me.jbuelow.rov.common.SetMotors;
-import me.jbuelow.rov.common.VehicleCapabilities;
-import me.jbuelow.rov.wet.service.CommandProcessorService;
-import me.jbuelow.rov.wet.vehicle.VehicleConfiguration;
 
 /**
  * @author Jacob Buelow
@@ -47,6 +51,9 @@ public class CommandProcessorServiceImplTest {
 
   @SpyBean
   private SetMotorsHandler setMotorsHandler;
+
+  @SpyBean
+  private GetSystemStatsHandler getSystemStatsHandler;
 
   @MockBean
   private VehicleConfiguration vehicleConfiguration;
@@ -110,6 +117,16 @@ public class CommandProcessorServiceImplTest {
        */
       private static final long serialVersionUID = 1L;};
     commandProcessor.handleCommand(command);
+  }
+
+  /**
+   * Test method for {@link me.jbuelow.rov.wet.service.impl.CommandProcessorServiceImpl#handleCommand(me.jbuelow.rov.common.Command)}.
+   */
+  @Test
+  public void testHandleCommandGetSystemStats() {
+    GetSystemStats command = new GetSystemStats(true, true);
+    assertThat(commandProcessor.handleCommand(command), instanceOf(SystemStats.class));
+    verify(getSystemStatsHandler, times(1)).execute(any(GetSystemStats.class));
   }
 }
 

@@ -5,6 +5,7 @@ package me.jbuelow.rov.common;
 
 import java.util.Map;
 import java.util.Properties;
+import lombok.Getter;
 import lombok.Setter;
 
 /**
@@ -13,9 +14,11 @@ import lombok.Setter;
  */
 public class SystemStats extends Response {
 
+  @Getter
   @Setter
   private Map<String, String> environment = null;
 
+  @Getter
   @Setter
   private Properties properties = null;
 
