@@ -3,14 +3,15 @@
  */
 package me.jbuelow.rov.wet.service.impl;
 
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
-import org.junit.Test;
-import org.junit.Before;
 import me.jbuelow.rov.common.Ping;
-import me.jbuelow.rov.common.Pong;
 import me.jbuelow.rov.common.Response;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * @author Jacob Buelow
@@ -30,7 +31,7 @@ public class PingHandlerTest {
   @Test
   public void testExecute() {
     Response response = handler.execute(new Ping());
-    assertThat(response, instanceOf(Pong.class));
+    assertThat(response, instanceOf(Ping.class));
   }
 
   /**
