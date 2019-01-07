@@ -9,6 +9,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 import me.jbuelow.rov.common.Ping;
+import me.jbuelow.rov.common.Pong;
 import me.jbuelow.rov.common.Response;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,7 +32,7 @@ public class PingHandlerTest {
   @Test
   public void testExecute() {
     Response response = handler.execute(new Ping());
-    assertThat(response, instanceOf(Ping.class));
+    assertThat(response, instanceOf(Pong.class));
   }
 
   /**
