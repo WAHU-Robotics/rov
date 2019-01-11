@@ -22,4 +22,8 @@ public class SystemStats extends Response {
   @Setter
   private Properties properties = null;
 
+  @Getter
+  @Setter
+  private float cpuTemp = 0.0f;
+
 }

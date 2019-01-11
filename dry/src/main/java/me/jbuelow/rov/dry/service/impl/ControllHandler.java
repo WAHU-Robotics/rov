@@ -13,11 +13,11 @@ import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
 import me.jbuelow.rov.common.Command;
 import me.jbuelow.rov.common.GetCapabilities;
+import me.jbuelow.rov.common.GetSystemStats;
 import me.jbuelow.rov.common.OpenVideo;
-import me.jbuelow.rov.common.Ping;
-import me.jbuelow.rov.common.Pong;
 import me.jbuelow.rov.common.Response;
 import me.jbuelow.rov.common.RovConstants;
+import me.jbuelow.rov.common.SystemStats;
 import me.jbuelow.rov.common.VehicleCapabilities;
 import me.jbuelow.rov.common.VideoStreamAddress;
 import org.apache.commons.io.IOUtils;
@@ -59,14 +59,14 @@ public class ControllHandler implements Closeable {
     @Override
     public void run() {
       while (running) {
-        Pong pong = null;
+        SystemStats stat = null;
         try {
-          pong = (Pong) sendCommand(new Ping());
+          stat = (SystemStats) sendCommand(new GetSystemStats(false, false));
         } catch (IOException | ClassNotFoundException e) {
           e.printStackTrace();
         }
 
-        gui.setLabel(pong.message);
+        gui.setLabel(String.valueOf(stat.getCpuTemp()));
 
         /*try {
           sleep(1000);
