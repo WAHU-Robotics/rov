@@ -32,7 +32,6 @@ public class GetSystemStatsHandlerTest {
     assertThat(response.getTimestamp(), instanceOf(Instant.class));
 
     SystemStats responseStats = (SystemStats) response;
-    assertThat(responseStats.getRequest(), equalTo(command));
     assertThat(responseStats.getProperties(), instanceOf(Properties.class));
     assertThat(responseStats.getEnvironment(), instanceOf(Map.class));
   }
