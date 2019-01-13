@@ -48,7 +48,6 @@ public class GetCapabilitiesHandler implements CommandHandler<GetCapabilities> {
   @Override
   public Response execute(GetCapabilities command) {
     VehicleCapabilities response = getCapabilities();
-    response.setRequest(command);
     return response;
   }
 

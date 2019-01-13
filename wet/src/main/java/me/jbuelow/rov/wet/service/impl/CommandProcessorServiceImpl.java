@@ -35,7 +35,10 @@ public class CommandProcessorServiceImpl implements CommandProcessorService,
   @Override
   public Response handleCommand(Command command) {
     log.info("Received Command " + command.getClass().getSimpleName());
-    return getHandler(command).execute(command);
+    Response response = getHandler(command).execute(command);
+    response.setRequest(command);
+
+    return response;
   }
 
   private <T extends Command> CommandHandler<T> getHandler(T command) {

@@ -34,9 +34,6 @@ public class OpenVideoHandler implements CommandHandler<OpenVideo> {
     }
     VideoStreamAddress response = new VideoStreamAddress("rtsp:/" + command.address + ":1234");
 
-    //TODO: Find a way to make this line automatic in the constructor for Response
-    response.setRequest(command);
-
     return response;
   }
 

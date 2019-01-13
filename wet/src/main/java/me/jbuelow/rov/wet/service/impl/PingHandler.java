@@ -24,7 +24,6 @@ public class PingHandler implements CommandHandler<Ping> {
   public Response execute(Ping command) {
     Random r = new Random();
     Pong response = new Pong(String.valueOf(r.nextInt(255)));
-    response.setRequest(command);
     return response;
   }
 

@@ -48,9 +48,6 @@ public class GetSystemStatsHandler implements CommandHandler<GetSystemStats> {
     }
     response.setCpuTemp(temp);
 
-    //TODO: Find a way to make this line automatic in the constructor for Response
-    response.setRequest(command);
-
     return response;
   }
 
