@@ -36,7 +36,11 @@ public class CommandProcessorServiceImpl implements CommandProcessorService,
   public Response handleCommand(Command command) {
     log.info("Received Command " + command.getClass().getSimpleName());
     Response response = getHandler(command).execute(command);
-    response.setRequest(command);
+    try {
+      response.setRequest(command);
+    } catch (NullPointerException e) {
+      log.warn("No response from " + command.getClass().getSimpleName() + " command");
+    }
 
     return response;
   }
