@@ -25,7 +25,7 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="fbdc3" class="javax.swing.JLabel" binding="CPUTempValue">
+          <component id="fbdc3" class="javax.swing.JLabel" binding="cpuTempValue">
             <constraints>
               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -79,7 +79,7 @@
               <text value="Label"/>
             </properties>
           </component>
-          <component id="1bf15" class="javax.swing.JLabel" binding="WaterTempValue">
+          <component id="1bf15" class="javax.swing.JLabel" binding="waterTempValue">
             <constraints>
               <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -88,7 +88,7 @@
               <text value="Label"/>
             </properties>
           </component>
-          <component id="ca950" class="javax.swing.JLabel" binding="JoyAAxisYValue">
+          <component id="ca950" class="javax.swing.JLabel" binding="joyAAxisYValue">
             <constraints>
               <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -97,7 +97,7 @@
               <text value="Label"/>
             </properties>
           </component>
-          <component id="5402f" class="javax.swing.JLabel" binding="JoyAAxisZValue">
+          <component id="5402f" class="javax.swing.JLabel" binding="joyAAxisZValue">
             <constraints>
               <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -115,7 +115,7 @@
               <text value="JoyA AxisZ:"/>
             </properties>
           </component>
-          <component id="8c612" class="javax.swing.JLabel" binding="JoyAAxisTValue">
+          <component id="8c612" class="javax.swing.JLabel" binding="joyAAxisTValue">
             <constraints>
               <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -133,7 +133,7 @@
               <text value="JoyA AxisT:"/>
             </properties>
           </component>
-          <component id="2c29" class="javax.swing.JLabel" binding="JoyAHatXValue">
+          <component id="2c29" class="javax.swing.JLabel" binding="joyAHatXValue">
             <constraints>
               <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -151,7 +151,7 @@
               <text value="JoyA HatX:"/>
             </properties>
           </component>
-          <component id="ce6a0" class="javax.swing.JLabel" binding="JoyAHatYValue">
+          <component id="ce6a0" class="javax.swing.JLabel" binding="joyAHatYValue">
             <constraints>
               <grid row="7" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -187,7 +187,7 @@
               <text value="JoyB AxisY:"/>
             </properties>
           </component>
-          <component id="760ed" class="javax.swing.JLabel" binding="JoyBAxisXValue">
+          <component id="760ed" class="javax.swing.JLabel" binding="joyBAxisXValue">
             <constraints>
               <grid row="8" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -196,7 +196,7 @@
               <text value="Label"/>
             </properties>
           </component>
-          <component id="a52f1" class="javax.swing.JLabel" binding="JoyBAxisYValue">
+          <component id="a52f1" class="javax.swing.JLabel" binding="joyBAxisYValue">
             <constraints>
               <grid row="9" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -205,7 +205,7 @@
               <text value="Label"/>
             </properties>
           </component>
-          <component id="b2275" class="javax.swing.JLabel" binding="JoyBAxisZValue">
+          <component id="b2275" class="javax.swing.JLabel" binding="joyBAxisZValue">
             <constraints>
               <grid row="10" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -223,7 +223,7 @@
               <text value="JoyB AxisZ:"/>
             </properties>
           </component>
-          <component id="f55bc" class="javax.swing.JLabel" binding="JoyBAxisTValue">
+          <component id="f55bc" class="javax.swing.JLabel" binding="joyBAxisTValue">
             <constraints>
               <grid row="11" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -241,7 +241,7 @@
               <text value="JoyB AxisT:"/>
             </properties>
           </component>
-          <component id="73ced" class="javax.swing.JLabel" binding="JoyBHatXValue">
+          <component id="73ced" class="javax.swing.JLabel" binding="joyBHatXValue">
             <constraints>
               <grid row="12" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -259,7 +259,7 @@
               <text value="JoyB HatX:"/>
             </properties>
           </component>
-          <component id="8b919" class="javax.swing.JLabel" binding="JoyBHatYValue">
+          <component id="8b919" class="javax.swing.JLabel" binding="joyBHatYValue">
             <constraints>
               <grid row="13" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>

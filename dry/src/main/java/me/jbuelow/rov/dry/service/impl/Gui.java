@@ -10,20 +10,20 @@ import javax.swing.JPanel;
 public class Gui extends JFrame {
 
   private JPanel panel1;
-  private JLabel CPUTempValue;
+  private JLabel cpuTempValue;
   private JLabel joyAAxisXValue;
-  private JLabel JoyAAxisYValue;
-  private JLabel JoyAAxisZValue;
-  private JLabel JoyAAxisTValue;
-  private JLabel JoyAHatXValue;
-  private JLabel JoyAHatYValue;
-  private JLabel JoyBAxisXValue;
-  private JLabel JoyBAxisYValue;
-  private JLabel JoyBAxisZValue;
-  private JLabel JoyBAxisTValue;
-  private JLabel JoyBHatXValue;
-  private JLabel JoyBHatYValue;
-  private JLabel WaterTempValue;
+  private JLabel joyAAxisYValue;
+  private JLabel joyAAxisZValue;
+  private JLabel joyAAxisTValue;
+  private JLabel joyAHatXValue;
+  private JLabel joyAHatYValue;
+  private JLabel joyBAxisXValue;
+  private JLabel joyBAxisYValue;
+  private JLabel joyBAxisZValue;
+  private JLabel joyBAxisTValue;
+  private JLabel joyBHatXValue;
+  private JLabel joyBHatYValue;
+  private JLabel waterTempValue;
 
   public Gui() {
     add(panel1);
@@ -40,6 +40,6 @@ public class Gui extends JFrame {
   }
 
   public void setLabel(String message) {
-    this.CPUTempValue.setText(message);
+    this.cpuTempValue.setText(message);
   }
 }
