@@ -1,7 +1,10 @@
 package me.jbuelow.rov.dry.service.impl;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class Gui extends JFrame {
@@ -24,7 +27,15 @@ public class Gui extends JFrame {
 
   public Gui() {
     add(panel1);
-    setSize(1920, 1080);
+    setExtendedState(JFrame.MAXIMIZED_BOTH);
+    addWindowListener(new WindowAdapter() {
+      public void windowClosing(WindowEvent e) {
+        int i = JOptionPane.showConfirmDialog(null, "Close ROV Topside control application?");
+        if (i == 0) {
+          System.exit(0); //commit self deletus
+        }
+      }
+    });
     setVisible(true);
   }
 
