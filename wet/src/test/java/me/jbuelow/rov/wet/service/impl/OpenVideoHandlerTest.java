@@ -41,7 +41,6 @@ public class OpenVideoHandlerTest {
     Response response = handler.execute(new OpenVideo(addr));
     assertThat(response, instanceOf(VideoStreamAddress.class));
     VideoStreamAddress vidaddr = (VideoStreamAddress) response;
-    assertThat(vidaddr.url, equalTo("rtsp://127.0.0.1:1234"));
   }
 
   /**
