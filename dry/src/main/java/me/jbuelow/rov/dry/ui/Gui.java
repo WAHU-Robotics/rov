@@ -1,4 +1,4 @@
-package me.jbuelow.rov.dry.service.impl;
+package me.jbuelow.rov.dry.ui;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;

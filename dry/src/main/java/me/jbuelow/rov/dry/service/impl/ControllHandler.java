@@ -20,6 +20,7 @@ import me.jbuelow.rov.common.RovConstants;
 import me.jbuelow.rov.common.SystemStats;
 import me.jbuelow.rov.common.VehicleCapabilities;
 import me.jbuelow.rov.common.VideoStreamAddress;
+import me.jbuelow.rov.dry.ui.Gui;
 import org.apache.commons.io.IOUtils;
 
 /**
