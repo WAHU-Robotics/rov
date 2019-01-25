@@ -67,7 +67,7 @@ public class ControllHandler implements Closeable {
           e.printStackTrace();
         }
 
-        gui.setLabel(String.valueOf(stat.getCpuTemp()));
+        gui.setCpuTempValue(String.valueOf(stat.getCpuTemp()));
 
         /*try {
           sleep(1000);
