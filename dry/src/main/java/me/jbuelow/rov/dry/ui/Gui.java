@@ -1,14 +1,18 @@
 package me.jbuelow.rov.dry.ui;
 
+import java.awt.BorderLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
+import uk.co.caprica.vlcj.discovery.NativeDiscovery;
 
 public class Gui extends JFrame {
 
+  private final EmbeddedMediaPlayerComponent mediaPlayerComponent;
   private JPanel panel1;
   private JLabel cpuTempValue;
   private JLabel joyAAxisXValue;
@@ -24,6 +28,8 @@ public class Gui extends JFrame {
   private JLabel joyBHatXValue;
   private JLabel joyBHatYValue;
   private JLabel waterTempValue;
+  private JPanel cameraPane;
+  private JPanel mainPanel;
 
   public Gui() {
     add(panel1);
@@ -36,7 +42,17 @@ public class Gui extends JFrame {
         }
       }
     });
+
     setVisible(true);
+
+    new NativeDiscovery().discover();
+    cameraPane.removeAll();
+    cameraPane.setLayout(new BorderLayout());
+    mediaPlayerComponent = new EmbeddedMediaPlayerComponent();
+    cameraPane.add(mediaPlayerComponent, BorderLayout.CENTER);
+
+    mediaPlayerComponent.getMediaPlayer()
+        .playMedia("rtsp://184.72.239.149/vod/mp4:BigBuckBunny_115k.mov");
   }
 
   public void setCpuTempValue(Object text) {
