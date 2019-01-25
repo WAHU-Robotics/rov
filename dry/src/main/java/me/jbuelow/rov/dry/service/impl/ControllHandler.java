@@ -47,7 +47,7 @@ public class ControllHandler implements Closeable {
     video = (VideoStreamAddress) sendCommand(
         new OpenVideo(vehicleAddress)); //Test my own crappy command
 
-    gui = new Gui();
+    gui = new Gui(video.url);
 
     Loop loop = new Loop();
     loop.run();

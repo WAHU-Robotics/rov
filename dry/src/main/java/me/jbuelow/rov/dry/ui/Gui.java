@@ -31,7 +31,7 @@ public class Gui extends JFrame {
   private JPanel cameraPane;
   private JPanel mainPanel;
 
-  public Gui() {
+  public Gui(String streamURL) {
     add(panel1);
     setExtendedState(JFrame.MAXIMIZED_BOTH);
     addWindowListener(new WindowAdapter() {
@@ -52,7 +52,7 @@ public class Gui extends JFrame {
     cameraPane.add(mediaPlayerComponent, BorderLayout.CENTER);
 
     mediaPlayerComponent.getMediaPlayer()
-        .playMedia("rtsp://184.72.239.149/vod/mp4:BigBuckBunny_115k.mov");
+        .playMedia(streamURL);
   }
 
   public void setCpuTempValue(Object text) {
