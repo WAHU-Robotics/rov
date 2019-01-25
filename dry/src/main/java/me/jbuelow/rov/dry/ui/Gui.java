@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.WindowConstants;
 import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
 import uk.co.caprica.vlcj.discovery.NativeDiscovery;
 
@@ -34,9 +35,12 @@ public class Gui extends JFrame {
   public Gui(String streamURL) {
     add(panel1);
     setExtendedState(JFrame.MAXIMIZED_BOTH);
+    setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
     addWindowListener(new WindowAdapter() {
       public void windowClosing(WindowEvent e) {
-        int i = JOptionPane.showConfirmDialog(null, "Close ROV Topside control application?");
+        int i = JOptionPane
+            .showConfirmDialog(null, "Close application?", "", JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE);
         if (i == 0) {
           System.exit(0); //commit self deletus
         }
