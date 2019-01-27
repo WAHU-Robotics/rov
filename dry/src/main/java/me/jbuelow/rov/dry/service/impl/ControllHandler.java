@@ -21,6 +21,8 @@ import me.jbuelow.rov.common.SystemStats;
 import me.jbuelow.rov.common.VehicleCapabilities;
 import me.jbuelow.rov.common.VideoStreamAddress;
 import me.jbuelow.rov.dry.ui.Gui;
+import net.java.games.input.Controller;
+import net.java.games.input.ControllerEnvironment;
 import org.apache.commons.io.IOUtils;
 
 /**
@@ -46,6 +48,13 @@ public class ControllHandler implements Closeable {
     capabilities = (VehicleCapabilities) sendCommand(new GetCapabilities());
     video = (VideoStreamAddress) sendCommand(
         new OpenVideo(vehicleAddress)); //Test my own crappy command
+
+    Controller[] ca = ControllerEnvironment.getDefaultEnvironment().getControllers();
+    log.info("There are " + ca.length + " controllers detected.");
+
+    for (int i = 0; i < ca.length; i++) {
+      log.info("Controller " + i + ": '" + ca[i].getName() + "'");
+    }
 
     gui = new Gui(video.url);
 
