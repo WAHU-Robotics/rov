@@ -38,6 +38,7 @@ public class ControllHandler implements Closeable {
   private ObjectInputStream in;
   private VideoStreamAddress video;
   private Gui gui;
+  private Control control;
 
   public ControllHandler(InetAddress vehicleAddress) throws IOException, ClassNotFoundException {
     vehicleSocket = new Socket(vehicleAddress, RovConstants.ROV_PORT);
@@ -49,7 +50,7 @@ public class ControllHandler implements Closeable {
     video = (VideoStreamAddress) sendCommand(
         new OpenVideo(vehicleAddress)); //Test my own crappy command
 
-    Control control = new Control();
+    control = new Control();
     log.debug("/\\ Chances are thats an error there"); //It still works on my machine so i dont care
     Controller[] ca = control.getFoundControllers();
     log.info("There are " + ca.length + " controllers detected");
@@ -83,12 +84,14 @@ public class ControllHandler implements Closeable {
         }
 
         gui.setCpuTempValue(String.valueOf(stat.getCpuTemp()));
+        gui.setJoyA(control.getPolledValues(0));
+        gui.setJoyB(control.getPolledValues(1));
 
-        /*try {
-          sleep(1000);
+        try {
+          sleep(10);
         } catch (InterruptedException e) {
           e.printStackTrace();
-        }*/
+        }
       }
     }
   }

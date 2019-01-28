@@ -20,6 +20,17 @@ public class Control {
 
   List<Controller> selectedControllers = Arrays.asList(null, null);
 
+  public enum Controllers {
+    PRIMARY(0),
+    SECONDARY(1);
+
+    private int id;
+
+    Controllers(int id) {
+      this.id = id;
+    }
+  }
+
   public Control() {
     refreshList();
   }
@@ -66,6 +77,20 @@ public class Control {
         refreshList();
       }
     }
+  }
+
+  public PolledValues getPolledValues(int controller) {
+    Controller c = selectedControllers.get(controller);
+
+    if (!c.poll()) {
+      JOptionPane.showMessageDialog(null,
+          "Could not poll '" + c.getName() + "'.\nPlease select a different controller.", "Error",
+          JOptionPane.ERROR_MESSAGE);
+      refreshList();
+      promptForController(controller);
+    }
+
+    return new PolledValues(c);
   }
 
 }
