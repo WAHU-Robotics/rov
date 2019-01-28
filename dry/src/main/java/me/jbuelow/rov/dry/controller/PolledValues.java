@@ -9,8 +9,10 @@ public class PolledValues {
   public float y;
   public float z;
   public float t;
-  public float hx;
-  public float hy;
+  public float hat;
+  public String hatS;
+
+  private String[] directions = {"NW", "N", "NE", "E", "SE", "S", "SW", "W"};
 
   public PolledValues(Controller controller) {
     Controller c = controller;
@@ -18,6 +20,16 @@ public class PolledValues {
     y = c.getComponent(Axis.Y).getPollData();
     z = c.getComponent(Axis.RZ).getPollData();
     t = c.getComponent(Axis.SLIDER).getPollData();
-    hx = c.getComponent(Axis.POV).getPollData();
+    hat = c.getComponent(Axis.POV).getPollData();
+    resolveHatPosition();
+  }
+
+  private void resolveHatPosition() {
+    float v = hat * 8;
+    if (v != 0f) {
+      hatS = directions[(int) v - 1];
+    } else {
+      hatS = "YEET";
+    }
   }
 }

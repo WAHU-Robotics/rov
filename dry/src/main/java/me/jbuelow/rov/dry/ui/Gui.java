@@ -22,13 +22,11 @@ public class Gui extends JFrame {
   private JLabel joyAAxisZValue;
   private JLabel joyAAxisTValue;
   private JLabel joyAHatXValue;
-  private JLabel joyAHatYValue;
   private JLabel joyBAxisXValue;
   private JLabel joyBAxisYValue;
   private JLabel joyBAxisZValue;
   private JLabel joyBAxisTValue;
   private JLabel joyBHatXValue;
-  private JLabel joyBHatYValue;
   private JLabel waterTempValue;
   private JPanel cameraPane;
   private JPanel mainPanel;
@@ -73,8 +71,7 @@ public class Gui extends JFrame {
     this.joyAAxisYValue.setText(String.valueOf(values.y));
     this.joyAAxisZValue.setText(String.valueOf(values.z));
     this.joyAAxisTValue.setText(String.valueOf(values.t));
-    this.joyAHatXValue.setText(String.valueOf(values.hx));
-    //this.joyAHatYValue.setText(String.valueOf(values.hy));
+    this.joyAHatXValue.setText(String.valueOf(values.hatS));
   }
 
   public void setJoyB(PolledValues values) {
@@ -82,7 +79,6 @@ public class Gui extends JFrame {
     this.joyBAxisYValue.setText(String.valueOf(values.y));
     this.joyBAxisZValue.setText(String.valueOf(values.z));
     this.joyBAxisTValue.setText(String.valueOf(values.t));
-    this.joyBHatXValue.setText(String.valueOf(values.hx));
-    //this.joyAHatYValue.setText(String.valueOf(values.hy));
+    this.joyBHatXValue.setText(String.valueOf(values.hatS));
   }
 }

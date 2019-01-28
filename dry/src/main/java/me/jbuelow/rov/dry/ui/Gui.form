@@ -8,7 +8,7 @@
     <properties/>
     <border type="none"/>
     <children>
-      <grid id="969a3" layout-manager="GridLayoutManager" row-count="14" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="969a3" layout-manager="GridLayoutManager" row-count="12" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="10" left="10" bottom="10" right="10"/>
         <constraints>
           <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="1" anchor="1" fill="0" indent="1" use-parent-layout="false"/>
@@ -139,30 +139,12 @@
             </constraints>
             <properties>
               <font name="Fira Code" size="20" style="1"/>
-              <text value="JoyA HatX:"/>
-            </properties>
-          </component>
-          <component id="ce6a0" class="javax.swing.JLabel" binding="joyAHatYValue">
-            <constraints>
-              <grid row="7" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <font name="Fira Code" size="20" style="1"/>
-              <text value="Label"/>
-            </properties>
-          </component>
-          <component id="77384" class="javax.swing.JLabel">
-            <constraints>
-              <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <font name="Fira Code" size="20" style="1"/>
-              <text value="JoyA HatY:"/>
+              <text value="JoyA Hat:"/>
             </properties>
           </component>
           <component id="c27a8" class="javax.swing.JLabel">
             <constraints>
-              <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <font name="Fira Code" size="20" style="1"/>
@@ -171,7 +153,7 @@
           </component>
           <component id="17b34" class="javax.swing.JLabel">
             <constraints>
-              <grid row="9" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <font name="Fira Code" size="20" style="1"/>
@@ -180,7 +162,7 @@
           </component>
           <component id="760ed" class="javax.swing.JLabel" binding="joyBAxisXValue">
             <constraints>
-              <grid row="8" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="7" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <font name="Fira Code" size="20" style="1"/>
@@ -189,7 +171,7 @@
           </component>
           <component id="a52f1" class="javax.swing.JLabel" binding="joyBAxisYValue">
             <constraints>
-              <grid row="9" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="8" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <font name="Fira Code" size="20" style="1"/>
@@ -198,7 +180,7 @@
           </component>
           <component id="b2275" class="javax.swing.JLabel" binding="joyBAxisZValue">
             <constraints>
-              <grid row="10" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="9" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <font name="Fira Code" size="20" style="1"/>
@@ -207,7 +189,7 @@
           </component>
           <component id="3d21b" class="javax.swing.JLabel">
             <constraints>
-              <grid row="10" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="9" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <font name="Fira Code" size="20" style="1"/>
@@ -216,7 +198,7 @@
           </component>
           <component id="f55bc" class="javax.swing.JLabel" binding="joyBAxisTValue">
             <constraints>
-              <grid row="11" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="10" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <font name="Fira Code" size="20" style="1"/>
@@ -225,7 +207,7 @@
           </component>
           <component id="98c7d" class="javax.swing.JLabel">
             <constraints>
-              <grid row="11" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="10" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <font name="Fira Code" size="20" style="1"/>
@@ -234,7 +216,7 @@
           </component>
           <component id="73ced" class="javax.swing.JLabel" binding="joyBHatXValue">
             <constraints>
-              <grid row="12" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="11" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <font name="Fira Code" size="20" style="1"/>
@@ -243,29 +225,11 @@
           </component>
           <component id="25493" class="javax.swing.JLabel">
             <constraints>
-              <grid row="12" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="11" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <font name="Fira Code" size="20" style="1"/>
-              <text value="JoyB HatX:"/>
-            </properties>
-          </component>
-          <component id="8b919" class="javax.swing.JLabel" binding="joyBHatYValue">
-            <constraints>
-              <grid row="13" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <font name="Fira Code" size="20" style="1"/>
-              <text value="Label"/>
-            </properties>
-          </component>
-          <component id="326f2" class="javax.swing.JLabel">
-            <constraints>
-              <grid row="13" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <font name="Fira Code" size="20" style="1"/>
-              <text value="JoyB HatY:"/>
+              <text value="JoyB Hat:"/>
             </properties>
           </component>
         </children>
