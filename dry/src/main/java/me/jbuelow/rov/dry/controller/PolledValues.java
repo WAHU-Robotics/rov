@@ -5,21 +5,22 @@ import net.java.games.input.Controller;
 
 public class PolledValues {
 
-  public float x;
-  public float y;
-  public float z;
-  public float t;
+  public int x;
+  public int y;
+  public int z;
+  public int t;
   public float hat;
   public String hatS;
 
   private String[] directions = {"NW", "N", "NE", "E", "SE", "S", "SW", "W"};
+  private int joyPrecision = 10000;
 
   public PolledValues(Controller controller) {
     Controller c = controller;
-    x = c.getComponent(Axis.X).getPollData();
-    y = c.getComponent(Axis.Y).getPollData();
-    z = c.getComponent(Axis.RZ).getPollData();
-    t = c.getComponent(Axis.SLIDER).getPollData();
+    x = (int) (c.getComponent(Axis.X).getPollData() * joyPrecision);
+    y = (int) (c.getComponent(Axis.Y).getPollData() * joyPrecision);
+    z = (int) (c.getComponent(Axis.RZ).getPollData() * joyPrecision);
+    t = (int) (c.getComponent(Axis.SLIDER).getPollData() * joyPrecision);
     hat = c.getComponent(Axis.POV).getPollData();
     resolveHatPosition();
   }

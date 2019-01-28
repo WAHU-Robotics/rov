@@ -3,13 +3,15 @@
  */
 package me.jbuelow.rov.wet.service.impl;
 
-import java.io.IOException;
 import lombok.extern.slf4j.Slf4j;
 import me.jbuelow.rov.common.OpenVideo;
 import me.jbuelow.rov.common.Response;
 import me.jbuelow.rov.common.VideoStreamAddress;
 import me.jbuelow.rov.wet.service.CommandHandler;
 import org.springframework.stereotype.Service;
+import uk.co.caprica.vlcj.discovery.NativeDiscovery;
+import uk.co.caprica.vlcj.player.MediaPlayerFactory;
+import uk.co.caprica.vlcj.player.headless.HeadlessMediaPlayer;
 
 /**
  * @author Jacob Buelow
@@ -24,17 +26,17 @@ public class OpenVideoHandler implements CommandHandler<OpenVideo> {
    */
   @Override
   public Response execute(OpenVideo command) {
-    try {
-      Runtime.getRuntime().exec(
-          "raspivid -o - -t 9999999 |cvlc -vvv stream:///dev/stdin --sout '#rtp{sdp=rtsp://:" + 1234
-              + "/}' :demux=h264");
-    } catch (IOException e) {
-      log.error("Could not start raspivid server as requested.");
-      //e.printStackTrace();
-    }
+    new NativeDiscovery().discover();
+    int port = 3621;
+    String media = "dshow://";
+    String[] options = {":sout=#duplicate{dst=rtp{sdp=rtsp://:" + port + "/stream},dst=display}",
+        ":sout-all", ":sout-keep"};
+    MediaPlayerFactory mediaPlayerFactory = new MediaPlayerFactory();
+    HeadlessMediaPlayer mediaPlayer = mediaPlayerFactory.newHeadlessMediaPlayer();
+    mediaPlayer.playMedia(media, options);
     //VideoStreamAddress response = new VideoStreamAddress("rtsp:/" + command.address + ":1234");
-    VideoStreamAddress response = new VideoStreamAddress(
-        "rtsp://184.72.239.149/vod/mp4:BigBuckBunny_115k.mov");
+    //VideoStreamAddress response = new VideoStreamAddress("rtsp://184.72.239.149/vod/mp4:BigBuckBunny_115k.mov");
+    VideoStreamAddress response = new VideoStreamAddress("rtsp://127.0.0.1:" + port + "/stream");
 
     return response;
   }
