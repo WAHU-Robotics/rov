@@ -22,6 +22,7 @@ import me.jbuelow.rov.common.VehicleCapabilities;
 import me.jbuelow.rov.common.VideoStreamAddress;
 import me.jbuelow.rov.dry.controller.Control;
 import me.jbuelow.rov.dry.ui.Gui;
+import net.java.games.input.Component;
 import net.java.games.input.Controller;
 import org.apache.commons.io.IOUtils;
 
@@ -62,6 +63,11 @@ public class ControllHandler implements Closeable {
     log.debug("Prompting user to select controllers...");
     control.promptForController(0);
     control.promptForController(1);
+
+    Component[] components = control.getPrimaryController().getComponents();
+    for (Component component : components) {
+      log.debug(component.getName());
+    }
 
     gui = new Gui(video.url);
 

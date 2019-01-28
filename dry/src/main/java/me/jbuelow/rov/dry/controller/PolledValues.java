@@ -16,7 +16,7 @@ public class PolledValues {
     Controller c = controller;
     x = c.getComponent(Axis.X).getPollData();
     y = c.getComponent(Axis.Y).getPollData();
-    //z = c.getComponent(Axis.Z).getPollData();
+    z = c.getComponent(Axis.RZ).getPollData();
     t = c.getComponent(Axis.SLIDER).getPollData();
     hx = c.getComponent(Axis.POV).getPollData();
   }
