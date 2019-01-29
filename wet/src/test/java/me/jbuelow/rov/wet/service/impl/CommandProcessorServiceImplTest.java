@@ -4,8 +4,6 @@
 package me.jbuelow.rov.wet.service.impl;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.times;
@@ -20,6 +18,7 @@ import me.jbuelow.rov.common.GetSystemStats;
 import me.jbuelow.rov.common.Ping;
 import me.jbuelow.rov.common.Pong;
 import me.jbuelow.rov.common.SetMotors;
+import me.jbuelow.rov.common.SetMotorsResponse;
 import me.jbuelow.rov.common.SystemStats;
 import me.jbuelow.rov.common.VehicleCapabilities;
 import me.jbuelow.rov.wet.service.CommandProcessorService;
@@ -101,7 +100,8 @@ public class CommandProcessorServiceImplTest {
    */
   @Test
   public void testHandleCommandSetMotors() {
-    assertThat(commandProcessor.handleCommand(new SetMotors()), is(nullValue()));
+    assertThat(commandProcessor.handleCommand(new SetMotors()),
+        instanceOf(SetMotorsResponse.class));
     verify(setMotorsHandler, times(1)).execute(any(SetMotors.class));
   }
 
