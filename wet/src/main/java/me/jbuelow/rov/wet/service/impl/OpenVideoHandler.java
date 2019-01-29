@@ -10,8 +10,6 @@ import me.jbuelow.rov.common.VideoStreamAddress;
 import me.jbuelow.rov.wet.service.CommandHandler;
 import org.springframework.stereotype.Service;
 import uk.co.caprica.vlcj.discovery.NativeDiscovery;
-import uk.co.caprica.vlcj.player.MediaPlayerFactory;
-import uk.co.caprica.vlcj.player.headless.HeadlessMediaPlayer;
 
 /**
  * @author Jacob Buelow
@@ -37,16 +35,17 @@ public class OpenVideoHandler implements CommandHandler<OpenVideo> {
       //We are running linux
       media = "v4l2:///dev/video0";
     }
-
+    //TODO fix this
+    /*
     String[] options = {":sout=#duplicate{dst=rtp{sdp=rtsp://:" + port + "/stream}}",
         ":sout-all", ":sout-keep"};
     MediaPlayerFactory mediaPlayerFactory = new MediaPlayerFactory();
     HeadlessMediaPlayer mediaPlayer = mediaPlayerFactory.newHeadlessMediaPlayer();
     mediaPlayer.playMedia(media, options);
-    //VideoStreamAddress response = new VideoStreamAddress("rtsp:/" + command.address + ":1234");
+    */
+
+    VideoStreamAddress response = new VideoStreamAddress("dshow://");
     //VideoStreamAddress response = new VideoStreamAddress("rtsp://184.72.239.149/vod/mp4:BigBuckBunny_115k.mov");
-    VideoStreamAddress response = new VideoStreamAddress(
-        "rtsp://192.168.1.145:" + port + "/stream");
 
     return response;
   }
