@@ -9,4 +9,8 @@ public class SetMotorsResponse extends Response {
   @Setter
   private boolean success;
 
+  public SetMotorsResponse(boolean success) {
+    this.success = success;
+  }
+
 }
