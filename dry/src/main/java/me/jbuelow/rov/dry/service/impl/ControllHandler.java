@@ -9,6 +9,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
 import me.jbuelow.rov.common.Command;
@@ -85,16 +87,43 @@ public class ControllHandler implements Closeable {
       return System.currentTimeMillis();
     }
 
+    /**
+     * Round to certain number of decimals
+     */
+    private float round(float number, int scale) {
+      int pow = 10;
+      for (int i = 1; i < scale; i++) {
+        pow *= 10;
+      }
+      float tmp = number * pow;
+      return ((float) ((int) ((tmp - (int) tmp) >= 0.5f ? tmp + 1 : tmp))) / pow;
+    }
+
+    private float calculateAverage(List<Float> marks) {
+      float sum = 0;
+      if (!marks.isEmpty()) {
+        for (float mark : marks) {
+          sum += mark;
+        }
+        return sum / marks.size();
+      }
+      return (float) ((int) (sum * 10f)) / 10f;
+    }
+
     @Override
     public void run() {
       double time = gt();
       double lastTime = gt();
       float fps = 0;
+      List<Float> fpsLog = new ArrayList<>();
       while (running) {
         lastTime = time;
         time = gt();
-        double prefps = time - lastTime;
-        fps = ((int) ((1000f / (float) (time - lastTime)) * 10f)) / 10f;
+        fps = (1000f / (float) (time - lastTime));
+        fpsLog.add(fps);
+        if (fpsLog.size() > 30) {
+          fpsLog.remove(0);
+        }
         PolledValues joyA = control.getPolledValues(0);
         PolledValues joyB = control.getPolledValues(1);
         gui.setJoyA(joyA);
@@ -110,8 +139,8 @@ public class ControllHandler implements Closeable {
         }
 
         gui.setCpuTempValue(String.valueOf(stat.getCpuTemp()));
-        gui.setFps(fps);
-        log.debug("FPS: " + fps);
+
+        gui.setFps(round(calculateAverage(fpsLog),1));
 
         try {
           sleep(20);
