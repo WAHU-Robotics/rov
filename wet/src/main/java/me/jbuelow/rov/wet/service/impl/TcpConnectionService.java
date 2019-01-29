@@ -7,6 +7,7 @@ import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.StreamCorruptedException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
@@ -142,6 +143,10 @@ public class TcpConnectionService implements DisposableBean {
           out.writeObject(commandProcessorService.handleCommand(command));
         } catch (SocketTimeoutException e) {
           //Do nothing and move on to try reading again.
+        } catch (StreamCorruptedException e) {
+          //Something went wrong with the network. disconnect.
+          eventPublisher.publishEvent(new ControllerDisconnectedEvent(this));
+          break;
         } catch (EOFException | SocketException e) {
           //Out channel has closed.  Break out of the loop.
           eventPublisher.publishEvent(new ControllerDisconnectedEvent(this));

@@ -32,7 +32,11 @@ public class Gui extends JFrame {
   private JPanel mainPanel;
 
   public Gui(String streamURL) {
-    add(panel1);
+    try {
+      add(panel1);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
     setExtendedState(JFrame.MAXIMIZED_BOTH);
     setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
     addWindowListener(new WindowAdapter() {
