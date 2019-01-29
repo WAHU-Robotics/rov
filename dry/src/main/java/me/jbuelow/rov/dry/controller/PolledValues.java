@@ -5,23 +5,38 @@ import net.java.games.input.Controller;
 
 public class PolledValues {
 
-  public int x;
-  public int y;
-  public int z;
-  public int t;
-  public float hat;
-  public String hatS;
+  public int x = 0;
+  public int y = 0;
+  public int z = 0;
+  public int t = 0;
+  public float hat = 0;
+  public String hatS = "REEE";
 
   private String[] directions = {"NW", "N", "NE", "E", "SE", "S", "SW", "W"};
   private int joyPrecision = 10000;
 
   public PolledValues(Controller controller) {
     Controller c = controller;
-    x = (int) (c.getComponent(Axis.X).getPollData() * joyPrecision);
-    y = (int) (c.getComponent(Axis.Y).getPollData() * joyPrecision);
-    z = (int) (c.getComponent(Axis.RZ).getPollData() * joyPrecision);
-    t = (int) (c.getComponent(Axis.SLIDER).getPollData() * joyPrecision);
-    hat = c.getComponent(Axis.POV).getPollData();
+    try {
+      x = (int) (c.getComponent(Axis.X).getPollData() * joyPrecision);
+    } catch (NullPointerException ignored) {
+    }
+    try {
+      y = (int) (c.getComponent(Axis.Y).getPollData() * joyPrecision);
+    } catch (NullPointerException ignored) {
+    }
+    try {
+      z = (int) (c.getComponent(Axis.RZ).getPollData() * joyPrecision);
+    } catch (NullPointerException ignored) {
+    }
+    try {
+      t = (int) (c.getComponent(Axis.SLIDER).getPollData() * joyPrecision);
+    } catch (NullPointerException ignored) {
+    }
+    try {
+      hat = c.getComponent(Axis.POV).getPollData();
+    } catch (NullPointerException ignored) {
+    }
     resolveHatPosition();
   }
 

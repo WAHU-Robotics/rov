@@ -21,6 +21,8 @@ import me.jbuelow.rov.common.SystemStats;
 import me.jbuelow.rov.common.VehicleCapabilities;
 import me.jbuelow.rov.common.VideoStreamAddress;
 import me.jbuelow.rov.dry.controller.Control;
+import me.jbuelow.rov.dry.controller.ControlLogic;
+import me.jbuelow.rov.dry.controller.PolledValues;
 import me.jbuelow.rov.dry.ui.Gui;
 import net.java.games.input.Component;
 import net.java.games.input.Controller;
@@ -82,16 +84,21 @@ public class ControllHandler implements Closeable {
     @Override
     public void run() {
       while (running) {
+        PolledValues joyA = control.getPolledValues(0);
+        PolledValues joyB = control.getPolledValues(1);
+        gui.setJoyA(joyA);
+        gui.setJoyB(joyB);
+
         SystemStats stat = null;
+
         try {
-          stat = (SystemStats) sendCommand(new GetSystemStats(false, false));
+          stat = (SystemStats) sendCommand(new GetSystemStats(true, true));
+          sendCommand(ControlLogic.genMotorValues(joyA));
         } catch (IOException | ClassNotFoundException e) {
           e.printStackTrace();
         }
 
         gui.setCpuTempValue(String.valueOf(stat.getCpuTemp()));
-        gui.setJoyA(control.getPolledValues(0));
-        gui.setJoyB(control.getPolledValues(1));
 
         try {
           sleep(20);
