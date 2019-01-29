@@ -30,6 +30,7 @@ public class Gui extends JFrame {
   private JLabel waterTempValue;
   private JPanel cameraPane;
   private JPanel mainPanel;
+  private JLabel fpsValue;
 
   public Gui(String streamURL) {
     try {
@@ -60,6 +61,14 @@ public class Gui extends JFrame {
 
     mediaPlayerComponent.getMediaPlayer()
         .playMedia(streamURL);
+
+    while (!mediaPlayerComponent.getMediaPlayer().isPlaying()) {
+      try {
+        Thread.sleep(100);
+      } catch (InterruptedException ignored) {
+      }
+    }
+    mediaPlayerComponent.getMediaPlayer().mute(true);
   }
 
   public void setCpuTempValue(Object text) {
@@ -84,5 +93,9 @@ public class Gui extends JFrame {
     this.joyBAxisZValue.setText(String.valueOf(values.z));
     this.joyBAxisTValue.setText(String.valueOf(values.t));
     this.joyBHatXValue.setText(String.valueOf(values.hatS));
+  }
+
+  public void setFps(Object fps) {
+    this.fpsValue.setText(String.valueOf(fps));
   }
 }

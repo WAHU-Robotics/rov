@@ -81,9 +81,20 @@ public class ControllHandler implements Closeable {
 
     private boolean running = true;
 
+    private double gt() {
+      return System.currentTimeMillis();
+    }
+
     @Override
     public void run() {
+      double time = gt();
+      double lastTime = gt();
+      float fps = 0;
       while (running) {
+        lastTime = time;
+        time = gt();
+        double prefps = time - lastTime;
+        fps = ((int) ((1000f / (float) (time - lastTime)) * 10f)) / 10f;
         PolledValues joyA = control.getPolledValues(0);
         PolledValues joyB = control.getPolledValues(1);
         gui.setJoyA(joyA);
@@ -99,6 +110,8 @@ public class ControllHandler implements Closeable {
         }
 
         gui.setCpuTempValue(String.valueOf(stat.getCpuTemp()));
+        gui.setFps(fps);
+        log.debug("FPS: " + fps);
 
         try {
           sleep(20);

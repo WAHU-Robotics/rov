@@ -6,7 +6,7 @@ import me.jbuelow.rov.common.SetMotors;
 public class ControlLogic {
 
   public static SetMotors genMotorValues(PolledValues controllerValues) {
-
+    //TODO add the actual logic
     SetMotors command = new SetMotors();
     for (int i = 0; i < 6; i++) {
       MotorPower m = new MotorPower();
