@@ -12,7 +12,7 @@ public class ControlLogic {
       MotorPower m = new MotorPower();
       m.setPower(0);
       m.setId(i);
-      command.powerLevels.add(m);
+      command.getPowerLevels().add(m);
     }
 
     return command;

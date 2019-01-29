@@ -21,5 +21,5 @@ public class SetMotors extends Command {
 
   private static final long serialVersionUID = -8856009547284313004L;
 
-  public List<MotorPower> powerLevels;
+  private List<MotorPower> powerLevels;
 }
