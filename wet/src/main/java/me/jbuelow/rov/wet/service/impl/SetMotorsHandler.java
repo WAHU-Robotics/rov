@@ -40,19 +40,22 @@ public class SetMotorsHandler implements CommandHandler<SetMotors> {
       log.debug("Got Set Motors Command!");
       for (MotorPower motor : command.getPowerLevels()) {
         log.info("Motor " + motor.getId() + " power: " + motor.getPower());
-
-        driver.setServoPulse(motor.getId(), convertToPulse(motor.getPower()));
-        return new SetMotorsResponse(true);
+        float p = convertToPulse(motor.getPower());
+        log.info("Motor " + motor.getId() + " pulse: " + p);
+        try {
+          driver.setServoPulse(motor.getId(), p);
+        } catch (NullPointerException ignored) {
+        }
       }
+      return new SetMotorsResponse(true);
     } catch (Exception e) {
       e.printStackTrace();
       return new SetMotorsResponse(false);
     }
-    return new SetMotorsResponse(false);
   }
 
   private float convertToPulse(int power) {
-    return ((float) power / 1000f) + 1.5f;
+    return ((float) power / 2000f) + 1.5f;
   }
 
   /* (non-Javadoc)

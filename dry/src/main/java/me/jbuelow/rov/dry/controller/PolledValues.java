@@ -40,6 +40,15 @@ public class PolledValues {
     resolveHatPosition();
   }
 
+  public PolledValues(int x, int y, int z, int t, float hat) {
+    this.x = x;
+    this.y = y;
+    this.z = z;
+    this.t = t;
+    this.hat = hat;
+    resolveHatPosition();
+  }
+
   private void resolveHatPosition() {
     float v = hat * 8;
     if (v != 0f) {
@@ -47,5 +56,9 @@ public class PolledValues {
     } else {
       hatS = "YEET";
     }
+  }
+
+  public int[] getArray() {
+    return new int[]{x, y, z};
   }
 }
