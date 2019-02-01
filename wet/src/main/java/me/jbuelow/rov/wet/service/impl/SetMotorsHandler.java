@@ -4,6 +4,7 @@
 package me.jbuelow.rov.wet.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
+import me.jbuelow.rov.common.MotorPower;
 import me.jbuelow.rov.common.Response;
 import me.jbuelow.rov.common.SetMotors;
 import me.jbuelow.rov.common.SetMotorsResponse;
@@ -24,6 +25,11 @@ public class SetMotorsHandler implements CommandHandler<SetMotors> {
   @Override
   public Response execute(SetMotors command) {
     log.debug("Got Set Motors Command!");
+    int i = 0;
+    for (MotorPower motor : command.getPowerLevels()) {
+      log.info("Motor " + i + " power: " + motor.getPower());
+      i++;
+    }
     return new SetMotorsResponse(true);
   }
 
