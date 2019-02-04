@@ -35,10 +35,10 @@ public class ControlLogic {
     if (mag > 1) {
       mag = 1;
     }
-    powerLevels[0] = (int) (dotProduct(dVec, motorFrontLeft) * mag) * 1000;
-    powerLevels[1] = (int) (dotProduct(dVec, motorFrontRight) * mag) * 1000;
-    powerLevels[2] = (int) (dotProduct(dVec, motorBackLeft) * mag) * 1000;
-    powerLevels[3] = (int) (dotProduct(dVec, motorBackRight) * mag) * 1000;
+    powerLevels[0] = (int) ((dotProduct(dVec, motorFrontLeft) * mag) * 1000);
+    powerLevels[1] = (int) ((dotProduct(dVec, motorFrontRight) * mag) * 1000);
+    powerLevels[2] = (int) ((dotProduct(dVec, motorBackLeft) * mag) * 1000);
+    powerLevels[3] = (int) ((dotProduct(dVec, motorBackRight) * mag) * 1000);
 
     powerLevels[4] = rovZ;
     powerLevels[5] = rovZ;

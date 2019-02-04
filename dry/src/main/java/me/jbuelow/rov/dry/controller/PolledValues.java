@@ -13,7 +13,7 @@ public class PolledValues {
   public String hatS = "REEE";
 
   private String[] directions = {"NW", "N", "NE", "E", "SE", "S", "SW", "W"};
-  private int joyPrecision = 10000;
+  private int joyPrecision = 1000;
 
   public PolledValues(Controller controller) {
     Controller c = controller;
