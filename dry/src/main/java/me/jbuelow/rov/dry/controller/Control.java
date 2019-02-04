@@ -1,5 +1,6 @@
 package me.jbuelow.rov.dry.controller;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -19,6 +20,7 @@ public class Control {
   Controller secondaryController;
 
   List<Controller> selectedControllers = Arrays.asList(null, null);
+  List<Controller> selectableControllers = new ArrayList<>();
 
   public enum Controllers {
     PRIMARY(0),
@@ -37,6 +39,12 @@ public class Control {
 
   private void refreshList() {
     foundControllers = ControllerEnvironment.getDefaultEnvironment().getControllers();
+
+    for (Controller c:foundControllers) {
+      if (c.getType() == Controller.Type.STICK) {
+        selectableControllers.add(c);
+      }
+    }
   }
 
   public Controller[] getSelectedControllers() {
@@ -50,16 +58,23 @@ public class Control {
 
   public void promptForController(int position) {
     boolean unset = true;
-    int def = position + 3;
-    if (def > foundControllers.length) {
-      def = foundControllers.length;
+    Object def = null;
+    if (selectableControllers.size() <= 0) {
+      JOptionPane.showMessageDialog(null,
+              "No compatible joysticks connected.\nProgram will exit.", "Error",
+              JOptionPane.ERROR_MESSAGE);
+      System.exit(1);
+    } else if (position > (selectableControllers.size() - 1)) {
+      def = selectableControllers.get(selectableControllers.size() - 1);
+    } else {
+      def = selectableControllers.get(position);
     }
 
     while (unset) {
       Controller c = (Controller) JOptionPane
           .showInputDialog(null, "Please select a controller to use for #" + position + 1 + ":",
               "Controllers",
-              JOptionPane.PLAIN_MESSAGE, null, foundControllers, foundControllers[def - 1]);
+              JOptionPane.PLAIN_MESSAGE, null, selectableControllers.toArray(), def);
 
       if (c == null) {
         refreshList();
