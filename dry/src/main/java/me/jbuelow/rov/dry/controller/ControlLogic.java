@@ -1,5 +1,13 @@
 package me.jbuelow.rov.dry.controller;
 
+import static me.jbuelow.rov.dry.controller.VectorMath.dotProduct;
+import static me.jbuelow.rov.dry.controller.VectorMath.getMag;
+import static me.jbuelow.rov.dry.controller.VectorMath.getNorm;
+import static me.jbuelow.rov.dry.controller.VectorMath.motorBackLeft;
+import static me.jbuelow.rov.dry.controller.VectorMath.motorBackRight;
+import static me.jbuelow.rov.dry.controller.VectorMath.motorFrontLeft;
+import static me.jbuelow.rov.dry.controller.VectorMath.motorFrontRight;
+
 import java.util.ArrayList;
 import java.util.List;
 import me.jbuelow.rov.common.MotorPower;
@@ -8,7 +16,7 @@ import me.jbuelow.rov.common.SetMotors;
 public class ControlLogic {
 
   public static SetMotors genMotorValues(PolledValues controllerValues) {
-    List<Integer> powerLevels = new ArrayList<>();
+    int[] powerLevels = new int[6];
 
     PolledValues cvs = computeDeadzones(controllerValues, 10);
 
@@ -19,17 +27,26 @@ public class ControlLogic {
     int rovYaw = cvs.z; //Rotate left/right
 
     //Logic
-    powerLevels.set(0, rovX);
-    powerLevels.set(1, rovX);
-    powerLevels.set(2, rovX);
-    powerLevels.set(3, rovX);
-    powerLevels.set(4, rovZ);
-    powerLevels.set(5, rovZ);
+    double[] dVec = new double[]{0, 0};
+    dVec[0] = ((double) rovX * -1 / 1000);
+    dVec[1] = ((double) rovY * -1 / 1000);
+    double mag = getMag(dVec);
+    dVec = getNorm(mag, dVec);
+    if (mag > 1) {
+      mag = 1;
+    }
+    powerLevels[0] = (int) (dotProduct(dVec, motorFrontLeft) * mag) * 1000;
+    powerLevels[1] = (int) (dotProduct(dVec, motorFrontRight) * mag) * 1000;
+    powerLevels[2] = (int) (dotProduct(dVec, motorBackLeft) * mag) * 1000;
+    powerLevels[3] = (int) (dotProduct(dVec, motorBackRight) * mag) * 1000;
+
+    powerLevels[4] = rovZ;
+    powerLevels[5] = rovZ;
 
     SetMotors command = new SetMotors();
     for (int i = 0; i < 6; i++) {
       MotorPower m = new MotorPower();
-      m.setPower(powerLevels.get(i));
+      m.setPower(powerLevels[i]);
       m.setId(i);
       command.getPowerLevels().add(m);
     }
