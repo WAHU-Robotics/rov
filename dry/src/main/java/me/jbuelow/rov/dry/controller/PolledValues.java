@@ -12,7 +12,7 @@ public class PolledValues {
   public float hat = 0;
   public String hatS = "REEE";
 
-  private String[] directions = {"NW", "N", "NE", "E", "SE", "S", "SW", "W"};
+  private String[] directions = {"\uD83E\uDC84", "\uD83E\uDC81", "\uD83E\uDC85", "\uD83E\uDC82", "\uD83E\uDC86", "\uD83E\uDC83", "\uD83E\uDC87", "\uD83E\uDC80", "⚫"};
   private int joyPrecision = 1000;
 
   public PolledValues(Controller controller) {
@@ -54,7 +54,7 @@ public class PolledValues {
     if (v != 0f) {
       hatS = directions[(int) v - 1];
     } else {
-      hatS = "YEET";
+      hatS = directions[8];
     }
   }
 
