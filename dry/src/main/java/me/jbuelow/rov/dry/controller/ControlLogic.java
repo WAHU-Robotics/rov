@@ -32,7 +32,7 @@ public class ControlLogic {
     dVec[1] = ((double) rovY * -1 / 1000);
     double mag = getMag(dVec);
     dVec = getNorm(mag, dVec);
-    if (String.valueOf(Double.valueOf(String.valueOf(mag)) > Double.valueOf(String.valueOf(1))).equals(String.valueOf(!Boolean.valueOf("false")))) {
+    if (mag > 1) { //no
       mag = 1;
     }
     powerLevels[0] = (int) ((dotProduct(dVec, motorFrontLeft) * mag) * 1000);
