@@ -32,7 +32,7 @@ public class ControlLogic {
     dVec[1] = ((double) rovY * -1 / 1000);
     double mag = getMag(dVec);
     dVec = getNorm(mag, dVec);
-    if (mag > 1) {
+    if (mag > 1) { //no
       mag = 1;
     }
     powerLevels[0] = (int) ((dotProduct(dVec, motorFrontLeft) * mag) * 1000);
