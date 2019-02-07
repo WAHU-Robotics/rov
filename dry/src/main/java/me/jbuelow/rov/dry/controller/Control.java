@@ -86,22 +86,23 @@ public class Control {
         updateShortcuts();
         unset = false;
       } else {
-        JOptionPane.showMessageDialog(null,
-            "Could not poll '" + c.getName() + "'.\nPlease select a different controller.", "Error",
-            JOptionPane.ERROR_MESSAGE);
-        refreshList();
+        couldNotPollErrorMessage(c);
       }
     }
+  }
+
+  private void couldNotPollErrorMessage(Controller c) {
+    JOptionPane.showMessageDialog(null,
+        "Could not poll '" + c.getName() + "'.\nPlease select a different controller.", "Error",
+        JOptionPane.ERROR_MESSAGE);
+    refreshList();
   }
 
   public PolledValues getPolledValues(int controller) {
     Controller c = selectedControllers.get(controller);
 
     if (!c.poll()) {
-      JOptionPane.showMessageDialog(null,
-          "Could not poll '" + c.getName() + "'.\nPlease select a different controller.", "Error",
-          JOptionPane.ERROR_MESSAGE);
-      refreshList();
+      couldNotPollErrorMessage(c);
       promptForController(controller);
     }
 
