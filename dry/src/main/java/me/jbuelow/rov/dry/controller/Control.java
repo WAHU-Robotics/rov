@@ -5,8 +5,12 @@ import java.util.Arrays;
 import java.util.List;
 import javax.swing.JOptionPane;
 import lombok.Getter;
+import net.java.games.input.Component;
+import net.java.games.input.Component.Identifier;
 import net.java.games.input.Controller;
 import net.java.games.input.ControllerEnvironment;
+import net.java.games.input.EventQueue;
+import net.java.games.input.Rumbler;
 
 public class Control {
 
@@ -20,7 +24,7 @@ public class Control {
   Controller secondaryController;
 
   List<Controller> selectedControllers = Arrays.asList(null, null);
-  List<Controller> selectableControllers = new ArrayList<>();
+  List<Controller> selectableControllers = new ArrayList<Controller>();
 
   public enum Controllers {
     PRIMARY(0),
@@ -60,10 +64,11 @@ public class Control {
     boolean unset = true;
     Object def = null;
     if (selectableControllers.size() <= 0) {
-      JOptionPane.showMessageDialog(null,
+      selectedControllers.add(new FalseController());
+      /*JOptionPane.showMessageDialog(null,
               "No compatible joysticks connected.\nProgram will exit.", "Error",
               JOptionPane.ERROR_MESSAGE);
-      System.exit(1);
+      System.exit(1);*/
     } else if (position > (selectableControllers.size() - 1)) {
       def = selectableControllers.get(selectableControllers.size() - 1);
     } else {
@@ -107,6 +112,64 @@ public class Control {
     }
 
     return new PolledValues(c);
+  }
+
+  private class FalseController implements Controller {
+
+    @Override
+    public Controller[] getControllers() {
+      return new Controller[0];
+    }
+
+    @Override
+    public Type getType() {
+      return null;
+    }
+
+    @Override
+    public Component[] getComponents() {
+      return new Component[0];
+    }
+
+    @Override
+    public Component getComponent(Identifier identifier) {
+      return null;
+    }
+
+    @Override
+    public Rumbler[] getRumblers() {
+      return new Rumbler[0];
+    }
+
+    @Override
+    public boolean poll() {
+      return true;
+    }
+
+    @Override
+    public void setEventQueueSize(int i) {
+
+    }
+
+    @Override
+    public EventQueue getEventQueue() {
+      return null;
+    }
+
+    @Override
+    public PortType getPortType() {
+      return null;
+    }
+
+    @Override
+    public int getPortNumber() {
+      return 0;
+    }
+
+    @Override
+    public String getName() {
+      return "False Controller";
+    }
   }
 
 }
