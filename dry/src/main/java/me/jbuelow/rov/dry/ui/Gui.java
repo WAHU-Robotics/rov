@@ -3,6 +3,7 @@ package me.jbuelow.rov.dry.ui;
 import java.awt.BorderLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -11,6 +12,7 @@ import javax.swing.WindowConstants;
 import me.jbuelow.rov.dry.controller.PolledValues;
 import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
 import uk.co.caprica.vlcj.discovery.NativeDiscovery;
+import uk.co.caprica.vlcj.player.MediaPlayer;
 
 public class Gui extends JFrame {
 
@@ -31,6 +33,8 @@ public class Gui extends JFrame {
   private JPanel cameraPane;
   private JPanel mainPanel;
   private JLabel fpsValue;
+
+  MediaPlayer player;
 
   public Gui(String streamURL) {
     try {
@@ -58,17 +62,17 @@ public class Gui extends JFrame {
     cameraPane.setLayout(new BorderLayout());
     mediaPlayerComponent = new EmbeddedMediaPlayerComponent();
     cameraPane.add(mediaPlayerComponent, BorderLayout.CENTER);
+    player = mediaPlayerComponent.getMediaPlayer();
 
-    mediaPlayerComponent.getMediaPlayer()
-        .playMedia(streamURL);
+    player.playMedia(streamURL);
 
-    while (!mediaPlayerComponent.getMediaPlayer().isPlaying()) {
+    while (!player.isPlaying()) {
       try {
         Thread.sleep(100);
       } catch (InterruptedException ignored) {
       }
     }
-    mediaPlayerComponent.getMediaPlayer().mute(true);
+    player.mute(true);
   }
 
   public void setCpuTempValue(Object text) {
@@ -97,5 +101,10 @@ public class Gui extends JFrame {
 
   public void setFps(Object fps) {
     this.fpsValue.setText(String.valueOf(fps));
+  }
+
+  public void takeScreenshot() {
+    BufferedImage img = player.getSnapshot();
+    new SnapshotViewer(img);
   }
 }

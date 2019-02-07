@@ -1,5 +1,9 @@
 package me.jbuelow.rov.dry.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+import net.java.games.input.Component;
+import net.java.games.input.Component.Identifier;
 import net.java.games.input.Component.Identifier.Axis;
 import net.java.games.input.Controller;
 
@@ -11,6 +15,8 @@ public class PolledValues {
   public int t = 0;
   public float hat = 0;
   public String hatS = "REEE";
+
+  public boolean[] buttons;
 
   private String[] directions = {"\uD83E\uDC84", "\uD83E\uDC81", "\uD83E\uDC85", "\uD83E\uDC82", "\uD83E\uDC86", "\uD83E\uDC83", "\uD83E\uDC87", "\uD83E\uDC80", "⚫"};
   private int joyPrecision = 1000;
@@ -38,6 +44,19 @@ public class PolledValues {
     } catch (NullPointerException ignored) {
     }
     resolveHatPosition();
+
+    Component[] components = controller.getComponents();
+    List<Component> buttonList = new ArrayList<>();
+    for (Component comp : components) {
+      if (comp.getIdentifier().getClass() == Identifier.Button.class) {
+        buttonList.add(comp);
+      }
+    }
+
+    buttons = new boolean[buttonList.size()];
+    for (Component comp : buttonList) {
+      buttons[buttonList.indexOf(comp)] = (comp.getPollData() == 1f);
+    }
   }
 
   public PolledValues(int x, int y, int z, int t, float hat) {

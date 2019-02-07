@@ -116,6 +116,8 @@ public class ControllHandler implements Closeable {
       double lastTime = gt();
       float fps = 0;
       List<Float> fpsLog = new ArrayList<>();
+      PolledValues[] prevController = new PolledValues[2];
+      boolean firstLoop = true;
       while (running) {
         lastTime = time;
         time = gt();
@@ -139,9 +141,19 @@ public class ControllHandler implements Closeable {
         }
 
         gui.setCpuTempValue(String.valueOf(stat.getCpuTemp()));
-
         gui.setFps(round(calculateAverage(fpsLog),1));
 
+        if (!firstLoop) {
+          if (!joyA.buttons[0] && prevController[0].buttons[0]) {
+            gui.takeScreenshot();
+          }
+        }
+
+        prevController[0] = joyA;
+        prevController[1] = joyB;
+        if (firstLoop) {
+          firstLoop = false;
+        }
         try {
           sleep(20);
         } catch (InterruptedException e) {
