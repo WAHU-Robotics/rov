@@ -1,6 +1,7 @@
 package me.jbuelow.rov.dry.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.swing.JOptionPane;
 import lombok.Getter;
@@ -23,9 +24,9 @@ public class Control {
   Controller secondaryController;
 
   @Getter
-  List<Controller> selectedControllers = new ArrayList<>(2);
+  List<Controller> selectedControllers = new ArrayList<>(Collections.nCopies(2, null));
 
-  List<Controller> selectableControllers = new ArrayList<Controller>();
+  List<Controller> selectableControllers = new ArrayList<>(20);
 
   public enum Controllers {
     PRIMARY(0),
@@ -61,7 +62,7 @@ public class Control {
     boolean unset = true;
     Object def = null;
     if (selectableControllers.size() <= 0) {
-      selectedControllers.add(new FalseController());
+      selectableControllers.add(new FalseController());
       /*JOptionPane.showMessageDialog(null,
               "No compatible joysticks connected.\nProgram will exit.", "Error",
               JOptionPane.ERROR_MESSAGE);
@@ -166,6 +167,11 @@ public class Control {
     @Override
     public String getName() {
       return "False Controller";
+    }
+
+    @Override
+    public String toString() {
+      return getName();
     }
   }
 
