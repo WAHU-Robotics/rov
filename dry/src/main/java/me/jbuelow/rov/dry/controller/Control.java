@@ -1,7 +1,6 @@
 package me.jbuelow.rov.dry.controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import javax.swing.JOptionPane;
 import lombok.Getter;
@@ -23,7 +22,7 @@ public class Control {
   @Getter
   Controller secondaryController;
 
-  List<Controller> selectedControllers = Arrays.asList(null, null);
+  List<Controller> selectedControllers = new ArrayList<>(2);
   List<Controller> selectableControllers = new ArrayList<Controller>();
 
   public enum Controllers {
