@@ -22,7 +22,9 @@ public class Control {
   @Getter
   Controller secondaryController;
 
+  @Getter
   List<Controller> selectedControllers = new ArrayList<>(2);
+
   List<Controller> selectableControllers = new ArrayList<Controller>();
 
   public enum Controllers {
@@ -48,10 +50,6 @@ public class Control {
         selectableControllers.add(c);
       }
     }
-  }
-
-  public Controller[] getSelectedControllers() {
-    return (Controller[]) this.selectedControllers.toArray();
   }
 
   private void updateShortcuts() {
