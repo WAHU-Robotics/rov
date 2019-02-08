@@ -3,8 +3,10 @@ package me.jbuelow.rov.dry.controller;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import javax.swing.JOptionPane;
 import lombok.Getter;
+import me.jbuelow.rov.dry.ui.setup.JoystickSelecter;
 import net.java.games.input.Component;
 import net.java.games.input.Component.Identifier;
 import net.java.games.input.Controller;
@@ -58,38 +60,47 @@ public class Control {
     this.secondaryController = selectedControllers.get(1);
   }
 
-  public void promptForController(int position) {
+  public void promptForControllers() {
     boolean unset = true;
-    Object def = null;
+    Object[] def = new Object[2];
     if (selectableControllers.size() <= 0) {
-      selectableControllers.add(new FalseController());
-      /*JOptionPane.showMessageDialog(null,
-              "No compatible joysticks connected.\nProgram will exit.", "Error",
-              JOptionPane.ERROR_MESSAGE);
-      System.exit(1);*/
-    } else if (position > (selectableControllers.size() - 1)) {
-      def = selectableControllers.get(selectableControllers.size() - 1);
-    } else {
-      def = selectableControllers.get(position);
+      if (Objects.equals(System.getenv("ROV_DEVMODE"), "true")) {
+        selectableControllers.add(new FalseController());
+      } else {
+        JOptionPane.showMessageDialog(null,
+            "No compatible joysticks connected.\nProgram will exit.", "Error",
+            JOptionPane.ERROR_MESSAGE);
+        System.exit(1);
+      }
+    }
+
+    for (int position = 0; position < 2; position++) {
+      if (position > (selectableControllers.size() - 1)) {
+        def[position] = selectableControllers.get(selectableControllers.size() - 1);
+      } else {
+        def[position] = selectableControllers.get(position);
+      }
     }
 
     while (unset) {
-      Controller c = (Controller) JOptionPane
-          .showInputDialog(null, "Please select a controller to use for #" + position + 1 + ":",
-              "Controllers",
-              JOptionPane.PLAIN_MESSAGE, null, selectableControllers.toArray(), def);
+      JoystickSelecter sel = new JoystickSelecter(selectableControllers, def);
+      Controller[] controllers = sel.getSelection();
 
-      if (c == null) {
-        refreshList();
-        continue;
-      }
+      int i = 0;
+      for (Controller c : controllers) {
+        if (c == null) {
+          refreshList();
+          continue;
+        }
 
-      if (c.poll()) {
-        selectedControllers.set(position, c);
-        updateShortcuts();
-        unset = false;
-      } else {
-        couldNotPollErrorMessage(c);
+        if (c.poll()) {
+          selectedControllers.set(i, c);
+          updateShortcuts();
+          unset = false;
+        } else {
+          couldNotPollErrorMessage(c);
+        }
+        i++;
       }
     }
   }
@@ -106,7 +117,7 @@ public class Control {
 
     if (!c.poll()) {
       couldNotPollErrorMessage(c);
-      promptForController(controller);
+      promptForControllers();
     }
 
     return new PolledValues(c);

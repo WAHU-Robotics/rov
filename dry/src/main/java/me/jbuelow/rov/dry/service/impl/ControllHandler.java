@@ -65,8 +65,7 @@ public class ControllHandler implements Closeable {
     }
 
     log.debug("Prompting user to select controllers...");
-    control.promptForController(0);
-    control.promptForController(1);
+    control.promptForControllers();
 
     Component[] components = control.getPrimaryController().getComponents();
     for (Component component : components) {
@@ -143,10 +142,13 @@ public class ControllHandler implements Closeable {
         gui.setCpuTempValue(String.valueOf(stat.getCpuTemp()));
         gui.setFps(round(calculateAverage(fpsLog),1));
 
-        if (!firstLoop) {
-          if (!joyA.buttons[0] && prevController[0].buttons[0]) {
-            gui.takeScreenshot();
+        try {
+          if (!firstLoop) {
+            if (!joyA.buttons[0] && prevController[0].buttons[0]) {
+              gui.takeScreenshot();
+            }
           }
+        } catch (ArrayIndexOutOfBoundsException ignored) {
         }
 
         prevController[0] = joyA;
