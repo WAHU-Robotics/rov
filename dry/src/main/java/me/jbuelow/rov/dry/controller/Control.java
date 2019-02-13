@@ -66,6 +66,7 @@ public class Control {
     if (selectableControllers.size() <= 0) {
       if (Objects.equals(System.getenv("ROV_DEVMODE"), "true")) {
         selectableControllers.add(new FalseController());
+        selectableControllers.add(new BadController());
       } else {
         JOptionPane.showMessageDialog(null,
             "No compatible joysticks connected.\nProgram will exit.", "Error",
@@ -178,6 +179,69 @@ public class Control {
     @Override
     public String getName() {
       return "False Controller";
+    }
+
+    @Override
+    public String toString() {
+      return getName();
+    }
+  }
+
+  private class BadController implements Controller {
+
+    @Override
+    public Controller[] getControllers() {
+      return new Controller[0];
+    }
+
+    @Override
+    public Type getType() {
+      return null;
+    }
+
+    @Override
+    public Component[] getComponents() {
+      return new Component[0];
+    }
+
+    @Override
+    public Component getComponent(Identifier identifier) {
+      return null;
+    }
+
+    @Override
+    public Rumbler[] getRumblers() {
+      return new Rumbler[0];
+    }
+
+    @Override
+    public boolean poll() {
+      return false;
+    }
+
+    @Override
+    public void setEventQueueSize(int i) {
+
+    }
+
+    @Override
+    public EventQueue getEventQueue() {
+      return null;
+    }
+
+    @Override
+    public PortType getPortType() {
+      return null;
+    }
+
+    @Override
+    public int getPortNumber() {
+      return 0;
+    }
+
+    @Override
+    public String getName() {
+      return "Bad Controller";
     }
 
     @Override

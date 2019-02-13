@@ -10,6 +10,8 @@ import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
+import me.jbuelow.rov.dry.ui.error.ErrorIcon;
+import me.jbuelow.rov.dry.ui.error.GeneralError;
 import net.java.games.input.Controller;
 
 public class JoystickSelecter extends JDialog {
@@ -24,6 +26,7 @@ public class JoystickSelecter extends JDialog {
     setContentPane(contentPane);
     setModal(true);
     setResizable(false);
+    setTitle("Joystick Selection");
     getRootPane().setDefaultButton(buttonOK);
 
     for (Controller controller : controllers) {
@@ -52,11 +55,20 @@ public class JoystickSelecter extends JDialog {
             JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
 
     pack();
+    setLocationRelativeTo(null);
     setVisible(true);
   }
 
   private void onOK() {
-    // add your code here
+    for (Controller c : getSelection()) {
+      if (!c.poll()) {
+        GeneralError.display(
+            "<html><b>Could connect to controller.</b><br>Controller: " + c.getName()
+                + "<br>Please try again.</html>",
+            ErrorIcon.JOY_ERROR);
+        return;
+      }
+    }
     dispose();
   }
 
