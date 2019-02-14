@@ -16,7 +16,7 @@ import uk.co.caprica.vlcj.player.MediaPlayer;
 
 public class Gui extends JFrame {
 
-  private final EmbeddedMediaPlayerComponent mediaPlayerComponent;
+  //private final EmbeddedMediaPlayerComponent mediaPlayerComponent;
   private JPanel panel1;
   private JLabel cpuTempValue;
   private JLabel joyAAxisXValue;
@@ -57,6 +57,11 @@ public class Gui extends JFrame {
 
     setVisible(true);
 
+    //This code is resposible for starting a new vlcj instance
+    //Unfortunatly, vlc's low latency capabilities can be described as a pile of dog poo in a garbage can fire with a nuclear weapon going off right next to it
+    //As such, this code is not used
+
+    /*
     new NativeDiscovery().discover();
     cameraPane.removeAll();
     cameraPane.setLayout(new BorderLayout());
@@ -73,6 +78,7 @@ public class Gui extends JFrame {
       }
     }
     player.mute(true);
+    */
   }
 
   public void setCpuTempValue(Object text) {

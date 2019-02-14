@@ -3,6 +3,11 @@
  */
 package me.jbuelow.rov.wet.service.impl;
 
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.net.UnknownHostException;
 import lombok.extern.slf4j.Slf4j;
 import me.jbuelow.rov.common.OpenVideo;
 import me.jbuelow.rov.common.Response;
@@ -28,8 +33,10 @@ public class OpenVideoHandler implements CommandHandler<OpenVideo> {
     int port = 3621;
 
     String media;
+    boolean windows= false;
     if (System.getProperty("os.name").toLowerCase().contains("win")) {
       //We are running windows
+      windows=true;
       media = "dshow://";
     } else {
       //We are running linux
@@ -43,8 +50,24 @@ public class OpenVideoHandler implements CommandHandler<OpenVideo> {
     HeadlessMediaPlayer mediaPlayer = mediaPlayerFactory.newHeadlessMediaPlayer();
     mediaPlayer.playMedia(media, options);
     */
+    Process process = null;
+    if (!windows) {
+      try {
+        process = Runtime.getRuntime()
+            .exec("bash \"raspivid -t 0 -w 1280 -h 720 -br 50 -vf -o - | nc -lkv4" + port + "\"");
+      } catch (IOException ignored) {
+      }
+    }
 
-    VideoStreamAddress response = new VideoStreamAddress("dshow://");
+    InetAddress IP=null;
+    try {
+       IP=InetAddress.getLocalHost();
+    } catch (UnknownHostException e) {
+      e.printStackTrace();
+    }
+
+    String ip = IP.toString();
+    VideoStreamAddress response = new VideoStreamAddress(ip+":"+port);
     //VideoStreamAddress response = new VideoStreamAddress("rtsp://184.72.239.149/vod/mp4:BigBuckBunny_115k.mov");
 
     return response;

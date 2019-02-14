@@ -25,6 +25,7 @@ import me.jbuelow.rov.common.VideoStreamAddress;
 import me.jbuelow.rov.dry.controller.Control;
 import me.jbuelow.rov.dry.controller.ControlLogic;
 import me.jbuelow.rov.dry.controller.PolledValues;
+import me.jbuelow.rov.dry.external.Mplayer;
 import me.jbuelow.rov.dry.ui.Gui;
 import net.java.games.input.Component;
 import net.java.games.input.Controller;
@@ -44,6 +45,7 @@ public class ControllHandler implements Closeable {
   private VideoStreamAddress video;
   private Gui gui;
   private Control control;
+  private Mplayer player;
 
   public ControllHandler(InetAddress vehicleAddress) throws IOException, ClassNotFoundException {
     vehicleSocket = new Socket(vehicleAddress, RovConstants.ROV_PORT);
@@ -72,7 +74,9 @@ public class ControllHandler implements Closeable {
       log.debug(component.getName());
     }
 
-    gui = new Gui(video.url);
+    gui = new Gui("");
+    log.info("Opening Mplayer instance...");
+    player = new Mplayer(video.url);
 
     Loop loop = new Loop();
     loop.run();

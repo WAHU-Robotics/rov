@@ -36,6 +36,7 @@ public class TcpConnectionService implements DisposableBean {
 
   public static final long IDLE_TIME = 10;  //One second
   public static final int SOCKET_TIMEOUT = 100;
+  public static String myIp;
 
   private CommandProcessorService commandProcessorService;
   private ConnectionServer connectionServer;
