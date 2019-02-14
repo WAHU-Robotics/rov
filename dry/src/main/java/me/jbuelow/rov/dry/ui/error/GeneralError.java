@@ -71,4 +71,5 @@ public class GeneralError extends JDialog {
     dialog.setLocationRelativeTo(null);
     dialog.setVisible(true);
   }
+
 }

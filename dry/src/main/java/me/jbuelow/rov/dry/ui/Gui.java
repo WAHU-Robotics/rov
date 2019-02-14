@@ -107,4 +107,5 @@ public class Gui extends JFrame {
     BufferedImage img = player.getSnapshot();
     new SnapshotViewer(img);
   }
+
 }

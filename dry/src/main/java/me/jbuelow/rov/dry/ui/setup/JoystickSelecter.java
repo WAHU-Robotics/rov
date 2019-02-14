@@ -81,4 +81,5 @@ public class JoystickSelecter extends JDialog {
     return new Controller[]{(Controller) comboBox1.getSelectedItem(),
         (Controller) comboBox2.getSelectedItem()};
   }
+
 }
