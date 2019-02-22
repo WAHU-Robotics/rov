@@ -41,6 +41,11 @@
       <artifactId>jscience</artifactId>
       <version>4.3.1</version>
     </dependency>
+    <dependency>
+      <groupId>com.intellij</groupId>
+      <artifactId>forms_rt</artifactId>
+      <version>5.0</version>
+    </dependency>
   </dependencies>
 
   <build>
@@ -48,6 +53,23 @@
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>ideauidesigner-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>javac2</goal>
+            </goals>
+          </execution>
+        </executions>
+
+        <configuration>
+          <fork>true</fork>
+          <debug>true</debug>
+          <failOnError>true</failOnError>
+        </configuration>
       </plugin>
     </plugins>
   </build>

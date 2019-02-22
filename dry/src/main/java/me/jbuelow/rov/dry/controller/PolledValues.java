@@ -2,6 +2,7 @@ package me.jbuelow.rov.dry.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import net.java.games.input.Component;
 import net.java.games.input.Component.Identifier;
 import net.java.games.input.Component.Identifier.Axis;
@@ -23,6 +24,11 @@ public class PolledValues {
 
   public PolledValues(Controller controller) {
     Controller c = controller;
+
+    if (c.getName() == "False Controller") {
+      x = new Random().nextInt(joyPrecision);
+      return;
+    }
     try {
       x = (int) (c.getComponent(Axis.X).getPollData() * joyPrecision);
     } catch (NullPointerException ignored) {

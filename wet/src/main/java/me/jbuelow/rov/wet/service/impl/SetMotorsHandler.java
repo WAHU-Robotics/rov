@@ -26,6 +26,7 @@ public class SetMotorsHandler implements CommandHandler<SetMotors> {
   public SetMotorsHandler() {
     try {
       driver = new PCA9685();
+      driver.setPWMFreq(60);
     } catch (UnsupportedBusNumberException | UnsatisfiedLinkError e) {
       e.printStackTrace();
     }
