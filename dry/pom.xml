@@ -6,7 +6,7 @@
   <parent>
     <groupId>me.jbuelow.rov</groupId>
     <artifactId>rov</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0</version>
   </parent>
 
   <artifactId>dry</artifactId>
@@ -53,6 +53,13 @@
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>repackage</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
@@ -60,7 +67,6 @@
         <executions>
           <execution>
             <goals>
-              <goal>javac2</goal>
             </goals>
           </execution>
         </executions>
