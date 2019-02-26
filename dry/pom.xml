@@ -67,6 +67,7 @@
         <executions>
           <execution>
             <goals>
+              <goal>javac2</goal>
             </goals>
           </execution>
         </executions>

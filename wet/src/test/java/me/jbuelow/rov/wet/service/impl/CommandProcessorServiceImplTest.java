@@ -36,7 +36,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 /**
  * @author Jacob Buelow
  * @author Brian Wachsmuth
- */
+ *//*
 @RunWith(SpringJUnit4ClassRunner.class)
 @Import({CommandProcessorServiceImpl.class, PingHandler.class, GetCapabilitiesHandler.class, SetMotorsHandler.class})
 public class CommandProcessorServiceImplTest {
@@ -79,7 +79,7 @@ public class CommandProcessorServiceImplTest {
 
   /**
    * Test method for {@link me.jbuelow.rov.wet.service.impl.CommandProcessorServiceImpl#handleCommand(me.jbuelow.rov.common.Command)}.
-   */
+   *//*
   @Test
   public void testHandleCommandPing() {
     assertThat(commandProcessor.handleCommand(new Ping()), instanceOf(Pong.class));
@@ -88,7 +88,7 @@ public class CommandProcessorServiceImplTest {
 
   /**
    * Test method for {@link me.jbuelow.rov.wet.service.impl.CommandProcessorServiceImpl#handleCommand(me.jbuelow.rov.common.Command)}.
-   */
+   *//*
   @Test
   public void testHandleCommandGetCapabilities() {
     assertThat(commandProcessor.handleCommand(new GetCapabilities()), instanceOf(VehicleCapabilities.class));
@@ -97,7 +97,7 @@ public class CommandProcessorServiceImplTest {
 
   /**
    * Test method for {@link me.jbuelow.rov.wet.service.impl.CommandProcessorServiceImpl#handleCommand(me.jbuelow.rov.common.Command)}.
-   */
+   *//*
   @Test
   public void testHandleCommandSetMotors() {
     assertThat(commandProcessor.handleCommand(new SetMotors()),
@@ -107,21 +107,21 @@ public class CommandProcessorServiceImplTest {
 
   /**
    * Test method for {@link me.jbuelow.rov.wet.service.impl.CommandProcessorServiceImpl#handleCommand(me.jbuelow.rov.common.Command)}.
-   */
+   *//*
   @Test(expected=IllegalArgumentException.class)
   public void testHandleCommandInvalid() {
     Command command = new Command() {
 
       /**
        *
-       */
+       *//*
       private static final long serialVersionUID = 1L;};
     commandProcessor.handleCommand(command);
   }
 
   /**
    * Test method for {@link me.jbuelow.rov.wet.service.impl.CommandProcessorServiceImpl#handleCommand(me.jbuelow.rov.common.Command)}.
-   */
+   *//*
   @Test
   public void testHandleCommandGetSystemStats() {
     GetSystemStats command = new GetSystemStats(true, true);
@@ -129,4 +129,4 @@ public class CommandProcessorServiceImplTest {
     verify(getSystemStatsHandler, times(1)).execute(any(GetSystemStats.class));
   }
 }
-
+*/
