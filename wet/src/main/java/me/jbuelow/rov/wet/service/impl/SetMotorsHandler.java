@@ -4,6 +4,7 @@
 package me.jbuelow.rov.wet.service.impl;
 
 import com.pi4j.io.i2c.I2CFactory.UnsupportedBusNumberException;
+import java.util.Objects;
 import lombok.extern.slf4j.Slf4j;
 import me.jbuelow.rov.common.MotorPower;
 import me.jbuelow.rov.common.Response;
@@ -25,7 +26,7 @@ public class SetMotorsHandler implements CommandHandler<SetMotors> {
 
   public SetMotorsHandler() {
     try {
-      if (System.getenv("ROV_NOPI4J").equals("true")) {
+      if (Objects.equals(System.getenv("ROV_NOPI4J"), "true")) {
         driver = null;
       } else {
         driver = new PCA9685();
