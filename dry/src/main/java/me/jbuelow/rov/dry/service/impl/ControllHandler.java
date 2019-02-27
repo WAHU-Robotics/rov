@@ -152,7 +152,7 @@ public class ControllHandler implements Closeable {
               gui.takeScreenshot();
             }
           }
-        } catch (ArrayIndexOutOfBoundsException ignored) {
+        } catch (ArrayIndexOutOfBoundsException | NullPointerException ignored) {
         }
 
         prevController[0] = joyA;

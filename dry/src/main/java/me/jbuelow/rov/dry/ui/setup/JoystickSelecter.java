@@ -3,13 +3,16 @@ package me.jbuelow.rov.dry.ui.setup;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
+import java.awt.Color;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 import java.util.List;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -18,6 +21,7 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
+import javax.swing.UIManager;
 import me.jbuelow.rov.dry.ui.error.ErrorIcon;
 import me.jbuelow.rov.dry.ui.error.GeneralError;
 import net.java.games.input.Controller;
@@ -44,6 +48,18 @@ public class JoystickSelecter extends JDialog {
 
     comboBox1.setSelectedItem(def[0]);
     comboBox2.setSelectedItem(def[1]);
+
+    UIManager.put("Button.select",new Color(49, 49, 97));
+    UIManager.put("ComboBox.selectionBackground", new Color(84, 84, 84));
+    buttonOK.updateUI();
+    buttonCancel.updateUI();
+    comboBox1.updateUI();
+    comboBox2.updateUI();
+
+    buttonOK.setBorder(BorderFactory.createEmptyBorder(5,25,5,25));
+    buttonCancel.setBorder(BorderFactory.createEmptyBorder(5,25,5,25));
+    comboBox1.setBorder(BorderFactory.createBevelBorder(0));
+    comboBox2.setBorder(BorderFactory.createBevelBorder(0));
 
     buttonOK.addActionListener(new ActionListener() {
       @Override
@@ -103,6 +119,12 @@ public class JoystickSelecter extends JDialog {
   public Controller[] getSelection() {
     return new Controller[]{(Controller) comboBox1.getSelectedItem(),
         (Controller) comboBox2.getSelectedItem()};
+  }
+
+  public static void main(String[] args) {
+    List<Controller> list = new ArrayList<>();
+    Object[] defs = {"Controller 1", "Controller 2"};
+    JoystickSelecter sel = new JoystickSelecter(list, defs);
   }
 
 }
