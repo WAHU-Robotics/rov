@@ -4,6 +4,8 @@ import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -43,9 +45,19 @@ public class JoystickSelecter extends JDialog {
     comboBox1.setSelectedItem(def[0]);
     comboBox2.setSelectedItem(def[1]);
 
-    buttonOK.addActionListener(e -> onOK());
+    buttonOK.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        JoystickSelecter.this.onOK();
+      }
+    });
 
-    buttonCancel.addActionListener(e -> onCancel());
+    buttonCancel.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        JoystickSelecter.this.onCancel();
+      }
+    });
 
     // call onCancel() when cross is clicked
     setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -57,7 +69,12 @@ public class JoystickSelecter extends JDialog {
 
     // call onCancel() on ESCAPE
     contentPane
-        .registerKeyboardAction(e -> onCancel(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
+        .registerKeyboardAction(new ActionListener() {
+                                  @Override
+                                  public void actionPerformed(ActionEvent e) {
+                                    JoystickSelecter.this.onCancel();
+                                  }
+                                }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
             JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
 
     pack();
