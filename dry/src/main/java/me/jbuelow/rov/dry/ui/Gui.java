@@ -6,11 +6,20 @@ import com.intellij.uiDesigner.core.Spacer;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Insets;
+import java.awt.RenderingHints;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -41,6 +50,8 @@ public class Gui extends JFrame {
   private JPanel cameraPane;
   private JPanel mainPanel;
   private JLabel fpsValue;
+  private JLabel magnet_indicator;
+  private JLabel cameraLabel;
 
   MediaPlayer player;
 
@@ -62,6 +73,15 @@ public class Gui extends JFrame {
         }
       }
     });
+
+    Image img = null;
+    try {
+      InputStream path = this.getClass().getClassLoader().getResourceAsStream("images/magnet_off.png");
+      img = ImageIO.read(path);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    magnet_indicator.setIcon(new ImageIcon(img));
 
     setVisible(true);
 
@@ -87,6 +107,17 @@ public class Gui extends JFrame {
     }
     player.mute(true);
     */
+  }
+
+  private Image getScaledImage(Image srcImg, int w, int h){
+    BufferedImage resizedImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+    Graphics2D g2 = resizedImg.createGraphics();
+
+    g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+    g2.drawImage(srcImg, 0, 0, w, h, null);
+    g2.dispose();
+
+    return resizedImg;
   }
 
   public void setCpuTempValue(Object text) {
@@ -120,6 +151,11 @@ public class Gui extends JFrame {
   public void takeScreenshot() {
     BufferedImage img = player.getSnapshot();
     new SnapshotViewer(img);
+  }
+
+  public static void main(String[] args) {
+    //for testing the main gui without starting everything
+    Gui gui = new Gui("lol");
   }
 
 }

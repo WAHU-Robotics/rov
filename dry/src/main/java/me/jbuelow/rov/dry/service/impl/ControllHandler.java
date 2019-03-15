@@ -137,13 +137,13 @@ public class ControllHandler implements Closeable {
         SystemStats stat = null;
 
         try {
-          stat = (SystemStats) sendCommand(new GetSystemStats(true, true));
+          //stat = (SystemStats) sendCommand(new GetSystemStats(true, true));
           sendCommand(ControlLogic.genMotorValues(joyA));
         } catch (IOException | ClassNotFoundException e) {
           e.printStackTrace();
         }
 
-        gui.setCpuTempValue(String.valueOf(stat.getCpuTemp()));
+        //gui.setCpuTempValue(String.valueOf(stat.getCpuTemp()));
         gui.setFps(round(calculateAverage(fpsLog),1));
 
         try {
