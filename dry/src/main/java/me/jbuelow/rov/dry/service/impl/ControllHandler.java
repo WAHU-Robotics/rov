@@ -120,6 +120,8 @@ public class ControllHandler implements Closeable {
       float fps = 0;
       List<Float> fpsLog = new ArrayList<>();
       PolledValues[] prevController = new PolledValues[2];
+      boolean magnetState = false;
+      boolean prevMagnetState = true;
       boolean firstLoop = true;
       while (running) {
         lastTime = time;
@@ -145,6 +147,10 @@ public class ControllHandler implements Closeable {
 
         //gui.setCpuTempValue(String.valueOf(stat.getCpuTemp()));
         gui.setFps(round(calculateAverage(fpsLog),1));
+        if (magnetState != prevMagnetState) {
+          gui.setMagnetState(magnetState);
+          prevMagnetState = magnetState;
+        }
 
         try {
           if (!firstLoop) {

@@ -14,6 +14,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -27,11 +28,16 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 import me.jbuelow.rov.dry.controller.PolledValues;
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+import org.springframework.core.io.Resource;
+import org.springframework.util.ResourceUtils;
 import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
 import uk.co.caprica.vlcj.discovery.NativeDiscovery;
 import uk.co.caprica.vlcj.player.MediaPlayer;
 
-public class Gui extends JFrame {
+public class Gui extends JFrame implements ApplicationContextAware {
 
   //private final EmbeddedMediaPlayerComponent mediaPlayerComponent;
   private JPanel panel1;
@@ -54,6 +60,7 @@ public class Gui extends JFrame {
   private JLabel cameraLabel;
 
   MediaPlayer player;
+  ApplicationContext ctx;
 
   public Gui(String streamURL) {
     try {
@@ -73,15 +80,6 @@ public class Gui extends JFrame {
         }
       }
     });
-
-    Image img = null;
-    try {
-      InputStream path = this.getClass().getClassLoader().getResourceAsStream("images/magnet_off.png");
-      img = ImageIO.read(path);
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-    magnet_indicator.setIcon(new ImageIcon(img));
 
     setVisible(true);
 
@@ -153,9 +151,23 @@ public class Gui extends JFrame {
     new SnapshotViewer(img);
   }
 
+  public void setMagnetState(Boolean state) {
+    try {
+      Resource imageResource = ctx.getResource("classpath:/images/magnet_off.png");
+      Image img = ImageIO.read(imageResource.getInputStream());
+      magnet_indicator.setIcon(new ImageIcon(img));
+    } catch (IOException | IllegalArgumentException | NullPointerException e) {
+      e.printStackTrace();
+    }
+  }
+
   public static void main(String[] args) {
     //for testing the main gui without starting everything
     Gui gui = new Gui("lol");
   }
 
+  @Override
+  public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+    ctx = applicationContext;
+  }
 }
