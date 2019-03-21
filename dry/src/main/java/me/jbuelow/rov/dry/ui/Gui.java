@@ -31,6 +31,7 @@ import me.jbuelow.rov.dry.controller.PolledValues;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.util.ResourceUtils;
 import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
@@ -58,6 +59,8 @@ public class Gui extends JFrame implements ApplicationContextAware {
   private JLabel fpsValue;
   private JLabel magnet_indicator;
   private JLabel cameraLabel;
+  private JLabel light_indicator;
+  private JLabel cup_indicator;
 
   MediaPlayer player;
   ApplicationContext ctx;
@@ -82,6 +85,10 @@ public class Gui extends JFrame implements ApplicationContextAware {
     });
 
     setVisible(true);
+
+    setMagnetState(false);
+    setLightState(false);
+    setCupState(false);
 
     //This code is resposible for starting a new vlcj instance
     //Unfortunatly, vlc's low latency capabilities can be described as a pile of dog poo in a garbage can fire with a nuclear weapon going off right next to it
@@ -152,10 +159,26 @@ public class Gui extends JFrame implements ApplicationContextAware {
   }
 
   public void setMagnetState(Boolean state) {
+    setIndicatorState(state, "magnet", magnet_indicator);
+  }
+
+  public void setLightState(Boolean state) {
+    setIndicatorState(state, "light", light_indicator);
+  }
+
+  public void setCupState(Boolean state) {
+    setIndicatorState(state, "cup", cup_indicator);
+  }
+
+  private void setIndicatorState(Boolean state, String filePrefix, JLabel label) {
+    String filename = filePrefix + "_off.png";
+    if (state) {
+      filename = filePrefix + "light_on.png";
+    }
     try {
-      Resource imageResource = ctx.getResource("classpath:/images/magnet_off.png");
-      Image img = ImageIO.read(imageResource.getInputStream());
-      magnet_indicator.setIcon(new ImageIcon(img));
+      File file = new ClassPathResource(filename).getFile();
+      Image img = getScaledImage(ImageIO.read(file), label.getHeight(), label.getHeight());
+      label.setIcon(new ImageIcon(img));
     } catch (IOException | IllegalArgumentException | NullPointerException e) {
       e.printStackTrace();
     }
