@@ -61,6 +61,7 @@ public class Gui extends JFrame implements ApplicationContextAware {
   private JLabel cameraLabel;
   private JLabel light_indicator;
   private JLabel cup_indicator;
+  private JPanel sensorsPanel;
 
   MediaPlayer player;
   ApplicationContext ctx;
@@ -83,6 +84,9 @@ public class Gui extends JFrame implements ApplicationContextAware {
         }
       }
     });
+
+    //LiveJoystickXYIndicator xyIndc = new LiveJoystickXYIndicator();
+    //sensorsPanel.add(xyIndc);
 
     setVisible(true);
 
@@ -173,7 +177,7 @@ public class Gui extends JFrame implements ApplicationContextAware {
   private void setIndicatorState(Boolean state, String filePrefix, JLabel label) {
     String filename = filePrefix + "_off.png";
     if (state) {
-      filename = filePrefix + "light_on.png";
+      filename = filePrefix + "_on.png";
     }
     try {
       File file = new ClassPathResource(filename).getFile();

@@ -27,6 +27,7 @@ import me.jbuelow.rov.dry.controller.ControlLogic;
 import me.jbuelow.rov.dry.controller.PolledValues;
 import me.jbuelow.rov.dry.external.Mplayer;
 import me.jbuelow.rov.dry.ui.Gui;
+import me.jbuelow.rov.dry.ui.error.GeneralError;
 import net.java.games.input.Component;
 import net.java.games.input.Controller;
 import org.apache.commons.io.IOUtils;
@@ -79,7 +80,13 @@ public class ControllHandler implements Closeable {
     player = new Mplayer(video.url);
 
     Loop loop = new Loop();
-    loop.run();
+    try {
+      loop.run();
+    } catch (Exception e) {
+      //Catch-all for loop exceptions
+      GeneralError.display();
+      System.exit(69420); //kms
+    }
   }
 
   private class Loop extends Thread {
@@ -115,62 +122,74 @@ public class ControllHandler implements Closeable {
 
     @Override
     public void run() {
-      double time = gt();
-      double lastTime = gt();
-      float fps = 0;
-      List<Float> fpsLog = new ArrayList<>();
-      PolledValues[] prevController = new PolledValues[2];
-      boolean magnetState = false;
-      boolean prevMagnetState = true;
-      boolean firstLoop = true;
-      while (running) {
-        lastTime = time;
-        time = gt();
-        fps = (1000f / (float) (time - lastTime));
-        fpsLog.add(fps);
-        if (fpsLog.size() > 30) {
-          fpsLog.remove(0);
-        }
-        PolledValues joyA = control.getPolledValues(0);
-        PolledValues joyB = control.getPolledValues(1);
-        gui.setJoyA(joyA);
-        gui.setJoyB(joyB);
-
-        SystemStats stat = null;
-
-        try {
-          //stat = (SystemStats) sendCommand(new GetSystemStats(true, true));
-          sendCommand(ControlLogic.genMotorValues(joyA));
-        } catch (IOException | ClassNotFoundException e) {
-          e.printStackTrace();
-        }
-
-        //gui.setCpuTempValue(String.valueOf(stat.getCpuTemp()));
-        gui.setFps(round(calculateAverage(fpsLog),1));
-        if (magnetState != prevMagnetState) {
-          gui.setMagnetState(magnetState);
-          prevMagnetState = magnetState;
-        }
-
-        try {
-          if (!firstLoop) {
-            if (!joyA.buttons[0] && prevController[0].buttons[0]) {
-              gui.takeScreenshot();
-            }
+      try {
+        double time = gt();
+        double lastTime = gt();
+        float fps = 0;
+        List<Float> fpsLog = new ArrayList<>();
+        PolledValues[] prevController = new PolledValues[2];
+        boolean magnetState = false;
+        boolean lightState = false;
+        boolean cupState = false;
+        boolean prevMagnetState = true;
+        boolean prevLightState = true;
+        boolean prevCupState = true;
+        boolean firstLoop = true;
+        while (running) {
+          lastTime = time;
+          time = gt();
+          fps = (1000f / (float) (time - lastTime));
+          fpsLog.add(fps);
+          if (fpsLog.size() > 30) {
+            fpsLog.remove(0);
           }
-        } catch (ArrayIndexOutOfBoundsException | NullPointerException ignored) {
-        }
+          PolledValues joyA = control.getPolledValues(0);
+          PolledValues joyB = control.getPolledValues(1);
+          gui.setJoyA(joyA);
+          gui.setJoyB(joyB);
 
-        prevController[0] = joyA;
-        prevController[1] = joyB;
-        if (firstLoop) {
-          firstLoop = false;
+          SystemStats stat = null;
+
+          try {
+            //stat = (SystemStats) sendCommand(new GetSystemStats(true, true));
+            sendCommand(ControlLogic.genMotorValues(joyA));
+          } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+          }
+
+          //gui.setCpuTempValue(String.valueOf(stat.getCpuTemp()));
+          gui.setFps(round(calculateAverage(fpsLog), 1));
+          if (magnetState != prevMagnetState) {
+            gui.setMagnetState(magnetState);
+            prevMagnetState = magnetState;
+          }
+          if (lightState != prevLightState) {
+            gui.setLightState(lightState);
+            prevLightState = lightState;
+          }
+          if (cupState != prevCupState) {
+            gui.setCupState(cupState);
+            prevCupState = cupState;
+          }
+
+          try {
+            if (!firstLoop) {
+              if (!joyA.buttons[0] && prevController[0].buttons[0]) {
+                gui.takeScreenshot();
+              }
+            }
+          } catch (ArrayIndexOutOfBoundsException | NullPointerException ignored) {
+          }
+
+          prevController[0] = joyA;
+          prevController[1] = joyB;
+          if (firstLoop) {
+            firstLoop = false;
+          }
         }
-        try {
-          sleep(20);
-        } catch (InterruptedException e) {
-          e.printStackTrace();
-        }
+      } catch (Exception e) {
+        GeneralError.display();
+        System.exit(41673786);
       }
     }
   }
