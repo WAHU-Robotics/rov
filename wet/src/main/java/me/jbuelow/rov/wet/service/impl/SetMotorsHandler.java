@@ -5,6 +5,8 @@ package me.jbuelow.rov.wet.service.impl;
 
 import com.pi4j.io.i2c.I2CFactory.UnsupportedBusNumberException;
 import java.util.Objects;
+import javax.annotation.PostConstruct;
+import javax.validation.constraints.Null;
 import lombok.extern.slf4j.Slf4j;
 import me.jbuelow.rov.common.MotorPower;
 import me.jbuelow.rov.common.Response;
@@ -12,6 +14,7 @@ import me.jbuelow.rov.common.SetMotors;
 import me.jbuelow.rov.common.SetMotorsResponse;
 import me.jbuelow.rov.wet.service.CommandHandler;
 import me.jbuelow.rov.wet.vehicle.hardware.PCA9685;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -22,17 +25,24 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class SetMotorsHandler implements CommandHandler<SetMotors> {
 
+  @Autowired
   PCA9685 driver;
 
-  public SetMotorsHandler() {
+  public SetMotorsHandler() {}
+
+  @PostConstruct
+  public void init() {
     try {
       if (Objects.equals(System.getenv("ROV_NOPI4J"), "true")) {
         driver = null;
       } else {
-        driver = new PCA9685();
-        driver.setPWMFreq(60);
+        try {
+          driver.setPWMFreq(60);
+        } catch (NullPointerException e) {
+          e.printStackTrace();
+        }
       }
-    } catch (UnsupportedBusNumberException | UnsatisfiedLinkError e) {
+    } catch (UnsatisfiedLinkError e) {
       e.printStackTrace();
     }
   }
@@ -45,9 +55,10 @@ public class SetMotorsHandler implements CommandHandler<SetMotors> {
     try {
       log.debug("Got Set Motors Command!");
       for (MotorPower motor : command.getPowerLevels()) {
-        log.info("Motor " + motor.getId() + " power: " + motor.getPower());
+        //log.debug("Motor " + motor.getId() + " power: " + motor.getPower());
         float p = convertToPulse(motor.getPower());
-        log.info("Motor " + motor.getId() + " pulse: " + p);
+        //log.debug("Motor " + motor.getId() + " pulse: " + p);
+        //heck
         try {
           driver.setServoPulse(motor.getId(), p);
         } catch (NullPointerException ignored) {

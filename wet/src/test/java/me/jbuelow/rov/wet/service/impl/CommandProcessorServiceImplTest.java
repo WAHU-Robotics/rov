@@ -23,6 +23,7 @@ import me.jbuelow.rov.common.SystemStats;
 import me.jbuelow.rov.common.VehicleCapabilities;
 import me.jbuelow.rov.wet.service.CommandProcessorService;
 import me.jbuelow.rov.wet.vehicle.VehicleConfiguration;
+import me.jbuelow.rov.wet.vehicle.hardware.PCA9685;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -41,6 +42,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @Import({CommandProcessorServiceImpl.class, PingHandler.class, GetCapabilitiesHandler.class, SetMotorsHandler.class})
 public class CommandProcessorServiceImplTest {
   private static boolean firstTest = true;
+
+  @MockBean
+  private PCA9685 pcaDriver;
 
   @SpyBean
   private PingHandler pingHandler;

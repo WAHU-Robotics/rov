@@ -95,4 +95,27 @@ public class GeneralError extends JDialog {
     dialog.setVisible(true);
   }
 
+  public static void display(ErrorIcon icon) {
+    GeneralError dialog = new GeneralError();
+    dialog.setMessageIcon(icon);
+    dialog.pack();
+    dialog.setLocationRelativeTo(null);
+    dialog.setVisible(true);
+  }
+
+  public static void display() {
+    GeneralError dialog = new GeneralError();
+    dialog.pack();
+    dialog.setLocationRelativeTo(null);
+    dialog.setVisible(true);
+  }
+
+  public static void display(String message) {
+    GeneralError dialog = new GeneralError();
+    dialog.setMessage(message);
+    dialog.pack();
+    dialog.setLocationRelativeTo(null);
+    dialog.setVisible(true);
+  }
+
 }
