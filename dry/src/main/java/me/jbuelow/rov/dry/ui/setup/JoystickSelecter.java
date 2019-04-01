@@ -18,10 +18,12 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import javax.swing.UIManager;
+import me.jbuelow.rov.dry.ui.CloseApplicationConfirmation;
 import me.jbuelow.rov.dry.ui.error.ErrorIcon;
 import me.jbuelow.rov.dry.ui.error.GeneralError;
 import net.java.games.input.Controller;
@@ -115,7 +117,7 @@ public class JoystickSelecter extends JDialog {
 
   private void onCancel() {
     // add your code here if necessary
-    System.exit(0);
+    CloseApplicationConfirmation.requestExit();
   }
 
   public Controller[] getSelection() {

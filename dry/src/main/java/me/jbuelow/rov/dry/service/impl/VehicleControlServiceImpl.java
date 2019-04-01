@@ -15,8 +15,6 @@ import me.jbuelow.rov.common.Response;
 import me.jbuelow.rov.common.VehicleCapabilities;
 import me.jbuelow.rov.dry.discovery.VehicleDiscoveryEvent;
 import me.jbuelow.rov.dry.service.VehicleControlService;
-import me.jbuelow.rov.dry.ui.setup.ConnectionIdler;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 
@@ -29,9 +27,6 @@ import org.springframework.stereotype.Service;
 public class VehicleControlServiceImpl implements VehicleControlService {
 
   private Map<UUID, ControllHandler> handlers = new HashMap<>(2);
-
-  @Autowired
-  private ConnectionIdler connectionIdler;
 
   /* (non-Javadoc)
    * @see VehicleControlService#activeConnections()
@@ -78,7 +73,6 @@ public class VehicleControlServiceImpl implements VehicleControlService {
   public void handleVehicleDiscovery(VehicleDiscoveryEvent event) {
     log.info("Handling vehicle attatchment.");
     try {
-      connectionIdler.close();
       ControllHandler handler = new ControllHandler(event.getVehicleAddress());
 
       handlers.put(handler.getId(), handler);

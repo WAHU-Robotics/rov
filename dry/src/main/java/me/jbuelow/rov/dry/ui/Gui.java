@@ -77,12 +77,7 @@ public class Gui extends JFrame implements ApplicationContextAware {
     setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
     addWindowListener(new WindowAdapter() {
       public void windowClosing(WindowEvent e) {
-        int i = JOptionPane
-            .showConfirmDialog(null, "Close application?", "", JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE);
-        if (i == 0) {
-          System.exit(0);
-        }
+        CloseApplicationConfirmation.requestExit();
       }
     });
 

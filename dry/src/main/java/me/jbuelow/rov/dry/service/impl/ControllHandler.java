@@ -12,11 +12,9 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import javax.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import me.jbuelow.rov.common.Command;
 import me.jbuelow.rov.common.GetCapabilities;
-import me.jbuelow.rov.common.GetSystemStats;
 import me.jbuelow.rov.common.OpenVideo;
 import me.jbuelow.rov.common.Response;
 import me.jbuelow.rov.common.RovConstants;
@@ -29,12 +27,9 @@ import me.jbuelow.rov.dry.controller.PolledValues;
 import me.jbuelow.rov.dry.external.Mplayer;
 import me.jbuelow.rov.dry.ui.Gui;
 import me.jbuelow.rov.dry.ui.error.GeneralError;
-import me.jbuelow.rov.dry.ui.setup.ConnectionIdler;
 import net.java.games.input.Component;
 import net.java.games.input.Controller;
 import org.apache.commons.io.IOUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 /**
  * @author Jacob Buelow

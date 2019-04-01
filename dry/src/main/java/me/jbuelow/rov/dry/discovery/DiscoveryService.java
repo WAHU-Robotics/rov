@@ -14,7 +14,6 @@ import me.jbuelow.rov.common.RovConstants;
 import me.jbuelow.rov.dry.ui.setup.ConnectionIdler;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.DisposableBean;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.event.EventListener;
@@ -74,6 +73,8 @@ public class DiscoveryService implements DisposableBean {
     public void run() {
       DatagramSocket socketIn = null;
 
+      ConnectionIdler connectionIdler = new ConnectionIdler();
+
       try {
         socketIn = new DatagramSocket(RovConstants.DISCOVERY_BCAST_PORT);
         socketIn.setSoTimeout(SOCKET_READ_TIMEOUT);
@@ -90,6 +91,7 @@ public class DiscoveryService implements DisposableBean {
 
             if (Arrays.equals(data.getData(), RovConstants.DISCOVERY_BYTES)) {
               //We found a controller!
+              connectionIdler.close();
               eventPublisher.publishEvent(new VehicleDiscoveryEvent(this, data.getAddress()));
               log.debug("Setting vehicle address to " + data.getAddress().toString());
             }
