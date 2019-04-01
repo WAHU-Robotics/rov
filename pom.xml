@@ -50,6 +50,5 @@
     <module>common</module>
     <module>wet</module>
     <module>dry</module>
-    <module>moist</module>
   </modules>
 </project>
