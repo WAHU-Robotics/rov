@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
-import me.jbuelow.rov.common.Command;
+import me.jbuelow.rov.common.command.Command;
 import me.jbuelow.rov.common.RovConstants;
 import me.jbuelow.rov.wet.service.CommandProcessorService;
 import org.apache.commons.io.IOUtils;

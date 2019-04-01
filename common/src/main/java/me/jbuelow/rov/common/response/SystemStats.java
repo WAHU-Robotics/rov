@@ -1,7 +1,7 @@
 /**
  *
  */
-package me.jbuelow.rov.common;
+package me.jbuelow.rov.common.response;
 
 import java.util.Map;
 import java.util.Properties;

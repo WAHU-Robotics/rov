@@ -5,13 +5,11 @@ package me.jbuelow.rov.wet.service.impl;
 
 import java.io.IOException;
 import java.net.InetAddress;
-import java.net.NetworkInterface;
-import java.net.SocketException;
 import java.net.UnknownHostException;
 import lombok.extern.slf4j.Slf4j;
-import me.jbuelow.rov.common.OpenVideo;
-import me.jbuelow.rov.common.Response;
-import me.jbuelow.rov.common.VideoStreamAddress;
+import me.jbuelow.rov.common.command.OpenVideo;
+import me.jbuelow.rov.common.response.Response;
+import me.jbuelow.rov.common.response.VideoStreamAddress;
 import me.jbuelow.rov.wet.service.CommandHandler;
 import org.springframework.stereotype.Service;
 import uk.co.caprica.vlcj.discovery.NativeDiscovery;

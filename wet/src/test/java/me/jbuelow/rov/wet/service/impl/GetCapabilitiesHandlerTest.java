@@ -15,9 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import me.jbuelow.rov.common.GetCapabilities;
-import me.jbuelow.rov.common.Response;
-import me.jbuelow.rov.common.VehicleCapabilities;
+import me.jbuelow.rov.common.command.GetCapabilities;
+import me.jbuelow.rov.common.response.Response;
+import me.jbuelow.rov.common.response.VehicleCapabilities;
 import me.jbuelow.rov.common.capabilities.Capability;
 import me.jbuelow.rov.wet.vehicle.AccessoryConfig;
 import me.jbuelow.rov.wet.vehicle.MotorConfig;
@@ -40,7 +40,7 @@ public class GetCapabilitiesHandlerTest {
   GetCapabilitiesHandler handler;
 
   /**
-   * Test method for {@link me.jbuelow.rov.wet.service.impl.GetCapabilitiesHandler#execute(me.jbuelow.rov.common.GetCapabilities)}.
+   * Test method for {@link me.jbuelow.rov.wet.service.impl.GetCapabilitiesHandler#execute(GetCapabilities)}.
    */
   @Test
   public void testExecute() {

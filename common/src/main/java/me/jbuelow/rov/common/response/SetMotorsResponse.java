@@ -1,7 +1,6 @@
-package me.jbuelow.rov.common;
+package me.jbuelow.rov.common.response;
 
 import lombok.Getter;
-import lombok.Setter;
 
 public class SetMotorsResponse extends Response {
 

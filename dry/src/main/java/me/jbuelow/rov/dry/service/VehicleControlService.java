@@ -4,9 +4,9 @@
 package me.jbuelow.rov.dry.service;
 
 import java.util.List;
-import me.jbuelow.rov.common.Command;
-import me.jbuelow.rov.common.Response;
-import me.jbuelow.rov.common.VehicleCapabilities;
+import me.jbuelow.rov.common.command.Command;
+import me.jbuelow.rov.common.response.Response;
+import me.jbuelow.rov.common.response.VehicleCapabilities;
 
 /**
  * @author Jacob Buelow

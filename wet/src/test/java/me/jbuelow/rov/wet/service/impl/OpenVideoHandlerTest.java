@@ -1,5 +1,6 @@
 package me.jbuelow.rov.wet.service.impl;
 
+import me.jbuelow.rov.common.command.OpenVideo;
 import org.junit.Before;
 
 /**
@@ -16,7 +17,7 @@ public class OpenVideoHandlerTest {
   }
 
   /**
-   * Test method for {@link OpenVideoHandler#execute(me.jbuelow.rov.common.OpenVideo)}.
+   * Test method for {@link OpenVideoHandler#execute(OpenVideo)}.
    *//*
   @Test
   public void testExecute() {

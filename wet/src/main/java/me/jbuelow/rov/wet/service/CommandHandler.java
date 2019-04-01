@@ -3,8 +3,8 @@
  */
 package me.jbuelow.rov.wet.service;
 
-import me.jbuelow.rov.common.Command;
-import me.jbuelow.rov.common.Response;
+import me.jbuelow.rov.common.command.Command;
+import me.jbuelow.rov.common.response.Response;
 
 /**
  * @author Jacob Buelow

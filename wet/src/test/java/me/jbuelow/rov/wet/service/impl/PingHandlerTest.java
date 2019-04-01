@@ -8,9 +8,9 @@ import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-import me.jbuelow.rov.common.Ping;
-import me.jbuelow.rov.common.Pong;
-import me.jbuelow.rov.common.Response;
+import me.jbuelow.rov.common.command.Ping;
+import me.jbuelow.rov.common.response.Pong;
+import me.jbuelow.rov.common.response.Response;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -27,7 +27,7 @@ public class PingHandlerTest {
   }
   
   /**
-   * Test method for {@link me.jbuelow.rov.wet.service.impl.PingHandler#execute(me.jbuelow.rov.common.Ping)}.
+   * Test method for {@link me.jbuelow.rov.wet.service.impl.PingHandler#execute(Ping)}.
    */
   @Test
   public void testExecute() {

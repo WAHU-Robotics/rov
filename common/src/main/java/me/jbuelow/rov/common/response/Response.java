@@ -1,12 +1,13 @@
 /**
  *
  */
-package me.jbuelow.rov.common;
+package me.jbuelow.rov.common.response;
 
 import java.io.Serializable;
 import java.time.Instant;
 import lombok.Getter;
 import lombok.Setter;
+import me.jbuelow.rov.common.command.Command;
 
 /**
  * @author Jacob Buelow

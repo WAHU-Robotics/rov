@@ -3,15 +3,13 @@
  */
 package me.jbuelow.rov.wet.service.impl;
 
-import com.pi4j.io.i2c.I2CFactory.UnsupportedBusNumberException;
 import java.util.Objects;
 import javax.annotation.PostConstruct;
-import javax.validation.constraints.Null;
 import lombok.extern.slf4j.Slf4j;
 import me.jbuelow.rov.common.MotorPower;
-import me.jbuelow.rov.common.Response;
-import me.jbuelow.rov.common.SetMotors;
-import me.jbuelow.rov.common.SetMotorsResponse;
+import me.jbuelow.rov.common.response.Response;
+import me.jbuelow.rov.common.command.SetMotors;
+import me.jbuelow.rov.common.response.SetMotorsResponse;
 import me.jbuelow.rov.wet.service.CommandHandler;
 import me.jbuelow.rov.wet.vehicle.hardware.PCA9685;
 import org.springframework.beans.factory.annotation.Autowired;

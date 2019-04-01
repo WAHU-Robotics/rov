@@ -8,9 +8,9 @@ import static org.junit.Assert.assertThat;
 import java.time.Instant;
 import java.util.Map;
 import java.util.Properties;
-import me.jbuelow.rov.common.GetSystemStats;
-import me.jbuelow.rov.common.Response;
-import me.jbuelow.rov.common.SystemStats;
+import me.jbuelow.rov.common.command.GetSystemStats;
+import me.jbuelow.rov.common.response.Response;
+import me.jbuelow.rov.common.response.SystemStats;
 import org.junit.Before;
 import org.junit.Test;
 

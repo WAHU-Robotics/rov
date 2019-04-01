@@ -7,9 +7,9 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import me.jbuelow.rov.common.GetSystemStats;
-import me.jbuelow.rov.common.Response;
-import me.jbuelow.rov.common.SystemStats;
+import me.jbuelow.rov.common.command.GetSystemStats;
+import me.jbuelow.rov.common.response.Response;
+import me.jbuelow.rov.common.response.SystemStats;
 import me.jbuelow.rov.wet.service.CommandHandler;
 import org.springframework.stereotype.Service;
 

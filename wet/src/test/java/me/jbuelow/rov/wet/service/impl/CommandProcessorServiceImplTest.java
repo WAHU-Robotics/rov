@@ -12,15 +12,15 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
-import me.jbuelow.rov.common.Command;
-import me.jbuelow.rov.common.GetCapabilities;
-import me.jbuelow.rov.common.GetSystemStats;
-import me.jbuelow.rov.common.Ping;
-import me.jbuelow.rov.common.Pong;
-import me.jbuelow.rov.common.SetMotors;
-import me.jbuelow.rov.common.SetMotorsResponse;
-import me.jbuelow.rov.common.SystemStats;
-import me.jbuelow.rov.common.VehicleCapabilities;
+import me.jbuelow.rov.common.command.Command;
+import me.jbuelow.rov.common.command.GetCapabilities;
+import me.jbuelow.rov.common.command.GetSystemStats;
+import me.jbuelow.rov.common.command.Ping;
+import me.jbuelow.rov.common.response.Pong;
+import me.jbuelow.rov.common.command.SetMotors;
+import me.jbuelow.rov.common.response.SetMotorsResponse;
+import me.jbuelow.rov.common.response.SystemStats;
+import me.jbuelow.rov.common.response.VehicleCapabilities;
 import me.jbuelow.rov.wet.service.CommandProcessorService;
 import me.jbuelow.rov.wet.vehicle.VehicleConfiguration;
 import me.jbuelow.rov.wet.vehicle.hardware.PCA9685;
@@ -82,7 +82,7 @@ public class CommandProcessorServiceImplTest {
   }
 
   /**
-   * Test method for {@link me.jbuelow.rov.wet.service.impl.CommandProcessorServiceImpl#handleCommand(me.jbuelow.rov.common.Command)}.
+   * Test method for {@link me.jbuelow.rov.wet.service.impl.CommandProcessorServiceImpl#handleCommand(Command)}.
    */
   @Test
   public void testHandleCommandPing() {
@@ -91,7 +91,7 @@ public class CommandProcessorServiceImplTest {
   }
 
   /**
-   * Test method for {@link me.jbuelow.rov.wet.service.impl.CommandProcessorServiceImpl#handleCommand(me.jbuelow.rov.common.Command)}.
+   * Test method for {@link me.jbuelow.rov.wet.service.impl.CommandProcessorServiceImpl#handleCommand(Command)}.
    */
   @Test
   public void testHandleCommandGetCapabilities() {
@@ -100,7 +100,7 @@ public class CommandProcessorServiceImplTest {
   }
 
   /**
-   * Test method for {@link me.jbuelow.rov.wet.service.impl.CommandProcessorServiceImpl#handleCommand(me.jbuelow.rov.common.Command)}.
+   * Test method for {@link me.jbuelow.rov.wet.service.impl.CommandProcessorServiceImpl#handleCommand(Command)}.
    */
   @Test
   public void testHandleCommandSetMotors() {
@@ -110,7 +110,7 @@ public class CommandProcessorServiceImplTest {
   }
 
   /**
-   * Test method for {@link me.jbuelow.rov.wet.service.impl.CommandProcessorServiceImpl#handleCommand(me.jbuelow.rov.common.Command)}.
+   * Test method for {@link me.jbuelow.rov.wet.service.impl.CommandProcessorServiceImpl#handleCommand(Command)}.
    */
   @Test(expected=IllegalArgumentException.class)
   public void testHandleCommandInvalid() {
@@ -124,7 +124,7 @@ public class CommandProcessorServiceImplTest {
   }
 
   /**
-   * Test method for {@link me.jbuelow.rov.wet.service.impl.CommandProcessorServiceImpl#handleCommand(me.jbuelow.rov.common.Command)}.
+   * Test method for {@link me.jbuelow.rov.wet.service.impl.CommandProcessorServiceImpl#handleCommand(Command)}.
    */
   @Test
   public void testHandleCommandGetSystemStats() {

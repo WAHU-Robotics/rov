@@ -1,7 +1,7 @@
 /**
  *
  */
-package me.jbuelow.rov.common;
+package me.jbuelow.rov.common.command;
 
 import java.io.Serializable;
 

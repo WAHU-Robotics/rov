@@ -1,7 +1,9 @@
 /**
  *
  */
-package me.jbuelow.rov.common;
+package me.jbuelow.rov.common.response;
+
+import me.jbuelow.rov.common.response.Response;
 
 /**
  * @author Jacob Buelow

@@ -4,9 +4,9 @@
 package me.jbuelow.rov.wet.service.impl;
 
 import java.util.Random;
-import me.jbuelow.rov.common.Ping;
-import me.jbuelow.rov.common.Pong;
-import me.jbuelow.rov.common.Response;
+import me.jbuelow.rov.common.command.Ping;
+import me.jbuelow.rov.common.response.Pong;
+import me.jbuelow.rov.common.response.Response;
 import me.jbuelow.rov.wet.service.CommandHandler;
 import org.springframework.stereotype.Service;
 
