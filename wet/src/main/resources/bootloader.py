@@ -4,6 +4,8 @@ import subprocess
 import os
 import os, fnmatch
 
+#this is what we call "ghetto code"
+
 print("Starting ROV updater...")
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(26, GPIO.IN, pull_up_down=GPIO.PUD_UP)

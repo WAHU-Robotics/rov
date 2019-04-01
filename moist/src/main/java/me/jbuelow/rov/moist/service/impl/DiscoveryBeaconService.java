@@ -1,7 +1,7 @@
 /**
  *
  */
-package me.jbuelow.rov.wet.service.impl;
+package me.jbuelow.rov.moist.service.impl;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -13,9 +13,7 @@ import java.net.SocketException;
 import java.util.Enumeration;
 import lombok.extern.slf4j.Slf4j;
 import me.jbuelow.rov.common.RovConstants;
-import me.jbuelow.rov.wet.vehicle.hardware.PCA9685;
 import org.apache.commons.io.IOUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -27,9 +25,6 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 public class DiscoveryBeaconService {
-
-  @Autowired
-  PCA9685 pcaDriver;
 
   private static final long BEACON_INTERVAL = 10000; // Ten seconds
   private boolean sendBeacon = true;
@@ -67,16 +62,6 @@ public class DiscoveryBeaconService {
 
   @EventListener
   public void controllerDisconnec(ControllerDisconnectedEvent event) {
-    log.debug("REEEEEEEEEEEEEEE");
-    log.info("Controller Disconnected! Failsafing motors...");
-    try {
-      pcaDriver.setServoPulse(0, 0f);
-      pcaDriver.setServoPulse(1, 0f);
-      pcaDriver.setServoPulse(2, 0f);
-      pcaDriver.setServoPulse(3, 0f);
-      pcaDriver.setServoPulse(4, 0f);
-      pcaDriver.setServoPulse(5, 0f);
-    } catch (NullPointerException e) {}
     sendBeacon = true;
   }
 

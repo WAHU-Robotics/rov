@@ -12,6 +12,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import javax.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import me.jbuelow.rov.common.Command;
 import me.jbuelow.rov.common.GetCapabilities;
@@ -28,9 +29,12 @@ import me.jbuelow.rov.dry.controller.PolledValues;
 import me.jbuelow.rov.dry.external.Mplayer;
 import me.jbuelow.rov.dry.ui.Gui;
 import me.jbuelow.rov.dry.ui.error.GeneralError;
+import me.jbuelow.rov.dry.ui.setup.ConnectionIdler;
 import net.java.games.input.Component;
 import net.java.games.input.Controller;
 import org.apache.commons.io.IOUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * @author Jacob Buelow
@@ -53,13 +57,14 @@ public class ControllHandler implements Closeable {
     out = new ObjectOutputStream(vehicleSocket.getOutputStream());
     in = new ObjectInputStream(vehicleSocket.getInputStream());
 
+
     //Get Capabilities
     capabilities = (VehicleCapabilities) sendCommand(new GetCapabilities());
     video = (VideoStreamAddress) sendCommand(
         new OpenVideo(vehicleAddress)); //Test my own crappy command
 
     control = new Control();
-    log.debug("/\\ Chances are thats an error there"); //It still works on my machine so i dont care
+    //log.debug("/\\ Chances are thats an error there"); //It still works on my machine so i dont care
     Controller[] ca = control.getFoundControllers();
     log.info("There are " + ca.length + " controllers detected");
 
@@ -84,6 +89,7 @@ public class ControllHandler implements Closeable {
       loop.run();
     } catch (Exception e) {
       //Catch-all for loop exceptions
+      e.printStackTrace();
       GeneralError.display();
       System.exit(69420); //kms
     }
@@ -188,6 +194,7 @@ public class ControllHandler implements Closeable {
           }
         }
       } catch (Exception e) {
+        e.printStackTrace();
         GeneralError.display();
         System.exit(41673786);
       }

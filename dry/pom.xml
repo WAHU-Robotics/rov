@@ -46,6 +46,36 @@
       <artifactId>forms_rt</artifactId>
       <version>5.0</version>
     </dependency>
+    <dependency>
+      <groupId>com.jinput</groupId>
+      <artifactId>dx8</artifactId>
+      <type>dll</type>
+      <version>1</version>
+    </dependency>
+    <dependency>
+      <groupId>com.jinput</groupId>
+      <artifactId>dx8_64</artifactId>
+      <type>dll</type>
+      <version>1</version>
+    </dependency>
+    <dependency>
+      <groupId>com.jinput</groupId>
+      <artifactId>raw</artifactId>
+      <type>dll</type>
+      <version>1</version>
+    </dependency>
+    <dependency>
+      <groupId>com.jinput</groupId>
+      <artifactId>raw_64</artifactId>
+      <type>dll</type>
+      <version>1</version>
+    </dependency>
+    <dependency>
+      <groupId>com.jinput</groupId>
+      <artifactId>wintab</artifactId>
+      <type>dll</type>
+      <version>1</version>
+    </dependency>
   </dependencies>
 
   <build>
@@ -77,6 +107,24 @@
           <debug>true</debug>
           <failOnError>true</failOnError>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <version>2.1.2.RELEASE</version>
+        <configuration>
+          <jvmArguments>
+            -splash:src/main/resources/splash.gif
+            -Djava.awt.headless=false
+          </jvmArguments>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>repackage</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>

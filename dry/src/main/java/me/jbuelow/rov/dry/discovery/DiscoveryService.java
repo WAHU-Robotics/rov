@@ -11,8 +11,10 @@ import java.util.Arrays;
 import java.util.concurrent.ExecutorService;
 import lombok.extern.slf4j.Slf4j;
 import me.jbuelow.rov.common.RovConstants;
+import me.jbuelow.rov.dry.ui.setup.ConnectionIdler;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.DisposableBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.event.EventListener;
@@ -48,6 +50,7 @@ public class DiscoveryService implements DisposableBean {
 
   private void startService() {
     log.debug("Starting Discovery Service");
+
     synchronized (this) {
       listener = new DiscoveryListener();
       executorService.execute(listener);
@@ -64,6 +67,8 @@ public class DiscoveryService implements DisposableBean {
     private static final long SLEEP_TIME = 1000;
     private static final int SOCKET_READ_TIMEOUT = 100;
     private volatile boolean running = true;
+
+
 
     @Override
     public void run() {

@@ -96,6 +96,8 @@ public class JoystickSelecter extends JDialog {
     pack();
     setLocationRelativeTo(null);
     setVisible(true);
+    toFront();
+    requestFocus();
   }
 
   private void onOK() {

@@ -31,6 +31,7 @@ import me.jbuelow.rov.dry.controller.PolledValues;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.util.ResourceUtils;
@@ -80,7 +81,7 @@ public class Gui extends JFrame implements ApplicationContextAware {
             .showConfirmDialog(null, "Close application?", "", JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE);
         if (i == 0) {
-          System.exit(0); //commit self deletus
+          System.exit(0);
         }
       }
     });
