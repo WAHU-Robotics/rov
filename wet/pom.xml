@@ -6,7 +6,7 @@
   <parent>
     <groupId>me.jbuelow.rov</groupId>
     <artifactId>rov</artifactId>
-    <version>LATEST</version>
+    <version>${revision}</version>
   </parent>
 
   <artifactId>wet</artifactId>
