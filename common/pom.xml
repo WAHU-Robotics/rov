@@ -8,4 +8,7 @@
     <version>${revision}</version>
   </parent>
   <artifactId>common</artifactId>
+  <build>
+    <finalName>${project.artifactId}</finalName>
+  </build>
 </project>
