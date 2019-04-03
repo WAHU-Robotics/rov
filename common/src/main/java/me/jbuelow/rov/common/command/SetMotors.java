@@ -9,8 +9,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import me.jbuelow.rov.common.MotorPower;
-import me.jbuelow.rov.common.command.Command;
+import me.jbuelow.rov.common.object.MotorPower;
 
 /**
  * @author Jacob Buelow
