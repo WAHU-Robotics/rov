@@ -13,6 +13,9 @@ import java.util.List;
 import me.jbuelow.rov.common.object.MotorPower;
 import me.jbuelow.rov.common.command.SetMotors;
 
+/**
+ * Handles much of the logic behind getting controller input and calculating motor power
+ */
 public class ControlLogic {
 
   public static SetMotors genMotorValues(PolledValues controllerValues) {

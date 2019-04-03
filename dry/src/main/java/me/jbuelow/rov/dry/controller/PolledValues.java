@@ -8,6 +8,9 @@ import net.java.games.input.Component.Identifier;
 import net.java.games.input.Component.Identifier.Axis;
 import net.java.games.input.Controller;
 
+/**
+ * Object for transfer and mapping of input values
+ */
 public class PolledValues {
 
   public int x = 0;

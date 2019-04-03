@@ -19,6 +19,9 @@ import net.java.games.input.ControllerEnvironment;
 import net.java.games.input.EventQueue;
 import net.java.games.input.Rumbler;
 
+/**
+ * Handles assigning joysticks and retrieving values
+ */
 @Slf4j
 public class Control {
 

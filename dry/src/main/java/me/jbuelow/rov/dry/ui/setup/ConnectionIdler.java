@@ -16,6 +16,9 @@ import me.jbuelow.rov.dry.ui.CloseApplicationConfirmation;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.stereotype.Component;
 
+/**
+ * Displays a brief animation while awaiting a connection from wet side
+ */
 public class ConnectionIdler extends JFrame {
 
   private JPanel contentPane;
