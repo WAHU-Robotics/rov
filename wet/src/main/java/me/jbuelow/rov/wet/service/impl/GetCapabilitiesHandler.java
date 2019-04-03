@@ -42,8 +42,12 @@ public class GetCapabilitiesHandler implements CommandHandler<GetCapabilities> {
     return capabilities;
   }
 
-  /* (non-Javadoc)
-   * @see net.wachsmuths.rov.service.CommandHandler#execute(Command)
+
+  /**
+   * Handles the GetCapabilities command
+   *
+   * @param command GetCapabilities instance
+   * @return Capabilities instance
    */
   @Override
   public Response execute(GetCapabilities command) {
@@ -51,8 +55,11 @@ public class GetCapabilitiesHandler implements CommandHandler<GetCapabilities> {
     return response;
   }
 
-  /* (non-Javadoc)
-   * @see net.wachsmuths.rov.service.CommandHandler#getCommandType()
+
+  /**
+   * Gives the class of the command this handler is supposed to handle
+   *
+   * @return class instance of GetCapabilities
    */
   @Override
   public Class<GetCapabilities> getCommandType() {

@@ -17,8 +17,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class PingHandler implements CommandHandler<Ping> {
 
-  /* (non-Javadoc)
-   * @see net.wachsmuths.rov.service.CommandHandler#execute(Command)
+  /**
+   * Handles the Ping command
+   *
+   * @param command Ping instance
+   * @return Pong instance
    */
   @Override
   public Response execute(Ping command) {
@@ -27,8 +30,11 @@ public class PingHandler implements CommandHandler<Ping> {
     return response;
   }
 
-  /* (non-Javadoc)
-   * @see net.wachsmuths.rov.service.CommandHandler#getCommandType()
+
+  /**
+   * Gives the class of the command this handler is supposed to handle
+   *
+   * @return class instance of Ping
    */
   @Override
   public Class<Ping> getCommandType() {

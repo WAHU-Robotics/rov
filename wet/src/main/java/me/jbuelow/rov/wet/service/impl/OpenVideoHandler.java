@@ -22,8 +22,12 @@ import uk.co.caprica.vlcj.discovery.NativeDiscovery;
 @Slf4j
 public class OpenVideoHandler implements CommandHandler<OpenVideo> {
 
-  /* (non-Javadoc)
-   * @see me.jbuelow.rov.service.CommandHandler#execute(Command)
+
+  /**
+   * Handles the OpenVideo command
+   *
+   * @param command OpenVideo instance
+   * @return VideoStreamAddress instance
    */
   @Override
   public Response execute(OpenVideo command) {
@@ -71,8 +75,11 @@ public class OpenVideoHandler implements CommandHandler<OpenVideo> {
     return response;
   }
 
-  /* (non-Javadoc)
-   * @see me.jbuelow.rov.service.CommandHandler#getCommandType()
+
+  /**
+   * Gives the class of the command this handler is supposed to handle
+   *
+   * @return class instance of OpenVideo
    */
   @Override
   public Class<OpenVideo> getCommandType() {

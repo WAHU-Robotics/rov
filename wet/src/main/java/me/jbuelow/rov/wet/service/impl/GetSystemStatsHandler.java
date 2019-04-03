@@ -20,8 +20,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class GetSystemStatsHandler implements CommandHandler<GetSystemStats> {
 
-  /* (non-Javadoc)
-   * @see net.wachsmuths.rov.service.CommandHandler#execute(Command)
+
+  /**
+   * Handles the GetSystemStats command
+   *
+   * @param command GetSystemStats instance
+   * @return SystemStats instance
    */
   @Override
   public Response execute(GetSystemStats command) {
@@ -51,8 +55,11 @@ public class GetSystemStatsHandler implements CommandHandler<GetSystemStats> {
     return response;
   }
 
-  /* (non-Javadoc)
-   * @see net.wachsmuths.rov.service.CommandHandler#getCommandType()
+
+  /**
+   * Gives the class of the command this handler is supposed to handle
+   *
+   * @return class instance of GetSystemStats
    */
   @Override
   public Class<GetSystemStats> getCommandType() {

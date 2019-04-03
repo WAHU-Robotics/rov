@@ -30,16 +30,24 @@ public class VehicleControlServiceImpl implements VehicleControlService {
 
   private Map<UUID, ControllHandler> handlers = new HashMap<>(2);
 
-  /* (non-Javadoc)
-   * @see VehicleControlService#activeConnections()
+
+  /**
+   * Checks to see if there are any active connections to the controller
+   *
+   * @return true if there are active connections
    */
   @Override
   public boolean activeConnections() {
     return handlers.size() > 0;
   }
 
-  /* (non-Javadoc)
-   * @see VehicleControlService#sendCommand(int, Command)
+
+  /**
+   * Sends a command to a vehicle
+   *
+   * @param vehicleId Id of vehicle to send command to
+   * @param command Command to send
+   * @return Received response
    */
   @Override
   public Response sendCommand(int vehicleId, Command command) {
@@ -57,8 +65,10 @@ public class VehicleControlServiceImpl implements VehicleControlService {
     }
   }
 
-  /* (non-Javadoc)
-   * @see VehicleControlService#getAttatchedVehicles()
+  /**
+   * Gets a list of vehicles attached to controller
+   *
+   * @return List of VehicleCapability objects that represent vehicles connected to this controller
    */
   @Override
   public List<VehicleCapabilities> getAttatchedVehicles() {
@@ -71,6 +81,11 @@ public class VehicleControlServiceImpl implements VehicleControlService {
     return capabilities;
   }
 
+  /**
+   * Handles the discovery of a new wetside vehicle
+   *
+   * @param event Event instance
+   */
   @EventListener
   public void handleVehicleDiscovery(VehicleDiscoveryEvent event) {
     log.info("Handling vehicle attatchment.");
