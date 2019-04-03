@@ -1,7 +1,7 @@
 /**
  *
  */
-package me.jbuelow.rov.common;
+package me.jbuelow.rov.common.object;
 
 import java.io.Serializable;
 import lombok.EqualsAndHashCode;
@@ -17,10 +17,7 @@ import lombok.ToString;
 @Setter
 @EqualsAndHashCode
 @ToString
-public class MotorPower implements Serializable {
-
-  private static final long serialVersionUID = 2812485476244706951L;
-
+public class MotorPower extends ROVObject {
   private int id;
   private int power;  //percentage; 0=stop, 100=full power forward, -100=full power reverse
 }

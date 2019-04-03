@@ -10,7 +10,7 @@ import static me.jbuelow.rov.dry.controller.VectorMath.motorFrontRight;
 
 import java.util.ArrayList;
 import java.util.List;
-import me.jbuelow.rov.common.MotorPower;
+import me.jbuelow.rov.common.object.MotorPower;
 import me.jbuelow.rov.common.command.SetMotors;
 
 public class ControlLogic {

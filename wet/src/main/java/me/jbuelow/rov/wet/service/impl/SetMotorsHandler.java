@@ -6,7 +6,7 @@ package me.jbuelow.rov.wet.service.impl;
 import java.util.Objects;
 import javax.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
-import me.jbuelow.rov.common.MotorPower;
+import me.jbuelow.rov.common.object.MotorPower;
 import me.jbuelow.rov.common.response.Response;
 import me.jbuelow.rov.common.command.SetMotors;
 import me.jbuelow.rov.common.response.SetMotorsResponse;
