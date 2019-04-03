@@ -24,6 +24,7 @@ import me.jbuelow.rov.common.response.VideoStreamAddress;
 import me.jbuelow.rov.dry.controller.Control;
 import me.jbuelow.rov.dry.controller.ControlLogic;
 import me.jbuelow.rov.dry.controller.PolledValues;
+import me.jbuelow.rov.dry.exception.JinputNativesNotFoundException;
 import me.jbuelow.rov.dry.external.Mplayer;
 import me.jbuelow.rov.dry.ui.Gui;
 import me.jbuelow.rov.dry.ui.error.GeneralError;
@@ -47,7 +48,8 @@ public class ControllHandler implements Closeable {
   private Control control;
   private Mplayer player;
 
-  public ControllHandler(InetAddress vehicleAddress) throws IOException, ClassNotFoundException {
+  public ControllHandler(InetAddress vehicleAddress)
+      throws IOException, ClassNotFoundException, JinputNativesNotFoundException {
     vehicleSocket = new Socket(vehicleAddress, RovConstants.ROV_PORT);
     out = new ObjectOutputStream(vehicleSocket.getOutputStream());
     in = new ObjectInputStream(vehicleSocket.getInputStream());

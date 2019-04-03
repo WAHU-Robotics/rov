@@ -73,6 +73,7 @@ public class DiscoveryService implements DisposableBean {
     public void run() {
       DatagramSocket socketIn = null;
 
+      System.setProperty("java.awt.headless","false");
       ConnectionIdler connectionIdler = new ConnectionIdler();
 
       try {
