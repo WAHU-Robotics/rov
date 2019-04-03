@@ -15,6 +15,7 @@ public class MotorServiceImpl implements MotorService {
   private static final int PWM_FREQUENCY = 60;
 
   private Map<UUID, Motor> motors = new HashMap<>();
+  private Map<String, UUID> motorNames = new HashMap<>();
   
   public MotorServiceImpl(PwmInterface pwmInterface, VehicleConfiguration vehicleConfigurtion) {
     pwmInterface.setPWMFreq(PWM_FREQUENCY);
@@ -23,6 +24,7 @@ public class MotorServiceImpl implements MotorService {
       Motor motor = new Motor(pwmInterface, motorConfig.getPwmPort());
       
       motors.put(motorConfig.getId(), motor);
+      motorNames.put(motorConfig.getName(), motorConfig.getId());
     }
   }
   
@@ -52,5 +54,10 @@ public class MotorServiceImpl implements MotorService {
     }
     
     throw new RuntimeException("Invalid motor Id: " + id);
+  }
+
+  @Override
+  public UUID getMotorByName(String name) {
+    return motorNames.get(name);
   }
 }

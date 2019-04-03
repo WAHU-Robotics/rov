@@ -84,8 +84,12 @@ public class MotionServiceImpl implements MotionService {
    */
   private int getSingleAxisPower(MotorConfig motorConfig, Map<ThrustAxis, Integer> thrustVectors, ThrustAxis thrustAxis) {
     BigDecimal factor = motorConfig.getThrustFactors().get(thrustAxis);
-    BigDecimal magnitude = new BigDecimal(thrustVectors.get(thrustAxis).intValue());
-    BigDecimal powerLevel = factor.multiply(magnitude);
+    Integer magnitude = thrustVectors.get(thrustAxis);
+    
+    if (magnitude == null) {
+      magnitude = Integer.valueOf(0);
+    }
+    BigDecimal powerLevel = factor.multiply(new BigDecimal(magnitude.intValue()));
     
     return powerLevel.setScale(0, RoundingMode.HALF_UP).intValueExact();
   }
@@ -122,7 +126,7 @@ public class MotionServiceImpl implements MotionService {
       ThrustAxis axis = motorAxes.get(index);
       
       if (thrustVectors.containsKey(axis)) {
-        motionVector[index] = thrustVectors.get(axis) * -1 / MAX_POWER_LVL;
+        motionVector[index] = thrustVectors.get(axis) / MAX_POWER_LVL;
       } else {
         motionVector[index] = 0d;
       }
@@ -256,7 +260,7 @@ public class MotionServiceImpl implements MotionService {
     }
     
     if (maxPower > MAX_POWER_LVL) {
-      double powerAdjustmentFactor = MAX_POWER_LVL / maxPower;
+      double powerAdjustmentFactor = (double) MAX_POWER_LVL / (double) maxPower;
       for (Map.Entry<UUID, Integer> powerEntry : powerLevels.entrySet()) {
         int adjustedPower = ((int) (powerEntry.getValue() * powerAdjustmentFactor));
         powerEntry.setValue(adjustedPower);

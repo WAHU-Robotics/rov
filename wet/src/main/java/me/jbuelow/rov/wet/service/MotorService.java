@@ -10,4 +10,6 @@ public interface MotorService {
   void armMotor(UUID id);
   
   boolean isArmed(UUID id);
+  
+  UUID getMotorByName(String name);
 }

@@ -6,7 +6,6 @@ package me.jbuelow.rov.wet.service.impl;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import lombok.extern.slf4j.Slf4j;
 import me.jbuelow.rov.common.command.OpenVideo;
 import me.jbuelow.rov.common.response.Response;
 import me.jbuelow.rov.common.response.VideoStreamAddress;
@@ -19,7 +18,7 @@ import uk.co.caprica.vlcj.discovery.NativeDiscovery;
  * @author Brian Wachsmuth
  */
 @Service
-@Slf4j
+//@Slf4j
 public class OpenVideoHandler implements CommandHandler<OpenVideo> {
 
   /* (non-Javadoc)
