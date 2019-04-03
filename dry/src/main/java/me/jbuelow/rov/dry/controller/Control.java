@@ -1,16 +1,11 @@
 package me.jbuelow.rov.dry.controller;
 
-import java.io.File;
-import java.io.FileFilter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import lombok.Getter;
-import lombok.extern.slf4j.Slf4j;
-import me.jbuelow.rov.dry.exception.JinputNativesNotFoundException;
 import me.jbuelow.rov.dry.ui.setup.JoystickSelecter;
 import net.java.games.input.Component;
 import net.java.games.input.Component.Identifier;
@@ -19,7 +14,6 @@ import net.java.games.input.ControllerEnvironment;
 import net.java.games.input.EventQueue;
 import net.java.games.input.Rumbler;
 
-@Slf4j
 public class Control {
 
   @Getter
@@ -47,54 +41,12 @@ public class Control {
     }
   }
 
-  public Control() throws JinputNativesNotFoundException {
-    ensureAccessToNatives();
+  public Control() {
     refreshList();
   }
 
-  private void ensureAccessToNatives() {
-    String path = System.getProperty("java.library.path");
-    log.debug("Found existing java.library.path var: " + path);
-    File[] directories = getDirectoryCandidates(".");
-    log.debug("Found these candidate directories for dll files: " + directories);
-    StringBuilder addPath = new StringBuilder();
-    for (File directory:directories) {
-      addPath.append(directory.getPath());
-    }
-    String newpath = path + addPath;
-    log.debug("Setting new java.library.path var: " + newpath);
-    System.setProperty("java.library.path", newpath);
-  }
-
-  private File[] getDirectoryCandidates(String pathname) {
-    File file = new File(pathname);
-    final Pattern p = Pattern.compile(".dll$");
-    return file.listFiles(new FileFilter() {
-      @Override
-      public boolean accept(File current) {
-        if (current.isDirectory()) {
-          return Objects.requireNonNull(current.listFiles(new FileFilter() {
-            @Override
-            public boolean accept(File pathname) {
-              return p.matcher(file.getName()).matches();
-            }
-          })).length > 0;
-        } else {
-          return false;
-        }
-      }
-    });
-  }
-
-  private void refreshList() throws JinputNativesNotFoundException {
+  private void refreshList() {
     foundControllers = ControllerEnvironment.getDefaultEnvironment().getControllers();
-
-    if (foundControllers.length == 0) {
-      // We should pretty much always find at least a keyboard or mouse,
-      // so if nothing shows up its safe to assume that the natives are missing
-      // because for some reason jinput doesnt throw any exceptions for this
-      throw new JinputNativesNotFoundException();
-    }
 
     for (Controller c:foundControllers) {
       if (c.getType() == Controller.Type.STICK) {
@@ -108,7 +60,7 @@ public class Control {
     this.secondaryController = selectedControllers.get(1);
   }
 
-  public void promptForControllers() throws JinputNativesNotFoundException {
+  public void promptForControllers() {
     boolean unset = true;
     Object[] def = new Object[2];
     if (selectableControllers.size() <= 0) {
@@ -154,14 +106,14 @@ public class Control {
     }
   }
 
-  private void couldNotPollErrorMessage(Controller c) throws JinputNativesNotFoundException {
+  private void couldNotPollErrorMessage(Controller c) {
     JOptionPane.showMessageDialog(null,
         "Could not poll '" + c.getName() + "'.\nPlease select a different controller.", "Error",
         JOptionPane.ERROR_MESSAGE);
     refreshList();
   }
 
-  public PolledValues getPolledValues(int controller) throws JinputNativesNotFoundException {
+  public PolledValues getPolledValues(int controller) {
     Controller c = selectedControllers.get(controller);
 
     if (!c.poll()) {

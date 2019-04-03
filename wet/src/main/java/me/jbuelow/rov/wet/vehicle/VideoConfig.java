@@ -13,6 +13,10 @@ import me.jbuelow.rov.common.capabilities.Video;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class VideoConfig extends Video implements AccessoryConfig {
+public class VideoConfig extends Video implements AccessoryConfig {@Override
+  public void validateConfigurtion() {
+    // TODO Auto-generated method stub
+    
+  }
 
 }

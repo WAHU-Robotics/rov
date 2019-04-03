@@ -1,6 +1,5 @@
 package me.jbuelow.rov.wet.service.impl;
 
-import me.jbuelow.rov.common.command.OpenVideo;
 import org.junit.Before;
 
 /**
@@ -9,11 +8,11 @@ import org.junit.Before;
  */
 public class OpenVideoHandlerTest {
 
-  private OpenVideoHandler handler;
+  //private OpenVideoHandler handler;
 
   @Before
   public void setup() {
-    handler = new OpenVideoHandler();
+    //handler = new OpenVideoHandler();
   }
 
   /**

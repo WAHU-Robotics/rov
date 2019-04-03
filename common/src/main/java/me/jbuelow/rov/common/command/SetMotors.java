@@ -18,7 +18,7 @@ import me.jbuelow.rov.common.command.Command;
  */
 @Getter
 @Setter
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper=false)
 @ToString
 public class SetMotors extends Command {
 

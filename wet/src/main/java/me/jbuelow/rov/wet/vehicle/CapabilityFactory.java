@@ -3,8 +3,11 @@
  */
 package me.jbuelow.rov.wet.vehicle;
 
+import java.lang.reflect.Constructor;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
+import me.jbuelow.rov.common.capabilities.AbstractCapability;
 import me.jbuelow.rov.common.capabilities.Capability;
 import me.jbuelow.rov.common.capabilities.Motor;
 import me.jbuelow.rov.common.capabilities.Servo;
@@ -16,7 +19,7 @@ import org.springframework.beans.BeanUtils;
  */
 public abstract class CapabilityFactory {
 
-  private static Map<Class<? extends AccessoryConfig>, Class<? extends Capability>> clazzMatrix = new HashMap<>();
+  private static Map<Class<? extends AccessoryConfig>, Class<? extends AbstractCapability>> clazzMatrix = new HashMap<>();
 
   static {
     clazzMatrix.put(MotorConfig.class, Motor.class);
@@ -25,7 +28,7 @@ public abstract class CapabilityFactory {
   }
 
   public static Capability getCapability(AccessoryConfig config) {
-    Class<? extends Capability> capabilityClazz = clazzMatrix.get(config.getClass());
+    Class<? extends AbstractCapability> capabilityClazz = clazzMatrix.get(config.getClass());
 
     if (capabilityClazz == null) {
       throw new IllegalArgumentException(
@@ -33,15 +36,21 @@ public abstract class CapabilityFactory {
               + "' to a capability.");
     }
 
-    Capability capability = null;
-
+    return generateCapability(capabilityClazz, config);
+  }
+  
+  private static <T extends AbstractCapability> T generateCapability(Class<T> clazz, AccessoryConfig config) {
+    Constructor<T> ctor;
+    
     try {
-      capability = capabilityClazz.newInstance();
-      BeanUtils.copyProperties(config, capability);
-    } catch (InstantiationException | IllegalAccessException e) {
-      throw new RuntimeException("Error creating capability object.", e);
+      ctor = clazz.getConstructor(UUID.class);
+    } catch (NoSuchMethodException | SecurityException e) {
+      throw new RuntimeException("Error generating Vehicle Capability", e);
     }
-
+    
+    T capability = BeanUtils.instantiateClass(ctor, config.getId());
+    BeanUtils.copyProperties(config, capability);
+    
     return capability;
   }
 }

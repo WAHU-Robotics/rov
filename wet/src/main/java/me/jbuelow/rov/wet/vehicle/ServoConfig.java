@@ -20,4 +20,10 @@ public class ServoConfig extends Servo implements ActuatorConfig {
 
   @NotBlank
   private int pwmPort;
+
+  @Override
+  public void validateConfigurtion() {
+    // TODO Auto-generated method stub
+    
+  }
 }

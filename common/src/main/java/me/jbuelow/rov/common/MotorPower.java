@@ -4,6 +4,7 @@
 package me.jbuelow.rov.common;
 
 import java.io.Serializable;
+import java.util.UUID;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,6 +22,6 @@ public class MotorPower implements Serializable {
 
   private static final long serialVersionUID = 2812485476244706951L;
 
-  private int id;
-  private int power;  //percentage; 0=stop, 100=full power forward, -100=full power reverse
+  private UUID id;
+  private int power;  //0=stop, 1000=full power forward, -1000=full power reverse
 }
