@@ -1,13 +1,20 @@
 package me.jbuelow.rov.dry.controller;
 
 import java.io.File;
-import java.io.FileFilter;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
+import org.springframework.context.ResourceLoaderAware;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
+import org.springframework.core.io.support.ResourcePatternUtils;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import me.jbuelow.rov.dry.exception.JinputNativesNotFoundException;
@@ -20,25 +27,33 @@ import net.java.games.input.EventQueue;
 import net.java.games.input.Rumbler;
 
 @Slf4j
-public class Control {
+@org.springframework.stereotype.Component // Let Spring load this on startup!
+public class Control implements ResourceLoaderAware {
+  public static final String NATIVE_FOLDER_PATH_PREFIX = "nativeutils";
+
+  /**
+   * Temporary directory which will contain the DLLs.
+   */
+  private File temporaryDir;
+
+  private ResourceLoader resourceLoader;
 
   @Getter
-  Controller[] foundControllers;
+  private Controller[] foundControllers;
 
   @Getter
-  Controller primaryController;
+  private Controller primaryController;
 
   @Getter
-  Controller secondaryController;
+  private Controller secondaryController;
 
   @Getter
-  List<Controller> selectedControllers = new ArrayList<>(Collections.nCopies(2, null));
+  private List<Controller> selectedControllers = new ArrayList<>(Collections.nCopies(2, null));
 
-  List<Controller> selectableControllers = new ArrayList<>(20);
+  private List<Controller> selectableControllers = new ArrayList<>(20);
 
   public enum Controllers {
-    PRIMARY(0),
-    SECONDARY(1);
+    PRIMARY(0), SECONDARY(1);
 
     private int id;
 
@@ -53,37 +68,92 @@ public class Control {
   }
 
   private void ensureAccessToNatives() {
-    String path = System.getProperty("java.library.path");
-    log.debug("Found existing java.library.path var: " + path);
-    File[] directories = getDirectoryCandidates(".");
-    log.debug("Found these candidate directories for dll files: " + directories);
-    StringBuilder addPath = new StringBuilder();
-    for (File directory:directories) {
-      addPath.append(directory.getPath());
+    switch (OSUtils.getOsType()) {
+      case MAC:
+        loadOSNatives("/osx/*");
+        break;
+      case LINUX:
+        loadOSNatives("/linux/*");
+        break;
+      case WINDOWS:
+        loadOSNatives("/windows/*");
+        break;
+      default:
+        throw new RuntimeException("Unsupported OS has been detected");
     }
-    String newpath = path + addPath;
-    log.debug("Setting new java.library.path var: " + newpath);
-    System.setProperty("java.library.path", newpath);
+    // String path = System.getProperty("java.library.path");
+    // log.debug("Found existing java.library.path var: " + path);
+    // File[] directories = getDirectoryCandidates(".");
+    // log.debug("Found these candidate directories for dll files: " + directories);
+    // StringBuilder addPath = new StringBuilder();
+    // for (File directory:directories) {
+    // addPath.append(directory.getPath());
+    // }
+    // String newpath = path + addPath;
+    // log.debug("Setting new java.library.path var: " + newpath);
+    // System.setProperty("java.library.path", newpath);
   }
 
-  private File[] getDirectoryCandidates(String pathname) {
-    File file = new File(pathname);
-    final Pattern p = Pattern.compile(".dll$");
-    return file.listFiles(new FileFilter() {
-      @Override
-      public boolean accept(File current) {
-        if (current.isDirectory()) {
-          return Objects.requireNonNull(current.listFiles(new FileFilter() {
-            @Override
-            public boolean accept(File pathname) {
-              return p.matcher(file.getName()).matches();
-            }
-          })).length > 0;
-        } else {
-          return false;
+  private void loadOSNatives(String libPathPattern) {
+    try {
+      Resource[] libraries = ResourcePatternUtils.getResourcePatternResolver(resourceLoader)
+          .getResources(libPathPattern);
+
+      for (Resource nativeLibrary : libraries) {
+        loadLibraryFromJar(nativeLibrary);
+      }
+    } catch (IOException e) {
+      throw new RuntimeException("Error loading native libraries.", e);
+    }
+  }
+
+
+  /**
+   * Loads library from current JAR archive to a temporary directory
+   */
+  public void loadLibraryFromJar(Resource resource) throws IOException {
+
+      // Prepare temporary file
+      if (temporaryDir == null) {
+          temporaryDir = createTempDirectory(NATIVE_FOLDER_PATH_PREFIX);
+          temporaryDir.deleteOnExit();
+          log.debug("Setting net.java.games.input.librarypath: " + temporaryDir);
+          System.setProperty("net.java.games.input.librarypath", temporaryDir.getAbsolutePath());
+      }
+
+      String outputFileName = resource.getFilename();
+      if (OSType.MAC.equals(OSUtils.getOsType())) {
+        //OSX uses different file extensions depending on the version
+        //Let the System determine the correct extension
+        String testLibName = System.mapLibraryName("test");
+        
+        if (testLibName.endsWith(".dylib")) {
+          outputFileName = outputFileName.replace(".jnilib", ".dylib");
         }
       }
-    });
+      
+      File temp = new File(temporaryDir, outputFileName);
+
+      try (InputStream is = resource.getInputStream()) {
+          Files.copy(is, temp.toPath(), StandardCopyOption.REPLACE_EXISTING);
+          temp.deleteOnExit();
+      } catch (IOException e) {
+          temp.delete();
+          throw e;
+      } catch (NullPointerException e) {
+          temp.delete();
+          throw new FileNotFoundException("File " + resource.getURL() + " was not found inside JAR.");
+      }
+  }
+
+  private File createTempDirectory(String prefix) throws IOException {
+    String tempDir = System.getProperty("java.io.tmpdir");
+    File generatedDir = new File(tempDir, prefix + System.nanoTime());
+
+    if (!generatedDir.mkdir())
+      throw new IOException("Failed to create temp directory " + generatedDir.getName());
+
+    return generatedDir;
   }
 
   private void refreshList() throws JinputNativesNotFoundException {
@@ -96,7 +166,7 @@ public class Control {
       throw new JinputNativesNotFoundException();
     }
 
-    for (Controller c:foundControllers) {
+    for (Controller c : foundControllers) {
       if (c.getType() == Controller.Type.STICK) {
         selectableControllers.add(c);
       }
@@ -296,6 +366,11 @@ public class Control {
     public String toString() {
       return getName();
     }
+  }
+
+  @Override
+  public void setResourceLoader(ResourceLoader resourceLoader) {
+    this.resourceLoader = resourceLoader;
   }
 
 }
