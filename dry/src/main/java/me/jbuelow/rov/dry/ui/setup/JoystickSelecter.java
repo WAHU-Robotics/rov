@@ -29,6 +29,7 @@ import me.jbuelow.rov.dry.ui.error.GeneralError;
 import net.java.games.input.Controller;
 
 public class JoystickSelecter extends JDialog {
+  private static final long serialVersionUID = 3880297608880881195L;
 
   private JPanel contentPane;
   private JButton buttonOK;
