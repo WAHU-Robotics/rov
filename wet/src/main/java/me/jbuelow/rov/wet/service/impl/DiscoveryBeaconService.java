@@ -13,7 +13,7 @@ import java.net.SocketException;
 import java.util.Enumeration;
 import lombok.extern.slf4j.Slf4j;
 import me.jbuelow.rov.common.RovConstants;
-import me.jbuelow.rov.wet.vehicle.hardware.PCA9685;
+import me.jbuelow.rov.wet.vehicle.hardware.PwmInterface;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
@@ -29,7 +29,7 @@ import org.springframework.stereotype.Service;
 public class DiscoveryBeaconService {
 
   @Autowired
-  PCA9685 pcaDriver;
+  PwmInterface pcaDriver;
 
   private static final long BEACON_INTERVAL = 10000; // Ten seconds
   private boolean sendBeacon = true;

@@ -3,6 +3,7 @@ package me.jbuelow.rov.wet.vehicle;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import javax.annotation.PostConstruct;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
@@ -34,5 +35,12 @@ public class VehicleConfiguration {
     allConfig.addAll(servoConfiguration);
 
     return allConfig;
+  }
+  
+  @PostConstruct
+  public void ValidateVehicleConfiguration() {
+    for (AccessoryConfig config : getAllConfiguration()) {
+      config.validateConfigurtion();
+    }
   }
 }

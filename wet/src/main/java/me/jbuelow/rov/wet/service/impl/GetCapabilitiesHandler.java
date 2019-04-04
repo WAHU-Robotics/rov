@@ -3,13 +3,18 @@
  */
 package me.jbuelow.rov.wet.service.impl;
 
+import me.jbuelow.rov.common.capabilities.MotionCapabilities;
+import me.jbuelow.rov.common.capabilities.ThrustAxis;
 import me.jbuelow.rov.common.command.GetCapabilities;
 import me.jbuelow.rov.common.response.Response;
 import me.jbuelow.rov.common.response.VehicleCapabilities;
 import me.jbuelow.rov.wet.service.CommandHandler;
 import me.jbuelow.rov.wet.vehicle.AccessoryConfig;
 import me.jbuelow.rov.wet.vehicle.CapabilityFactory;
+import me.jbuelow.rov.wet.vehicle.MotorConfig;
 import me.jbuelow.rov.wet.vehicle.VehicleConfiguration;
+import java.util.HashSet;
+import java.util.Set;
 import org.springframework.stereotype.Service;
 
 /**
@@ -37,6 +42,13 @@ public class GetCapabilitiesHandler implements CommandHandler<GetCapabilities> {
       for (AccessoryConfig config : vehicleConfiguration.getAllConfiguration()) {
         capabilities.getCapabilities().add(CapabilityFactory.getCapability(config));
       }
+      
+      Set<ThrustAxis> thrustAxes = new HashSet<>();
+      for (MotorConfig config : vehicleConfiguration.getMotorConfiguration()) {
+        thrustAxes.addAll(config.getThrustFactors().keySet());
+      }
+      
+      capabilities.getCapabilities().add(new MotionCapabilities(thrustAxes));
     }
 
     return capabilities;

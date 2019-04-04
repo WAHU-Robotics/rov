@@ -64,7 +64,7 @@ public class GetCapabilitiesHandlerTest {
     
     List<Capability> capabilities = vehicleCapabilities.getCapabilities();
     assertThat(capabilities, instanceOf(ArrayList.class));
-    assertThat(capabilities.size(), is(2));
+    assertThat(capabilities.size(), is(3));
   }
 
 }

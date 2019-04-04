@@ -3,16 +3,13 @@
  */
 package me.jbuelow.rov.wet.service.impl;
 
-import java.util.Objects;
-import javax.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import me.jbuelow.rov.common.MotorPower;
 import me.jbuelow.rov.common.response.Response;
 import me.jbuelow.rov.common.command.SetMotors;
 import me.jbuelow.rov.common.response.SetMotorsResponse;
 import me.jbuelow.rov.wet.service.CommandHandler;
-import me.jbuelow.rov.wet.vehicle.hardware.PCA9685;
-import org.springframework.beans.factory.annotation.Autowired;
+import me.jbuelow.rov.wet.service.MotorService;
 import org.springframework.stereotype.Service;
 
 /**
@@ -23,26 +20,10 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class SetMotorsHandler implements CommandHandler<SetMotors> {
 
-  @Autowired
-  PCA9685 driver;
-
-  public SetMotorsHandler() {}
-
-  @PostConstruct
-  public void init() {
-    try {
-      if (Objects.equals(System.getenv("ROV_NOPI4J"), "true")) {
-        driver = null;
-      } else {
-        try {
-          driver.setPWMFreq(60);
-        } catch (NullPointerException e) {
-          e.printStackTrace();
-        }
-      }
-    } catch (UnsatisfiedLinkError e) {
-      e.printStackTrace();
-    }
+  private MotorService motorService;
+  
+  public SetMotorsHandler(MotorService motorService) {
+    this.motorService = motorService;
   }
 
   /* (non-Javadoc)
@@ -53,24 +34,14 @@ public class SetMotorsHandler implements CommandHandler<SetMotors> {
     try {
       log.debug("Got Set Motors Command!");
       for (MotorPower motor : command.getPowerLevels()) {
-        //log.debug("Motor " + motor.getId() + " power: " + motor.getPower());
-        float p = convertToPulse(motor.getPower());
-        //log.debug("Motor " + motor.getId() + " pulse: " + p);
-        //heck
-        try {
-          driver.setServoPulse(motor.getId(), p);
-        } catch (NullPointerException ignored) {
-        }
+        motorService.setMotorPower(motor.getId(), motor.getPower());
       }
+
       return new SetMotorsResponse(true);
     } catch (Exception e) {
-      e.printStackTrace();
+      log.error("Error setting motor power levels", e);
       return new SetMotorsResponse(false);
     }
-  }
-
-  private float convertToPulse(int power) {
-    return ((float) power / 2000f) + 1.5f;
   }
 
   /* (non-Javadoc)
@@ -80,5 +51,4 @@ public class SetMotorsHandler implements CommandHandler<SetMotors> {
   public Class<SetMotors> getCommandType() {
     return SetMotors.class;
   }
-
 }
