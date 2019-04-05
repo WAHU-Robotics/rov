@@ -22,24 +22,10 @@ vehicle:
       SWAY: 0.707
       SURGE: 0.707
       YAW: -1.000
-  - name: "Mid Port Thruster"
-    motorType: THRUSTER
-    motorOrientation: Z_AXIS
-    pwm-port: 2
-    thrustFactors:
-      HEAVE: 1.000
-      ROLL: -1.000
-  - name: "Mid Starboard Thruster"
-    motorType: THRUSTER
-    motorOrientation: Z_AXIS
-    pwm-port: 3
-    thrustFactors:
-      HEAVE: 1.000
-      ROLL: 1.000
   - name: "Stern Port Thruster"
     motorType: THRUSTER
     motorOrientation: MULTI_AXIS
-    pwm-port: 4
+    pwm-port: 2
     thrustFactors:
       SWAY: -0.707
       SURGE: -0.707
@@ -47,11 +33,25 @@ vehicle:
   - name: "Stern Starboard Thruster"
     motorType: THRUSTER
     motorOrientation: MULTI_AXIS
-    pwm-port: 5
+    pwm-port: 3
     thrustFactors:
       SWAY: 0.707
       SURGE: -0.707
       YAW: 1.000
+  - name: "Mid Port Thruster"
+    motorType: THRUSTER
+    motorOrientation: Z_AXIS
+    pwm-port: 4
+    thrustFactors:
+      HEAVE: 1.000
+      ROLL: -1.000
+  - name: "Mid Starboard Thruster"
+    motorType: THRUSTER
+    motorOrientation: Z_AXIS
+    pwm-port: 5
+    thrustFactors:
+      HEAVE: 1.000
+      ROLL: 1.000
   servo-configuration:
   - name: "Claw"
     pwm-port: 6
