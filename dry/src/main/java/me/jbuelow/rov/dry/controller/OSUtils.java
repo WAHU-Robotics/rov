@@ -1,5 +1,11 @@
 package me.jbuelow.rov.dry.controller;
 
+/**
+ * Used to compute the currently running operating system
+ * Uses OSType enum
+ *
+ * @see me.jbuelow.rov.dry.controller.OSType
+ */
 public abstract class OSUtils {
   private static String osName = System.getProperty("os.name").toLowerCase();
 

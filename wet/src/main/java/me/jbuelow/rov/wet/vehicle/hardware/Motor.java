@@ -1,5 +1,8 @@
 package me.jbuelow.rov.wet.vehicle.hardware;
 
+/**
+ * Object used to represent a physical motor.
+ */
 public class Motor {
   private static final float POWER_TO_PULSE_FACTOR = 2000f;
   private static final float CENTER_PULSE = 1.5f;
