@@ -1,13 +1,17 @@
 package me.jbuelow.rov.dry.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 import net.java.games.input.Component;
 import net.java.games.input.Component.Identifier;
 import net.java.games.input.Component.Identifier.Axis;
 import net.java.games.input.Controller;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+/**
+ * Object for transfer and mapping of input values
+ */
 public class PolledValues {
 
   public int x = 0;

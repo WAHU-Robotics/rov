@@ -1,21 +1,17 @@
 package me.jbuelow.rov.dry.ui.setup;
 
-import java.awt.Color;
+import me.jbuelow.rov.dry.ui.CloseApplicationConfirmation;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.UIManager;
-import javax.swing.WindowConstants;
-import me.jbuelow.rov.dry.ui.CloseApplicationConfirmation;
-import org.springframework.beans.factory.DisposableBean;
-import org.springframework.stereotype.Component;
 
+/**
+ * Displays a brief animation while awaiting a connection from wet side
+ */
 public class ConnectionIdler extends JFrame {
 
   private JPanel contentPane;

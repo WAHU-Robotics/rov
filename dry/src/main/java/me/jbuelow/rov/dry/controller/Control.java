@@ -1,5 +1,17 @@
 package me.jbuelow.rov.dry.controller;
 
+import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
+import me.jbuelow.rov.dry.exception.JinputNativesNotFoundException;
+import me.jbuelow.rov.dry.ui.setup.JoystickSelecter;
+import net.java.games.input.*;
+import net.java.games.input.Component.Identifier;
+import org.springframework.context.ResourceLoaderAware;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
+import org.springframework.core.io.support.ResourcePatternUtils;
+
+import javax.swing.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -10,22 +22,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import javax.swing.JOptionPane;
-import org.springframework.context.ResourceLoaderAware;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
-import org.springframework.core.io.support.ResourcePatternUtils;
-import lombok.Getter;
-import lombok.extern.slf4j.Slf4j;
-import me.jbuelow.rov.dry.exception.JinputNativesNotFoundException;
-import me.jbuelow.rov.dry.ui.setup.JoystickSelecter;
-import net.java.games.input.Component;
-import net.java.games.input.Component.Identifier;
-import net.java.games.input.Controller;
-import net.java.games.input.ControllerEnvironment;
-import net.java.games.input.EventQueue;
-import net.java.games.input.Rumbler;
 
+/**
+ * Handles assigning joysticks and retrieving values
+ */
 @Slf4j
 @org.springframework.stereotype.Component // Let Spring load this on startup!
 public class Control implements ResourceLoaderAware {

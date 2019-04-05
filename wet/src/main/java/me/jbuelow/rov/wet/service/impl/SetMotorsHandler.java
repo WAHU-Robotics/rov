@@ -26,8 +26,12 @@ public class SetMotorsHandler implements CommandHandler<SetMotors> {
     this.motorService = motorService;
   }
 
-  /* (non-Javadoc)
-   * @see net.wachsmuths.rov.service.CommandHandler#execute(Command)
+
+  /**
+   * Handles the SetMotors command
+   *
+   * @param command SetMotors instance
+   * @return SetMotorsResponse instance
    */
   @Override
   public Response execute(SetMotors command) {
@@ -44,8 +48,10 @@ public class SetMotorsHandler implements CommandHandler<SetMotors> {
     }
   }
 
-  /* (non-Javadoc)
-   * @see net.wachsmuths.rov.service.CommandHandler#getCommandType()
+  /**
+   * Gives the class of the command this handler is supposed to handle
+   *
+   * @return class instance of SetMotors
    */
   @Override
   public Class<SetMotors> getCommandType() {

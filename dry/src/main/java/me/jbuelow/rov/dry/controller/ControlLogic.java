@@ -1,11 +1,15 @@
 package me.jbuelow.rov.dry.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 import me.jbuelow.rov.common.capabilities.ThrustAxis;
 import me.jbuelow.rov.common.command.SetMotion;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * Handles mapping of joystick axes and computing deadzones
+ */
 public class ControlLogic {
 
   public static SetMotion genMotorValues(PolledValues controllerValues) {

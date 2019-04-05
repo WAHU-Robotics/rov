@@ -3,9 +3,6 @@
  */
 package me.jbuelow.rov.wet.service.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-import javax.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import me.jbuelow.rov.common.command.Command;
 import me.jbuelow.rov.common.response.Response;
@@ -15,6 +12,10 @@ import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.PostConstruct;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Jacob Buelow
@@ -29,8 +30,12 @@ public class CommandProcessorServiceImpl implements CommandProcessorService,
   @SuppressWarnings("rawtypes")
   private Map<Class, CommandHandler> handlerMap = new HashMap<>();
 
-  /* (non-Javadoc)
-   * @see net.wachsmuths.rov.service.CommandProcessorService#handleCommand(Command)
+
+  /**
+   * Sends a Command to the proper handler class to be processed
+   *
+   * @param command Command to handle
+   * @return Response from command handler
    */
   @Override
   public Response handleCommand(Command command) {
@@ -45,6 +50,13 @@ public class CommandProcessorServiceImpl implements CommandProcessorService,
     return response;
   }
 
+  /**
+   * Fetches the corresponding command handler instance for a Command
+   *
+   * @param command Command type to fetch for
+   * @param <T> Command type to fetch for
+   * @return Command handler class
+   */
   private <T extends Command> CommandHandler<T> getHandler(T command) {
     @SuppressWarnings("unchecked")
     CommandHandler<T> handler = handlerMap.get(command.getClass());
@@ -57,11 +69,20 @@ public class CommandProcessorServiceImpl implements CommandProcessorService,
     return handler;
   }
 
+  /**
+   * Gets an instance of ApplicationContext from Spring Boot
+   *
+   * @param applicationContext instance of ApplicationContext
+   * @throws BeansException Something went wrong
+   */
   @Override
   public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
     this.applicationContext = applicationContext;
   }
 
+  /**
+   * initializes command handlers for commands
+   */
   @SuppressWarnings({"rawtypes"})
   @PostConstruct
   public void initializeCommandHandlers() {

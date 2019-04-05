@@ -3,12 +3,13 @@
  */
 package me.jbuelow.rov.wet.service.impl;
 
-import java.util.Random;
 import me.jbuelow.rov.common.command.Ping;
 import me.jbuelow.rov.common.response.Pong;
 import me.jbuelow.rov.common.response.Response;
 import me.jbuelow.rov.wet.service.CommandHandler;
 import org.springframework.stereotype.Service;
+
+import java.util.Random;
 
 /**
  * @author Jacob Buelow
@@ -17,8 +18,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class PingHandler implements CommandHandler<Ping> {
 
-  /* (non-Javadoc)
-   * @see net.wachsmuths.rov.service.CommandHandler#execute(Command)
+  /**
+   * Handles the Ping command
+   *
+   * @param command Ping instance
+   * @return Pong instance
    */
   @Override
   public Response execute(Ping command) {
@@ -27,8 +31,11 @@ public class PingHandler implements CommandHandler<Ping> {
     return response;
   }
 
-  /* (non-Javadoc)
-   * @see net.wachsmuths.rov.service.CommandHandler#getCommandType()
+
+  /**
+   * Gives the class of the command this handler is supposed to handle
+   *
+   * @return class instance of Ping
    */
   @Override
   public Class<Ping> getCommandType() {

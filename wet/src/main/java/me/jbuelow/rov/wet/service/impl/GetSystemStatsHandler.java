@@ -3,16 +3,17 @@
  */
 package me.jbuelow.rov.wet.service.impl;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import me.jbuelow.rov.common.command.GetSystemStats;
 import me.jbuelow.rov.common.response.Response;
 import me.jbuelow.rov.common.response.SystemStats;
 import me.jbuelow.rov.wet.service.CommandHandler;
 import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Service;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 
 /**
  * @author Jacob Buelow
@@ -21,8 +22,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class GetSystemStatsHandler implements CommandHandler<GetSystemStats> {
 
-  /* (non-Javadoc)
-   * @see net.wachsmuths.rov.service.CommandHandler#execute(Command)
+
+  /**
+   * Handles the GetSystemStats command
+   *
+   * @param command GetSystemStats instance
+   * @return SystemStats instance
    */
   @Override
   public Response execute(GetSystemStats command) {
@@ -58,8 +63,11 @@ public class GetSystemStatsHandler implements CommandHandler<GetSystemStats> {
     return response;
   }
 
-  /* (non-Javadoc)
-   * @see net.wachsmuths.rov.service.CommandHandler#getCommandType()
+
+  /**
+   * Gives the class of the command this handler is supposed to handle
+   *
+   * @return class instance of GetSystemStats
    */
   @Override
   public Class<GetSystemStats> getCommandType() {

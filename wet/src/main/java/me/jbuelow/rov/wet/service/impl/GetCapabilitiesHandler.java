@@ -13,9 +13,10 @@ import me.jbuelow.rov.wet.vehicle.AccessoryConfig;
 import me.jbuelow.rov.wet.vehicle.CapabilityFactory;
 import me.jbuelow.rov.wet.vehicle.MotorConfig;
 import me.jbuelow.rov.wet.vehicle.VehicleConfiguration;
+import org.springframework.stereotype.Service;
+
 import java.util.HashSet;
 import java.util.Set;
-import org.springframework.stereotype.Service;
 
 /**
  * @author Jacob Buelow
@@ -54,8 +55,12 @@ public class GetCapabilitiesHandler implements CommandHandler<GetCapabilities> {
     return capabilities;
   }
 
-  /* (non-Javadoc)
-   * @see net.wachsmuths.rov.service.CommandHandler#execute(Command)
+
+  /**
+   * Handles the GetCapabilities command
+   *
+   * @param command GetCapabilities instance
+   * @return Capabilities instance
    */
   @Override
   public Response execute(GetCapabilities command) {
@@ -63,8 +68,11 @@ public class GetCapabilitiesHandler implements CommandHandler<GetCapabilities> {
     return response;
   }
 
-  /* (non-Javadoc)
-   * @see net.wachsmuths.rov.service.CommandHandler#getCommandType()
+
+  /**
+   * Gives the class of the command this handler is supposed to handle
+   *
+   * @return class instance of GetCapabilities
    */
   @Override
   public Class<GetCapabilities> getCommandType() {
