@@ -31,7 +31,7 @@ public class OpenVideoHandler implements CommandHandler<OpenVideo> {
    */
   @Override
   public Response execute(OpenVideo command) {
-    new NativeDiscovery().discover();
+//    new NativeDiscovery().discover();
     int port = 3621;
 
     String media;

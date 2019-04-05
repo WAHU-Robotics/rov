@@ -9,6 +9,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 import lombok.extern.slf4j.Slf4j;
 import me.jbuelow.rov.common.command.OpenVideo;
+import me.jbuelow.rov.common.command.SetMotion;
 import me.jbuelow.rov.common.response.SystemStats;
 import me.jbuelow.rov.common.response.VideoStreamAddress;
 import me.jbuelow.rov.dry.controller.Control;
@@ -123,6 +124,8 @@ public class UiBootstrap {
         boolean prevLightState = true;
         boolean prevCupState = true;
         boolean firstLoop = true;
+        SetMotion previousMotion = null;
+        
         while (running) {
           lastTime = time;
           time = gt();
@@ -138,7 +141,13 @@ public class UiBootstrap {
 
           SystemStats stat = null;
 
-          vehicleControlService.sendCommand(vehicleId, ControlLogic.genMotorValues(joyA));
+          SetMotion motion = ControlLogic.genMotorValues(joyA);
+          
+          //Don't flood the ROV with unnecessary movement commands
+          if (!motion.equals(previousMotion)) {
+            vehicleControlService.sendCommand(vehicleId, motion);
+            previousMotion = motion;
+          }
 
           //gui.setCpuTempValue(String.valueOf(stat.getCpuTemp()));
           gui.setFps(round(calculateAverage(fpsLog), 1));

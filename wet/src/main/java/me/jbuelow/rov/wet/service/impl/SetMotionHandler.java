@@ -2,11 +2,14 @@ package me.jbuelow.rov.wet.service.impl;
 
 import me.jbuelow.rov.common.command.SetMotion;
 import me.jbuelow.rov.common.response.Response;
+import me.jbuelow.rov.common.response.SetMotionResponse;
 import me.jbuelow.rov.wet.service.CommandHandler;
 import me.jbuelow.rov.wet.service.MotionService;
 import org.springframework.stereotype.Service;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
+@Slf4j
 public class SetMotionHandler implements CommandHandler<SetMotion> {
   private MotionService motionService;
   
@@ -16,10 +19,15 @@ public class SetMotionHandler implements CommandHandler<SetMotion> {
   
   @Override
   public Response execute(SetMotion command) {
-    // TODO Auto-generated method stub
-    motionService.setMotion(command.getThrustVectors());
-    
-    return null;
+    try {
+      log.debug("Got Set Motion Command!");
+      motionService.setMotion(command.getThrustVectors());
+
+      return new SetMotionResponse(true);
+    } catch (Exception e) {
+      log.error("Error setting motor power levels", e);
+      return new SetMotionResponse(false, e);
+    }
   }
 
   @Override

@@ -48,6 +48,22 @@ public class MotionServiceImplTest {
   }
 
   @Test
+  public void testSetMotionHalfThrottleForward() {
+    Map<ThrustAxis, Integer> motion = new HashMap<>();
+    
+    motion.put(ThrustAxis.SURGE, Integer.valueOf(500));
+    
+    motionService.setMotion(motion);
+    
+    collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Bow Port Thruster")), is(353));
+    collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Bow Starboard Thruster")), is(353));
+    collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Mid Port Thruster")), is(0));
+    collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Mid Starboard Thruster")), is(0));
+    collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Stern Port Thruster")), is(-353));
+    collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Stern Starboard Thruster")), is(-353));
+  }
+
+  @Test
   public void testSetMotionFullThrottleBackward() {
     Map<ThrustAxis, Integer> motion = new HashMap<>();
     

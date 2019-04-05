@@ -16,8 +16,10 @@ public class Motor {
   }
   
   public void setPower(int power) {
-    this.power = power;
-    pwmInterface.setServoPulse(pwmPort, convertToPulse(power));
+    if (this.power != power) {
+      this.power = power;
+      pwmInterface.setServoPulse(pwmPort, convertToPulse(power));
+    }
   }
   
   public int getPower() {

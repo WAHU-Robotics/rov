@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import org.springframework.stereotype.Service;
+import lombok.extern.slf4j.Slf4j;
 import me.jbuelow.rov.common.capabilities.ThrustAxis;
 import me.jbuelow.rov.wet.service.MotionService;
 import me.jbuelow.rov.wet.service.MotorService;
@@ -17,6 +18,7 @@ import me.jbuelow.rov.wet.vehicle.MotorConfig;
 import me.jbuelow.rov.wet.vehicle.VehicleConfiguration;
 
 @Service
+@Slf4j
 public class MotionServiceImpl implements MotionService {
   private static final int MAX_POWER_LVL = 1000;
   private static final double MAX_MAGNITUDE = 1.000d;
@@ -33,6 +35,7 @@ public class MotionServiceImpl implements MotionService {
 
   @Override
   public void setMotion(Map<ThrustAxis, Integer> thrustVectors) {
+    log.debug("setMotion: {}", thrustVectors.toString());
     Map<UUID, Integer> powerLevels = new HashMap<>(motorConfiguration.size());
     
     for (MotorConfig motorConfig : motorConfiguration) {
@@ -41,8 +44,12 @@ public class MotionServiceImpl implements MotionService {
       
       powerLevels.put(motorConfig.getId(), linearPower + angularPower);
     }
+
+    log.debug("Calculated PowerLevels: {}", powerLevels.toString());
     
     normalizePowerLevels(powerLevels);
+    
+    log.debug("Normalized PowerLevels: {}", powerLevels.toString());
     
     //Set Motors
     for (Map.Entry<UUID, Integer> entry : powerLevels.entrySet()) {
@@ -126,7 +133,7 @@ public class MotionServiceImpl implements MotionService {
       ThrustAxis axis = motorAxes.get(index);
       
       if (thrustVectors.containsKey(axis)) {
-        motionVector[index] = thrustVectors.get(axis) / MAX_POWER_LVL;
+        motionVector[index] = (double) thrustVectors.get(axis) / (double) MAX_POWER_LVL;
       } else {
         motionVector[index] = 0d;
       }
