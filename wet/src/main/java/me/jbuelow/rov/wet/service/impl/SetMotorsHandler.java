@@ -5,8 +5,8 @@ package me.jbuelow.rov.wet.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import me.jbuelow.rov.common.MotorPower;
-import me.jbuelow.rov.common.response.Response;
 import me.jbuelow.rov.common.command.SetMotors;
+import me.jbuelow.rov.common.response.Response;
 import me.jbuelow.rov.common.response.SetMotorsResponse;
 import me.jbuelow.rov.wet.service.CommandHandler;
 import me.jbuelow.rov.wet.service.MotorService;
