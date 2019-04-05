@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import lombok.extern.slf4j.Slf4j;
 import me.jbuelow.rov.common.command.OpenVideo;
 import me.jbuelow.rov.common.command.SetMotion;
+import me.jbuelow.rov.common.response.Response;
 import me.jbuelow.rov.common.response.SystemStats;
 import me.jbuelow.rov.common.response.VideoStreamAddress;
 import me.jbuelow.rov.dry.controller.Control;
@@ -17,7 +18,6 @@ import me.jbuelow.rov.dry.controller.ControlLogic;
 import me.jbuelow.rov.dry.controller.PolledValues;
 import me.jbuelow.rov.dry.discovery.VehicleDiscoveryEvent;
 import me.jbuelow.rov.dry.exception.JinputNativesNotFoundException;
-import me.jbuelow.rov.dry.external.Mplayer;
 import me.jbuelow.rov.dry.service.VehicleControlService;
 import me.jbuelow.rov.dry.ui.error.GeneralError;
 import net.java.games.input.Component;
@@ -30,7 +30,6 @@ public class UiBootstrap {
   private VehicleControlService vehicleControlService;
   private VideoStreamAddress video;
   private Gui gui;
-  private Mplayer player;
   private UUID vehicleId;
   
   public UiBootstrap(Control control, VehicleControlService vehicleControlService) {
@@ -65,7 +64,7 @@ public class UiBootstrap {
 
     gui = new Gui("");
     log.info("Opening Mplayer instance...");
-    player = new Mplayer(video.url);
+    //player = new Mplayer(video.url);
 
     Loop loop = new Loop();
     try {
@@ -145,8 +144,12 @@ public class UiBootstrap {
           
           //Don't flood the ROV with unnecessary movement commands
           if (!motion.equals(previousMotion)) {
-            vehicleControlService.sendCommand(vehicleId, motion);
-            previousMotion = motion;
+            Response response = vehicleControlService.sendCommand(vehicleId, motion);
+            if (response.isSuccess()) {
+              previousMotion = motion;
+            } else {
+              log.error("Error with setMotion command.", response.getException());
+            }
           }
 
           //gui.setCpuTempValue(String.valueOf(stat.getCpuTemp()));

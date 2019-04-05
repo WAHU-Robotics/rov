@@ -44,7 +44,7 @@ public class SetMotorsHandler implements CommandHandler<SetMotors> {
       return new SetMotorsResponse(true);
     } catch (Exception e) {
       log.error("Error setting motor power levels", e);
-      return new SetMotorsResponse(false);
+      return new SetMotorsResponse(false, e);
     }
   }
 

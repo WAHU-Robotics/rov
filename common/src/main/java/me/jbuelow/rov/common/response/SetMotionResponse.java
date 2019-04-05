@@ -1,23 +1,18 @@
 package me.jbuelow.rov.common.response;
 
-import lombok.Getter;
-
 public class SetMotionResponse extends Response {
 
-  @Getter
-  private boolean success;
-
-  @Getter
-  private Exception exception;
+  /**
+   * 
+   */
+  private static final long serialVersionUID = -7695927574850060353L;
 
   public SetMotionResponse(boolean success) {
-    this.success = success;
+    super(success);
   }
 
   public SetMotionResponse(boolean success, Exception exception) {
-    if (!success) {
-      this.exception = exception;
-    }
+    super(success, exception);
   }
 
 }
