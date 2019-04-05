@@ -4,7 +4,9 @@ import me.jbuelow.rov.common.command.SetMotion;
 import me.jbuelow.rov.common.response.Response;
 import me.jbuelow.rov.wet.service.CommandHandler;
 import me.jbuelow.rov.wet.service.MotionService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class SetMotionHandler implements CommandHandler<SetMotion> {
   private MotionService motionService;
   

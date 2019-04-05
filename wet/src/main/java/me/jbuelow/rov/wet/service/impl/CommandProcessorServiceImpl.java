@@ -70,6 +70,7 @@ public class CommandProcessorServiceImpl implements CommandProcessorService,
       CommandHandler handler = entry.getValue();
 
       handlerMap.put(handler.getCommandType(), handler);
+      log.debug("Registered new command handler '" + handler.getClass().getSimpleName() + "', handles command '" + handler.getCommandType().getSimpleName() + "'");
     }
   }
 }
