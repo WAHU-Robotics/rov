@@ -1,21 +1,21 @@
 package me.jbuelow.rov.wet.service.impl;
 
-import static java.lang.Math.sqrt;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-import org.springframework.stereotype.Service;
 import me.jbuelow.rov.common.capabilities.ThrustAxis;
 import me.jbuelow.rov.wet.service.MotionService;
 import me.jbuelow.rov.wet.service.MotorService;
 import me.jbuelow.rov.wet.vehicle.MotorConfig;
 import me.jbuelow.rov.wet.vehicle.VehicleConfiguration;
+import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.*;
+
+import static java.lang.Math.sqrt;
+
+/**
+ * Handles vector math associated with converting 6-DoF values to motor power.
+ */
 @Service
 public class MotionServiceImpl implements MotionService {
   private static final int MAX_POWER_LVL = 1000;

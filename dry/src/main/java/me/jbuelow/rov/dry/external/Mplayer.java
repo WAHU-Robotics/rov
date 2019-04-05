@@ -4,6 +4,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+/**
+ * Class for attempting to use mplayer for our video stream.
+ *
+ * @deprecated does not work
+ */
 public class Mplayer {
 
   Process process = null;

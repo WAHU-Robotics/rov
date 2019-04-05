@@ -1,5 +1,10 @@
 package me.jbuelow.rov.dry.ui.error;
 
+/**
+ * Enumerator for icons used in GeneralError
+ *
+ * @see me.jbuelow.rov.dry.ui.error.GeneralError
+ */
 public enum ErrorIcon {
   GENERAL("error.png"),
   JOY_OK("joystick-icon.png"),

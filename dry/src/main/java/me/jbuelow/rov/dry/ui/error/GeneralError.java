@@ -1,26 +1,14 @@
 package me.jbuelow.rov.dry.ui.error;
 
-import com.intellij.uiDesigner.core.GridConstraints;
-import com.intellij.uiDesigner.core.GridLayoutManager;
-import com.intellij.uiDesigner.core.Spacer;
-import java.awt.Color;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.KeyStroke;
-import javax.swing.UIManager;
 import me.jbuelow.rov.dry.Dry;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+/**
+ * Class for making graphical error messages easier
+ */
 public class GeneralError extends JDialog {
 
   private JPanel contentPane;

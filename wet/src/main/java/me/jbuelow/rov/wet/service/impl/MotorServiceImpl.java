@@ -1,15 +1,19 @@
 package me.jbuelow.rov.wet.service.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
-import org.springframework.stereotype.Service;
 import me.jbuelow.rov.wet.service.MotorService;
 import me.jbuelow.rov.wet.vehicle.MotorConfig;
 import me.jbuelow.rov.wet.vehicle.VehicleConfiguration;
 import me.jbuelow.rov.wet.vehicle.hardware.Motor;
 import me.jbuelow.rov.wet.vehicle.hardware.PwmInterface;
+import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
+/**
+ * Handles motors as a service.
+ */
 @Service
 public class MotorServiceImpl implements MotorService {
   private static final int PWM_FREQUENCY = 60;
