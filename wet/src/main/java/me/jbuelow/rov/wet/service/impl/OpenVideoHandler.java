@@ -3,10 +3,6 @@
  */
 package me.jbuelow.rov.wet.service.impl;
 
-import java.io.IOException;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-import lombok.extern.slf4j.Slf4j;
 import me.jbuelow.rov.common.command.OpenVideo;
 import me.jbuelow.rov.common.response.Response;
 import me.jbuelow.rov.common.response.VideoStreamAddress;
@@ -14,12 +10,16 @@ import me.jbuelow.rov.wet.service.CommandHandler;
 import org.springframework.stereotype.Service;
 import uk.co.caprica.vlcj.discovery.NativeDiscovery;
 
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
 /**
  * @author Jacob Buelow
  * @author Brian Wachsmuth
  */
 @Service
-@Slf4j
+//@Slf4j
 public class OpenVideoHandler implements CommandHandler<OpenVideo> {
 
 
@@ -31,7 +31,7 @@ public class OpenVideoHandler implements CommandHandler<OpenVideo> {
    */
   @Override
   public Response execute(OpenVideo command) {
-    new NativeDiscovery().discover();
+//    new NativeDiscovery().discover();
     int port = 3621;
 
     String media;

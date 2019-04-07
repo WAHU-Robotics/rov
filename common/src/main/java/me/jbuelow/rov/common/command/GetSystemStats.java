@@ -10,6 +10,7 @@ import me.jbuelow.rov.common.command.Command;
  * @author Brian Wachsmuth
  */
 public class GetSystemStats extends Command {
+  private static final long serialVersionUID = 8163151692922115214L;
 
   public boolean getEnvironment;
   public boolean getProperties;
@@ -18,5 +19,4 @@ public class GetSystemStats extends Command {
     this.getEnvironment = getEnvironment;
     this.getProperties = getProperties;
   }
-
 }

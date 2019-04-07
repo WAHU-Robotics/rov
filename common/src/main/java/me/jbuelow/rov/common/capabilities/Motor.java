@@ -3,6 +3,7 @@
  */
 package me.jbuelow.rov.common.capabilities;
 
+import java.util.UUID;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -15,6 +16,14 @@ import lombok.EqualsAndHashCode;
 public class Motor extends AbstractCapability {
 
   private static final long serialVersionUID = -973957131240688883L;
+
+  public Motor() {
+    super();
+  }
+  
+  public Motor(UUID id) {
+    super(id);
+  }
 
   private MotorType motorType;
   private MotorOrientation motorOrientation;

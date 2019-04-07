@@ -1,7 +1,11 @@
 package me.jbuelow.rov.dry.controller;
 
 import static java.lang.Math.sqrt;
-
+/**
+ * Class for calculating dot products of input values
+ *
+ * @deprecated no longer used. These calculations have been moved to wet side.
+ */
 public class VectorMath {
 
   public static double dotProduct(double[] vecOne, double[] vecTwo) {

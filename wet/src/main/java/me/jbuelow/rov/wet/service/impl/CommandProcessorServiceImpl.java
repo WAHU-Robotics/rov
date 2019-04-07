@@ -3,9 +3,6 @@
  */
 package me.jbuelow.rov.wet.service.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-import javax.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import me.jbuelow.rov.common.command.Command;
 import me.jbuelow.rov.common.response.Response;
@@ -15,6 +12,10 @@ import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.PostConstruct;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Jacob Buelow
@@ -90,6 +91,7 @@ public class CommandProcessorServiceImpl implements CommandProcessorService,
       CommandHandler handler = entry.getValue();
 
       handlerMap.put(handler.getCommandType(), handler);
+      log.debug("Registered new command handler '" + handler.getClass().getSimpleName() + "', handles command '" + handler.getCommandType().getSimpleName() + "'");
     }
   }
 }

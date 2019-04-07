@@ -6,33 +6,57 @@ logging:
 vehicle:
   name: Nautilus
   motor-configuration:
-  - id: 1
-    name: "Starboard Thrustor"
-    motorType: THRUSTOR
-    motorOrientation: X_AXIS
+  - name: "Bow Port Thruster"
+    motorType: THRUSTER
+    motorOrientation: MULTI_AXIS
+    pwm-port: 0
+    thrustFactors:
+      SWAY: -0.707
+      SURGE: 0.707
+      YAW: 1.000
+  - name: "Bow Starboard Thruster"
+    motorType: THRUSTER
+    motorOrientation: MULTI_AXIS
     pwm-port: 1
-  - id: 2
-    name: "Port Thrustor"
-    motorType: THRUSTOR
-    motorOrientation: X_AXIS
+    thrustFactors:
+      SWAY: 0.707
+      SURGE: 0.707
+      YAW: -1.000
+  - name: "Stern Port Thruster"
+    motorType: THRUSTER
+    motorOrientation: MULTI_AXIS
     pwm-port: 2
-  - id: 3
-    name: "Bow Thrustor"
-    motorType: THRUSTOR
-    motorOrientation: Z_AXIS
+    thrustFactors:
+      SWAY: -0.707
+      SURGE: -0.707
+      YAW: -1.000
+  - name: "Stern Starboard Thruster"
+    motorType: THRUSTER
+    motorOrientation: MULTI_AXIS
     pwm-port: 3
-  - id: 4
-    name: "Stern Thrustor"
-    motorType: THRUSTOR
+    thrustFactors:
+      SWAY: 0.707
+      SURGE: -0.707
+      YAW: 1.000
+  - name: "Mid Port Thruster"
+    motorType: THRUSTER
     motorOrientation: Z_AXIS
     pwm-port: 4
-  servo-configuration:
-  - id: 1
-    name: "Claw"
+    thrustFactors:
+      HEAVE: 1.000
+      ROLL: -1.000
+  - name: "Mid Starboard Thruster"
+    motorType: THRUSTER
+    motorOrientation: Z_AXIS
     pwm-port: 5
+    thrustFactors:
+      HEAVE: 1.000
+      ROLL: 1.000
+  servo-configuration:
+  - name: "Claw"
+    pwm-port: 6
   video-configuration:
-  - id: 1
-    name: "Front Camera"
+  - name: "Front Camera"
     videoStreamAddress: "localhost:1234"
     
   

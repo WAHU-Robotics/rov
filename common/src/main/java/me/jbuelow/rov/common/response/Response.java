@@ -15,6 +15,11 @@ import me.jbuelow.rov.common.command.Command;
  */
 public abstract class Response implements Serializable {
 
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 550897509739131117L;
+
   @Getter
   private Instant timestamp;
 
@@ -22,14 +27,33 @@ public abstract class Response implements Serializable {
   @Setter
   private Command request;
 
-  public Response(Command request) {
-    this.timestamp = Instant.now();
-    this.request = request;
-  }
+  @Getter
+  private boolean success;
+
+  @Getter
+  private Exception exception;
 
   public Response() {
+    this(null);
+  }
+  
+  public Response(Command request) {
+    this(request, true, null);
+  }
+  
+  public Response(boolean success) {
+    this(success, null);
+  }
+
+  public Response(boolean success, Exception exception) {
+    this(null, success, exception);
+  }
+  
+  public Response(Command request, boolean success, Exception exception) {
     this.timestamp = Instant.now();
-    this.request = null;
+    this.request = request;
+    this.success = success;
+    this.exception = exception;
   }
 
 }

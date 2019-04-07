@@ -1,16 +1,20 @@
 package me.jbuelow.rov.common.command;
 
-import lombok.Getter;
-import lombok.Setter;
-import me.jbuelow.rov.common.object.MotionVector;
+import java.util.HashMap;
+import java.util.Map;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+import me.jbuelow.rov.common.capabilities.ThrustAxis;
 
+@Data
+@ToString
+@EqualsAndHashCode(callSuper=false)
 public class SetMotion extends Command {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 3803795320272750470L;
 
-  @Getter
-  private MotionVector motionVector;
-
-  public SetMotion(MotionVector motionVector) {
-    this.motionVector = motionVector;
-  }
-
+  private Map<ThrustAxis, Integer> thrustVectors = new HashMap<>();
 }

@@ -5,7 +5,7 @@ package me.jbuelow.rov.wet.vehicle;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
-
+import java.util.UUID;
 import org.junit.Test;
 import me.jbuelow.rov.common.capabilities.Capability;
 import me.jbuelow.rov.common.capabilities.Motor;
@@ -26,7 +26,6 @@ public class CapabilityFactoryTest {
   @Test
   public void testGetCapabilityMotor() {
     MotorConfig config = new MotorConfig();
-    config.setId(100);
     config.setMotorOrientation(MotorOrientation.Y_AXIS);
     config.setMotorType(MotorType.TRACK);
     config.setName("Test1");
@@ -48,7 +47,6 @@ public class CapabilityFactoryTest {
   @Test
   public void testGetCapabilityServo() {
     ServoConfig config = new ServoConfig();
-    config.setId(100);
     config.setName("Test1");
     config.setPwmPort(5);
     
@@ -66,7 +64,6 @@ public class CapabilityFactoryTest {
   @Test
   public void testGetCapabilityVideo() {
     VideoConfig config = new VideoConfig();
-    config.setId(100);
     config.setName("Test1");
     config.setVideoStreamAddress("localhost:12345");
     
@@ -93,9 +90,15 @@ public class CapabilityFactoryTest {
       }
       
       @Override
-      public int getId() {
+      public UUID getId() {
         // TODO Auto-generated method stub
-        return 0;
+        return UUID.randomUUID();
+      }
+
+      @Override
+      public void validateConfigurtion() {
+        // TODO Auto-generated method stub
+        
       }
     };
     

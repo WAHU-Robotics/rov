@@ -11,6 +11,10 @@ import me.jbuelow.rov.common.command.Command;
  * @author Brian Wachsmuth
  */
 public class OpenVideo extends Command {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1273040397011101223L;
 
   public InetAddress address;
 

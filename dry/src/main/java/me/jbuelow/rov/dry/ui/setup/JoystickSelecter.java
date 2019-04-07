@@ -1,34 +1,21 @@
 package me.jbuelow.rov.dry.ui.setup;
 
-import com.intellij.uiDesigner.core.GridConstraints;
-import com.intellij.uiDesigner.core.GridLayoutManager;
-import com.intellij.uiDesigner.core.Spacer;
-import java.awt.Color;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JComponent;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.KeyStroke;
-import javax.swing.UIManager;
 import me.jbuelow.rov.dry.ui.CloseApplicationConfirmation;
 import me.jbuelow.rov.dry.ui.error.ErrorIcon;
 import me.jbuelow.rov.dry.ui.error.GeneralError;
 import net.java.games.input.Controller;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Provides a nice clean graphical method of selecting the primary and secondary joysticks
+ */
 public class JoystickSelecter extends JDialog {
+  private static final long serialVersionUID = 3880297608880881195L;
 
   private JPanel contentPane;
   private JButton buttonOK;

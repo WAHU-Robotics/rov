@@ -1,23 +1,22 @@
 package me.jbuelow.rov.common.response;
 
-import lombok.Getter;
+import me.jbuelow.rov.common.command.Command;
 
 public class SetMotorsResponse extends Response {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 2371092517758388080L;
 
-  @Getter
-  private boolean success;
-
-  @Getter
-  private Exception exception;
+  public SetMotorsResponse(Command request, boolean success, Exception exception) {
+    super(request, success, exception);
+  }
 
   public SetMotorsResponse(boolean success) {
-    this.success = success;
+    super(success);
   }
-
+  
   public SetMotorsResponse(boolean success, Exception exception) {
-    if (!success) {
-      this.exception = exception;
-    }
+    super(success, exception);
   }
-
 }

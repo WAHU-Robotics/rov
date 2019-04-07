@@ -3,12 +3,6 @@
  */
 package me.jbuelow.rov.dry.service.impl;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
 import me.jbuelow.rov.common.command.Command;
 import me.jbuelow.rov.common.response.Response;
@@ -18,7 +12,12 @@ import me.jbuelow.rov.dry.exception.JinputNativesNotFoundException;
 import me.jbuelow.rov.dry.service.VehicleControlService;
 import me.jbuelow.rov.dry.ui.error.GeneralError;
 import org.springframework.context.event.EventListener;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
+
+import java.io.IOException;
+import java.util.*;
 
 /**
  * @author Jacob Buelow
@@ -50,7 +49,7 @@ public class VehicleControlServiceImpl implements VehicleControlService {
    * @return Received response
    */
   @Override
-  public Response sendCommand(int vehicleId, Command command) {
+  public Response sendCommand(UUID vehicleId, Command command) {
     ControllHandler handler = handlers.get(vehicleId);
 
     if (handler == null) {
@@ -87,12 +86,14 @@ public class VehicleControlServiceImpl implements VehicleControlService {
    * @param event Event instance
    */
   @EventListener
+  @Order(Ordered.HIGHEST_PRECEDENCE)
   public void handleVehicleDiscovery(VehicleDiscoveryEvent event) {
     log.info("Handling vehicle attatchment.");
     try {
       ControllHandler handler = new ControllHandler(event.getVehicleAddress());
 
       handlers.put(handler.getId(), handler);
+      event.setVehicleID(handler.getId());
     } catch (ClassNotFoundException | IOException e) {
       log.error("Error opening communications to vehicle", e);
     } catch (JinputNativesNotFoundException e) {
