@@ -1,226 +1,274 @@
+/*
+ *  Copyright (C) 2015 Marcus Hirt
+ *                     www.hirt.se
+ *
+ * This software is free:
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 3. The name of the author may not be used to endorse or promote products
+ *    derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESSED OR
+ * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+ * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+ * IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT,
+ * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+ * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+ * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ * Copyright (C) Marcus Hirt, 2015
+ */
 package me.jbuelow.rov.wet.vehicle.hardware;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
 
 import com.pi4j.io.i2c.I2CBus;
 import com.pi4j.io.i2c.I2CDevice;
 import com.pi4j.io.i2c.I2CFactory;
+import com.pi4j.io.i2c.I2CFactory.UnsupportedBusNumberException;
+
 import lombok.extern.slf4j.Slf4j;
-import java.io.IOException;
-import java.util.Objects;
-import org.springframework.beans.factory.DisposableBean;
-import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
 
 /**
- * Servo Driver, <a href="https://www.adafruit.com/product/815">https://www.adafruit.com/product/815</a>
- * <br/> In theory, PWM servos support those values:
- * <pre>
- * Servo Pulse | Standard |   Continuous
- * ------------+----------+-------------------
- *       1.5ms |   0 deg  |     Stop
- *       2.0ms |  90 deg  | FullSpeed forward
- *       1.0ms | -90 deg  | FullSpeed backward
- * ------------+----------+-------------------
- * </pre>
- * <b><i>BUT</i></b> this may vary a lot.<br/>
- * Servos like <a href="https://www.adafruit.com/product/169">https://www.adafruit.com/product/169</a>
- * or <a href="https://www.adafruit.com/product/155">https://www.adafruit.com/product/155</a> have
- * min and max values like 0.5ms 2.5ms, which is quite different. Servos are analog devices...
- *
- * The best is probably to calibrate the servos before using them.<br/> For that, you can use some
- * utility functions provided below:
- * <ul>
- * <li> {@link PCA9685#getPulseFromValue(int, int)}</li>
- * <li> {@link PCA9685#getServoMinValue(int)}</li>
- * <li> {@link PCA9685#getServoCenterValue(int)}</li>
- * <li> {@link PCA9685#getServoMaxValue(int)}</li>
- * <li> {@link PCA9685#getServoValueFromPulse(int, float)}</li>
- * </ul>
+ * This class represents an Adafruit 16 channel I2C PWM driver board.
+ * 
+ * @author Marcus Hirt
  */
 @Component
 @Slf4j
 @Profile("!noHardware")
-public class PCA9685 implements DisposableBean, PwmInterface {
-  // "Theoretical" values
-  private final static float CENTER_PULSE = 1.5f;
-  private final static float MIN_PULSE = 1f;
-  private final static float MAX_PULSE = 2f;
+@SuppressWarnings("unused") // Not using all commands - yet.
+public class PCA9685 implements PwmDevice {
+	private final int address;
+	private final I2CDevice i2cDevice;
+	private final int bus;
 
+	private final static int MODE1 = 0x00;
+	private final static int MODE2 = 0x01;
+	private final static int SUBADR1 = 0x02;
+	private final static int SUBADR2 = 0x03;
+	private final static int SUBADR13 = 0x04;
+	private final static int PRESCALE = 0xFE;
+	private final static int LED0_ON_L = 0x06;
+	private final static int LED0_ON_H = 0x07;
+	private final static int LED0_OFF_L = 0x08;
+	private final static int LED0_OFF_H = 0x09;
+	private final static int ALL_LED_ON_L = 0xFA;
+	private final static int ALL_LED_ON_H = 0xFB;
+	private final static int ALL_LED_OFF_L = 0xFC;
+	private final static int ALL_LED_OFF_H = 0xFD;
 
-  public final static int PCA9685_ADDRESS = 0x40;
+	// Bits
+	private final static int RESTART = 0x80;
+	private final static int SLEEP = 0x10;
+	private final static int ALLCALL = 0x01;
+	private final static int INVRT = 0x10;
+	private final static int OUTDRV = 0x04;
 
-  public final static int MODE1 = 0x00;
-  public final static int MODE2 = 0x01;
+	private Map<Integer, PwmChannel> channels = new HashMap<>(16);
+	private Double frequency = null;
 
-  public final static int SUBADR1 = 0x02;
-  public final static int SUBADR2 = 0x03;
-  public final static int SUBADR3 = 0x04;
+	/**
+	 * Constructs a PWM device using the default settings. (I2CBUS.BUS_1, 0x40)
+	 * 
+	 * @throws IOException                   if there was communication problem
+	 * @throws UnsupportedBusNumberException
+	 */
+	public PCA9685() throws IOException, UnsupportedBusNumberException {
+		// 0x40 is the default address used by the AdaFruit PWM board.
+		this(I2CBus.BUS_1, 0x40);
+	}
 
-  public final static int PRESCALE = 0xFE;
-  public final static int LED0_ON_L = 0x06;
-  public final static int LED0_ON_H = 0x07;
-  public final static int LED0_OFF_L = 0x08;
-  public final static int LED0_OFF_H = 0x09;
+	/**
+	 * Creates a software interface to an Adafruit 16 channel I2C PWM driver board
+	 * (PCA9685).
+	 * 
+	 * @param bus     the I2C bus to use.
+	 * @param address the address to use.
+	 * 
+	 * @see I2CBus
+	 * 
+	 * @throws IOException                   if there was communication problem
+	 * @throws UnsupportedBusNumberException
+	 */
+	public PCA9685(int bus, int address) throws IOException, UnsupportedBusNumberException {
+		this.bus = bus;
+		this.address = address;
+		i2cDevice = I2CFactory.getInstance(bus).getDevice(address);
+		initialize();
+	}
 
-  public final static int ALL_LED_ON_L = 0xFA;
-  public final static int ALL_LED_ON_H = 0xFB;
-  public final static int ALL_LED_OFF_L = 0xFC;
-  public final static int ALL_LED_OFF_H = 0xFD;
+	/**
+	 * Sets all PWM channels to the provided settings.
+	 * 
+	 * @param on  when to turn on the signal [0, 4095]
+	 * @param off when to turn off the signal [0, 4095]
+	 * 
+	 * @throws IOException if there was a problem communicating with the device.
+	 */
+	@Override
+	public void setAllPWM(int on, int off) throws IOException {
+		write(ALL_LED_ON_L, (byte) (on & 0xFF));
+		write(ALL_LED_ON_H, (byte) (on >> 8));
+		write(ALL_LED_OFF_L, (byte) (off & 0xFF));
+		write(ALL_LED_OFF_H, (byte) (off >> 8));
+	}
 
-  private int freq = 60;
+	/**
+	 * Sets the PWM frequency to use. This is common across all channels. For
+	 * controlling RC servos, 50Hz is a good starting point.
+	 * 
+	 * @param frequency the PWM frequency to use, in Hz.
+	 * @throws IOException if a problem occured accessing the device.
+	 */
+	@Override
+	public void setPWMFreqency(double frequency) throws IOException {
+		this.frequency = Double.valueOf(frequency);
+		double prescaleval = 25000000.0;
+		prescaleval /= 4096.0;
+		prescaleval /= frequency;
+		prescaleval -= 1.0;
+		double prescale = Math.floor(prescaleval + 0.5);
+		int oldmode = i2cDevice.read(MODE1);
+		int newmode = (oldmode & 0x7F) | 0x10;
+		write(MODE1, (byte) newmode);
+		write(PRESCALE, (byte) (Math.floor(prescale)));
+		write(MODE1, (byte) oldmode);
+		sleep(50);
+		write(MODE1, (byte) (oldmode | 0x80));
+	}
 
-  private I2CBus bus;
-  private I2CDevice servoDriver;
+	/**
+	 * Returns one of the PWM channels on the device. Allowed range is [0, 15].
+	 * 
+	 * @param channel the channel to retrieve.
+	 * 
+	 * @return the specified PWM channel.
+	 */
+	@Override
+	public PwmChannel getChannel(int channel) {
+		// Lazy Load the channel objects and cache to prevent excessive object creation.
+		if (!channels.containsKey(channel)) {
+			channels.put(channel, new PCA9685Channel(channel));
+		}
 
-  public PCA9685() throws I2CFactory.UnsupportedBusNumberException {
-    this(PCA9685_ADDRESS); // 0x40 obtained through sudo i2cdetect -y 1
-  }
+		return channels.get(channel);
+	}
 
-  public PCA9685(int address) throws I2CFactory.UnsupportedBusNumberException {
-    if (Objects.equals(System.getenv("ROV_NOPI4J"), "true")) {
-      return;
-    }
-    try {
-      // Get I2C bus
-      bus = I2CFactory.getInstance(I2CBus.BUS_1); // Depends on the RasPi version
-      log.debug("Connected to bus. OK.");
+	/**
+	 * Returns the address used when communicating with this PWM device.
+	 * 
+	 * @return the address used when communicating with this PWM device.
+	 */
+	@Override
+	public int getAddress() {
+		return address;
+	}
 
-      // Get the device itself
-      servoDriver = bus.getDevice(address);
-      log.debug("Connected to device. OK.");
+	/**
+	 * Returns the bus used when communicating with this PWM device.
+	 * 
+	 * @return the bus used when communicating with this PWM device.
+	 */
+	@Override
+	public int getBus() {
+		return bus;
+	}
 
-      // Reseting
-      servoDriver.write(MODE1, (byte) 0x00);
-    } catch (IOException e) {
-      throw new RuntimeException("Error opening PWM Interface.", e);
-    }
-  }
+	/**
+	 * Use to control a PWM channel on the PWM device.
+	 * 
+	 * @see PCA9685#getChannel(int)
+	 */
+	public class PCA9685Channel implements PwmChannel {
+		private final int channel;
 
-  /**
-   * @param freq 40..1000
-   */
-  @Override
-  public void setPWMFreq(int freq) {
-    this.freq = freq;
-    float preScaleVal = 25_000_000.0f; // 25MHz
-    preScaleVal /= 4_096.0;            // 4096: 12-bit
-    preScaleVal /= freq;
-    preScaleVal -= 1.0;
-    log.debug("Setting PWM frequency to " + freq + " Hz");
-    log.debug("Estimated pre-scale: " + preScaleVal);
+		private PCA9685Channel(int channel) {
+			if (channel < 0 || channel > 15) {
+				throw new IllegalArgumentException("There is no channel " + channel + " on the board.");
+			}
+			this.channel = channel;
+		}
 
-    double preScale = Math.floor(preScaleVal + 0.5);
-    log.debug("Final pre-scale: " + preScale);
-    
-    try {
-      byte oldmode = (byte) servoDriver.read(MODE1);
-      byte newmode = (byte) ((oldmode & 0x7F) | 0x10); // sleep
-      servoDriver.write(MODE1, newmode);               // go to sleep
-      servoDriver.write(PRESCALE, (byte) (Math.floor(preScale)));
-      servoDriver.write(MODE1, oldmode);
-      delay(5);
-      servoDriver.write(MODE1, (byte) (oldmode | 0x80));
-    } catch (IOException ioe) {
-      throw new RuntimeException("Error setting PWM Frequency", ioe);
-    }
-  }
+		/**
+		 * Configures the PWM pulse for the PWMChannel.
+		 * 
+		 * @param on  when to go from low to high [0, 4095]. 0 means at the very start
+		 *            of the pulse, 4095 at the very end.
+		 * @param off when to go from high to low [0, 4095]. 0 means at the very start
+		 *            of the pulse, 4095 at the very end.
+		 * 
+		 * @throws IOException
+		 */
+		@Override
+		public void setPWM(int on, int off) throws IOException {
+			i2cDevice.write(LED0_ON_L + 4 * channel, (byte) (on & 0xFF));
+			i2cDevice.write(LED0_ON_H + 4 * channel, (byte) (on >> 8));
+			i2cDevice.write(LED0_OFF_L + 4 * channel, (byte) (off & 0xFF));
+			i2cDevice.write(LED0_OFF_H + 4 * channel, (byte) (off >> 8));
+		}
 
-  private void delay(int i) {
-    try {
-      Thread.sleep(i);
-    } catch (InterruptedException ignored) {
-    }
-  }
+		@Override
+		public void setServoPulse(float pulseMS) throws IOException {
+			// TODO Fixme
+			int pulse = getServoValueFromPulse(pulseMS);
+			setPWM(0, pulse);
+		}
+	}
 
-  /**
-   * @param channel 0..15
-   * @param on 0..4095 (2^12 positions)
-   * @param off 0..4095 (2^12 positions)
-   */
-  @Override
-  public void setPWM(int channel, int on, int off) throws IllegalArgumentException {
-    if (channel < 0 || channel > 15) {
-      throw new IllegalArgumentException("Channel must be in [0, 15]");
-    }
-    if (on < 0 || on > 4_095) {
-      throw new IllegalArgumentException("On must be in [0, 4095]");
-    }
-    if (off < 0 || off > 4_095) {
-      throw new IllegalArgumentException("Off must be in [0, 4095]");
-    }
-    if (on > off) {
-      throw new IllegalArgumentException("OFF must be greater than ON");
-    }
-    try {
-      servoDriver.write(LED0_ON_L + 4 * channel, (byte) (on & 0xFF));
-      servoDriver.write(LED0_ON_H + 4 * channel, (byte) (on >> 8));
-      servoDriver.write(LED0_OFF_L + 4 * channel, (byte) (off & 0xFF));
-      servoDriver.write(LED0_OFF_H + 4 * channel, (byte) (off >> 8));
-    } catch (IOException ioe) {
-      throw new RuntimeException("Error setting PWM output.", ioe);
-    }
-  }
+	private int getServoValueFromPulse(float targetPulse) {
+	    double pulseLength = 1_000_000; // 1s = 1,000,000 us per pulse. "us" is to be read "micro (mu) sec".
+	    pulseLength /= frequency;  // 40..1000 Hz
+	    pulseLength /= 4_096; // 12 bits of resolution. 4096 = 2^12
+	    int pulse = (int) Math.round((targetPulse * 1_000) / pulseLength); // in millisec
+	    if (log.isDebugEnabled()) {
+	      log.debug(
+	          String.format("%.04f \u00b5s per bit, pulse: %d", pulseLength, pulse)); // bit? cycle?
+	    }
+	    
+	    return pulse;
+	}
 
-  /**
-   * @param channel 0..15
-   * @param pulseMS in ms.
-   */
-  @Override
-  public void setServoPulse(int channel, float pulseMS) {
-    int pulse = getServoValueFromPulse(this.freq, pulseMS);
-    this.setPWM(channel, 0, pulse);
-  }
+	private void sleep(int millis) {
+		try {
+			Thread.sleep(millis);
+		} catch (InterruptedException e) {
+			// Don't care
+		}
+	}
 
-  /**
-   * Free resources
-   */
-  @Override
-  public void destroy() throws Exception {
-    if (this.bus != null) {
-      try {
-        this.bus.close();
-      } catch (Exception ex) {
-        log.error("Error closing I2C connection.", ex);
-      }
-    }
-  }
+	private void write(int address, byte b) throws IOException {
+		i2cDevice.write(address, b);
+	}
 
-  /**
-   * @param freq in Hz
-   * @param targetPulse in ms
-   * @return the value as an int
-   */
-  @Override
-  public int getServoValueFromPulse(int freq, float targetPulse) {
-    double pulseLength = 1_000_000; // 1s = 1,000,000 us per pulse. "us" is to be read "micro (mu) sec".
-    pulseLength /= freq;  // 40..1000 Hz
-    pulseLength /= 4_096; // 12 bits of resolution. 4096 = 2^12
-    int pulse = (int) Math.round((targetPulse * 1_000) / pulseLength); // in millisec
-    if (log.isDebugEnabled()) {
-      log.debug(
-          String.format("%.04f \u00b5s per bit, pulse: %d", pulseLength, pulse)); // bit? cycle?
-    }
-    
-    return pulse;
-  }
+	private int read(int address) throws IOException {
+		return i2cDevice.read(address);
+	}
 
-  @Override
-  public double getPulseFromValue(int freq, int value) {
-    double msPerPeriod = 1_000.0 / (double) freq;
-    return msPerPeriod * ((double) value / 4_096.0);
-  }
-
-  @Override
-  public int getServoMinValue(int freq) {
-    return getServoValueFromPulse(freq, MIN_PULSE);
-  }
-
-  @Override
-  public int getServoCenterValue(int freq) {
-    return getServoValueFromPulse(freq, CENTER_PULSE);
-  }
-
-  @Override
-  public int getServoMaxValue(int freq) {
-    return getServoValueFromPulse(freq, MAX_PULSE);
-  }
+	private void initialize() throws IOException {
+		setAllPWM(0, 0);
+		write(MODE2, (byte) OUTDRV);
+		write(MODE1, (byte) ALLCALL);
+		sleep(50);
+		int mode1 = read(MODE1);
+		mode1 = mode1 & ~SLEEP;
+		write(MODE1, (byte) mode1);
+		sleep(50);
+	}
 }
