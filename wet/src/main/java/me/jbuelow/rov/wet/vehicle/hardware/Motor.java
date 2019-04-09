@@ -14,21 +14,20 @@ public class Motor {
   
   private boolean armed = false;
   private PwmChannel pwmChannel;
-  private int power;
+  private Integer power;
   
   public Motor(PwmChannel pwmChannel) throws IOException {
     this.pwmChannel = pwmChannel;
-    arm();
   }
   
   public void setPower(int power) throws IOException {
-    if (this.power != power) {
+    if (this.power == null || !this.power.equals(power)) {
       this.power = power;
       pwmChannel.setServoPulse(convertToPulse(power));
     }
   }
   
-  public int getPower() {
+  public Integer getPower() {
     return power;
   }
   
@@ -40,10 +39,8 @@ public class Motor {
     if (!armed) {
       //arm our Motors
       log.debug("Arming motor on channel " + pwmChannel.getChannelNumber());
-      pwmChannel.setServoPulse(1.75f);
-      delay(1000);
-      pwmChannel.setServoPulse(0f);
-      delay(1000);
+      pwmChannel.setServoPulse(1.5f);
+      delay(1500);
       setPower(0);
       log.debug("Arming complete.");
     }

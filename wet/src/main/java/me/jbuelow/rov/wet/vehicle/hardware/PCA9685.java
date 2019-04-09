@@ -59,27 +59,29 @@ public class PCA9685 implements PwmDevice {
 	private final I2CDevice i2cDevice;
 	private final int bus;
 
-	private final static int MODE1 = 0x00;
-	private final static int MODE2 = 0x01;
-	private final static int SUBADR1 = 0x02;
-	private final static int SUBADR2 = 0x03;
-	private final static int SUBADR13 = 0x04;
-	private final static int PRESCALE = 0xFE;
-	private final static int LED0_ON_L = 0x06;
-	private final static int LED0_ON_H = 0x07;
-	private final static int LED0_OFF_L = 0x08;
-	private final static int LED0_OFF_H = 0x09;
-	private final static int ALL_LED_ON_L = 0xFA;
-	private final static int ALL_LED_ON_H = 0xFB;
-	private final static int ALL_LED_OFF_L = 0xFC;
-	private final static int ALL_LED_OFF_H = 0xFD;
+	private static final int MODE1 = 0x00;
+	private static final int MODE2 = 0x01;
+	private static final int SUBADR1 = 0x02;
+	private static final int SUBADR2 = 0x03;
+	private static final int SUBADR13 = 0x04;
+	private static final int PRESCALE = 0xFE;
+	private static final int LED0_ON_L = 0x06;
+	private static final int LED0_ON_H = 0x07;
+	private static final int LED0_OFF_L = 0x08;
+	private static final int LED0_OFF_H = 0x09;
+	private static final int ALL_LED_ON_L = 0xFA;
+	private static final int ALL_LED_ON_H = 0xFB;
+	private static final int ALL_LED_OFF_L = 0xFC;
+	private static final int ALL_LED_OFF_H = 0xFD;
 
 	// Bits
-	private final static int RESTART = 0x80;
-	private final static int SLEEP = 0x10;
-	private final static int ALLCALL = 0x01;
-	private final static int INVRT = 0x10;
-	private final static int OUTDRV = 0x04;
+	private static final int RESTART = 0x80;
+	private static final int SLEEP = 0x10;
+	private static final int ALLCALL = 0x01;
+	private static final int INVRT = 0x10;
+	private static final int OUTDRV = 0x04;
+	
+    private static final double PULSE_LENGTH = 960_000d;
 
 	private Map<Integer, PwmChannel> channels = new HashMap<>(16);
 	private Double frequency = null;
@@ -237,7 +239,7 @@ public class PCA9685 implements PwmDevice {
 	}
 
 	private int getServoValueFromPulse(float targetPulse) {
-	    double pulseLength = 1_000_000; // 1s = 1,000,000 us per pulse. "us" is to be read "micro (mu) sec".
+	    double pulseLength = PULSE_LENGTH; // 1s = 1,000,000 us per pulse. "us" is to be read "micro (mu) sec".
 	    pulseLength /= frequency;  // 40..1000 Hz
 	    pulseLength /= 4_096; // 12 bits of resolution. 4096 = 2^12
 	    int pulse = (int) Math.round((targetPulse * 1_000) / pulseLength); // in millisec

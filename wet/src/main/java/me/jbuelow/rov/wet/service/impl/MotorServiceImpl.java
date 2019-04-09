@@ -32,6 +32,7 @@ public class MotorServiceImpl implements MotorService {
       
       motors.put(motorConfig.getId(), motor);
       motorNames.put(motorConfig.getName(), motorConfig.getId());
+      motor.arm();
     }
   }
   
