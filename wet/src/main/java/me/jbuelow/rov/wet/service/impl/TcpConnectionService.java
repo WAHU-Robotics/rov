@@ -17,6 +17,7 @@ import java.util.Iterator;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import me.jbuelow.rov.common.command.Command;
+import me.jbuelow.rov.common.response.InvalidCommandResponse;
 import me.jbuelow.rov.common.RovConstants;
 import me.jbuelow.rov.wet.service.CommandProcessorService;
 import org.apache.commons.io.IOUtils;
@@ -140,8 +141,13 @@ public class TcpConnectionService implements DisposableBean {
     public void run() {
       while (socket.isConnected() && running) {
         try {
-          Command command = (Command) in.readObject();
-          out.writeObject(commandProcessorService.handleCommand(command));
+          Command command;
+          try {
+            command = (Command) in.readObject();
+            out.writeObject(commandProcessorService.handleCommand(command));
+          } catch (ClassCastException e) {
+            out.writeObject(new InvalidCommandResponse(e));;
+          }
         } catch (SocketTimeoutException e) {
           //Do nothing and move on to try reading again.
         } catch (StreamCorruptedException e) {
