@@ -37,6 +37,12 @@ public class MockPwmInterface implements PwmDevice {
 				// TODO Auto-generated method stub
 				
 			}
+
+			@Override
+			public int getChannelNumber() {
+				// TODO Auto-generated method stub
+				return 0;
+			}
 		};
 	}
 

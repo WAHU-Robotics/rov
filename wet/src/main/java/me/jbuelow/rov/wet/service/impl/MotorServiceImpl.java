@@ -36,7 +36,7 @@ public class MotorServiceImpl implements MotorService {
   }
   
   @Override
-  public void setMotorPower(UUID id, int power) {
+  public void setMotorPower(UUID id, int power) throws IOException {
     getMotor(id).setPower(power);
   }
 
@@ -46,7 +46,7 @@ public class MotorServiceImpl implements MotorService {
   }
 
   @Override
-  public void armMotor(UUID id) {
+  public void armMotor(UUID id) throws IOException {
     getMotor(id).arm();
   }
 

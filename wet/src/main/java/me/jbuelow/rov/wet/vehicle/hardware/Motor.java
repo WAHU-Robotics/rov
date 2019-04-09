@@ -1,5 +1,7 @@
 package me.jbuelow.rov.wet.vehicle.hardware;
 
+import java.io.IOException;
+
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -11,21 +13,18 @@ public class Motor {
   private static final float CENTER_PULSE = 1.5f;
   
   private boolean armed = false;
-  private PwmInterface pwmInterface;
-  private int pwmPort;
+  private PwmChannel pwmChannel;
   private int power;
   
-  public Motor(PwmInterface pwmInterface, int pwmPort) {
-    this.pwmInterface = pwmInterface;
-    this.pwmPort = pwmPort;
-    setPower(0);
+  public Motor(PwmChannel pwmChannel) throws IOException {
+    this.pwmChannel = pwmChannel;
     arm();
   }
   
-  public void setPower(int power) {
+  public void setPower(int power) throws IOException {
     if (this.power != power) {
       this.power = power;
-      pwmInterface.setServoPulse(pwmPort, convertToPulse(power));
+      pwmChannel.setServoPulse(convertToPulse(power));
     }
   }
   
@@ -37,13 +36,13 @@ public class Motor {
     return armed;
   }
   
-  public void arm() {
+  public void arm() throws IOException {
     if (!armed) {
       //arm our Motors
-      log.debug("Arming motor on channel " + pwmPort);
-      this.pwmInterface.setServoPulse(pwmPort, 1.75f);
+      log.debug("Arming motor on channel " + pwmChannel.getChannelNumber());
+      pwmChannel.setServoPulse(1.75f);
       delay(1000);
-      this.pwmInterface.setServoPulse(pwmPort, 0f);
+      pwmChannel.setServoPulse(0f);
       delay(1000);
       setPower(0);
       log.debug("Arming complete.");

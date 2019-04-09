@@ -226,9 +226,13 @@ public class PCA9685 implements PwmDevice {
 
 		@Override
 		public void setServoPulse(float pulseMS) throws IOException {
-			// TODO Fixme
 			int pulse = getServoValueFromPulse(pulseMS);
 			setPWM(0, pulse);
+		}
+
+		@Override
+		public int getChannelNumber() {
+			return channel;
 		}
 	}
 

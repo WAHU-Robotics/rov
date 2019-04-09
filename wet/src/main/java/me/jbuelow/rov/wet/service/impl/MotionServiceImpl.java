@@ -14,6 +14,8 @@ import java.util.*;
 
 import static java.lang.Math.sqrt;
 
+import java.io.IOException;
+
 /**
  * Handles vector math associated with converting 6-DoF values to motor power.
  */
@@ -53,7 +55,11 @@ public class MotionServiceImpl implements MotionService {
     
     //Set Motors
     for (Map.Entry<UUID, Integer> entry : powerLevels.entrySet()) {
-      motorService.setMotorPower(entry.getKey(), entry.getValue());
+      try {
+	    motorService.setMotorPower(entry.getKey(), entry.getValue());
+	  } catch (IOException e) {
+	    throw new RuntimeException("Error setting motor power levels.", e);
+	  }
     }
   }
   
