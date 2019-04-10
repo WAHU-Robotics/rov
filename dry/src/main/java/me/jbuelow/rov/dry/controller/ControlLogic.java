@@ -3,6 +3,7 @@ package me.jbuelow.rov.dry.controller;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import me.jbuelow.rov.common.RovConstants;
 import me.jbuelow.rov.common.capabilities.ThrustAxis;
 import me.jbuelow.rov.common.command.SetMotion;
 
@@ -14,8 +15,8 @@ public class ControlLogic {
   public static SetMotion genMotorValues(PolledValues rawPrimaryJoy, PolledValues rawSecondaryJoy) {
     //int[] powerLevels = new int[6];
 
-    PolledValues primaryJoy = computeDeadzones(rawPrimaryJoy, 10); //TODO trace deadzone back to be more configurable
-    PolledValues secondaryJoy = computeDeadzones(rawSecondaryJoy, 10);
+    PolledValues primaryJoy = computeDeadzones(rawPrimaryJoy, RovConstants.JOY_DEADZONE);
+    PolledValues secondaryJoy = computeDeadzones(rawSecondaryJoy, RovConstants.JOY_DEADZONE);
 
     /**
      * really old and bad code. dont use it.
