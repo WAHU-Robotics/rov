@@ -1,7 +1,7 @@
 /**
  *
  */
-package me.jbuelow.rov.common;
+package me.jbuelow.rov.common.object;
 
 import java.io.Serializable;
 import java.util.UUID;
