@@ -14,6 +14,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import me.jbuelow.rov.wet.exception.InvalidFactorException;
+import me.jbuelow.rov.wet.exception.InvalidThrustAxisException;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**

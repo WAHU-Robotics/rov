@@ -1,4 +1,4 @@
-package me.jbuelow.rov.wet.vehicle;
+package me.jbuelow.rov.wet.exception;
 
 public class InvalidThrustAxisException extends RuntimeException {
   /**
