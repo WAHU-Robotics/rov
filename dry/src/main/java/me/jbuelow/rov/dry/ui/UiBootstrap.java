@@ -1,11 +1,15 @@
 package me.jbuelow.rov.dry.ui;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
+import me.jbuelow.rov.common.capabilities.Tool;
 import me.jbuelow.rov.common.command.OpenVideo;
 import me.jbuelow.rov.common.command.SetMotion;
+import me.jbuelow.rov.common.command.SetServo;
 import me.jbuelow.rov.common.response.Response;
 import me.jbuelow.rov.common.response.SystemStats;
 import me.jbuelow.rov.common.response.VideoStreamAddress;
@@ -171,6 +175,20 @@ public class UiBootstrap {
             if (!firstLoop) {
               if (!joyA.buttons[0] && prevController[0].buttons[0]) {
                 gui.takeScreenshot();
+              }
+              if (!joyA.buttons[2] && prevController[0].buttons[2]) {
+                SetServo servoCommand = new SetServo();
+                Map<Tool, Integer> protoMap = new HashMap<>();
+                protoMap.put(Tool.GRIPPER, 1000);
+                servoCommand.setServoValues(protoMap);
+                Response response = vehicleControlService.sendCommand(vehicleId, servoCommand);
+              }
+              if (joyA.buttons[2] && !prevController[0].buttons[2]) {
+                SetServo servoCommand = new SetServo();
+                Map<Tool, Integer> protoMap = new HashMap<>();
+                protoMap.put(Tool.GRIPPER, 0);
+                servoCommand.setServoValues(protoMap);
+                Response response = vehicleControlService.sendCommand(vehicleId, servoCommand);
               }
             }
           } catch (ArrayIndexOutOfBoundsException | NullPointerException ignored) {

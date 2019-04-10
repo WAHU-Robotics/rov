@@ -35,7 +35,7 @@ public class ServoServiceImpl implements ServoService {
       PwmChannel pwmChannel = pwmDevice.getChannel(servoConfig.getPwmPort());
       Servo servo = new Servo(pwmChannel);
       
-      servos.put(servoConfig.getToolType(), servo);
+      servos.put(servoConfig.getTool(), servo);
       servoNames.put(servoConfig.getName(), servoConfig.getId());
     }
   }

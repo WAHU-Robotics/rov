@@ -55,6 +55,7 @@ vehicle:
   servo-configuration:
   - name: "Claw"
     pwm-port: 6
+    tool: GRIPPER
   - name: "Magnet"
     pwm-port: 7
   - name: "Cup"

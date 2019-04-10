@@ -18,40 +18,39 @@ public class ControlLogic {
     PolledValues primaryJoy = computeDeadzones(rawPrimaryJoy, RovConstants.JOY_DEADZONE);
     PolledValues secondaryJoy = computeDeadzones(rawSecondaryJoy, RovConstants.JOY_DEADZONE);
 
-    /**
-     * really old and bad code. dont use it.
-     * @deprecated i will hunt you down if this ends up uncommented
-     */
     /*
-    //Rewire controller scheme here
-    int rovX = cvs.x; //Strafe left/right
-    int rovY = cvs.y; //Forwards/Backwards
-    int rovZ = cvs.t; //Up/Down
-    int rovYaw = cvs.z; //Rotate left/right
-    //Logic
-    double[] dVec = new double[]{0, 0};
-    dVec[0] = ((double) rovX * -1 / 1000);
-    dVec[1] = ((double) rovY * -1 / 1000);
-    double mag = getMag(dVec);
-    dVec = getNorm(mag, dVec);
-    if (mag > 1) {
-      mag = 1;
-    }
-    powerLevels[0] = (int) ((dotProduct(dVec, motorFrontLeft) * mag) * 1000)+100;
-    powerLevels[1] = (int) ((dotProduct(dVec, motorFrontRight) * mag) * 1000);
-    powerLevels[2] = (int) ((dotProduct(dVec, motorBackLeft) * mag) * 1000);
-    powerLevels[3] = (int) ((dotProduct(dVec, motorBackRight) * mag) * 1000);
+      // really old and bad code. dont use it.
+      // i will hunt you down if this ends up uncommented
 
-    powerLevels[4] = rovZ;
-    powerLevels[5] = rovZ;
+      //Rewire controller scheme here
+      int rovX = cvs.x; //Strafe left/right
+      int rovY = cvs.y; //Forwards/Backwards
+      int rovZ = cvs.t; //Up/Down
+      int rovYaw = cvs.z; //Rotate left/right
+      //Logic
+      double[] dVec = new double[]{0, 0};
+      dVec[0] = ((double) rovX * -1 / 1000);
+      dVec[1] = ((double) rovY * -1 / 1000);
+      double mag = getMag(dVec);
+      dVec = getNorm(mag, dVec);
+      if (mag > 1) {
+        mag = 1;
+      }
+      powerLevels[0] = (int) ((dotProduct(dVec, motorFrontLeft) * mag) * 1000)+100;
+      powerLevels[1] = (int) ((dotProduct(dVec, motorFrontRight) * mag) * 1000);
+      powerLevels[2] = (int) ((dotProduct(dVec, motorBackLeft) * mag) * 1000);
+      powerLevels[3] = (int) ((dotProduct(dVec, motorBackRight) * mag) * 1000);
 
-    SetMotors command = new SetMotors();
-    for (int i = 0; i < 6; i++) {
-      MotorPower m = new MotorPower();
-      m.setPower(powerLevels[i]);
-      m.setId(i);
-      command.getPowerLevels().add(m);
-    }
+      powerLevels[4] = rovZ;
+      powerLevels[5] = rovZ;
+
+      SetMotors command = new SetMotors();
+      for (int i = 0; i < 6; i++) {
+        MotorPower m = new MotorPower();
+        m.setPower(powerLevels[i]);
+        m.setId(i);
+        command.getPowerLevels().add(m);
+      }
     */
 
     SetMotion command = new SetMotion();

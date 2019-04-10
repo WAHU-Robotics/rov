@@ -25,5 +25,5 @@ public class Servo extends AbstractCapability{
     super(id);
   }
 
-  private Tool toolType;
+  private Tool tool;
 }
