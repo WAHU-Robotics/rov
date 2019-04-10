@@ -3,26 +3,28 @@
  */
 package me.jbuelow.rov.wet.service.impl;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import me.jbuelow.rov.common.capabilities.Capability;
+import me.jbuelow.rov.common.command.GetCapabilities;
+import me.jbuelow.rov.common.response.Response;
+import me.jbuelow.rov.common.response.VehicleCapabilities;
+import me.jbuelow.rov.wet.vehicle.AccessoryConfig;
+import me.jbuelow.rov.wet.vehicle.MotorConfig;
+import me.jbuelow.rov.wet.vehicle.ServoConfig;
+import me.jbuelow.rov.wet.vehicle.VehicleConfiguration;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import me.jbuelow.rov.common.command.GetCapabilities;
-import me.jbuelow.rov.common.response.Response;
-import me.jbuelow.rov.common.response.VehicleCapabilities;
-import me.jbuelow.rov.common.capabilities.Capability;
-import me.jbuelow.rov.wet.vehicle.AccessoryConfig;
-import me.jbuelow.rov.wet.vehicle.MotorConfig;
-import me.jbuelow.rov.wet.vehicle.ServoConfig;
-import me.jbuelow.rov.wet.vehicle.VehicleConfiguration;
 
 /**
  * @author Jacob Buelow

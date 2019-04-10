@@ -13,7 +13,7 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class Servo extends AbstractCapability {
+public class Servo extends AbstractCapability{
 
   private static final long serialVersionUID = 7930072440063621979L;
 
@@ -24,4 +24,6 @@ public class Servo extends AbstractCapability {
   public Servo(UUID id) {
     super(id);
   }
+
+  private Tool toolType;
 }

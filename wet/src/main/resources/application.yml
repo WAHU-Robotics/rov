@@ -55,6 +55,10 @@ vehicle:
   servo-configuration:
   - name: "Claw"
     pwm-port: 6
+  - name: "Magnet"
+    pwm-port: 7
+  - name: "Cup"
+    pwm-port: 8
   video-configuration:
   - name: "Front Camera"
     videoStreamAddress: "localhost:1234"
