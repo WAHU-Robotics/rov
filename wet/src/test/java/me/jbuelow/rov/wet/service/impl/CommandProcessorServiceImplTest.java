@@ -11,7 +11,7 @@ import me.jbuelow.rov.common.response.VehicleCapabilities;
 import me.jbuelow.rov.wet.service.CommandProcessorService;
 import me.jbuelow.rov.wet.service.MotorService;
 import me.jbuelow.rov.wet.vehicle.VehicleConfiguration;
-import me.jbuelow.rov.wet.vehicle.hardware.PwmInterface;
+import me.jbuelow.rov.wet.vehicle.hardware.PwmDevice;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -39,7 +39,7 @@ public class CommandProcessorServiceImplTest {
   private static boolean firstTest = true;
 
   @MockBean
-  private PwmInterface pcaDriver;
+  private PwmDevice pcaDriver;
 
   @MockBean
   private MotorService motorService;

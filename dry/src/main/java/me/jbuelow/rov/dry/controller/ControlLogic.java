@@ -51,8 +51,8 @@ public class ControlLogic {
     SetMotion command = new SetMotion();
     Map<ThrustAxis, Integer> vectors = command.getThrustVectors();
     
-    vectors.put(ThrustAxis.SURGE, cvs.y);
-    vectors.put(ThrustAxis.SWAY, cvs.x);
+    vectors.put(ThrustAxis.SURGE, cvs.y * -1);  //invert the controls
+    vectors.put(ThrustAxis.SWAY, cvs.x * -1);  //invert the controls
     vectors.put(ThrustAxis.HEAVE, cvs.t);
     vectors.put(ThrustAxis.YAW, cvs.z);
     

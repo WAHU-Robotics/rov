@@ -4,9 +4,11 @@ import me.jbuelow.rov.wet.service.MotorService;
 import me.jbuelow.rov.wet.vehicle.MotorConfig;
 import me.jbuelow.rov.wet.vehicle.VehicleConfiguration;
 import me.jbuelow.rov.wet.vehicle.hardware.Motor;
-import me.jbuelow.rov.wet.vehicle.hardware.PwmInterface;
+import me.jbuelow.rov.wet.vehicle.hardware.PwmChannel;
+import me.jbuelow.rov.wet.vehicle.hardware.PwmDevice;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -16,24 +18,26 @@ import java.util.UUID;
  */
 @Service
 public class MotorServiceImpl implements MotorService {
-  private static final int PWM_FREQUENCY = 60;
+  private static final double PWM_FREQUENCY = 60;
 
   private Map<UUID, Motor> motors = new HashMap<>();
   private Map<String, UUID> motorNames = new HashMap<>();
   
-  public MotorServiceImpl(PwmInterface pwmInterface, VehicleConfiguration vehicleConfigurtion) {
-    pwmInterface.setPWMFreq(PWM_FREQUENCY);
+  public MotorServiceImpl(PwmDevice pwmDevice, VehicleConfiguration vehicleConfigurtion) throws IOException {
+    pwmDevice.setPWMFreqency(PWM_FREQUENCY);
     
     for (MotorConfig motorConfig : vehicleConfigurtion.getMotorConfiguration()) {
-      Motor motor = new Motor(pwmInterface, motorConfig.getPwmPort());
+      PwmChannel pwmChannel = pwmDevice.getChannel(motorConfig.getPwmPort());
+      Motor motor = new Motor(pwmChannel);
       
       motors.put(motorConfig.getId(), motor);
       motorNames.put(motorConfig.getName(), motorConfig.getId());
+      motor.arm();
     }
   }
   
   @Override
-  public void setMotorPower(UUID id, int power) {
+  public void setMotorPower(UUID id, int power) throws IOException {
     getMotor(id).setPower(power);
   }
 
@@ -43,7 +47,7 @@ public class MotorServiceImpl implements MotorService {
   }
 
   @Override
-  public void armMotor(UUID id) {
+  public void armMotor(UUID id) throws IOException {
     getMotor(id).arm();
   }
 
