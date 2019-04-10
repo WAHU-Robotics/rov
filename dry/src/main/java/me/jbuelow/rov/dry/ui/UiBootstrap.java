@@ -3,10 +3,6 @@ package me.jbuelow.rov.dry.ui;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import org.springframework.context.event.EventListener;
-import org.springframework.core.Ordered;
-import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Service;
 import lombok.extern.slf4j.Slf4j;
 import me.jbuelow.rov.common.command.OpenVideo;
 import me.jbuelow.rov.common.command.SetMotion;
@@ -22,6 +18,10 @@ import me.jbuelow.rov.dry.service.VehicleControlService;
 import me.jbuelow.rov.dry.ui.error.GeneralError;
 import net.java.games.input.Component;
 import net.java.games.input.Controller;
+import org.springframework.context.event.EventListener;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
@@ -140,7 +140,7 @@ public class UiBootstrap {
 
           SystemStats stat = null;
 
-          SetMotion motion = ControlLogic.genMotorValues(joyA);
+          SetMotion motion = ControlLogic.genMotorValues(joyA, joyB);
           
           //Don't flood the ROV with unnecessary movement commands
           if (!motion.equals(previousMotion)) {
