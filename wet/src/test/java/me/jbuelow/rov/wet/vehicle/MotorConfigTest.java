@@ -1,7 +1,8 @@
 package me.jbuelow.rov.wet.vehicle;
 
-import static org.junit.Assert.*;
 import java.math.BigDecimal;
+import me.jbuelow.rov.wet.exception.InvalidFactorException;
+import me.jbuelow.rov.wet.exception.InvalidThrustAxisException;
 import org.junit.Test;
 import me.jbuelow.rov.common.capabilities.MotorOrientation;
 import me.jbuelow.rov.common.capabilities.ThrustAxis;
@@ -18,7 +19,7 @@ public class MotorConfigTest {
     config.validateConfigurtion();
   }
 
-  @Test(expected=InvalidThrustAxisException.class)
+  @Test(expected= InvalidThrustAxisException.class)
   public void testValidateConfigurtion_X_AxisNoSway() {
     MotorConfig config = new MotorConfig();
     config.setMotorOrientation(MotorOrientation.X_AXIS);
@@ -149,7 +150,7 @@ public class MotorConfigTest {
     config.validateConfigurtion();
   }
 
-  @Test(expected=InvalidFactorException.class)
+  @Test(expected= InvalidFactorException.class)
   public void testValidateConfigurtion_FactorOutOfRange() {
     MotorConfig config = new MotorConfig();
     config.setMotorOrientation(MotorOrientation.X_AXIS);

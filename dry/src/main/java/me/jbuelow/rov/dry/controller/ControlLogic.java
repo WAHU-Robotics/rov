@@ -15,7 +15,7 @@ public class ControlLogic {
   public static SetMotion genMotorValues(PolledValues controllerValues) {
     //int[] powerLevels = new int[6];
 
-    PolledValues cvs = computeDeadzones(controllerValues, 10);
+    PolledValues cvs = computeDeadzones(controllerValues, 10); //TODO trace deadzone back to be more configurable
 
     //Rewire controller scheme here
 //    int rovX = cvs.x; //Strafe left/right
