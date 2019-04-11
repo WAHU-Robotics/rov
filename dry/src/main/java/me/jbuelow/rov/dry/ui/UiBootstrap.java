@@ -186,19 +186,22 @@ public class UiBootstrap {
           Map<Tool, Integer> protoMap = new HashMap<>();
           if (gripperState != prevGripperState) {
             gui.setGripperState(gripperState);
-            protoMap.put(Tool.GRIPPER, gripperState ? -1000 : 1000);
+            protoMap.put(Tool.GRIPPER, (gripperState ^ Config.GRIPPER_INVERT) ? 1000 : -1000);
             prevGripperState = gripperState;
           }
           if (magnetState != prevMagnetState) {
             gui.setMagnetState(magnetState);
+            protoMap.put(Tool.MAGNET, (magnetState ^ Config.MAGNET_INVERT) ? 1000 : -1000);
             prevMagnetState = magnetState;
           }
           if (lightState != prevLightState) {
             gui.setLightState(lightState);
+            protoMap.put(Tool.LIGHT, (lightState ^ Config.LIGHT_INVERT) ? 1000 : -1000);
             prevLightState = lightState;
           }
           if (cupState != prevCupState) {
             gui.setCupState(cupState);
+            protoMap.put(Tool.CUP, (cupState ^ Config.CUP_INVERT) ? 1000 : -1000);
             prevCupState = cupState;
           }
 

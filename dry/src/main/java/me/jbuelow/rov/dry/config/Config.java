@@ -34,4 +34,10 @@ public abstract class Config {
   public static final JoystickButton MAGNET_BUTTON = PRIMARY_1;
   public static final JoystickButton LIGHT_BUTTON = PRIMARY_4;
   public static final JoystickButton CUP_BUTTON = PRIMARY_5;
+
+  // Tool servo inversions
+  public static final boolean GRIPPER_INVERT = false;
+  public static final boolean MAGNET_INVERT = false;
+  public static final boolean LIGHT_INVERT = false;
+  public static final boolean CUP_INVERT = false;
 }
