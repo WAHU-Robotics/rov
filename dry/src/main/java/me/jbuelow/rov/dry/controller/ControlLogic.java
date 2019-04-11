@@ -67,7 +67,7 @@ public class ControlLogic {
     return command;
   }
 
-  private static PolledValues computeDeadzones(PolledValues controllerValues, int deadzone) {
+  public static PolledValues computeDeadzones(PolledValues controllerValues, int deadzone) {
     List<Integer> vals = new ArrayList<>();
 
     for (Integer axis : controllerValues.getArray()) {
