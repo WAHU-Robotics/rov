@@ -1,10 +1,5 @@
 package me.jbuelow.rov.dry.ui;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
 import me.jbuelow.rov.common.capabilities.Tool;
 import me.jbuelow.rov.common.command.OpenVideo;
@@ -13,8 +8,10 @@ import me.jbuelow.rov.common.command.SetServo;
 import me.jbuelow.rov.common.response.Response;
 import me.jbuelow.rov.common.response.SystemStats;
 import me.jbuelow.rov.common.response.VideoStreamAddress;
+import me.jbuelow.rov.dry.config.Config;
 import me.jbuelow.rov.dry.controller.Control;
 import me.jbuelow.rov.dry.controller.ControlLogic;
+import me.jbuelow.rov.dry.controller.ControlMapper;
 import me.jbuelow.rov.dry.controller.PolledValues;
 import me.jbuelow.rov.dry.discovery.VehicleDiscoveryEvent;
 import me.jbuelow.rov.dry.exception.JinputNativesNotFoundException;
@@ -26,6 +23,8 @@ import org.springframework.context.event.EventListener;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
+
+import java.util.*;
 
 @Service
 @Slf4j
@@ -162,9 +161,12 @@ public class UiBootstrap {
           //gui.setCpuTempValue(String.valueOf(stat.getCpuTemp()));
           gui.setFps(round(calculateAverage(fpsLog), 1));
 
+          ControlMapper m = new ControlMapper(joyA, joyB);
+          ControlMapper pm = new ControlMapper(prevController[0], prevController[1]);
+
           try {
             if (!firstLoop) {
-              if (!joyA.buttons[0] && prevController[0].buttons[0]) {
+              if (ControlMapper.wasButtonPress(m, pm, Config.GRIPPER_BUTTON)) {
                 gripperState = !gripperState;
               }
             }

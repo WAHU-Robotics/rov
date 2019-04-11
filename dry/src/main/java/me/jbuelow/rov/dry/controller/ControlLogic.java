@@ -1,11 +1,12 @@
 package me.jbuelow.rov.dry.controller;
 
+import me.jbuelow.rov.common.capabilities.ThrustAxis;
+import me.jbuelow.rov.common.command.SetMotion;
+import me.jbuelow.rov.dry.config.Config;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import me.jbuelow.rov.common.RovConstants;
-import me.jbuelow.rov.common.capabilities.ThrustAxis;
-import me.jbuelow.rov.common.command.SetMotion;
 
 /**
  * Handles mapping of joystick axes and computing deadzones
@@ -15,8 +16,8 @@ public class ControlLogic {
   public static SetMotion genMotorValues(PolledValues rawPrimaryJoy, PolledValues rawSecondaryJoy) {
     //int[] powerLevels = new int[6];
 
-    PolledValues primaryJoy = computeDeadzones(rawPrimaryJoy, RovConstants.JOY_DEADZONE);
-    PolledValues secondaryJoy = computeDeadzones(rawSecondaryJoy, RovConstants.JOY_DEADZONE);
+    PolledValues primaryJoy = computeDeadzones(rawPrimaryJoy, Config.JOY_DEADZONE);
+    PolledValues secondaryJoy = computeDeadzones(rawSecondaryJoy, Config.JOY_DEADZONE);
 
     /*
       // really old and bad code. dont use it.
@@ -55,16 +56,18 @@ public class ControlLogic {
 
     SetMotion command = new SetMotion();
     Map<ThrustAxis, Integer> vectors = command.getThrustVectors();
-    
-    vectors.put(ThrustAxis.SURGE, primaryJoy.y * -1);  //invert the controls
-    vectors.put(ThrustAxis.SWAY, primaryJoy.x * -1);  //invert the controls
-    vectors.put(ThrustAxis.HEAVE, secondaryJoy.y);
-    vectors.put(ThrustAxis.YAW, primaryJoy.z);
+
+    ControlMapper m = new ControlMapper(primaryJoy, secondaryJoy);
+
+    vectors.put(ThrustAxis.SURGE, m.getAxis(Config.SURGE_AXIS) * (Config.SURGE_INVERT ? -1 : 1));
+    vectors.put(ThrustAxis.SWAY, m.getAxis(Config.SWAY_AXIS) * (Config.SWAY_INVERT ? -1 : 1));
+    vectors.put(ThrustAxis.HEAVE, m.getAxis(Config.HEAVE_AXIS) * (Config.HEAVE_INVERT ? -1 : 1));
+    vectors.put(ThrustAxis.YAW, m.getAxis(Config.YAW_AXIS) * (Config.YAW_INVERT ? -1 : 1));
     
     return command;
   }
 
-  public static PolledValues computeDeadzones(PolledValues controllerValues, int deadzone) {
+  private static PolledValues computeDeadzones(PolledValues controllerValues, int deadzone) {
     List<Integer> vals = new ArrayList<>();
 
     for (Integer axis : controllerValues.getArray()) {

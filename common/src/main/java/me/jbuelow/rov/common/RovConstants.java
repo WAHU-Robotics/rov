@@ -16,5 +16,4 @@ public abstract class RovConstants {
   public static byte[] DISCOVERY_BYTES = "YEEET".getBytes(CHARSET);
   public static final int DISCOVERY_PACKET_SIZE = DISCOVERY_BYTES.length;
   public static final int ROV_PORT = 8888;
-  public static final int JOY_DEADZONE = 20;
 }
