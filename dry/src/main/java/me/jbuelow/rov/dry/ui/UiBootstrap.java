@@ -169,6 +169,15 @@ public class UiBootstrap {
               if (ControlMapper.wasButtonPress(m, pm, Config.GRIPPER_BUTTON)) {
                 gripperState = !gripperState;
               }
+              if (ControlMapper.wasButtonPress(m, pm, Config.MAGNET_BUTTON)) {
+                magnetState = !magnetState;
+              }
+              if (ControlMapper.wasButtonPress(m, pm, Config.LIGHT_BUTTON)) {
+                lightState = !lightState;
+              }
+              if (ControlMapper.wasButtonPress(m, pm, Config.CUP_BUTTON)) {
+                cupState = !cupState;
+              }
             }
           } catch (ArrayIndexOutOfBoundsException | NullPointerException ignored) {
           }
@@ -196,7 +205,9 @@ public class UiBootstrap {
           servoCommand.setServoValues(protoMap);
           if (!servoCommand.equals(previousServo)) {
             Response response = vehicleControlService.sendCommand(vehicleId, servoCommand);
-            previousServo = servoCommand;
+            if (response.isSuccess()) {
+              previousServo = servoCommand;
+            }
           }
 
           prevController[0] = joyA;

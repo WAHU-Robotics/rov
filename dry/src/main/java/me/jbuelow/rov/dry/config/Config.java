@@ -4,7 +4,7 @@ import me.jbuelow.rov.dry.controller.JoystickAxis;
 import me.jbuelow.rov.dry.controller.JoystickButton;
 
 import static me.jbuelow.rov.dry.controller.JoystickAxis.*;
-import static me.jbuelow.rov.dry.controller.JoystickButton.PRIMARY_0;
+import static me.jbuelow.rov.dry.controller.JoystickButton.*;
 
 /**
  * Configure options like buttonmaps here
@@ -19,7 +19,7 @@ public abstract class Config {
   public static final JoystickAxis HEAVE_AXIS = SECONDARY_Y;
   public static final JoystickAxis YAW_AXIS = PRIMARY_Z;
   public static final JoystickAxis PITCH_AXIS = null;
-  public static final JoystickAxis ROLL_AXIS = null;
+  public static final JoystickAxis ROLL_AXIS = SECONDARY_X;
 
   // Axis inversions
   public static final boolean SURGE_INVERT = true;
@@ -31,4 +31,7 @@ public abstract class Config {
 
   // Tool button mapping
   public static final JoystickButton GRIPPER_BUTTON = PRIMARY_0;
+  public static final JoystickButton MAGNET_BUTTON = PRIMARY_1;
+  public static final JoystickButton LIGHT_BUTTON = PRIMARY_4;
+  public static final JoystickButton CUP_BUTTON = PRIMARY_5;
 }
