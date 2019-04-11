@@ -6,6 +6,7 @@ package me.jbuelow.rov.wet.vehicle;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import me.jbuelow.rov.common.capabilities.Servo;
+import me.jbuelow.rov.common.capabilities.Tool;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
@@ -20,6 +21,9 @@ public class ServoConfig extends Servo implements ActuatorConfig {
 
   @NotBlank
   private int pwmPort;
+
+  @NotBlank
+  private Tool toolType;
 
   @Override
   public void validateConfigurtion() {

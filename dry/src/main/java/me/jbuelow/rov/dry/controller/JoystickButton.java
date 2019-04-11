@@ -1,0 +1,24 @@
+package me.jbuelow.rov.dry.controller;
+
+public enum JoystickButton {
+  PRIMARY_0,
+  PRIMARY_1,
+  PRIMARY_2,
+  PRIMARY_3,
+  PRIMARY_4,
+  PRIMARY_5,
+  PRIMARY_6,
+  PRIMARY_7,
+  PRIMARY_8,
+  PRIMARY_9,
+  SECONDARY_0,
+  SECONDARY_1,
+  SECONDARY_2,
+  SECONDARY_3,
+  SECONDARY_4,
+  SECONDARY_5,
+  SECONDARY_6,
+  SECONDARY_7,
+  SECONDARY_8,
+  SECONDARY_9
+}

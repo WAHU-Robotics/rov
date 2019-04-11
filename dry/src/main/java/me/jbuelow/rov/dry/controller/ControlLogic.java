@@ -2,6 +2,7 @@ package me.jbuelow.rov.dry.controller;
 
 import me.jbuelow.rov.common.capabilities.ThrustAxis;
 import me.jbuelow.rov.common.command.SetMotion;
+import me.jbuelow.rov.dry.config.Config;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,49 +13,56 @@ import java.util.Map;
  */
 public class ControlLogic {
 
-  public static SetMotion genMotorValues(PolledValues controllerValues) {
+  public static SetMotion genMotorValues(PolledValues rawPrimaryJoy, PolledValues rawSecondaryJoy) {
     //int[] powerLevels = new int[6];
 
-    PolledValues cvs = computeDeadzones(controllerValues, 10); //TODO trace deadzone back to be more configurable
+    PolledValues primaryJoy = computeDeadzones(rawPrimaryJoy, Config.JOY_DEADZONE);
+    PolledValues secondaryJoy = computeDeadzones(rawSecondaryJoy, Config.JOY_DEADZONE);
 
-    //Rewire controller scheme here
-//    int rovX = cvs.x; //Strafe left/right
-//    int rovY = cvs.y; //Forwards/Backwards
-//    int rovZ = cvs.t; //Up/Down
-//    int rovYaw = cvs.z; //Rotate left/right
+    /*
+      // really old and bad code. dont use it.
+      // i will hunt you down if this ends up uncommented
 
-//    //Logic
-//    double[] dVec = new double[]{0, 0};
-//    dVec[0] = ((double) rovX * -1 / 1000);
-//    dVec[1] = ((double) rovY * -1 / 1000);
-//    double mag = getMag(dVec);
-//    dVec = getNorm(mag, dVec);
-//    if (mag > 1) {
-//      mag = 1;
-//    }
-//    powerLevels[0] = (int) ((dotProduct(dVec, motorFrontLeft) * mag) * 1000)+100;
-//    powerLevels[1] = (int) ((dotProduct(dVec, motorFrontRight) * mag) * 1000);
-//    powerLevels[2] = (int) ((dotProduct(dVec, motorBackLeft) * mag) * 1000);
-//    powerLevels[3] = (int) ((dotProduct(dVec, motorBackRight) * mag) * 1000);
-//
-//    powerLevels[4] = rovZ;
-//    powerLevels[5] = rovZ;
-//
-//    SetMotors command = new SetMotors();
-//    for (int i = 0; i < 6; i++) {
-//      MotorPower m = new MotorPower();
-//      m.setPower(powerLevels[i]);
-//      m.setId(i);
-//      command.getPowerLevels().add(m);
-//    }
+      //Rewire controller scheme here
+      int rovX = cvs.x; //Strafe left/right
+      int rovY = cvs.y; //Forwards/Backwards
+      int rovZ = cvs.t; //Up/Down
+      int rovYaw = cvs.z; //Rotate left/right
+      //Logic
+      double[] dVec = new double[]{0, 0};
+      dVec[0] = ((double) rovX * -1 / 1000);
+      dVec[1] = ((double) rovY * -1 / 1000);
+      double mag = getMag(dVec);
+      dVec = getNorm(mag, dVec);
+      if (mag > 1) {
+        mag = 1;
+      }
+      powerLevels[0] = (int) ((dotProduct(dVec, motorFrontLeft) * mag) * 1000)+100;
+      powerLevels[1] = (int) ((dotProduct(dVec, motorFrontRight) * mag) * 1000);
+      powerLevels[2] = (int) ((dotProduct(dVec, motorBackLeft) * mag) * 1000);
+      powerLevels[3] = (int) ((dotProduct(dVec, motorBackRight) * mag) * 1000);
+
+      powerLevels[4] = rovZ;
+      powerLevels[5] = rovZ;
+
+      SetMotors command = new SetMotors();
+      for (int i = 0; i < 6; i++) {
+        MotorPower m = new MotorPower();
+        m.setPower(powerLevels[i]);
+        m.setId(i);
+        command.getPowerLevels().add(m);
+      }
+    */
 
     SetMotion command = new SetMotion();
     Map<ThrustAxis, Integer> vectors = command.getThrustVectors();
-    
-    vectors.put(ThrustAxis.SURGE, cvs.y * -1);  //invert the controls
-    vectors.put(ThrustAxis.SWAY, cvs.x * -1);  //invert the controls
-    vectors.put(ThrustAxis.HEAVE, cvs.t);
-    vectors.put(ThrustAxis.YAW, cvs.z);
+
+    ControlMapper m = new ControlMapper(primaryJoy, secondaryJoy);
+
+    vectors.put(ThrustAxis.SURGE, m.getAxis(Config.SURGE_AXIS) * (Config.SURGE_INVERT ? -1 : 1));
+    vectors.put(ThrustAxis.SWAY, m.getAxis(Config.SWAY_AXIS) * (Config.SWAY_INVERT ? -1 : 1));
+    vectors.put(ThrustAxis.HEAVE, m.getAxis(Config.HEAVE_AXIS) * (Config.HEAVE_INVERT ? -1 : 1));
+    vectors.put(ThrustAxis.YAW, m.getAxis(Config.YAW_AXIS) * (Config.YAW_INVERT ? -1 : 1));
     
     return command;
   }

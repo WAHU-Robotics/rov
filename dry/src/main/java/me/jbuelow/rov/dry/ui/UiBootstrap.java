@@ -1,20 +1,17 @@
 package me.jbuelow.rov.dry.ui;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-import org.springframework.context.event.EventListener;
-import org.springframework.core.Ordered;
-import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Service;
 import lombok.extern.slf4j.Slf4j;
+import me.jbuelow.rov.common.capabilities.Tool;
 import me.jbuelow.rov.common.command.OpenVideo;
 import me.jbuelow.rov.common.command.SetMotion;
+import me.jbuelow.rov.common.command.SetServo;
 import me.jbuelow.rov.common.response.Response;
 import me.jbuelow.rov.common.response.SystemStats;
 import me.jbuelow.rov.common.response.VideoStreamAddress;
+import me.jbuelow.rov.dry.config.Config;
 import me.jbuelow.rov.dry.controller.Control;
 import me.jbuelow.rov.dry.controller.ControlLogic;
+import me.jbuelow.rov.dry.controller.ControlMapper;
 import me.jbuelow.rov.dry.controller.PolledValues;
 import me.jbuelow.rov.dry.discovery.VehicleDiscoveryEvent;
 import me.jbuelow.rov.dry.exception.JinputNativesNotFoundException;
@@ -22,6 +19,12 @@ import me.jbuelow.rov.dry.service.VehicleControlService;
 import me.jbuelow.rov.dry.ui.error.GeneralError;
 import net.java.games.input.Component;
 import net.java.games.input.Controller;
+import org.springframework.context.event.EventListener;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Service;
+
+import java.util.*;
 
 @Service
 @Slf4j
@@ -119,11 +122,14 @@ public class UiBootstrap {
         boolean magnetState = false;
         boolean lightState = false;
         boolean cupState = false;
+        boolean gripperState = false;
         boolean prevMagnetState = true;
         boolean prevLightState = true;
         boolean prevCupState = true;
+        boolean prevGripperState = false;
         boolean firstLoop = true;
         SetMotion previousMotion = null;
+        SetServo previousServo = null;
         
         while (running) {
           lastTime = time;
@@ -140,7 +146,7 @@ public class UiBootstrap {
 
           SystemStats stat = null;
 
-          SetMotion motion = ControlLogic.genMotorValues(joyA);
+          SetMotion motion = ControlLogic.genMotorValues(joyA, joyB);
           
           //Don't flood the ROV with unnecessary movement commands
           if (!motion.equals(previousMotion)) {
@@ -154,26 +160,57 @@ public class UiBootstrap {
 
           //gui.setCpuTempValue(String.valueOf(stat.getCpuTemp()));
           gui.setFps(round(calculateAverage(fpsLog), 1));
+
+          ControlMapper m = new ControlMapper(joyA, joyB);
+          ControlMapper pm = new ControlMapper(prevController[0], prevController[1]);
+
+          try {
+            if (!firstLoop) {
+              if (ControlMapper.wasButtonPress(m, pm, Config.GRIPPER_BUTTON)) {
+                gripperState = !gripperState;
+              }
+              if (ControlMapper.wasButtonPress(m, pm, Config.MAGNET_BUTTON)) {
+                magnetState = !magnetState;
+              }
+              if (ControlMapper.wasButtonPress(m, pm, Config.LIGHT_BUTTON)) {
+                lightState = !lightState;
+              }
+              if (ControlMapper.wasButtonPress(m, pm, Config.CUP_BUTTON)) {
+                cupState = !cupState;
+              }
+            }
+          } catch (ArrayIndexOutOfBoundsException | NullPointerException ignored) {
+          }
+
+          SetServo servoCommand = new SetServo();
+          Map<Tool, Integer> protoMap = new HashMap<>();
+          if (gripperState != prevGripperState) {
+            gui.setGripperState(gripperState);
+            protoMap.put(Tool.GRIPPER, (gripperState ^ Config.GRIPPER_INVERT) ? 1000 : -1000);
+            prevGripperState = gripperState;
+          }
           if (magnetState != prevMagnetState) {
             gui.setMagnetState(magnetState);
+            protoMap.put(Tool.MAGNET, (magnetState ^ Config.MAGNET_INVERT) ? 1000 : -1000);
             prevMagnetState = magnetState;
           }
           if (lightState != prevLightState) {
             gui.setLightState(lightState);
+            protoMap.put(Tool.LIGHT, (lightState ^ Config.LIGHT_INVERT) ? 1000 : -1000);
             prevLightState = lightState;
           }
           if (cupState != prevCupState) {
             gui.setCupState(cupState);
+            protoMap.put(Tool.CUP, (cupState ^ Config.CUP_INVERT) ? 1000 : -1000);
             prevCupState = cupState;
           }
 
-          try {
-            if (!firstLoop) {
-              if (!joyA.buttons[0] && prevController[0].buttons[0]) {
-                gui.takeScreenshot();
-              }
+          servoCommand.setServoValues(protoMap);
+          if (!servoCommand.equals(previousServo)) {
+            Response response = vehicleControlService.sendCommand(vehicleId, servoCommand);
+            if (response.isSuccess()) {
+              previousServo = servoCommand;
             }
-          } catch (ArrayIndexOutOfBoundsException | NullPointerException ignored) {
           }
 
           prevController[0] = joyA;

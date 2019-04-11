@@ -1,20 +1,25 @@
 package me.jbuelow.rov.dry.ui;
 
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.RenderingHints;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.WindowConstants;
 import me.jbuelow.rov.dry.controller.PolledValues;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.core.io.ClassPathResource;
 import uk.co.caprica.vlcj.player.MediaPlayer;
-
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 /**
  * Main graphical user interface for rov software
@@ -43,6 +48,7 @@ public class Gui extends JFrame implements ApplicationContextAware {
   private JLabel light_indicator;
   private JLabel cup_indicator;
   private JPanel sensorsPanel;
+  private JLabel gripper_indicator;
 
   MediaPlayer player;
   ApplicationContext ctx;
@@ -136,6 +142,10 @@ public class Gui extends JFrame implements ApplicationContextAware {
   public void takeScreenshot() {
     BufferedImage img = player.getSnapshot();
     new SnapshotViewer(img);
+  }
+
+  public void setGripperState(Boolean state) {
+    setIndicatorState(state, "gripper", gripper_indicator);
   }
 
   public void setMagnetState(Boolean state) {
