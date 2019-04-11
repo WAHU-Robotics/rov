@@ -123,11 +123,14 @@ public class UiBootstrap {
         boolean magnetState = false;
         boolean lightState = false;
         boolean cupState = false;
+        boolean gripperState = false;
         boolean prevMagnetState = true;
         boolean prevLightState = true;
         boolean prevCupState = true;
+        boolean prevGripperState = false;
         boolean firstLoop = true;
         SetMotion previousMotion = null;
+        SetServo previousServo = null;
         
         while (running) {
           lastTime = time;
@@ -158,6 +161,23 @@ public class UiBootstrap {
 
           //gui.setCpuTempValue(String.valueOf(stat.getCpuTemp()));
           gui.setFps(round(calculateAverage(fpsLog), 1));
+
+          try {
+            if (!firstLoop) {
+              if (!joyA.buttons[0] && prevController[0].buttons[0]) {
+                gripperState = !gripperState;
+              }
+            }
+          } catch (ArrayIndexOutOfBoundsException | NullPointerException ignored) {
+          }
+
+          SetServo servoCommand = new SetServo();
+          Map<Tool, Integer> protoMap = new HashMap<>();
+          if (gripperState != prevGripperState) {
+            gui.setGripperState(gripperState);
+            protoMap.put(Tool.GRIPPER, gripperState ? -1000 : 1000);
+            prevGripperState = gripperState;
+          }
           if (magnetState != prevMagnetState) {
             gui.setMagnetState(magnetState);
             prevMagnetState = magnetState;
@@ -171,27 +191,10 @@ public class UiBootstrap {
             prevCupState = cupState;
           }
 
-          try {
-            if (!firstLoop) {
-              if (!joyA.buttons[0] && prevController[0].buttons[0]) {
-                gui.takeScreenshot();
-              }
-              if (!joyA.buttons[2] && prevController[0].buttons[2]) {
-                SetServo servoCommand = new SetServo();
-                Map<Tool, Integer> protoMap = new HashMap<>();
-                protoMap.put(Tool.GRIPPER, 1000);
-                servoCommand.setServoValues(protoMap);
-                Response response = vehicleControlService.sendCommand(vehicleId, servoCommand);
-              }
-              if (joyA.buttons[2] && !prevController[0].buttons[2]) {
-                SetServo servoCommand = new SetServo();
-                Map<Tool, Integer> protoMap = new HashMap<>();
-                protoMap.put(Tool.GRIPPER, 0);
-                servoCommand.setServoValues(protoMap);
-                Response response = vehicleControlService.sendCommand(vehicleId, servoCommand);
-              }
-            }
-          } catch (ArrayIndexOutOfBoundsException | NullPointerException ignored) {
+          servoCommand.setServoValues(protoMap);
+          if (!servoCommand.equals(previousServo)) {
+            Response response = vehicleControlService.sendCommand(vehicleId, servoCommand);
+            previousServo = servoCommand;
           }
 
           prevController[0] = joyA;
