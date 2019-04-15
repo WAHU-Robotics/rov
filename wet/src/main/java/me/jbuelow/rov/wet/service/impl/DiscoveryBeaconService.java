@@ -3,22 +3,18 @@
  */
 package me.jbuelow.rov.wet.service.impl;
 
-import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
-import java.net.InterfaceAddress;
-import java.net.NetworkInterface;
-import java.net.SocketException;
-import java.util.Enumeration;
 import lombok.extern.slf4j.Slf4j;
 import me.jbuelow.rov.common.RovConstants;
-import me.jbuelow.rov.wet.vehicle.hardware.PwmDevice;
+import me.jbuelow.rov.wet.vehicle.hardware.pwm.PwmDevice;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+
+import java.io.IOException;
+import java.net.*;
+import java.util.Enumeration;
 
 /**
  * @author Jacob Buelow

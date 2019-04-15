@@ -1,4 +1,4 @@
-package me.jbuelow.rov.wet.vehicle.hardware;
+package me.jbuelow.rov.wet.vehicle.hardware.pwm;
 
 import java.io.IOException;
 

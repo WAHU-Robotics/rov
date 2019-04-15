@@ -1,12 +1,13 @@
-package me.jbuelow.rov.wet.vehicle.hardware;
+package me.jbuelow.rov.wet.vehicle.hardware.pwm;
 
 import com.pi4j.io.i2c.I2CBus;
 import com.pi4j.io.i2c.I2CDevice;
 import com.pi4j.io.i2c.I2CFactory;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.DisposableBean;
+
 import java.io.IOException;
 import java.util.Objects;
-import org.springframework.beans.factory.DisposableBean;
 
 /**
  * Servo Driver, <a href="https://www.adafruit.com/product/815">https://www.adafruit.com/product/815</a>

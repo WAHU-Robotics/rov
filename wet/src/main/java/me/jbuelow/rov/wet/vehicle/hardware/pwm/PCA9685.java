@@ -29,21 +29,19 @@
  *
  * Copyright (C) Marcus Hirt, 2015
  */
-package me.jbuelow.rov.wet.vehicle.hardware;
-
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
+package me.jbuelow.rov.wet.vehicle.hardware.pwm;
 
 import com.pi4j.io.i2c.I2CBus;
 import com.pi4j.io.i2c.I2CDevice;
 import com.pi4j.io.i2c.I2CFactory;
 import com.pi4j.io.i2c.I2CFactory.UnsupportedBusNumberException;
-
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * This class represents an Adafruit 16 channel I2C PWM driver board.
