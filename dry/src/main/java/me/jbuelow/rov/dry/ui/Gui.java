@@ -1,25 +1,20 @@
 package me.jbuelow.rov.dry.ui;
 
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.RenderingHints;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.WindowConstants;
 import me.jbuelow.rov.dry.controller.PolledValues;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.core.io.ClassPathResource;
 import uk.co.caprica.vlcj.player.MediaPlayer;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * Main graphical user interface for rov software
@@ -49,6 +44,14 @@ public class Gui extends JFrame implements ApplicationContextAware {
   private JLabel cup_indicator;
   private JPanel sensorsPanel;
   private JLabel gripper_indicator;
+  private JSlider sliderJoyAX;
+  private JSlider sliderJoyAT;
+  private JSlider sliderJoyAY;
+  private JSlider sliderJoyAZ;
+  private JSlider sliderJoyBX;
+  private JSlider sliderJoyBT;
+  private JSlider sliderJoyBY;
+  private JSlider sliderJoyBZ;
 
   MediaPlayer player;
   ApplicationContext ctx;
@@ -115,6 +118,22 @@ public class Gui extends JFrame implements ApplicationContextAware {
     this.cpuTempValue.setText(String.valueOf(text));
   }
 
+  public void setCpuTempBadness(int badness) {
+    switch (badness) {
+      case 2:
+        this.cpuTempValue.setForeground(new Color(255,0,0));
+        break;
+
+      case 1:
+        this.cpuTempValue.setForeground(new Color(255, 255,0));
+        break;
+
+      default:
+        this.cpuTempValue.setForeground(new Color(189, 189,189));
+        break;
+    }
+  }
+
   public void setWaterTempValue(Object text) {
     this.waterTempValue.setText(String.valueOf(text));
   }
@@ -125,6 +144,11 @@ public class Gui extends JFrame implements ApplicationContextAware {
     this.joyAAxisZValue.setText(String.valueOf(values.z));
     this.joyAAxisTValue.setText(String.valueOf(values.t));
     this.joyAHatXValue.setText(String.valueOf(values.hatS));
+
+    this.sliderJoyAX.setValue(values.x);
+    this.sliderJoyAY.setValue(values.y);
+    this.sliderJoyAZ.setValue(values.z);
+    this.sliderJoyAT.setValue(values.t);
   }
 
   public void setJoyB(PolledValues values) {
@@ -133,6 +157,11 @@ public class Gui extends JFrame implements ApplicationContextAware {
     this.joyBAxisZValue.setText(String.valueOf(values.z));
     this.joyBAxisTValue.setText(String.valueOf(values.t));
     this.joyBHatXValue.setText(String.valueOf(values.hatS));
+
+    this.sliderJoyBX.setValue(values.x);
+    this.sliderJoyBY.setValue(values.y);
+    this.sliderJoyBZ.setValue(values.z);
+    this.sliderJoyBT.setValue(values.t);
   }
 
   public void setFps(Object fps) {

@@ -127,7 +127,7 @@ public class UiBootstrap {
         boolean prevMagnetState = true;
         boolean prevLightState = true;
         boolean prevCupState = true;
-        boolean prevGripperState = false;
+        boolean prevGripperState = true;
         boolean firstLoop = true;
         SetMotion previousMotion = null;
         SetServo previousServo = null;
@@ -151,6 +151,13 @@ public class UiBootstrap {
 
             SystemStats stat = (SystemStats) vehicleControlService.sendCommand(vehicleId, new GetSystemStats());
             gui.setCpuTempValue(df.format(stat.getCpuTemp()));
+            if (stat.getCpuTemp() > 80) {
+              gui.setCpuTempBadness(2);
+            } else if (stat.getCpuTemp() > 70) {
+              gui.setCpuTempBadness(1);
+            } else {
+              gui.setCpuTempBadness(0);
+            }
 
             WaterTemp temp = (WaterTemp) vehicleControlService.sendCommand(vehicleId, new GetWaterTemp());
             gui.setWaterTempValue(df.format(temp.getTemperature()));
