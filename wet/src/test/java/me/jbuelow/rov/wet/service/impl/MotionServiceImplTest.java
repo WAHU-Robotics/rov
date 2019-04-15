@@ -1,22 +1,21 @@
 package me.jbuelow.rov.wet.service.impl;
 
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
-
-import java.util.HashMap;
-import java.util.Map;
+import me.jbuelow.rov.common.capabilities.ThrustAxis;
+import me.jbuelow.rov.wet.service.MotionService;
+import me.jbuelow.rov.wet.service.MotorService;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ErrorCollector;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
-import me.jbuelow.rov.common.capabilities.ThrustAxis;
-import me.jbuelow.rov.wet.service.MotionService;
-import me.jbuelow.rov.wet.service.MotorService;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import static org.hamcrest.CoreMatchers.is;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest()
@@ -40,10 +39,10 @@ public class MotionServiceImplTest {
     motionService.setMotion(motion);
     
     collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Bow Port Thruster")), is(707));
-    collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Bow Starboard Thruster")), is(707));
+    collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Bow Starboard Thruster")), is(-707));
     collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Mid Port Thruster")), is(0));
     collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Mid Starboard Thruster")), is(0));
-    collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Stern Port Thruster")), is(-707));
+    collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Stern Port Thruster")), is(707));
     collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Stern Starboard Thruster")), is(-707));
   }
 
@@ -56,10 +55,10 @@ public class MotionServiceImplTest {
     motionService.setMotion(motion);
     
     collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Bow Port Thruster")), is(353));
-    collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Bow Starboard Thruster")), is(353));
+    collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Bow Starboard Thruster")), is(-353));
     collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Mid Port Thruster")), is(0));
     collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Mid Starboard Thruster")), is(0));
-    collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Stern Port Thruster")), is(-353));
+    collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Stern Port Thruster")), is(353));
     collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Stern Starboard Thruster")), is(-353));
   }
 
@@ -72,10 +71,10 @@ public class MotionServiceImplTest {
     motionService.setMotion(motion);
     
     collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Bow Port Thruster")), is(-707));
-    collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Bow Starboard Thruster")), is(-707));
+    collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Bow Starboard Thruster")), is(707));
     collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Mid Port Thruster")), is(0));
     collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Mid Starboard Thruster")), is(0));
-    collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Stern Port Thruster")), is(707));
+    collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Stern Port Thruster")), is(-707));
     collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Stern Starboard Thruster")), is(707));
   }
 
@@ -88,10 +87,10 @@ public class MotionServiceImplTest {
     motionService.setMotion(motion);
     
     collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Bow Port Thruster")), is(-707));
-    collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Bow Starboard Thruster")), is(707));
+    collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Bow Starboard Thruster")), is(-707));
     collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Mid Port Thruster")), is(0));
     collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Mid Starboard Thruster")), is(0));
-    collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Stern Port Thruster")), is(-707));
+    collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Stern Port Thruster")), is(707));
     collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Stern Starboard Thruster")), is(707));
   }
 
@@ -104,10 +103,10 @@ public class MotionServiceImplTest {
     motionService.setMotion(motion);
     
     collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Bow Port Thruster")), is(707));
-    collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Bow Starboard Thruster")), is(-707));
+    collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Bow Starboard Thruster")), is(707));
     collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Mid Port Thruster")), is(0));
     collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Mid Starboard Thruster")), is(0));
-    collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Stern Port Thruster")), is(707));
+    collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Stern Port Thruster")), is(-707));
     collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Stern Starboard Thruster")), is(-707));
   }
 
@@ -121,7 +120,7 @@ public class MotionServiceImplTest {
     
     collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Bow Port Thruster")), is(0));
     collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Bow Starboard Thruster")), is(0));
-    collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Mid Port Thruster")), is(1000));
+    collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Mid Port Thruster")), is(-1000));
     collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Mid Starboard Thruster")), is(1000));
     collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Stern Port Thruster")), is(0));
     collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Stern Starboard Thruster")), is(0));
@@ -137,7 +136,7 @@ public class MotionServiceImplTest {
     
     collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Bow Port Thruster")), is(0));
     collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Bow Starboard Thruster")), is(0));
-    collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Mid Port Thruster")), is(-1000));
+    collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Mid Port Thruster")), is(1000));
     collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Mid Starboard Thruster")), is(-1000));
     collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Stern Port Thruster")), is(0));
     collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Stern Starboard Thruster")), is(0));
@@ -152,10 +151,10 @@ public class MotionServiceImplTest {
     motionService.setMotion(motion);
     
     collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Bow Port Thruster")), is(1000));
-    collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Bow Starboard Thruster")), is(-1000));
+    collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Bow Starboard Thruster")), is(1000));
     collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Mid Port Thruster")), is(0));
     collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Mid Starboard Thruster")), is(0));
-    collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Stern Port Thruster")), is(-1000));
+    collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Stern Port Thruster")), is(1000));
     collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Stern Starboard Thruster")), is(1000));
   }
 
@@ -168,10 +167,10 @@ public class MotionServiceImplTest {
     motionService.setMotion(motion);
     
     collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Bow Port Thruster")), is(-1000));
-    collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Bow Starboard Thruster")), is(1000));
+    collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Bow Starboard Thruster")), is(-1000));
     collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Mid Port Thruster")), is(0));
     collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Mid Starboard Thruster")), is(0));
-    collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Stern Port Thruster")), is(1000));
+    collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Stern Port Thruster")), is(-1000));
     collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Stern Starboard Thruster")), is(-1000));
   }
 
@@ -185,10 +184,10 @@ public class MotionServiceImplTest {
     motionService.setMotion(motion);
     
     collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Bow Port Thruster")), is(1000));
-    collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Bow Starboard Thruster")), is(-171));
+    collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Bow Starboard Thruster")), is(171));
     collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Mid Port Thruster")), is(0));
     collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Mid Starboard Thruster")), is(0));
-    collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Stern Port Thruster")), is(-1000));
+    collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Stern Port Thruster")), is(1000));
     collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Stern Starboard Thruster")), is(171));
   }
 }
