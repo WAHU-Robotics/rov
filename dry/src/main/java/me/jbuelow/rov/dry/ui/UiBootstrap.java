@@ -2,12 +2,11 @@ package me.jbuelow.rov.dry.ui;
 
 import lombok.extern.slf4j.Slf4j;
 import me.jbuelow.rov.common.capabilities.Tool;
-import me.jbuelow.rov.common.command.OpenVideo;
-import me.jbuelow.rov.common.command.SetMotion;
-import me.jbuelow.rov.common.command.SetServo;
+import me.jbuelow.rov.common.command.*;
 import me.jbuelow.rov.common.response.Response;
 import me.jbuelow.rov.common.response.SystemStats;
 import me.jbuelow.rov.common.response.VideoStreamAddress;
+import me.jbuelow.rov.common.response.WaterTemp;
 import me.jbuelow.rov.dry.config.Config;
 import me.jbuelow.rov.dry.controller.Control;
 import me.jbuelow.rov.dry.controller.ControlLogic;
@@ -24,6 +23,7 @@ import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 
+import java.text.DecimalFormat;
 import java.util.*;
 
 @Service
@@ -114,6 +114,7 @@ public class UiBootstrap {
     @Override
     public void run() {
       try {
+        int i = 0;
         double time = gt();
         double lastTime = gt();
         float fps = 0;
@@ -144,7 +145,18 @@ public class UiBootstrap {
           gui.setJoyA(joyA);
           gui.setJoyB(joyB);
 
-          SystemStats stat = null;
+          //Run some commands that only need to update every once in a while
+          if (i >= 30) {
+            DecimalFormat df = new DecimalFormat("#.## °C");
+
+            SystemStats stat = (SystemStats) vehicleControlService.sendCommand(vehicleId, new GetSystemStats());
+            gui.setCpuTempValue(df.format(stat.getCpuTemp()));
+
+            WaterTemp temp = (WaterTemp) vehicleControlService.sendCommand(vehicleId, new GetWaterTemp());
+            gui.setWaterTempValue(df.format(temp.getTemperature()));
+
+            i = 0;
+          }
 
           SetMotion motion = ControlLogic.genMotorValues(joyA, joyB);
           
@@ -158,7 +170,6 @@ public class UiBootstrap {
             }
           }
 
-          //gui.setCpuTempValue(String.valueOf(stat.getCpuTemp()));
           gui.setFps(round(calculateAverage(fpsLog), 1));
 
           ControlMapper m = new ControlMapper(joyA, joyB);
@@ -218,6 +229,8 @@ public class UiBootstrap {
           if (firstLoop) {
             firstLoop = false;
           }
+
+          i++;
         }
       } catch (Exception e) {
         e.printStackTrace();
