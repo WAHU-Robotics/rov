@@ -97,3 +97,4 @@ moist/src/test/
 .gitignore
 .floo
 .flooignore
+/pre-commit-hook.bat
