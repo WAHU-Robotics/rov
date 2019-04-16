@@ -59,8 +59,13 @@ vehicle:
     tool: GRIPPER
   - name: "Magnet"
     pwm-port: 7
+    tool: MAGNET
   - name: "Cup"
     pwm-port: 8
+    tool: CUP
+  - name: "Camera X"
+    pwm-port: 9
+    tool: CAMERA_X
   video-configuration:
   - name: "Front Camera"
     videoStreamAddress: "localhost:1234"

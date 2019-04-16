@@ -1,8 +1,18 @@
 package me.jbuelow.rov.dry.ui;
 
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
 import me.jbuelow.rov.common.capabilities.Tool;
-import me.jbuelow.rov.common.command.*;
+import me.jbuelow.rov.common.command.GetSystemStats;
+import me.jbuelow.rov.common.command.GetWaterTemp;
+import me.jbuelow.rov.common.command.OpenVideo;
+import me.jbuelow.rov.common.command.SetMotion;
+import me.jbuelow.rov.common.command.SetServo;
 import me.jbuelow.rov.common.response.Response;
 import me.jbuelow.rov.common.response.SystemStats;
 import me.jbuelow.rov.common.response.VideoStreamAddress;
@@ -19,12 +29,8 @@ import me.jbuelow.rov.dry.ui.error.GeneralError;
 import net.java.games.input.Component;
 import net.java.games.input.Controller;
 import org.springframework.context.event.EventListener;
-import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
-
-import java.text.DecimalFormat;
-import java.util.*;
 
 @Service
 @Slf4j
@@ -60,7 +66,7 @@ public class UiBootstrap {
   }
 
   @EventListener
-  @Order(Ordered.LOWEST_PRECEDENCE)
+  @Order()
   public void startMainUI(VehicleDiscoveryEvent event) {
     vehicleId = event.getVehicleID();
     video = (VideoStreamAddress) vehicleControlService.sendCommand(vehicleId, new OpenVideo(event.getVehicleAddress()));
@@ -116,8 +122,8 @@ public class UiBootstrap {
       try {
         int i = 0;
         double time = gt();
-        double lastTime = gt();
-        float fps = 0;
+        double lastTime;
+        float fps;
         List<Float> fpsLog = new ArrayList<>();
         PolledValues[] prevController = new PolledValues[2];
         boolean magnetState = false;
@@ -129,6 +135,7 @@ public class UiBootstrap {
         boolean prevCupState = true;
         boolean prevGripperState = true;
         boolean firstLoop = true;
+        int cameraPosition = 0;
         SetMotion previousMotion = null;
         SetServo previousServo = null;
         
@@ -196,6 +203,11 @@ public class UiBootstrap {
               if (ControlMapper.wasButtonPress(m, pm, Config.CUP_BUTTON)) {
                 cupState = !cupState;
               }
+
+              if (m.getAxis(Config.CAMERA_X_AXIS) > (pm.getAxis(Config.CAMERA_X_AXIS) + Config.JOY_DEADZONE) ||
+                  m.getAxis(Config.CAMERA_X_AXIS) < (pm.getAxis(Config.CAMERA_X_AXIS) - Config.JOY_DEADZONE)) {
+                cameraPosition = m.getAxis(Config.CAMERA_X_AXIS);
+              }
             }
           } catch (ArrayIndexOutOfBoundsException | NullPointerException ignored) {
           }
@@ -222,6 +234,7 @@ public class UiBootstrap {
             protoMap.put(Tool.CUP, (cupState ^ Config.CUP_INVERT) ? 1000 : -1000);
             prevCupState = cupState;
           }
+          protoMap.put(Tool.CAMERA_X,  (Config.CAMERA_X_INVERT ? -1 : 1) * cameraPosition);
 
           servoCommand.setServoValues(protoMap);
           if (!servoCommand.equals(previousServo)) {

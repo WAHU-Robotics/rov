@@ -4,5 +4,6 @@ public enum Tool {
   GRIPPER,
   MAGNET,
   LIGHT,
-  CUP
+  CUP,
+  CAMERA_X
 }

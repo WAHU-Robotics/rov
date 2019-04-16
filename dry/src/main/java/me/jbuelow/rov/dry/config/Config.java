@@ -1,10 +1,18 @@
 package me.jbuelow.rov.dry.config;
 
+import static me.jbuelow.rov.dry.controller.JoystickAxis.PRIMARY_X;
+import static me.jbuelow.rov.dry.controller.JoystickAxis.PRIMARY_Y;
+import static me.jbuelow.rov.dry.controller.JoystickAxis.PRIMARY_Z;
+import static me.jbuelow.rov.dry.controller.JoystickAxis.SECONDARY_T;
+import static me.jbuelow.rov.dry.controller.JoystickAxis.SECONDARY_X;
+import static me.jbuelow.rov.dry.controller.JoystickAxis.SECONDARY_Y;
+import static me.jbuelow.rov.dry.controller.JoystickButton.PRIMARY_0;
+import static me.jbuelow.rov.dry.controller.JoystickButton.PRIMARY_1;
+import static me.jbuelow.rov.dry.controller.JoystickButton.PRIMARY_4;
+import static me.jbuelow.rov.dry.controller.JoystickButton.PRIMARY_5;
+
 import me.jbuelow.rov.dry.controller.JoystickAxis;
 import me.jbuelow.rov.dry.controller.JoystickButton;
-
-import static me.jbuelow.rov.dry.controller.JoystickAxis.*;
-import static me.jbuelow.rov.dry.controller.JoystickButton.*;
 
 /**
  * Configure options like buttonmaps here
@@ -20,6 +28,8 @@ public abstract class Config {
   public static final JoystickAxis YAW_AXIS = PRIMARY_Z;
   public static final JoystickAxis PITCH_AXIS = null;
   public static final JoystickAxis ROLL_AXIS = SECONDARY_X;
+
+  public static final JoystickAxis CAMERA_X_AXIS = SECONDARY_T;
 
   // Axis inversions
   public static final boolean SURGE_INVERT = true;
@@ -40,4 +50,5 @@ public abstract class Config {
   public static final boolean MAGNET_INVERT = false;
   public static final boolean LIGHT_INVERT = false;
   public static final boolean CUP_INVERT = false;
+  public static final boolean CAMERA_X_INVERT = false;
 }
