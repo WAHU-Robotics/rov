@@ -11,7 +11,7 @@ import me.jbuelow.rov.common.response.VehicleCapabilities;
 import me.jbuelow.rov.wet.service.CommandProcessorService;
 import me.jbuelow.rov.wet.service.MotorService;
 import me.jbuelow.rov.wet.vehicle.VehicleConfiguration;
-import me.jbuelow.rov.wet.vehicle.hardware.PwmDevice;
+import me.jbuelow.rov.wet.vehicle.hardware.pwm.PwmDevice;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

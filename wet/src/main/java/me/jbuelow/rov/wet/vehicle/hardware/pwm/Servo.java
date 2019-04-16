@@ -1,7 +1,8 @@
-package me.jbuelow.rov.wet.vehicle.hardware;
+package me.jbuelow.rov.wet.vehicle.hardware.pwm;
+
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * Object used to represent a physical motor.

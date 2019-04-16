@@ -3,9 +3,9 @@ package me.jbuelow.rov.wet.service.impl;
 import me.jbuelow.rov.wet.service.MotorService;
 import me.jbuelow.rov.wet.vehicle.MotorConfig;
 import me.jbuelow.rov.wet.vehicle.VehicleConfiguration;
-import me.jbuelow.rov.wet.vehicle.hardware.Motor;
-import me.jbuelow.rov.wet.vehicle.hardware.PwmChannel;
-import me.jbuelow.rov.wet.vehicle.hardware.PwmDevice;
+import me.jbuelow.rov.wet.vehicle.hardware.pwm.Motor;
+import me.jbuelow.rov.wet.vehicle.hardware.pwm.PwmChannel;
+import me.jbuelow.rov.wet.vehicle.hardware.pwm.PwmDevice;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;

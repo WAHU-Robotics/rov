@@ -102,3 +102,6 @@ moist/moist.iml
 moist/src/main/resources/
 moist/src/test/
 .gitignore
+.floo
+.flooignore
+*.log*

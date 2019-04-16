@@ -1,20 +1,21 @@
 package me.jbuelow.rov.wet.service.impl;
 
+import lombok.extern.slf4j.Slf4j;
+import me.jbuelow.rov.common.capabilities.Tool;
+import me.jbuelow.rov.wet.service.ServoService;
+import me.jbuelow.rov.wet.vehicle.ServoConfig;
+import me.jbuelow.rov.wet.vehicle.VehicleConfiguration;
+import me.jbuelow.rov.wet.vehicle.hardware.pwm.PwmChannel;
+import me.jbuelow.rov.wet.vehicle.hardware.pwm.PwmDevice;
+import me.jbuelow.rov.wet.vehicle.hardware.pwm.Servo;
+import org.springframework.stereotype.Service;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.UUID;
-import lombok.extern.slf4j.Slf4j;
-import me.jbuelow.rov.common.capabilities.Tool;
-import me.jbuelow.rov.wet.service.ServoService;
-import me.jbuelow.rov.wet.vehicle.ServoConfig;
-import me.jbuelow.rov.wet.vehicle.VehicleConfiguration;
-import me.jbuelow.rov.wet.vehicle.hardware.PwmChannel;
-import me.jbuelow.rov.wet.vehicle.hardware.PwmDevice;
-import me.jbuelow.rov.wet.vehicle.hardware.Servo;
-import org.springframework.stereotype.Service;
 
 /**
  * Handles servos as a service.
