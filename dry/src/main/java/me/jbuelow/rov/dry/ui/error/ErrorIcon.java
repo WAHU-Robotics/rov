@@ -8,7 +8,8 @@ package me.jbuelow.rov.dry.ui.error;
 public enum ErrorIcon {
   GENERAL("error.png"),
   JOY_OK("joystick-icon.png"),
-  JOY_ERROR("joystick-connection-error.png");
+  JOY_ERROR("joystick-connection-error.png"),
+  WARNING("warning.png");
 
 
   private final String filename;

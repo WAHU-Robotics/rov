@@ -71,6 +71,8 @@ public class CloseApplicationConfirmation extends JDialog {
   }
 
   private void onOK() {
+    //TODO OPEN THE SelectWetShutdownMethod GUI
+
     System.exit(0);
   }
 
