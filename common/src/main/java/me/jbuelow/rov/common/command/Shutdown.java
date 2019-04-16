@@ -8,6 +8,10 @@ public class Shutdown extends Command {
     @Getter
     private boolean reboot;
 
+    public Shutdown() {
+        this.reboot = false;
+    }
+
     public Shutdown(boolean reboot) {
         this.reboot = reboot;
     }
