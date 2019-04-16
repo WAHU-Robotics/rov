@@ -1,18 +1,17 @@
-/**
- * 
- */
 package me.jbuelow.rov.wet.vehicle;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+
 import java.util.UUID;
-import org.junit.Test;
 import me.jbuelow.rov.common.capabilities.Capability;
 import me.jbuelow.rov.common.capabilities.Motor;
 import me.jbuelow.rov.common.capabilities.MotorOrientation;
 import me.jbuelow.rov.common.capabilities.MotorType;
 import me.jbuelow.rov.common.capabilities.Servo;
 import me.jbuelow.rov.common.capabilities.Video;
+import org.junit.Test;
 
 /**
  * @author Jacob Buelow

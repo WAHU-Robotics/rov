@@ -1,6 +1,3 @@
-/**
- *
- */
 package me.jbuelow.rov.common.object;
 
 import java.io.Serializable;

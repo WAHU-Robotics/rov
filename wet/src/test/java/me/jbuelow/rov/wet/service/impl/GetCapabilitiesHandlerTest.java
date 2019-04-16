@@ -1,6 +1,3 @@
-/**
- * 
- */
 package me.jbuelow.rov.wet.service.impl;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
@@ -36,9 +33,11 @@ public class GetCapabilitiesHandlerTest {
   private static final UUID TEST_UUID = UUID.randomUUID();
   
   @MockBean
+  private
   VehicleConfiguration vehicleConfiguration;
   
   @Autowired
+  private
   GetCapabilitiesHandler handler;
 
   /**

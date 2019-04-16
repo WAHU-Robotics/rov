@@ -1,8 +1,9 @@
 package me.jbuelow.rov.dry.controller;
 
 public class ControlMapper {
-  private PolledValues joyA;
-  private PolledValues joyB;
+
+  private final PolledValues joyA;
+  private final PolledValues joyB;
 
   public ControlMapper(PolledValues joyA, PolledValues joyB) {
     this.joyA = joyA;
@@ -23,7 +24,7 @@ public class ControlMapper {
     }
   }
 
-  public boolean getButton(JoystickButton button) {
+  private boolean getButton(JoystickButton button) {
     switch (button) {
       case PRIMARY_0: return joyA.buttons[0];
       case PRIMARY_1: return joyA.buttons[1];

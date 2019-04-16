@@ -1,6 +1,3 @@
-/**
- *
- */
 package me.jbuelow.rov.wet.vehicle;
 
 import lombok.Data;

@@ -1,8 +1,7 @@
-/**
- *
- */
 package me.jbuelow.rov.wet.service.impl;
 
+import java.util.HashSet;
+import java.util.Set;
 import me.jbuelow.rov.common.capabilities.MotionCapabilities;
 import me.jbuelow.rov.common.capabilities.ThrustAxis;
 import me.jbuelow.rov.common.command.GetCapabilities;
@@ -15,9 +14,6 @@ import me.jbuelow.rov.wet.vehicle.MotorConfig;
 import me.jbuelow.rov.wet.vehicle.VehicleConfiguration;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.Set;
-
 /**
  * @author Jacob Buelow
  * @author Brian Wachsmuth
@@ -25,7 +21,7 @@ import java.util.Set;
 @Service
 public class GetCapabilitiesHandler implements CommandHandler<GetCapabilities> {
 
-  private VehicleConfiguration vehicleConfiguration;
+  private final VehicleConfiguration vehicleConfiguration;
   private VehicleCapabilities capabilities = null;
 
   public GetCapabilitiesHandler(VehicleConfiguration vehicleConfiguration) {
@@ -64,8 +60,7 @@ public class GetCapabilitiesHandler implements CommandHandler<GetCapabilities> {
    */
   @Override
   public Response execute(GetCapabilities command) {
-    VehicleCapabilities response = getCapabilities();
-    return response;
+    return getCapabilities();
   }
 
 

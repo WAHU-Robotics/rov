@@ -20,7 +20,7 @@ public class CloseApplicationConfirmation extends JDialog {
   private JButton buttonYes;
   private JButton buttonNo;
 
-  public CloseApplicationConfirmation() {
+  private CloseApplicationConfirmation() {
     setContentPane(contentPane);
     setModal(false);
     getRootPane().setDefaultButton(buttonYes);

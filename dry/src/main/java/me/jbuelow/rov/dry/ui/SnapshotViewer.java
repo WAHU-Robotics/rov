@@ -8,9 +8,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-public class SnapshotViewer extends JFrame {
-
-  private JLabel image;
+class SnapshotViewer extends JFrame {
 
   public SnapshotViewer(BufferedImage img) {
     getContentPane().setLayout(new FlowLayout());
@@ -19,7 +17,7 @@ public class SnapshotViewer extends JFrame {
     ty.translate(0, -img.getHeight(null));
     AffineTransformOp op = new AffineTransformOp(ty, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
     img = op.filter(img, null);
-    image = new JLabel(new ImageIcon(img));
+    JLabel image = new JLabel(new ImageIcon(img));
 
     getContentPane().add(image);
     pack();

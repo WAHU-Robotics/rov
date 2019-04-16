@@ -1,5 +1,9 @@
 package me.jbuelow.rov.wet.service.impl;
 
+import static org.hamcrest.CoreMatchers.is;
+
+import java.util.HashMap;
+import java.util.Map;
 import me.jbuelow.rov.common.capabilities.ThrustAxis;
 import me.jbuelow.rov.wet.service.MotionService;
 import me.jbuelow.rov.wet.service.MotorService;
@@ -12,22 +16,20 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import static org.hamcrest.CoreMatchers.is;
-
 @RunWith(SpringRunner.class)
 @SpringBootTest()
 @ActiveProfiles("noHardware")
 public class MotionServiceImplTest {
-  @Rule      
-  public ErrorCollector collector = new ErrorCollector();                         
+
+  @Rule
+  public final ErrorCollector collector = new ErrorCollector();
 
   @Autowired
+  private
   MotorService motorService;
-  
+
   @Autowired
+  private
   MotionService motionService;
 
   @Test

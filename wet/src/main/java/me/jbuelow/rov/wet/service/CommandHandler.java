@@ -1,6 +1,3 @@
-/**
- *
- */
 package me.jbuelow.rov.wet.service;
 
 import me.jbuelow.rov.common.command.Command;

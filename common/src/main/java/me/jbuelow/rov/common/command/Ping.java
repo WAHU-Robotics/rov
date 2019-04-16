@@ -1,9 +1,4 @@
-/**
- *
- */
 package me.jbuelow.rov.common.command;
-
-import me.jbuelow.rov.common.command.Command;
 
 /**
  * @author Jacob Buelow

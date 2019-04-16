@@ -1,10 +1,22 @@
 package me.jbuelow.rov.dry.ui.error;
 
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.Objects;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.KeyStroke;
+import javax.swing.UIManager;
 import me.jbuelow.rov.dry.Dry;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
 
 /**
  * Class for making graphical error messages easier
@@ -15,7 +27,7 @@ public class GeneralError extends JDialog {
   private JButton buttonOK;
   private JLabel messageBox;
 
-  public GeneralError() {
+  private GeneralError() {
     setContentPane(contentPane);
     setModal(true);
     setResizable(false);
@@ -56,13 +68,14 @@ public class GeneralError extends JDialog {
     dispose();
   }
 
-  public void setMessage(String message) {
+  private void setMessage(String message) {
     messageBox.setText(message);
   }
 
-  public void setMessageIcon(ErrorIcon icon) {
+  private void setMessageIcon(ErrorIcon icon) {
     try {
-      messageBox.setIcon(new ImageIcon(Dry.class.getClassLoader().getResource(icon.getFilename())));
+      messageBox.setIcon(new ImageIcon(
+          Objects.requireNonNull(Dry.class.getClassLoader().getResource(icon.getFilename()))));
     } catch (NullPointerException ignored) {
     }
   }

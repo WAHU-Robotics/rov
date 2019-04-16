@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class ShutdownHandler implements CommandHandler<Shutdown> {
 
-  protected ShutdownThreads shutdownThreads;
+  ShutdownThreads shutdownThreads;
   private final MotorService motorService;
 
   public ShutdownHandler(MotorService motorService) {
@@ -22,7 +22,7 @@ public class ShutdownHandler implements CommandHandler<Shutdown> {
     setShutdownThreads();
   }
 
-  protected void setShutdownThreads() {
+  void setShutdownThreads() {
     this.shutdownThreads = new ShutdownThreadsImpl();
   }
 

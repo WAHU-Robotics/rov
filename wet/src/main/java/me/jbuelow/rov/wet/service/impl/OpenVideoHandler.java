@@ -1,18 +1,13 @@
-/**
- *
- */
 package me.jbuelow.rov.wet.service.impl;
 
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import me.jbuelow.rov.common.command.OpenVideo;
 import me.jbuelow.rov.common.response.Response;
 import me.jbuelow.rov.common.response.VideoStreamAddress;
 import me.jbuelow.rov.wet.service.CommandHandler;
 import org.springframework.stereotype.Service;
-import uk.co.caprica.vlcj.discovery.NativeDiscovery;
-
-import java.io.IOException;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 
 /**
  * @author Jacob Buelow
@@ -69,10 +64,9 @@ public class OpenVideoHandler implements CommandHandler<OpenVideo> {
     }
 
     String ip = IP.toString();
-    VideoStreamAddress response = new VideoStreamAddress(ip+":"+port);
     //VideoStreamAddress response = new VideoStreamAddress("rtsp://184.72.239.149/vod/mp4:BigBuckBunny_115k.mov");
 
-    return response;
+    return new VideoStreamAddress(ip + ":" + port);
   }
 
 

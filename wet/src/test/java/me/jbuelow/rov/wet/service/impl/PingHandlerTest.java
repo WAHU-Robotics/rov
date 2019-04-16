@@ -1,6 +1,3 @@
-/**
- * 
- */
 package me.jbuelow.rov.wet.service.impl;
 
 import static org.hamcrest.CoreMatchers.equalTo;

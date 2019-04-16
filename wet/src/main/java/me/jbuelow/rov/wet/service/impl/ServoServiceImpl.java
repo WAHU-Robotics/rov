@@ -1,5 +1,11 @@
 package me.jbuelow.rov.wet.service.impl;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
 import me.jbuelow.rov.common.capabilities.Tool;
 import me.jbuelow.rov.wet.service.ServoService;
@@ -10,13 +16,6 @@ import me.jbuelow.rov.wet.vehicle.hardware.pwm.PwmDevice;
 import me.jbuelow.rov.wet.vehicle.hardware.pwm.Servo;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.UUID;
-
 /**
  * Handles servos as a service.
  */
@@ -25,11 +24,11 @@ import java.util.UUID;
 public class ServoServiceImpl implements ServoService {
   //private static final double PWM_FREQUENCY = 60;
 
-  private Map<Tool, Servo> servos = new HashMap<>();
-  private Map<String, UUID> servoNames = new HashMap<>();
+  private final Map<Tool, Servo> servos = new HashMap<>();
+  private final Map<String, UUID> servoNames = new HashMap<>();
   private List<ServoConfig> servoConfiguration;
 
-  public ServoServiceImpl(PwmDevice pwmDevice, VehicleConfiguration vehicleConfigurtion) throws IOException {
+  private ServoServiceImpl(PwmDevice pwmDevice, VehicleConfiguration vehicleConfigurtion) {
     //pwmDevice.setPWMFreqency(PWM_FREQUENCY); //TODO figure out if neccessary
     
     for (ServoConfig servoConfig : vehicleConfigurtion.getServoConfiguration()) {

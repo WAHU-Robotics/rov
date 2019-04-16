@@ -11,7 +11,7 @@ public enum ErrorIcon {
   JOY_ERROR("joystick-connection-error.png");
 
 
-  private String filename;
+  private final String filename;
 
   ErrorIcon(String filename) {
     this.filename = filename;

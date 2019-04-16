@@ -12,9 +12,10 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 public class SetServoHandler implements CommandHandler<SetServo> {
-  private ServoService servoService;
 
-  public SetServoHandler(ServoService servoService) {
+  private final ServoService servoService;
+
+  private SetServoHandler(ServoService servoService) {
     this.servoService = servoService;
   }
   

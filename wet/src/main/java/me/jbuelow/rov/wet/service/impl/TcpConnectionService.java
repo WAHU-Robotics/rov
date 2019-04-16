@@ -1,6 +1,3 @@
-/**
- *
- */
 package me.jbuelow.rov.wet.service.impl;
 
 import java.io.EOFException;
@@ -16,9 +13,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
+import me.jbuelow.rov.common.RovConstants;
 import me.jbuelow.rov.common.command.Command;
 import me.jbuelow.rov.common.response.InvalidCommandResponse;
-import me.jbuelow.rov.common.RovConstants;
 import me.jbuelow.rov.wet.service.CommandProcessorService;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.DisposableBean;
@@ -33,17 +30,17 @@ import org.springframework.stereotype.Service;
  */
 @Service
 @Slf4j
-public class TcpConnectionService implements DisposableBean {
+class TcpConnectionService implements DisposableBean {
 
-  public static final long IDLE_TIME = 10;  //One second
-  public static final int SOCKET_TIMEOUT = 100;
+  private static final long IDLE_TIME = 10;  //One second
+  private static final int SOCKET_TIMEOUT = 100;
   public static String myIp;
 
-  private CommandProcessorService commandProcessorService;
-  private ConnectionServer connectionServer;
-  private ApplicationEventPublisher eventPublisher;
+  private final CommandProcessorService commandProcessorService;
+  private final ConnectionServer connectionServer;
+  private final ApplicationEventPublisher eventPublisher;
 
-  public TcpConnectionService(CommandProcessorService commandProcessorService,
+  private TcpConnectionService(CommandProcessorService commandProcessorService,
       ApplicationEventPublisher eventPublisher) {
     this.commandProcessorService = commandProcessorService;
     this.eventPublisher = eventPublisher;
@@ -63,12 +60,12 @@ public class TcpConnectionService implements DisposableBean {
 
   private class ConnectionServer extends Thread {
 
-    private ServerSocket listener;
     private volatile boolean running = true;
-    private List<ConnectionHandler> handlers = new ArrayList<>();
+    private final List<ConnectionHandler> handlers = new ArrayList<>();
 
     @Override
     public void run() {
+      ServerSocket listener;
       try {
         listener = new ServerSocket(RovConstants.ROV_PORT);
         listener.setSoTimeout(SOCKET_TIMEOUT);
@@ -99,7 +96,7 @@ public class TcpConnectionService implements DisposableBean {
       }
     }
 
-    public void abort() {
+    void abort() {
       running = false;
 
       Iterator<ConnectionHandler> it = handlers.iterator();
@@ -125,11 +122,11 @@ public class TcpConnectionService implements DisposableBean {
   private class ConnectionHandler extends Thread {
 
     private boolean running = true;
-    private Socket socket;
+    private final Socket socket;
     private ObjectOutputStream out;
     private ObjectInputStream in;
 
-    public ConnectionHandler(Socket clientSocket) throws IOException {
+    ConnectionHandler(Socket clientSocket) throws IOException {
       log.debug("Received new connection from client: " + clientSocket.getInetAddress());
       this.socket = clientSocket;
       this.socket.setSoTimeout(SOCKET_TIMEOUT);
@@ -146,7 +143,7 @@ public class TcpConnectionService implements DisposableBean {
             command = (Command) in.readObject();
             out.writeObject(commandProcessorService.handleCommand(command));
           } catch (ClassCastException e) {
-            out.writeObject(new InvalidCommandResponse(e));;
+            out.writeObject(new InvalidCommandResponse(e));
           }
         } catch (SocketTimeoutException e) {
           //Do nothing and move on to try reading again.
@@ -176,11 +173,11 @@ public class TcpConnectionService implements DisposableBean {
       log.debug("Controller " + socket.getInetAddress() + " disconnected.");
     }
 
-    public void abort() {
+    void abort() {
       running = false;
     }
 
-    public boolean isConnected() {
+    boolean isConnected() {
       return (socket != null && socket.isConnected());
     }
   }

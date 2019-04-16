@@ -3,8 +3,6 @@ package me.jbuelow.rov.wet.vehicle.hardware.pwm;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
-
 @Component
 @Profile("noHardware")
 public class MockPwmInterface implements PwmDevice {
@@ -22,12 +20,14 @@ public class MockPwmInterface implements PwmDevice {
 	@Override
 	public PwmChannel getChannel(int channel) {
 		return new PwmChannel() {
-			
+
 			@Override
-			public void setServoPulse(float pulseMS) throws IOException {}
-			
+			public void setServoPulse(float pulseMS) {
+			}
+
 			@Override
-			public void setPWM(int on, int off) throws IOException {}
+			public void setPWM(int on, int off) {
+			}
 
 			@Override
 			public int getChannelNumber() {
@@ -37,8 +37,10 @@ public class MockPwmInterface implements PwmDevice {
 	}
 
 	@Override
-	public void setPWMFreqency(double frequency) throws IOException {}
+	public void setPWMFreqency(double frequency) {
+	}
 
 	@Override
-	public void setAllPWM(int on, int off) throws IOException {}
+	public void setAllPWM(int on, int off) {
+	}
 }

@@ -1,8 +1,13 @@
-/**
- *
- */
 package me.jbuelow.rov.wet.service.impl;
 
+import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.InterfaceAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.util.Enumeration;
 import lombok.extern.slf4j.Slf4j;
 import me.jbuelow.rov.common.RovConstants;
 import me.jbuelow.rov.wet.vehicle.hardware.pwm.PwmDevice;
@@ -12,19 +17,16 @@ import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.net.*;
-import java.util.Enumeration;
-
 /**
  * @author Jacob Buelow
  * @author Brian Wachsmuth
  */
 @Service
 @Slf4j
-public class DiscoveryBeaconService {
+class DiscoveryBeaconService {
 
   @Autowired
+  private
   PwmDevice pwmDevice;
 
   private static final long BEACON_INTERVAL = 10000; // Ten seconds
@@ -61,18 +63,19 @@ public class DiscoveryBeaconService {
     sendBeacon = false;
   }
 
+  @SuppressWarnings("CatchMayIgnoreException")
   @EventListener
   public void controllerDisconnec(ControllerDisconnectedEvent event) {
     log.debug("REEEEEEEEEEEEEEE");
     log.info("Controller Disconnected! Failsafing motors...");
     try {
-    	
-      pwmDevice.setAllPWM(0, 0);;
+
+      pwmDevice.setAllPWM(0, 0);
     } catch (NullPointerException | IOException e) {}
     sendBeacon = true;
   }
 
-  public InetAddress getBroadcastAddrs() throws SocketException {
+  private InetAddress getBroadcastAddrs() throws SocketException {
     Enumeration<NetworkInterface> nicList = NetworkInterface.getNetworkInterfaces();
 
     for (; nicList.hasMoreElements(); ) {

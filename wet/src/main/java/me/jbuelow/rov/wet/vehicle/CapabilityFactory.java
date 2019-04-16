@@ -1,22 +1,22 @@
-/**
- *
- */
 package me.jbuelow.rov.wet.vehicle;
-
-import me.jbuelow.rov.common.capabilities.*;
-import org.springframework.beans.BeanUtils;
 
 import java.lang.reflect.Constructor;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import me.jbuelow.rov.common.capabilities.AbstractCapability;
+import me.jbuelow.rov.common.capabilities.Capability;
+import me.jbuelow.rov.common.capabilities.Motor;
+import me.jbuelow.rov.common.capabilities.Servo;
+import me.jbuelow.rov.common.capabilities.Video;
+import org.springframework.beans.BeanUtils;
 
 /**
  * Generates a Capability Object based on a Configuration Object
  */
 public abstract class CapabilityFactory {
 
-  private static Map<Class<? extends AccessoryConfig>, Class<? extends AbstractCapability>> clazzMatrix = new HashMap<>();
+  private static final Map<Class<? extends AccessoryConfig>, Class<? extends AbstractCapability>> clazzMatrix = new HashMap<>();
 
   static {
     clazzMatrix.put(MotorConfig.class, Motor.class);

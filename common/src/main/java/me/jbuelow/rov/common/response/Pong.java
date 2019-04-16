@@ -1,9 +1,4 @@
-/**
- *
- */
 package me.jbuelow.rov.common.response;
-
-import me.jbuelow.rov.common.response.Response;
 
 /**
  * @author Jacob Buelow
@@ -12,10 +7,8 @@ import me.jbuelow.rov.common.response.Response;
 public class Pong extends Response {
 
   private static final long serialVersionUID = -2290713647984123482L;
-  public String message;
 
   public Pong(String message) {
-    this.message = message;
   }
 
 }

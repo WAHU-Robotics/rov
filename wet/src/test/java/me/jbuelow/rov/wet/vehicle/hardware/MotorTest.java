@@ -1,16 +1,18 @@
 package me.jbuelow.rov.wet.vehicle.hardware;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.reset;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+
+import java.io.IOException;
 import me.jbuelow.rov.wet.vehicle.hardware.pwm.Motor;
 import me.jbuelow.rov.wet.vehicle.hardware.pwm.PwmChannel;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.io.IOException;
-
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.nullValue;
-import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.*;
 
 public class MotorTest {
   
@@ -18,7 +20,7 @@ public class MotorTest {
   private Motor motor;
   
   @Before
-  public void setup() throws IOException {
+  public void setup() {
     pwmChannel = mock(PwmChannel.class);
     motor = new Motor(pwmChannel);
   }

@@ -6,7 +6,7 @@ package me.jbuelow.rov.dry.controller;
  *
  * @see me.jbuelow.rov.dry.controller.OSType
  */
-public abstract class OSUtils {
+abstract class OSUtils {
   private static String osName = System.getProperty("os.name").toLowerCase();
 
   public static OSType getOsType() {
@@ -25,15 +25,15 @@ public abstract class OSUtils {
       return OSType.UNKNOWN;
   }
 
-  public static boolean isWindows() {
+  private static boolean isWindows() {
       return (osName.indexOf("win") >= 0);
   }
 
-  public static boolean isMac() {
+  private static boolean isMac() {
       return (osName.indexOf("mac") >= 0);
   }
 
-  public static boolean isLinux() {
+  private static boolean isLinux() {
       return (osName.indexOf("nux") >= 0);
   }
   

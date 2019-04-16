@@ -1,13 +1,13 @@
 package me.jbuelow.rov.dry.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.Random;
 import net.java.games.input.Component;
 import net.java.games.input.Component.Identifier;
 import net.java.games.input.Component.Identifier.Axis;
 import net.java.games.input.Controller;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 /**
  * Object for transfer and mapping of input values
@@ -23,34 +23,34 @@ public class PolledValues {
 
   public boolean[] buttons;
 
-  private String[] directions = {"\uD83E\uDC84", "\uD83E\uDC81", "\uD83E\uDC85", "\uD83E\uDC82", "\uD83E\uDC86", "\uD83E\uDC83", "\uD83E\uDC87", "\uD83E\uDC80", "⚫"};
-  private int joyPrecision = 1000;
+  private final String[] directions = {"\uD83E\uDC84", "\uD83E\uDC81", "\uD83E\uDC85",
+      "\uD83E\uDC82", "\uD83E\uDC86", "\uD83E\uDC83", "\uD83E\uDC87", "\uD83E\uDC80", "⚫"};
 
   public PolledValues(Controller controller) {
-    Controller c = controller;
 
-    if (c.getName() == "False Controller") {
+    int joyPrecision = 1000;
+    if (Objects.equals(controller.getName(), "False Controller")) {
       x = new Random().nextInt(joyPrecision);
       return;
     }
     try {
-      x = (int) (c.getComponent(Axis.X).getPollData() * joyPrecision);
+      x = (int) (controller.getComponent(Axis.X).getPollData() * joyPrecision);
     } catch (NullPointerException ignored) {
     }
     try {
-      y = (int) (c.getComponent(Axis.Y).getPollData() * joyPrecision);
+      y = (int) (controller.getComponent(Axis.Y).getPollData() * joyPrecision);
     } catch (NullPointerException ignored) {
     }
     try {
-      z = (int) (c.getComponent(Axis.RZ).getPollData() * joyPrecision);
+      z = (int) (controller.getComponent(Axis.RZ).getPollData() * joyPrecision);
     } catch (NullPointerException ignored) {
     }
     try {
-      t = (int) (c.getComponent(Axis.SLIDER).getPollData() * joyPrecision);
+      t = (int) (controller.getComponent(Axis.SLIDER).getPollData() * joyPrecision);
     } catch (NullPointerException ignored) {
     }
     try {
-      hat = c.getComponent(Axis.POV).getPollData();
+      hat = controller.getComponent(Axis.POV).getPollData();
     } catch (NullPointerException ignored) {
     }
     resolveHatPosition();

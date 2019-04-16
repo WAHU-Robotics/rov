@@ -1,6 +1,3 @@
-/**
- *
- */
 package me.jbuelow.rov.dry.service.impl;
 
 import java.io.Closeable;
@@ -11,12 +8,11 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
+import me.jbuelow.rov.common.RovConstants;
 import me.jbuelow.rov.common.command.Command;
 import me.jbuelow.rov.common.command.GetCapabilities;
 import me.jbuelow.rov.common.response.Response;
-import me.jbuelow.rov.common.RovConstants;
 import me.jbuelow.rov.common.response.VehicleCapabilities;
-import me.jbuelow.rov.dry.exception.JinputNativesNotFoundException;
 import org.apache.commons.io.IOUtils;
 
 /**
@@ -24,7 +20,7 @@ import org.apache.commons.io.IOUtils;
  * @author Brian Wachsmuth
  */
 @Slf4j
-public class ControllHandler implements Closeable {
+class ControllHandler implements Closeable {
 
   private VehicleCapabilities capabilities;
   private Socket vehicleSocket;
@@ -32,7 +28,7 @@ public class ControllHandler implements Closeable {
   private ObjectInputStream in;
 
   public ControllHandler(InetAddress vehicleAddress)
-      throws IOException, ClassNotFoundException, JinputNativesNotFoundException {
+      throws IOException, ClassNotFoundException {
     vehicleSocket = new Socket(vehicleAddress, RovConstants.ROV_PORT);
     out = new ObjectOutputStream(vehicleSocket.getOutputStream());
     in = new ObjectInputStream(vehicleSocket.getInputStream());

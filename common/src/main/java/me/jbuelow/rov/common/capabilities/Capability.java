@@ -1,6 +1,3 @@
-/**
- *
- */
 package me.jbuelow.rov.common.capabilities;
 
 import java.io.Serializable;
@@ -12,7 +9,7 @@ import java.util.UUID;
  */
 public interface Capability extends Serializable {
 
-  public UUID getId();
+  UUID getId();
 
-  public String getName();
+  String getName();
 }

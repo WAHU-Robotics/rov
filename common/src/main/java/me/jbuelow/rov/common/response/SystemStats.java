@@ -1,6 +1,3 @@
-/**
- *
- */
 package me.jbuelow.rov.common.response;
 
 import java.util.Map;
@@ -14,6 +11,7 @@ import lombok.Setter;
  */
 public class SystemStats extends Response {
 
+  private static final long serialVersionUID = 4972717684120027425L;
   @Getter
   @Setter
   private Map<String, String> environment = null;

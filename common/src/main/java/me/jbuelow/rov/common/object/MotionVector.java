@@ -1,7 +1,8 @@
 package me.jbuelow.rov.common.object;
 
-public class MotionVector extends ROVObject {
+class MotionVector extends ROVObject {
 
+  private static final long serialVersionUID = 4712953101939461543L;
   // 6-DoF axes
   int surge;
   int sway;

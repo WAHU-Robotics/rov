@@ -1,6 +1,3 @@
-/**
- *
- */
 package me.jbuelow.rov.wet.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +17,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class SetMotorsHandler implements CommandHandler<SetMotors> {
 
-  private MotorService motorService;
+  private final MotorService motorService;
   
   public SetMotorsHandler(MotorService motorService) {
     this.motorService = motorService;

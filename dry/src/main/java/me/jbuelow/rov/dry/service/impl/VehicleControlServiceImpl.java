@@ -1,8 +1,11 @@
-/**
- *
- */
 package me.jbuelow.rov.dry.service.impl;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
 import me.jbuelow.rov.common.command.Command;
 import me.jbuelow.rov.common.response.Response;
@@ -16,9 +19,6 @@ import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.util.*;
-
 /**
  * @author Jacob Buelow
  * @author Brian Wachsmuth
@@ -27,7 +27,7 @@ import java.util.*;
 @Slf4j
 public class VehicleControlServiceImpl implements VehicleControlService {
 
-  private Map<UUID, ControllHandler> handlers = new HashMap<>(2);
+  private final Map<UUID, ControllHandler> handlers = new HashMap<>(2);
 
 
   /**

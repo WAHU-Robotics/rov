@@ -1,19 +1,20 @@
 package me.jbuelow.rov.wet.service.impl;
 
+import lombok.extern.slf4j.Slf4j;
 import me.jbuelow.rov.common.command.SetMotion;
 import me.jbuelow.rov.common.response.Response;
 import me.jbuelow.rov.common.response.SetMotionResponse;
 import me.jbuelow.rov.wet.service.CommandHandler;
 import me.jbuelow.rov.wet.service.MotionService;
 import org.springframework.stereotype.Service;
-import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
 public class SetMotionHandler implements CommandHandler<SetMotion> {
-  private MotionService motionService;
-  
-  public SetMotionHandler(MotionService motionService) {
+
+  private final MotionService motionService;
+
+  private SetMotionHandler(MotionService motionService) {
     this.motionService = motionService;
   }
   

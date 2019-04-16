@@ -6,10 +6,10 @@ public class Goodbye extends Response {
   private static final long serialVersionUID = -6435681174573067030L;
 
   @Getter
-  private boolean safe;
+  private final boolean safe;
 
   @Getter
-  private Thread thread;
+  private final Thread thread;
 
   public Goodbye() {
     this(false);

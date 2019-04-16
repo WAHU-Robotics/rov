@@ -1,13 +1,10 @@
-/**
- *
- */
 package me.jbuelow.rov.wet.vehicle;
 
 /**
  * @author Jacob Buelow
  * @author Brian Wachsmuth
  */
-public interface ActuatorConfig extends AccessoryConfig {
+interface ActuatorConfig extends AccessoryConfig {
 
-  public int getPwmPort();
+  int getPwmPort();
 }

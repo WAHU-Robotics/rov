@@ -1,6 +1,3 @@
-/**
- *
- */
 package me.jbuelow.rov.dry.service;
 
 import java.util.List;

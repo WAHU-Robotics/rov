@@ -1,6 +1,3 @@
-/**
- *
- */
 package me.jbuelow.rov.common.command;
 
 import java.util.ArrayList;
@@ -17,7 +14,7 @@ import me.jbuelow.rov.common.object.MotorPower;
  */
 @Getter
 @Setter
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 @ToString
 public class SetMotors extends Command {
 

@@ -1,6 +1,3 @@
-/**
- *
- */
 package me.jbuelow.rov.common.command;
 
 /**
@@ -10,8 +7,8 @@ package me.jbuelow.rov.common.command;
 public class GetSystemStats extends Command {
   private static final long serialVersionUID = 8163151692922115214L;
 
-  public boolean getEnvironment;
-  public boolean getProperties;
+  public final boolean getEnvironment;
+  public final boolean getProperties;
 
   public GetSystemStats() {
     this(false, false);

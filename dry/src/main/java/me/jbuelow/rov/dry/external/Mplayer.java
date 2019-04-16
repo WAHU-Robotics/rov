@@ -11,7 +11,7 @@ import java.io.InputStreamReader;
  */
 public class Mplayer {
 
-  Process process = null;
+  private Process process = null;
 
   public Mplayer(String url) {
     String ip = url.split(":")[0];

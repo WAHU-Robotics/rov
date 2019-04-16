@@ -10,7 +10,6 @@ wet/wet.iml
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 
 # User-specific stuff
-.idea/**/workspace.xml
 .idea/**/tasks.xml
 .idea/**/dictionaries
 .idea/**/shelf
@@ -21,13 +20,10 @@ wet/wet.iml
 .idea/**/dataSources.local.xml
 .idea/**/sqlDataSources.xml
 .idea/**/dynamic.xml
-.idea/**/uiDesigner.xml
 .idea/**/dbnavigator.xml
 
 # Gradle
 .idea/**/gradle.xml
-.idea/**/libraries
-
 # CMake
 cmake-build-debug/
 cmake-build-release/
@@ -60,8 +56,6 @@ fabric.properties
 .idea/httpRequests
 ### Java template
 # Compiled class file
-*.class
-
 # Log file
 *.log
 
@@ -72,7 +66,6 @@ fabric.properties
 .mtj.tmp/
 
 # Package Files #
-*.jar
 *.war
 *.nar
 *.ear
@@ -104,4 +97,3 @@ moist/src/test/
 .gitignore
 .floo
 .flooignore
-*.log*

@@ -34,14 +34,14 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
-public class UiBootstrap {
-  private Control control;
-  private VehicleControlService vehicleControlService;
-  private VideoStreamAddress video;
+class UiBootstrap {
+
+  private final Control control;
+  private final VehicleControlService vehicleControlService;
   private Gui gui;
   private UUID vehicleId;
-  
-  public UiBootstrap(Control control, VehicleControlService vehicleControlService) {
+
+  private UiBootstrap(Control control, VehicleControlService vehicleControlService) {
     this.control = control;
     this.vehicleControlService = vehicleControlService;
     
@@ -69,7 +69,8 @@ public class UiBootstrap {
   @Order()
   public void startMainUI(VehicleDiscoveryEvent event) {
     vehicleId = event.getVehicleID();
-    video = (VideoStreamAddress) vehicleControlService.sendCommand(vehicleId, new OpenVideo(event.getVehicleAddress()));
+    VideoStreamAddress video = (VideoStreamAddress) vehicleControlService
+        .sendCommand(vehicleId, new OpenVideo(event.getVehicleAddress()));
 
     gui = new Gui("");
     log.info("Opening Mplayer instance...");
@@ -88,8 +89,6 @@ public class UiBootstrap {
 
   private class Loop extends Thread {
 
-    private boolean running = true;
-
     private double gt() {
       return System.currentTimeMillis();
     }
@@ -97,7 +96,7 @@ public class UiBootstrap {
     /**
      * Round to certain number of decimals
      */
-    private float round(float number, int scale) {
+    private float round(float number, @SuppressWarnings("SameParameterValue") int scale) {
       int pow = 10;
       for (int i = 1; i < scale; i++) {
         pow *= 10;
@@ -117,6 +116,7 @@ public class UiBootstrap {
       return (float) ((int) (sum * 10f)) / 10f;
     }
 
+    @SuppressWarnings("LoopConditionNotUpdatedInsideLoop")
     @Override
     public void run() {
       try {
@@ -138,7 +138,8 @@ public class UiBootstrap {
         int cameraPosition = 0;
         SetMotion previousMotion = null;
         SetServo previousServo = null;
-        
+
+        boolean running = true;
         while (running) {
           lastTime = time;
           time = gt();
@@ -173,7 +174,7 @@ public class UiBootstrap {
           }
 
           SetMotion motion = ControlLogic.genMotorValues(joyA, joyB);
-          
+
           //Don't flood the ROV with unnecessary movement commands
           if (!motion.equals(previousMotion)) {
             Response response = vehicleControlService.sendCommand(vehicleId, motion);
@@ -234,6 +235,7 @@ public class UiBootstrap {
             protoMap.put(Tool.CUP, (cupState ^ Config.CUP_INVERT) ? 1000 : -1000);
             prevCupState = cupState;
           }
+          //noinspection PointlessArithmeticExpression
           protoMap.put(Tool.CAMERA_X,  (Config.CAMERA_X_INVERT ? -1 : 1) * cameraPosition);
 
           servoCommand.setServoValues(protoMap);

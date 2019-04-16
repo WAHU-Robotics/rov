@@ -1,5 +1,6 @@
 package me.jbuelow.rov.common.exception;
 
-public class InvalidMotorCountException extends ROVException{
+class InvalidMotorCountException extends ROVException {
 
+  private static final long serialVersionUID = 1800777263932566580L;
 }

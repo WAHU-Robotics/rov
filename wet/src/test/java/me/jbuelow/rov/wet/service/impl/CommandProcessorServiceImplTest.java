@@ -1,9 +1,19 @@
-/**
- * 
- */
 package me.jbuelow.rov.wet.service.impl;
 
-import me.jbuelow.rov.common.command.*;
+import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
+import me.jbuelow.rov.common.command.Command;
+import me.jbuelow.rov.common.command.GetCapabilities;
+import me.jbuelow.rov.common.command.GetSystemStats;
+import me.jbuelow.rov.common.command.Ping;
+import me.jbuelow.rov.common.command.SetMotors;
 import me.jbuelow.rov.common.response.Pong;
 import me.jbuelow.rov.common.response.SetMotorsResponse;
 import me.jbuelow.rov.common.response.SystemStats;
@@ -22,13 +32,6 @@ import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.ArrayList;
-
-import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.junit.Assert.assertThat;
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.*;
-
 /**
  * @author Jacob Buelow
  * @author Brian Wachsmuth
@@ -43,7 +46,7 @@ public class CommandProcessorServiceImplTest {
 
   @MockBean
   private MotorService motorService;
-  
+
   @SpyBean
   private PingHandler pingHandler;
 

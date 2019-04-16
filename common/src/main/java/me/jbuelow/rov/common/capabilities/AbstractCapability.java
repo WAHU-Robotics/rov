@@ -13,17 +13,17 @@ public abstract class AbstractCapability implements Capability {
   private static final long serialVersionUID = 5483228059601905629L;
 
   @Getter()
-  private UUID id;
+  private final UUID id;
   
   @Getter
   @Setter
   private String name;
 
-  public AbstractCapability() {
+  AbstractCapability() {
     this(UUID.randomUUID());
   }
-  
-  public AbstractCapability(UUID id) {
+
+  AbstractCapability(UUID id) {
     this.id = id;
   }
 }

@@ -1,6 +1,3 @@
-/**
- *
- */
 package me.jbuelow.rov.wet.vehicle;
 
 import java.util.UUID;
@@ -13,7 +10,8 @@ public interface AccessoryConfig {
 
   UUID getId();
 
+  @SuppressWarnings("SameReturnValue")
   String getName();
-  
+
   void validateConfigurtion();
 }

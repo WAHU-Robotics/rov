@@ -1,8 +1,7 @@
 package me.jbuelow.rov.wet.vehicle.hardware.pwm;
 
-import lombok.extern.slf4j.Slf4j;
-
 import java.io.IOException;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Object used to represent a physical motor.
@@ -11,12 +10,12 @@ import java.io.IOException;
 public class Motor {
   private static final float POWER_TO_PULSE_FACTOR = 2000f;
   private static final float CENTER_PULSE = 1.5f;
-  
-  private boolean armed = false;
-  private PwmChannel pwmChannel;
+
+  private final boolean armed = false;
+  private final PwmChannel pwmChannel;
   private Integer power;
-  
-  public Motor(PwmChannel pwmChannel) throws IOException {
+
+  public Motor(PwmChannel pwmChannel) {
     this.pwmChannel = pwmChannel;
   }
   
@@ -49,8 +48,8 @@ public class Motor {
   private float convertToPulse(int power) {
     return ((float) power / POWER_TO_PULSE_FACTOR) + CENTER_PULSE;
   }
-  
-  private void delay(long millis) {
+
+  private void delay(@SuppressWarnings("SameParameterValue") long millis) {
     try {
       Thread.sleep(millis);
     } catch (InterruptedException e) {

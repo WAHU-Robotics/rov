@@ -35,13 +35,12 @@ import com.pi4j.io.i2c.I2CBus;
 import com.pi4j.io.i2c.I2CDevice;
 import com.pi4j.io.i2c.I2CFactory;
 import com.pi4j.io.i2c.I2CFactory.UnsupportedBusNumberException;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
-
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
 
 /**
  * This class represents an Adafruit 16 channel I2C PWM driver board.
@@ -81,14 +80,14 @@ public class PCA9685 implements PwmDevice {
 	
     private static final double PULSE_LENGTH = 960_000d;
 
-	private Map<Integer, PwmChannel> channels = new HashMap<>(16);
+  private final Map<Integer, PwmChannel> channels = new HashMap<>(16);
 	private Double frequency = null;
 
 	/**
 	 * Constructs a PWM device using the default settings. (I2CBUS.BUS_1, 0x40)
 	 * 
 	 * @throws IOException                   if there was communication problem
-	 * @throws UnsupportedBusNumberException
+   * @throws UnsupportedBusNumberException i2c bus not found
 	 */
 	public PCA9685() throws IOException, UnsupportedBusNumberException {
 		// 0x40 is the default address used by the AdaFruit PWM board.
@@ -105,7 +104,7 @@ public class PCA9685 implements PwmDevice {
 	 * @see I2CBus
 	 * 
 	 * @throws IOException                   if there was communication problem
-	 * @throws UnsupportedBusNumberException
+   * @throws UnsupportedBusNumberException i2c bus not found
 	 */
 	public PCA9685(int bus, int address) throws IOException, UnsupportedBusNumberException {
 		this.bus = bus;
@@ -213,8 +212,8 @@ public class PCA9685 implements PwmDevice {
 		 *            of the pulse, 4095 at the very end.
 		 * @param off when to go from high to low [0, 4095]. 0 means at the very start
 		 *            of the pulse, 4095 at the very end.
-		 * 
-		 * @throws IOException
+     *
+     * @throws IOException something went wrong in communication
 		 */
 		@Override
 		public void setPWM(int on, int off) throws IOException {

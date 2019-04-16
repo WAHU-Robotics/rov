@@ -1,8 +1,7 @@
 package me.jbuelow.rov.wet.vehicle.hardware.pwm;
 
-import lombok.extern.slf4j.Slf4j;
-
 import java.io.IOException;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Object used to represent a physical motor.
@@ -12,10 +11,10 @@ public class Servo {
   private static final float VALUE_TO_PULSE_FACTOR = 2000f;
   private static final float CENTER_PULSE = 1.5f;
 
-  private PwmChannel pwmChannel;
+  private final PwmChannel pwmChannel;
   private Integer value;
 
-  public Servo(PwmChannel pwmChannel) throws IOException {
+  public Servo(PwmChannel pwmChannel) {
     this.pwmChannel = pwmChannel;
   }
   

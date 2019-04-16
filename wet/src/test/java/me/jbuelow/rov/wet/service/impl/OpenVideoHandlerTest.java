@@ -6,18 +6,17 @@ import org.junit.Before;
  * @author Jacob Buelow
  * @author Brian Wachsmuth
  */
-public class OpenVideoHandlerTest {
+class OpenVideoHandlerTest {
 
   //private OpenVideoHandler handler;
 
+  @SuppressWarnings("EmptyMethod")
   @Before
   public void setup() {
     //handler = new OpenVideoHandler();
   }
 
-  /**
-   * Test method for {@link OpenVideoHandler#execute(OpenVideo)}.
-   *//*
+  /*
   @Test
   public void testExecute() {
     InetAddress addr = null;
@@ -31,9 +30,7 @@ public class OpenVideoHandlerTest {
     VideoStreamAddress vidaddr = (VideoStreamAddress) response;
   }*/
 
-  /**
-   * Test method for {@link PingHandler#getCommandType()}.
-   *//*
+  /*
   @Test
   public void testGetCommandType() {
     assertThat(handler.getCommandType(), is(equalTo(OpenVideo.class)));

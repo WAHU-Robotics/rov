@@ -1,6 +1,3 @@
-/**
- *
- */
 package me.jbuelow.rov.dry.discovery;
 
 import java.net.InetAddress;
@@ -19,7 +16,7 @@ public class VehicleDiscoveryEvent extends ApplicationEvent {
    */
   private static final long serialVersionUID = -4288932705637545744L;
 
-  private InetAddress vehicleAddress;
+  private final InetAddress vehicleAddress;
   private UUID vehicleID;
 
   public VehicleDiscoveryEvent(Object source, InetAddress vehicleAddress) {

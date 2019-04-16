@@ -1,19 +1,16 @@
-/**
- *
- */
 package me.jbuelow.rov.wet.vehicle;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import me.jbuelow.rov.common.capabilities.Motor;
-import me.jbuelow.rov.common.capabilities.MotorOrientation;
-import me.jbuelow.rov.common.capabilities.ThrustAxis;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import me.jbuelow.rov.common.capabilities.Motor;
+import me.jbuelow.rov.common.capabilities.MotorOrientation;
+import me.jbuelow.rov.common.capabilities.ThrustAxis;
 import me.jbuelow.rov.wet.exception.InvalidFactorException;
 import me.jbuelow.rov.wet.exception.InvalidThrustAxisException;
 import org.hibernate.validator.constraints.NotBlank;

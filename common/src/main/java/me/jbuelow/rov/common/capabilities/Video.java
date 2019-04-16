@@ -1,6 +1,3 @@
-/**
- *
- */
 package me.jbuelow.rov.common.capabilities;
 
 import java.util.UUID;

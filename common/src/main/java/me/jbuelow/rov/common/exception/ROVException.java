@@ -1,11 +1,14 @@
 package me.jbuelow.rov.common.exception;
 
 public class ROVException extends Exception {
-  public ROVException() {
+
+  private static final long serialVersionUID = 3657204124543182131L;
+
+  protected ROVException() {
     super();
   }
 
-  public ROVException(String errorMessage) {
+  protected ROVException(String errorMessage) {
     super(errorMessage);
   }
 

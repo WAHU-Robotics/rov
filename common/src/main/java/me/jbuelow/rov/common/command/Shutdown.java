@@ -6,7 +6,7 @@ public class Shutdown extends Command {
     private static final long serialVersionUID = 4207802681924667139L;
 
     @Getter
-    private Option option;
+    private final Option option;
 
     public Shutdown() {
         this.option = Option.REBOOT;
