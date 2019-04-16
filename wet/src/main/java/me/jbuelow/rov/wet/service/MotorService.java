@@ -11,6 +11,8 @@ public interface MotorService {
   void armMotor(UUID id) throws IOException;
   
   boolean isArmed(UUID id);
+
+  void failsafe() throws IOException;
   
   UUID getMotorByName(String name);
 }

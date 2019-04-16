@@ -1,5 +1,9 @@
 package me.jbuelow.rov.wet.service.impl;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 import me.jbuelow.rov.wet.service.MotorService;
 import me.jbuelow.rov.wet.vehicle.MotorConfig;
 import me.jbuelow.rov.wet.vehicle.VehicleConfiguration;
@@ -7,11 +11,6 @@ import me.jbuelow.rov.wet.vehicle.hardware.pwm.Motor;
 import me.jbuelow.rov.wet.vehicle.hardware.pwm.PwmChannel;
 import me.jbuelow.rov.wet.vehicle.hardware.pwm.PwmDevice;
 import org.springframework.stereotype.Service;
-
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
 
 /**
  * Handles motors as a service.
@@ -54,6 +53,13 @@ public class MotorServiceImpl implements MotorService {
   @Override
   public boolean isArmed(UUID id) {
     return getMotor(id).isArmed();
+  }
+
+  @Override
+  public void failsafe() throws IOException {
+    for (Motor m:motors.values()) {
+      m.setPower(0);
+    }
   }
 
   private Motor getMotor(UUID id) {

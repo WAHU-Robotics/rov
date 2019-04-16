@@ -1,11 +1,30 @@
 package me.jbuelow.rov.wet.service.impl;
 
+import java.io.IOException;
+import lombok.extern.slf4j.Slf4j;
 import me.jbuelow.rov.common.command.Shutdown;
 import me.jbuelow.rov.common.response.Goodbye;
 import me.jbuelow.rov.common.response.Response;
 import me.jbuelow.rov.wet.service.CommandHandler;
+import me.jbuelow.rov.wet.service.MotorService;
+import me.jbuelow.rov.wet.service.ShutdownThreads;
+import org.springframework.stereotype.Service;
 
+@Service
+@Slf4j
 public class ShutdownHandler implements CommandHandler<Shutdown> {
+
+  protected ShutdownThreads shutdownThreads;
+  private final MotorService motorService;
+
+  public ShutdownHandler(MotorService motorService) {
+    this.motorService = motorService;
+    setShutdownThreads();
+  }
+
+  protected void setShutdownThreads() {
+    this.shutdownThreads = new ShutdownThreadsImpl();
+  }
 
   /**
    * Handles the Shutdown command
@@ -15,7 +34,36 @@ public class ShutdownHandler implements CommandHandler<Shutdown> {
    */
   @Override
   public Response execute(Shutdown command) {
-    return new Goodbye();
+    boolean failsafed = false;
+    for (int i = 0; i < 5; i++) {
+      try {
+        motorService.failsafe();
+      } catch (IOException e) {
+        continue;
+      }
+      failsafed = true;
+      break;
+    }
+
+    Thread shutdownThread;
+
+    switch (command.getOption()) {
+      case SOFT_REBOOT:
+        shutdownThread = shutdownThreads.getSoftRebootThread();
+        break;
+
+      case REBOOT:
+      default:
+        shutdownThread = shutdownThreads.getRebootThread();
+        break;
+
+      case POWEROFF:
+        shutdownThread = shutdownThreads.getShutdownThread();
+        break;
+    }
+
+    shutdownThread.start();
+    return new Goodbye(failsafed, shutdownThread);
   }
 
 
@@ -28,5 +76,4 @@ public class ShutdownHandler implements CommandHandler<Shutdown> {
   public Class<Shutdown> getCommandType() {
     return Shutdown.class;
   }
-
 }
