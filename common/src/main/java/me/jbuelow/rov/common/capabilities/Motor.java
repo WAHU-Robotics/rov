@@ -1,3 +1,6 @@
+/**
+ *
+ */
 package me.jbuelow.rov.common.capabilities;
 
 import java.util.UUID;
@@ -17,7 +20,7 @@ public class Motor extends AbstractCapability {
   public Motor() {
     super();
   }
-  
+
   public Motor(UUID id) {
     super(id);
   }

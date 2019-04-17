@@ -1,3 +1,6 @@
+/**
+ *
+ */
 package me.jbuelow.rov.dry.discovery;
 
 import java.io.IOException;
@@ -22,13 +25,13 @@ import org.springframework.stereotype.Service;
  */
 @Service
 @Slf4j
-class DiscoveryService implements DisposableBean {
+public class DiscoveryService implements DisposableBean {
 
-  private final ExecutorService executorService;
+  private ExecutorService executorService;
   private DiscoveryListener listener;
-  private final ApplicationEventPublisher eventPublisher;
+  private ApplicationEventPublisher eventPublisher;
 
-  private DiscoveryService(ExecutorService executorService,
+  public DiscoveryService(ExecutorService executorService,
       ApplicationEventPublisher eventPublisher) {
     this.executorService = executorService;
     this.eventPublisher = eventPublisher;
@@ -63,7 +66,6 @@ class DiscoveryService implements DisposableBean {
     private static final long SLEEP_TIME = 1000;
     private static final int SOCKET_READ_TIMEOUT = 100;
     private volatile boolean running = true;
-
 
 
     @Override
@@ -115,7 +117,7 @@ class DiscoveryService implements DisposableBean {
       log.debug("Discovery Service Stopped.");
     }
 
-    void stop() {
+    public void stop() {
       running = false;
     }
   }

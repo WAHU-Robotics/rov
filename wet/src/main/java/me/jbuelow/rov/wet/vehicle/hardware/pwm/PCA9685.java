@@ -80,14 +80,14 @@ public class PCA9685 implements PwmDevice {
 	
     private static final double PULSE_LENGTH = 960_000d;
 
-  private final Map<Integer, PwmChannel> channels = new HashMap<>(16);
+  private Map<Integer, PwmChannel> channels = new HashMap<>(16);
 	private Double frequency = null;
 
 	/**
 	 * Constructs a PWM device using the default settings. (I2CBUS.BUS_1, 0x40)
 	 * 
 	 * @throws IOException                   if there was communication problem
-   * @throws UnsupportedBusNumberException i2c bus not found
+   * @throws UnsupportedBusNumberException
 	 */
 	public PCA9685() throws IOException, UnsupportedBusNumberException {
 		// 0x40 is the default address used by the AdaFruit PWM board.
@@ -104,7 +104,7 @@ public class PCA9685 implements PwmDevice {
 	 * @see I2CBus
 	 * 
 	 * @throws IOException                   if there was communication problem
-   * @throws UnsupportedBusNumberException i2c bus not found
+   * @throws UnsupportedBusNumberException
 	 */
 	public PCA9685(int bus, int address) throws IOException, UnsupportedBusNumberException {
 		this.bus = bus;
@@ -213,7 +213,7 @@ public class PCA9685 implements PwmDevice {
 		 * @param off when to go from high to low [0, 4095]. 0 means at the very start
 		 *            of the pulse, 4095 at the very end.
      *
-     * @throws IOException something went wrong in communication
+     * @throws IOException
 		 */
 		@Override
 		public void setPWM(int on, int off) throws IOException {

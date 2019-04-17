@@ -37,27 +37,27 @@ import org.springframework.beans.factory.DisposableBean;
 //@Component
 @Slf4j
 //@Profile("!noHardware")
-class PCA9685Orig implements DisposableBean {
+public class PCA9685Orig implements DisposableBean {
   // "Theoretical" values
   private final static float CENTER_PULSE = 1.5f;
   private final static float MIN_PULSE = 1f;
   private final static float MAX_PULSE = 2f;
 
 
-  private final static int PCA9685_ADDRESS = 0x40;
+  public final static int PCA9685_ADDRESS = 0x40;
 
-  private final static int MODE1 = 0x00;
+  public final static int MODE1 = 0x00;
   public final static int MODE2 = 0x01;
 
   public final static int SUBADR1 = 0x02;
   public final static int SUBADR2 = 0x03;
   public final static int SUBADR3 = 0x04;
 
-  private final static int PRESCALE = 0xFE;
-  private final static int LED0_ON_L = 0x06;
-  private final static int LED0_ON_H = 0x07;
-  private final static int LED0_OFF_L = 0x08;
-  private final static int LED0_OFF_H = 0x09;
+  public final static int PRESCALE = 0xFE;
+  public final static int LED0_ON_L = 0x06;
+  public final static int LED0_ON_H = 0x07;
+  public final static int LED0_OFF_L = 0x08;
+  public final static int LED0_OFF_H = 0x09;
 
   public final static int ALL_LED_ON_L = 0xFA;
   public final static int ALL_LED_ON_H = 0xFB;
@@ -69,11 +69,11 @@ class PCA9685Orig implements DisposableBean {
   private I2CBus bus;
   private I2CDevice servoDriver;
 
-  private PCA9685Orig() throws I2CFactory.UnsupportedBusNumberException {
+  public PCA9685Orig() throws I2CFactory.UnsupportedBusNumberException {
     this(PCA9685_ADDRESS); // 0x40 obtained through sudo i2cdetect -y 1
   }
 
-  private PCA9685Orig(int address) throws I2CFactory.UnsupportedBusNumberException {
+  public PCA9685Orig(int address) throws I2CFactory.UnsupportedBusNumberException {
     if (Objects.equals(System.getenv("ROV_NOPI4J"), "true")) {
       return;
     }
@@ -121,7 +121,7 @@ class PCA9685Orig implements DisposableBean {
     }
   }
 
-  private void delay(@SuppressWarnings("SameParameterValue") int i) {
+  private void delay(int i) {
     try {
       Thread.sleep(i);
     } catch (InterruptedException ignored) {
@@ -133,7 +133,7 @@ class PCA9685Orig implements DisposableBean {
    * @param on 0..4095 (2^12 positions)
    * @param off 0..4095 (2^12 positions)
    */
-  private void setPWM(int channel, int on, int off) throws IllegalArgumentException {
+  public void setPWM(int channel, int on, int off) throws IllegalArgumentException {
     if (channel < 0 || channel > 15) {
       throw new IllegalArgumentException("Channel must be in [0, 15]");
     }
@@ -169,7 +169,7 @@ class PCA9685Orig implements DisposableBean {
    * Free resources
    */
   @Override
-  public void destroy() {
+  public void destroy() throws Exception {
     if (this.bus != null) {
       try {
         this.bus.close();
@@ -184,7 +184,7 @@ class PCA9685Orig implements DisposableBean {
    * @param targetPulse in ms
    * @return the value as an int
    */
-  private int getServoValueFromPulse(int freq, float targetPulse) {
+  public int getServoValueFromPulse(int freq, float targetPulse) {
     double pulseLength = 1_000_000; // 1s = 1,000,000 us per pulse. "us" is to be read "micro (mu) sec".
     pulseLength /= freq;  // 40..1000 Hz
     pulseLength /= 4_096; // 12 bits of resolution. 4096 = 2^12

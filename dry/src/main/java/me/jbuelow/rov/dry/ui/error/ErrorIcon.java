@@ -12,7 +12,7 @@ public enum ErrorIcon {
   WARNING("warning.png");
 
 
-  private final String filename;
+  private String filename;
 
   ErrorIcon(String filename) {
     this.filename = filename;

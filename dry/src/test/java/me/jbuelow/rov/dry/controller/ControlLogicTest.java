@@ -11,25 +11,27 @@ public class ControlLogicTest {
   @Test
   public void testComputeDeadzonesZero() {
     PolledValues inVals = new PolledValues(6, -4, 8, 3, 0f);
-    PolledValues polledValues = ControlLogic.computeDeadzones(inVals, 10);
+    Object polledValues = ControlLogic.computeDeadzones(inVals, 10);
 
     assertThat(polledValues, instanceOf(PolledValues.class));
-    assertThat(polledValues.x, equalTo(0));
-    assertThat(polledValues.y, equalTo(0));
-    assertThat(polledValues.z, equalTo(0));
-    assertThat(polledValues.t, equalTo(3));
+    PolledValues polledValues1 = (PolledValues) polledValues;
+    assertThat(polledValues1.x, equalTo(0));
+    assertThat(polledValues1.y, equalTo(0));
+    assertThat(polledValues1.z, equalTo(0));
+    assertThat(polledValues1.t, equalTo(3));
   }
 
   @Test
   public void testComputeDeadzonesOut() {
     PolledValues inVals = new PolledValues(100, 200, -200, -100, 0f);
-    PolledValues polledValues = ControlLogic.computeDeadzones(inVals, 10);
+    Object polledValues = ControlLogic.computeDeadzones(inVals, 10);
 
     assertThat(polledValues, instanceOf(PolledValues.class));
-    assertThat(polledValues.x, equalTo(100));
-    assertThat(polledValues.y, equalTo(200));
-    assertThat(polledValues.z, equalTo(-200));
-    assertThat(polledValues.t, equalTo(-100));
+    PolledValues polledValues1 = (PolledValues) polledValues;
+    assertThat(polledValues1.x, equalTo(100));
+    assertThat(polledValues1.y, equalTo(200));
+    assertThat(polledValues1.z, equalTo(-200));
+    assertThat(polledValues1.t, equalTo(-100));
   }
 
 }

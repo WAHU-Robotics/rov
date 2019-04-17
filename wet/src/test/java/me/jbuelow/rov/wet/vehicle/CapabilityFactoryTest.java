@@ -1,3 +1,6 @@
+/**
+ *
+ */
 package me.jbuelow.rov.wet.vehicle;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
@@ -29,9 +32,9 @@ public class CapabilityFactoryTest {
     config.setMotorType(MotorType.TRACK);
     config.setName("Test1");
     config.setPwmPort(5);
-    
+
     Capability capability = CapabilityFactory.getCapability(config);
-    
+
     assertThat(capability, instanceOf(Motor.class));
     Motor motor = (Motor) capability;
     assertThat(motor.getId(), is(config.getId()));
@@ -48,9 +51,9 @@ public class CapabilityFactoryTest {
     ServoConfig config = new ServoConfig();
     config.setName("Test1");
     config.setPwmPort(5);
-    
+
     Capability capability = CapabilityFactory.getCapability(config);
-    
+
     assertThat(capability, instanceOf(Servo.class));
     Servo servo = (Servo) capability;
     assertThat(servo.getId(), is(config.getId()));
@@ -65,9 +68,9 @@ public class CapabilityFactoryTest {
     VideoConfig config = new VideoConfig();
     config.setName("Test1");
     config.setVideoStreamAddress("localhost:12345");
-    
+
     Capability capability = CapabilityFactory.getCapability(config);
-    
+
     assertThat(capability, instanceOf(Video.class));
     Video video = (Video) capability;
     assertThat(video.getId(), is(config.getId()));
@@ -81,13 +84,13 @@ public class CapabilityFactoryTest {
   @Test(expected=IllegalArgumentException.class)
   public void testGetCapabilityInvalid() {
     AccessoryConfig config = new AccessoryConfig() {
-      
+
       @Override
       public String getName() {
         // TODO Auto-generated method stub
         return null;
       }
-      
+
       @Override
       public UUID getId() {
         // TODO Auto-generated method stub
@@ -97,10 +100,10 @@ public class CapabilityFactoryTest {
       @Override
       public void validateConfigurtion() {
         // TODO Auto-generated method stub
-        
+
       }
     };
-    
+
     CapabilityFactory.getCapability(config);
   }
 }

@@ -20,7 +20,7 @@ public class MotorTest {
   private Motor motor;
   
   @Before
-  public void setup() {
+  public void setup() throws IOException {
     pwmChannel = mock(PwmChannel.class);
     motor = new Motor(pwmChannel);
   }

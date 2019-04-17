@@ -1,3 +1,6 @@
+/**
+ *
+ */
 package me.jbuelow.rov.wet.service.impl;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -16,13 +19,14 @@ import org.junit.Test;
  * @author Brian Wachsmuth
  */
 public class PingHandlerTest {
+
   private PingHandler handler;
-  
+
   @Before
   public void setup() {
     handler = new PingHandler();
   }
-  
+
   /**
    * Test method for {@link me.jbuelow.rov.wet.service.impl.PingHandler#execute(Ping)}.
    */

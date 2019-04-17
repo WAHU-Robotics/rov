@@ -1,3 +1,6 @@
+/**
+ *
+ */
 package me.jbuelow.rov.wet.service.impl;
 
 import org.springframework.context.ApplicationEvent;
@@ -6,10 +9,10 @@ import org.springframework.context.ApplicationEvent;
  * @author Jacob Buelow
  * @author Brian Wachsmuth
  */
-class ControllerConnectedEvent extends ApplicationEvent {
+public class ControllerConnectedEvent extends ApplicationEvent {
 
   /**
-   * 
+   *
    */
   private static final long serialVersionUID = 6504651068190183804L;
 

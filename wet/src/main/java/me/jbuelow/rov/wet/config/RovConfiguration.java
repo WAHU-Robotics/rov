@@ -1,3 +1,6 @@
+/**
+ *
+ */
 package me.jbuelow.rov.wet.config;
 
 import java.util.concurrent.ExecutorService;
@@ -10,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
  * @author Brian Wachsmuth
  */
 @Configuration
-class RovConfiguration {
+public class RovConfiguration {
 
   @Bean
   public ExecutorService executorService() {

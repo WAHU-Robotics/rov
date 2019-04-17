@@ -1,3 +1,6 @@
+/**
+ *
+ */
 package me.jbuelow.rov.common.response;
 
 import java.util.ArrayList;
@@ -18,7 +21,7 @@ import me.jbuelow.rov.common.capabilities.Capability;
  */
 @Getter
 @Setter
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode
 @ToString
 public class VehicleCapabilities extends Response {
 

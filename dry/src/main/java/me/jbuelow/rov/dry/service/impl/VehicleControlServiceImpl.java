@@ -1,3 +1,6 @@
+/**
+ *
+ */
 package me.jbuelow.rov.dry.service.impl;
 
 import java.io.IOException;
@@ -25,7 +28,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class VehicleControlServiceImpl implements VehicleControlService {
 
-  private final Map<UUID, ControllHandler> handlers = new HashMap<>(2);
+  private Map<UUID, ControllHandler> handlers = new HashMap<>(2);
 
 
   /**

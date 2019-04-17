@@ -1,3 +1,6 @@
+/**
+ *
+ */
 package me.jbuelow.rov.common.response;
 
 /**
@@ -6,8 +9,9 @@ package me.jbuelow.rov.common.response;
  */
 public class VideoStreamAddress extends Response {
 
-  private static final long serialVersionUID = 8068342721802875737L;
+  public String url;
 
   public VideoStreamAddress(String url) {
+    this.url = url;
   }
 }

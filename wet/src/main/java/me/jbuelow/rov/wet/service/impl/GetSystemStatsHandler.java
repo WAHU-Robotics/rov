@@ -1,3 +1,6 @@
+/**
+ *
+ */
 package me.jbuelow.rov.wet.service.impl;
 
 import java.io.BufferedReader;
@@ -53,7 +56,7 @@ public class GetSystemStatsHandler implements CommandHandler<GetSystemStats> {
         IOUtils.closeQuietly(reader);
       }
     }
-    
+
     response.setCpuTemp(temp);
 
     return response;

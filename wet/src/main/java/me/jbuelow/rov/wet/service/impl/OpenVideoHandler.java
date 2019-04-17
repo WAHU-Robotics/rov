@@ -1,3 +1,6 @@
+/**
+ *
+ */
 package me.jbuelow.rov.wet.service.impl;
 
 import java.io.IOException;
@@ -58,15 +61,16 @@ public class OpenVideoHandler implements CommandHandler<OpenVideo> {
 
     InetAddress IP=null;
     try {
-       IP=InetAddress.getLocalHost();
+      IP=InetAddress.getLocalHost();
     } catch (UnknownHostException e) {
       e.printStackTrace();
     }
 
     String ip = IP.toString();
+    VideoStreamAddress response = new VideoStreamAddress(ip + ":" + port);
     //VideoStreamAddress response = new VideoStreamAddress("rtsp://184.72.239.149/vod/mp4:BigBuckBunny_115k.mov");
 
-    return new VideoStreamAddress(ip + ":" + port);
+    return response;
   }
 
 

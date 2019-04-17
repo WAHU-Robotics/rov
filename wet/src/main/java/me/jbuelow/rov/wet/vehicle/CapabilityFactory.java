@@ -1,3 +1,6 @@
+/**
+ *
+ */
 package me.jbuelow.rov.wet.vehicle;
 
 import java.lang.reflect.Constructor;
@@ -16,7 +19,7 @@ import org.springframework.beans.BeanUtils;
  */
 public abstract class CapabilityFactory {
 
-  private static final Map<Class<? extends AccessoryConfig>, Class<? extends AbstractCapability>> clazzMatrix = new HashMap<>();
+  private static Map<Class<? extends AccessoryConfig>, Class<? extends AbstractCapability>> clazzMatrix = new HashMap<>();
 
   static {
     clazzMatrix.put(MotorConfig.class, Motor.class);
@@ -35,19 +38,19 @@ public abstract class CapabilityFactory {
 
     return generateCapability(capabilityClazz, config);
   }
-  
+
   private static <T extends AbstractCapability> T generateCapability(Class<T> clazz, AccessoryConfig config) {
     Constructor<T> ctor;
-    
+
     try {
       ctor = clazz.getConstructor(UUID.class);
     } catch (NoSuchMethodException | SecurityException e) {
       throw new RuntimeException("Error generating Vehicle Capability", e);
     }
-    
+
     T capability = BeanUtils.instantiateClass(ctor, config.getId());
     BeanUtils.copyProperties(config, capability);
-    
+
     return capability;
   }
 }

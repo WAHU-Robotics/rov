@@ -22,14 +22,12 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class MotionServiceImplTest {
 
   @Rule
-  public final ErrorCollector collector = new ErrorCollector();
+  public ErrorCollector collector = new ErrorCollector();                         
 
   @Autowired
-  private
   MotorService motorService;
 
   @Autowired
-  private
   MotionService motionService;
 
   @Test

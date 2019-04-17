@@ -24,14 +24,13 @@ public class TSYS01 implements TempDevice {
   private final static byte _TSYS01_CONVERT = 0x48;
   private final static byte _TSYS01_READ = 0x00;
 
-  private final List<Integer> k = new ArrayList<>();
+  List<Integer> k = new ArrayList<>();
 
-  private TSYS01() throws IOException, I2CFactory.UnsupportedBusNumberException {
+  public TSYS01() throws IOException, I2CFactory.UnsupportedBusNumberException {
     this(I2CBus.BUS_1, _TSYS01_ADDR);
   }
 
-  private TSYS01(int bus, int address)
-      throws IOException, I2CFactory.UnsupportedBusNumberException {
+  public TSYS01(int bus, int address) throws IOException, I2CFactory.UnsupportedBusNumberException {
     this.bus = bus;
     this.address = address;
     i2cDevice = I2CFactory.getInstance(bus).getDevice(address);
@@ -55,7 +54,7 @@ public class TSYS01 implements TempDevice {
     int adc =
       (data[0]<<16)&0x00ff0000| //Convert our 3 unsigned bytes to one big int.
       (data[1]<< 8)&0x0000ff00| //Why does it look so messy and complicated?
-          (data[2]) & 0x000000ff; //Because Java! That's why.
+          (data[2] << 0) & 0x000000ff; //Because Java! That's why.
 
     log.debug("Got ADC value: " + adc);
     return calculateTemperature(adc, k);
@@ -85,7 +84,7 @@ public class TSYS01 implements TempDevice {
 
       int value =
         (bytes[1]<< 8)&0x0000ff00|
-            (bytes[2]) & 0x000000ff;
+            (bytes[2] << 0) & 0x000000ff;
 
       k.add(value);
     }
@@ -102,7 +101,7 @@ public class TSYS01 implements TempDevice {
     return address;
   }
 
-  private void sleep(@SuppressWarnings("SameParameterValue") int millis) {
+  private void sleep(int millis) {
     try {
       Thread.sleep(millis);
     } catch (InterruptedException e) {

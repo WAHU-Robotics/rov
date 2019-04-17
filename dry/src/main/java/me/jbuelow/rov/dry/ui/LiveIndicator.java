@@ -5,7 +5,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import javax.swing.JPanel;
 
-abstract class LiveIndicator extends JPanel {
+public abstract class LiveIndicator extends JPanel {
 
   LiveIndicator() {
     // set a preferred size for the custom panel.
@@ -13,7 +13,7 @@ abstract class LiveIndicator extends JPanel {
     setLayout(new BorderLayout());
   }
 
-  protected abstract void draw(Graphics g);
+  public abstract void draw(Graphics g);
 
   @Override
   public void paintComponent(Graphics g) {

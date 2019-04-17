@@ -1,3 +1,6 @@
+/**
+ *
+ */
 package me.jbuelow.rov.wet.service.impl;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
@@ -30,14 +33,13 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @Import(GetCapabilitiesHandler.class)
 public class GetCapabilitiesHandlerTest {
+
   private static final UUID TEST_UUID = UUID.randomUUID();
-  
+
   @MockBean
-  private
   VehicleConfiguration vehicleConfiguration;
-  
+
   @Autowired
-  private
   GetCapabilitiesHandler handler;
 
   /**
@@ -47,22 +49,21 @@ public class GetCapabilitiesHandlerTest {
   public void testExecute() {
     when(vehicleConfiguration.getId()).thenReturn(TEST_UUID);
     when(vehicleConfiguration.getName()).thenReturn("Test Vehicle");
-    
+
     List<AccessoryConfig> accessories = new ArrayList<>();
     accessories.add(new MotorConfig());
     accessories.add(new ServoConfig());
-    
+
     when(vehicleConfiguration.getAllConfiguration()).thenReturn(accessories);
-    
-    
+
     Response response = handler.execute(new GetCapabilities());
-    
+
     assertThat(response, instanceOf(VehicleCapabilities.class));
-    
+
     VehicleCapabilities vehicleCapabilities = (VehicleCapabilities) response;
     assertThat(vehicleCapabilities.getId(), is(TEST_UUID));
     assertThat(vehicleCapabilities.getName(), is("Test Vehicle"));
-    
+
     List<Capability> capabilities = vehicleCapabilities.getCapabilities();
     assertThat(capabilities, instanceOf(ArrayList.class));
     assertThat(capabilities.size(), is(3));

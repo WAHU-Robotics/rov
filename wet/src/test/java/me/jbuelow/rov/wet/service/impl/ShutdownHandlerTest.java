@@ -38,7 +38,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 @Slf4j
 public class ShutdownHandlerTest {
   @Rule
-  public final ErrorCollector collector = new ErrorCollector();
+  public ErrorCollector collector = new ErrorCollector();
 
   private ShutdownHandler handler;
 

@@ -6,7 +6,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.Objects;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -27,7 +26,7 @@ public class GeneralError extends JDialog {
   private JButton buttonOK;
   private JLabel messageBox;
 
-  private GeneralError() {
+  public GeneralError() {
     setContentPane(contentPane);
     setModal(true);
     setResizable(false);
@@ -68,14 +67,13 @@ public class GeneralError extends JDialog {
     dispose();
   }
 
-  private void setMessage(String message) {
+  public void setMessage(String message) {
     messageBox.setText(message);
   }
 
-  private void setMessageIcon(ErrorIcon icon) {
+  public void setMessageIcon(ErrorIcon icon) {
     try {
-      messageBox.setIcon(new ImageIcon(
-          Objects.requireNonNull(Dry.class.getClassLoader().getResource(icon.getFilename()))));
+      messageBox.setIcon(new ImageIcon(Dry.class.getClassLoader().getResource(icon.getFilename())));
     } catch (NullPointerException ignored) {
     }
   }

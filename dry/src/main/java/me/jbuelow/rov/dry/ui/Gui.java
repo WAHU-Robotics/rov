@@ -26,7 +26,7 @@ import uk.co.caprica.vlcj.player.MediaPlayer;
 /**
  * Main graphical user interface for rov software
  */
-class Gui extends JFrame implements ApplicationContextAware {
+public class Gui extends JFrame implements ApplicationContextAware {
 
   //private final EmbeddedMediaPlayerComponent mediaPlayerComponent;
   private JPanel panel1;
@@ -60,7 +60,8 @@ class Gui extends JFrame implements ApplicationContextAware {
   private JSlider sliderJoyBY;
   private JSlider sliderJoyBZ;
 
-  private MediaPlayer player;
+  MediaPlayer player;
+  ApplicationContext ctx;
 
   public Gui(String streamURL) {
     try {
@@ -216,5 +217,6 @@ class Gui extends JFrame implements ApplicationContextAware {
 
   @Override
   public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+    ctx = applicationContext;
   }
 }

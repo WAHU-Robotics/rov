@@ -1,3 +1,6 @@
+/**
+ *
+ */
 package me.jbuelow.rov.wet.service.impl;
 
 import java.util.HashMap;
@@ -24,7 +27,7 @@ public class CommandProcessorServiceImpl implements CommandProcessorService,
 
   private ApplicationContext applicationContext;
   @SuppressWarnings("rawtypes")
-  private final Map<Class, CommandHandler> handlerMap = new HashMap<>();
+  private Map<Class, CommandHandler> handlerMap = new HashMap<>();
 
 
   /**

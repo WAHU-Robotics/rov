@@ -19,8 +19,8 @@ import org.springframework.stereotype.Service;
 public class MotorServiceImpl implements MotorService {
   private static final double PWM_FREQUENCY = 60;
 
-  private final Map<UUID, Motor> motors = new HashMap<>();
-  private final Map<String, UUID> motorNames = new HashMap<>();
+  private Map<UUID, Motor> motors = new HashMap<>();
+  private Map<String, UUID> motorNames = new HashMap<>();
   
   public MotorServiceImpl(PwmDevice pwmDevice, VehicleConfiguration vehicleConfigurtion) throws IOException {
     pwmDevice.setPWMFreqency(PWM_FREQUENCY);
