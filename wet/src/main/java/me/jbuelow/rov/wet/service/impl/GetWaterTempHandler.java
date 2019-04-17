@@ -1,3 +1,6 @@
+/**
+ *
+ */
 package me.jbuelow.rov.wet.service.impl;
 
 import me.jbuelow.rov.common.command.GetWaterTemp;
@@ -14,7 +17,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class GetWaterTempHandler implements CommandHandler<GetWaterTemp> {
 
-  private final SensorService sensorService;
+  private SensorService sensorService;
 
   public GetWaterTempHandler(SensorService sensorService) {
     this.sensorService = sensorService;

@@ -24,11 +24,12 @@ import org.springframework.stereotype.Service;
 public class ServoServiceImpl implements ServoService {
   //private static final double PWM_FREQUENCY = 60;
 
-  private final Map<Tool, Servo> servos = new HashMap<>();
-  private final Map<String, UUID> servoNames = new HashMap<>();
+  private Map<Tool, Servo> servos = new HashMap<>();
+  private Map<String, UUID> servoNames = new HashMap<>();
   private List<ServoConfig> servoConfiguration;
 
-  private ServoServiceImpl(PwmDevice pwmDevice, VehicleConfiguration vehicleConfigurtion) {
+  public ServoServiceImpl(PwmDevice pwmDevice, VehicleConfiguration vehicleConfigurtion)
+      throws IOException {
     //pwmDevice.setPWMFreqency(PWM_FREQUENCY); //TODO figure out if neccessary
     
     for (ServoConfig servoConfig : vehicleConfigurtion.getServoConfiguration()) {

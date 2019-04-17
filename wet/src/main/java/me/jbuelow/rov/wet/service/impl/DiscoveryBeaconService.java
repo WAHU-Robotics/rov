@@ -1,3 +1,6 @@
+/**
+ *
+ */
 package me.jbuelow.rov.wet.service.impl;
 
 import java.io.IOException;
@@ -23,10 +26,9 @@ import org.springframework.stereotype.Service;
  */
 @Service
 @Slf4j
-class DiscoveryBeaconService {
+public class DiscoveryBeaconService {
 
   @Autowired
-  private
   PwmDevice pwmDevice;
 
   private static final long BEACON_INTERVAL = 10000; // Ten seconds
@@ -63,7 +65,6 @@ class DiscoveryBeaconService {
     sendBeacon = false;
   }
 
-  @SuppressWarnings("CatchMayIgnoreException")
   @EventListener
   public void controllerDisconnec(ControllerDisconnectedEvent event) {
     log.debug("REEEEEEEEEEEEEEE");
@@ -75,7 +76,7 @@ class DiscoveryBeaconService {
     sendBeacon = true;
   }
 
-  private InetAddress getBroadcastAddrs() throws SocketException {
+  public InetAddress getBroadcastAddrs() throws SocketException {
     Enumeration<NetworkInterface> nicList = NetworkInterface.getNetworkInterfaces();
 
     for (; nicList.hasMoreElements(); ) {

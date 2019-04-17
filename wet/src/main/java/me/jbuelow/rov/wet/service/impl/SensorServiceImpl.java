@@ -13,9 +13,9 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class SensorServiceImpl implements SensorService {
 
-  private final TempDevice tempDevice;
+  private TempDevice tempDevice;
 
-  private SensorServiceImpl(TempDevice tempDevice) {
+  public SensorServiceImpl(TempDevice tempDevice) {
     this.tempDevice = tempDevice;
   }
 

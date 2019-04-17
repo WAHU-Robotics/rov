@@ -1,3 +1,6 @@
+/**
+ *
+ */
 package me.jbuelow.rov.common.object;
 
 import java.io.Serializable;
@@ -15,7 +18,7 @@ import lombok.ToString;
 @Setter
 @EqualsAndHashCode
 @ToString
-class ServoValue implements Serializable {
+public class ServoValue implements Serializable {
 
   private static final long serialVersionUID = 2812485476244706951L;
 

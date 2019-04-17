@@ -30,10 +30,10 @@ public class MotionServiceImpl implements MotionService {
   private static final List<ThrustAxis> LINEAR_AXES = Arrays.asList(ThrustAxis.SURGE, ThrustAxis.SWAY, ThrustAxis.HEAVE);
   private static final List<ThrustAxis> ANGULAR_AXES = Arrays.asList(ThrustAxis.PITCH, ThrustAxis.ROLL, ThrustAxis.YAW);
 
-  private final MotorService motorService;
-  private final List<MotorConfig> motorConfiguration;
+  private MotorService motorService;
+  private List<MotorConfig> motorConfiguration;
 
-  private MotionServiceImpl(MotorService motorService, VehicleConfiguration configuration) {
+  public MotionServiceImpl(MotorService motorService, VehicleConfiguration configuration) {
     this.motorService = motorService;
     this.motorConfiguration = configuration.getMotorConfiguration();
   }
@@ -93,10 +93,10 @@ public class MotionServiceImpl implements MotionService {
   /**
    * Calculates the power needed for a motor influencing a single degree of freedom (axis).
    *
-   * @param motorConfig motorConfig
-   * @param thrustVectors thrustVectors
-   * @param thrustAxis thrustAxis
-   * @return power
+   * @param motorConfig
+   * @param thrustVectors
+   * @param thrustAxis
+   * @return
    */
   private int getSingleAxisPower(MotorConfig motorConfig, Map<ThrustAxis, Integer> thrustVectors, ThrustAxis thrustAxis) {
     BigDecimal factor = motorConfig.getThrustFactors().get(thrustAxis);
@@ -113,8 +113,8 @@ public class MotionServiceImpl implements MotionService {
   /**
    * Returns the list of Linear degrees of freedom influence by this motor configuration.
    *
-   * @param motorConfig motorConfig
-   * @return List of Thrust Axis
+   * @param motorConfig
+   * @return
    */
   private List<ThrustAxis> getLinearAxes(MotorConfig motorConfig) {
     List<ThrustAxis> axes = new ArrayList<>(3);
@@ -131,9 +131,9 @@ public class MotionServiceImpl implements MotionService {
   /**
    * Returns the requested vector needed to be produced by our single motor
    *
-   * @param thrustVectors thrustVectors
-   * @param motorAxes motorAxes
-   * @return array of double for motion vectors
+   * @param thrustVectors
+   * @param motorAxes
+   * @return
    */
   private double[] getMotionVectors(Map<ThrustAxis, Integer> thrustVectors, List<ThrustAxis> motorAxes) {
     double[] motionVector = new double[motorAxes.size()];
@@ -154,9 +154,9 @@ public class MotionServiceImpl implements MotionService {
   /**
    * Returns the vector representing the thrust produced by the fixed motor.
    *
-   * @param thrustFactors thrustFactors
-   * @param motorAxes motorAxes
-   * @return array of double for motion vectors
+   * @param thrustFactors
+   * @param motorAxes
+   * @return
    */
   private double[] getMotorFactors(Map<ThrustAxis, BigDecimal> thrustFactors, List<ThrustAxis> motorAxes) {
     double[] factorVector = new double[motorAxes.size()];
@@ -177,8 +177,8 @@ public class MotionServiceImpl implements MotionService {
   /**
    * Returns a list of all applicable rotational degreed of freedom (axes) influenced by a given motor configuration.
    *
-   * @param motorConfig motorConfig
-   * @return List of ThrustAxis
+   * @param motorConfig
+   * @return
    */
   private List<ThrustAxis> getAngularAxes(MotorConfig motorConfig) {
     List<ThrustAxis> axes = new ArrayList<>(3);
@@ -196,13 +196,12 @@ public class MotionServiceImpl implements MotionService {
    * Calculated the amount of power needed to be applied to a single motor to fulfill a requested
    * rotational thrust.
    *
-   * @param motorConfig motorConfig
-   * @param thrustVectors thrustVectors
-   * @return power
+   * @param motorConfig
+   * @param thrustVectors
+   * @return
    */
   private int getAngularPower(MotorConfig motorConfig, Map<ThrustAxis, Integer> thrustVectors) {
     List<ThrustAxis> axes = getAngularAxes(motorConfig);
-    //noinspection UnusedAssignment
     int powerLevel = 0;
     if (axes.size() == 1) {
       powerLevel = getSingleAxisPower(motorConfig, thrustVectors, axes.get(0));
@@ -227,9 +226,9 @@ public class MotionServiceImpl implements MotionService {
   /**
    * Calculate the "dotProduct" between the two given vectors
    *
-   * @param vectorOne array of double representing a vector
-   * @param vectorTwo array of double representing a vector
-   * @return dot product result
+   * @param vectorOne
+   * @param vectorTwo
+   * @return
    */
   private double dotProduct(double[] vectorOne, double[] vectorTwo) {
     assert(vectorOne.length == vectorTwo.length);
@@ -246,8 +245,8 @@ public class MotionServiceImpl implements MotionService {
   /**
    * Calculate the vector Norm (magitude) of the given vector
    *
-   * @param vector input double array vector
-   * @return output magnitude
+   * @param vector
+   * @return
    */
   private double getMagnitude(double[] vector) {
     double magnitude = 0d;
@@ -262,7 +261,7 @@ public class MotionServiceImpl implements MotionService {
   /**
    * Normalize the power levels across all motors to not exceed the max allowed power.
    *
-   * @param powerLevels powerLevels to normalize
+   * @param powerLevels
    */
   private void normalizePowerLevels(Map<UUID, Integer> powerLevels) {
     int maxPower = 0;
@@ -286,9 +285,16 @@ public class MotionServiceImpl implements MotionService {
   }
 
   /**
-   * @param magnitude input magnitude
-   * @param vector input vector
-   * @return output vector
+   * Calculate a new vector normalized with the given magnitude.
+   *
+   * @param magnitude
+   * @param vector
+   * @return
+   */
+  /**
+   * @param magnitude
+   * @param vector
+   * @return
    */
   private double[] getNorm(double magnitude, double[] vector) {
     double[] result = new double[vector.length];

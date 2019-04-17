@@ -1,3 +1,6 @@
+/**
+ *
+ */
 package me.jbuelow.rov.dry.config;
 
 import java.util.concurrent.ExecutorService;
@@ -9,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
  * Dry side configuration class for spring boot
  */
 @Configuration
-class DryConfiguration {
+public class DryConfiguration {
 
   @Bean
   public ExecutorService executorService() {

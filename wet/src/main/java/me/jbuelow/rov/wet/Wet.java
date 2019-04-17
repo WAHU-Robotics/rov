@@ -10,7 +10,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  */
 @SpringBootApplication
 @EnableScheduling
-class Wet {
+public class Wet {
 
   public static void main(String[] args) {
     SpringApplication.run(Wet.class, args);

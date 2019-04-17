@@ -1,3 +1,6 @@
+/**
+ *
+ */
 package me.jbuelow.rov.wet.service.impl;
 
 import java.io.EOFException;
@@ -30,17 +33,17 @@ import org.springframework.stereotype.Service;
  */
 @Service
 @Slf4j
-class TcpConnectionService implements DisposableBean {
+public class TcpConnectionService implements DisposableBean {
 
-  private static final long IDLE_TIME = 10;  //One second
-  private static final int SOCKET_TIMEOUT = 100;
+  public static final long IDLE_TIME = 10;  //One second
+  public static final int SOCKET_TIMEOUT = 100;
   public static String myIp;
 
-  private final CommandProcessorService commandProcessorService;
-  private final ConnectionServer connectionServer;
-  private final ApplicationEventPublisher eventPublisher;
+  private CommandProcessorService commandProcessorService;
+  private ConnectionServer connectionServer;
+  private ApplicationEventPublisher eventPublisher;
 
-  private TcpConnectionService(CommandProcessorService commandProcessorService,
+  public TcpConnectionService(CommandProcessorService commandProcessorService,
       ApplicationEventPublisher eventPublisher) {
     this.commandProcessorService = commandProcessorService;
     this.eventPublisher = eventPublisher;
@@ -60,12 +63,12 @@ class TcpConnectionService implements DisposableBean {
 
   private class ConnectionServer extends Thread {
 
+    private ServerSocket listener;
     private volatile boolean running = true;
-    private final List<ConnectionHandler> handlers = new ArrayList<>();
+    private List<ConnectionHandler> handlers = new ArrayList<>();
 
     @Override
     public void run() {
-      ServerSocket listener;
       try {
         listener = new ServerSocket(RovConstants.ROV_PORT);
         listener.setSoTimeout(SOCKET_TIMEOUT);
@@ -96,7 +99,7 @@ class TcpConnectionService implements DisposableBean {
       }
     }
 
-    void abort() {
+    public void abort() {
       running = false;
 
       Iterator<ConnectionHandler> it = handlers.iterator();
@@ -122,11 +125,11 @@ class TcpConnectionService implements DisposableBean {
   private class ConnectionHandler extends Thread {
 
     private boolean running = true;
-    private final Socket socket;
+    private Socket socket;
     private ObjectOutputStream out;
     private ObjectInputStream in;
 
-    ConnectionHandler(Socket clientSocket) throws IOException {
+    public ConnectionHandler(Socket clientSocket) throws IOException {
       log.debug("Received new connection from client: " + clientSocket.getInetAddress());
       this.socket = clientSocket;
       this.socket.setSoTimeout(SOCKET_TIMEOUT);
@@ -173,11 +176,11 @@ class TcpConnectionService implements DisposableBean {
       log.debug("Controller " + socket.getInetAddress() + " disconnected.");
     }
 
-    void abort() {
+    public void abort() {
       running = false;
     }
 
-    boolean isConnected() {
+    public boolean isConnected() {
       return (socket != null && socket.isConnected());
     }
   }

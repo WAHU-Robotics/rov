@@ -11,10 +11,10 @@ public class Servo {
   private static final float VALUE_TO_PULSE_FACTOR = 2000f;
   private static final float CENTER_PULSE = 1.5f;
 
-  private final PwmChannel pwmChannel;
+  private PwmChannel pwmChannel;
   private Integer value;
 
-  public Servo(PwmChannel pwmChannel) {
+  public Servo(PwmChannel pwmChannel) throws IOException {
     this.pwmChannel = pwmChannel;
   }
   

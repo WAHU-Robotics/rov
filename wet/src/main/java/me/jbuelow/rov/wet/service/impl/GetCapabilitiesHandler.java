@@ -1,3 +1,6 @@
+/**
+ *
+ */
 package me.jbuelow.rov.wet.service.impl;
 
 import java.util.HashSet;
@@ -21,7 +24,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class GetCapabilitiesHandler implements CommandHandler<GetCapabilities> {
 
-  private final VehicleConfiguration vehicleConfiguration;
+  private VehicleConfiguration vehicleConfiguration;
   private VehicleCapabilities capabilities = null;
 
   public GetCapabilitiesHandler(VehicleConfiguration vehicleConfiguration) {
@@ -39,12 +42,12 @@ public class GetCapabilitiesHandler implements CommandHandler<GetCapabilities> {
       for (AccessoryConfig config : vehicleConfiguration.getAllConfiguration()) {
         capabilities.getCapabilities().add(CapabilityFactory.getCapability(config));
       }
-      
+
       Set<ThrustAxis> thrustAxes = new HashSet<>();
       for (MotorConfig config : vehicleConfiguration.getMotorConfiguration()) {
         thrustAxes.addAll(config.getThrustFactors().keySet());
       }
-      
+
       capabilities.getCapabilities().add(new MotionCapabilities(thrustAxes));
     }
 
@@ -60,7 +63,8 @@ public class GetCapabilitiesHandler implements CommandHandler<GetCapabilities> {
    */
   @Override
   public Response execute(GetCapabilities command) {
-    return getCapabilities();
+    VehicleCapabilities response = getCapabilities();
+    return response;
   }
 
 

@@ -1,3 +1,6 @@
+/**
+ *
+ */
 package me.jbuelow.rov.common.response;
 
 import java.io.Serializable;
@@ -13,40 +16,40 @@ import me.jbuelow.rov.common.command.Command;
 public abstract class Response implements Serializable {
 
   /**
-   * 
+   *
    */
   private static final long serialVersionUID = 550897509739131117L;
 
   @Getter
-  private final Instant timestamp;
+  private Instant timestamp;
 
   @Getter
   @Setter
   private Command request;
 
   @Getter
-  private final boolean success;
+  private boolean success;
 
   @Getter
-  private final Exception exception;
+  private Exception exception;
 
-  Response() {
+  public Response() {
     this(null);
   }
 
-  private Response(@SuppressWarnings("SameParameterValue") Command request) {
+  public Response(Command request) {
     this(request, true, null);
   }
 
-  Response(boolean success) {
+  public Response(boolean success) {
     this(success, null);
   }
 
-  Response(boolean success, Exception exception) {
+  public Response(boolean success, Exception exception) {
     this(null, success, exception);
   }
 
-  Response(Command request, boolean success, Exception exception) {
+  public Response(Command request, boolean success, Exception exception) {
     this.timestamp = Instant.now();
     this.request = request;
     this.success = success;

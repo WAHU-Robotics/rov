@@ -1,3 +1,6 @@
+/**
+ *
+ */
 package me.jbuelow.rov.dry.service.impl;
 
 import java.io.IOException;
@@ -11,6 +14,7 @@ import me.jbuelow.rov.common.command.Command;
 import me.jbuelow.rov.common.response.Response;
 import me.jbuelow.rov.common.response.VehicleCapabilities;
 import me.jbuelow.rov.dry.discovery.VehicleDiscoveryEvent;
+import me.jbuelow.rov.dry.exception.JinputNativesNotFoundException;
 import me.jbuelow.rov.dry.service.VehicleControlService;
 import org.springframework.context.event.EventListener;
 import org.springframework.core.Ordered;
@@ -25,7 +29,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class VehicleControlServiceImpl implements VehicleControlService {
 
-  private final Map<UUID, ControllHandler> handlers = new HashMap<>(2);
+  private Map<UUID, ControllHandler> handlers = new HashMap<>(2);
 
 
   /**
@@ -94,6 +98,8 @@ public class VehicleControlServiceImpl implements VehicleControlService {
       event.setVehicleID(handler.getId());
     } catch (ClassNotFoundException | IOException e) {
       log.error("Error opening communications to vehicle", e);
+    } catch (JinputNativesNotFoundException e) {
+      e.printStackTrace();
     }
   }
 }

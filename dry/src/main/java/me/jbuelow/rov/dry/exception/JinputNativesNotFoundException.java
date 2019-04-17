@@ -8,9 +8,6 @@ import me.jbuelow.rov.common.exception.ROVException;
  * @see me.jbuelow.rov.common.exception.ROVException
  */
 public class JinputNativesNotFoundException extends ROVException {
-
-  private static final long serialVersionUID = -4779865542148045903L;
-
   public JinputNativesNotFoundException() {
     super("Could not find jinput natives in any subdirectory or in the $PATH var.");
   }

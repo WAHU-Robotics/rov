@@ -2,7 +2,6 @@ package me.jbuelow.rov.dry.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Random;
 import net.java.games.input.Component;
 import net.java.games.input.Component.Identifier;
@@ -23,34 +22,35 @@ public class PolledValues {
 
   public boolean[] buttons;
 
-  private final String[] directions = {"\uD83E\uDC84", "\uD83E\uDC81", "\uD83E\uDC85",
-      "\uD83E\uDC82", "\uD83E\uDC86", "\uD83E\uDC83", "\uD83E\uDC87", "\uD83E\uDC80", "⚫"};
+  private String[] directions = {"\uD83E\uDC84", "\uD83E\uDC81", "\uD83E\uDC85", "\uD83E\uDC82",
+      "\uD83E\uDC86", "\uD83E\uDC83", "\uD83E\uDC87", "\uD83E\uDC80", "⚫"};
+  private int joyPrecision = 1000;
 
   public PolledValues(Controller controller) {
+    Controller c = controller;
 
-    int joyPrecision = 1000;
-    if (Objects.equals(controller.getName(), "False Controller")) {
+    if (c.getName() == "False Controller") {
       x = new Random().nextInt(joyPrecision);
       return;
     }
     try {
-      x = (int) (controller.getComponent(Axis.X).getPollData() * joyPrecision);
+      x = (int) (c.getComponent(Axis.X).getPollData() * joyPrecision);
     } catch (NullPointerException ignored) {
     }
     try {
-      y = (int) (controller.getComponent(Axis.Y).getPollData() * joyPrecision);
+      y = (int) (c.getComponent(Axis.Y).getPollData() * joyPrecision);
     } catch (NullPointerException ignored) {
     }
     try {
-      z = (int) (controller.getComponent(Axis.RZ).getPollData() * joyPrecision);
+      z = (int) (c.getComponent(Axis.RZ).getPollData() * joyPrecision);
     } catch (NullPointerException ignored) {
     }
     try {
-      t = (int) (controller.getComponent(Axis.SLIDER).getPollData() * joyPrecision);
+      t = (int) (c.getComponent(Axis.SLIDER).getPollData() * joyPrecision);
     } catch (NullPointerException ignored) {
     }
     try {
-      hat = controller.getComponent(Axis.POV).getPollData();
+      hat = c.getComponent(Axis.POV).getPollData();
     } catch (NullPointerException ignored) {
     }
     resolveHatPosition();

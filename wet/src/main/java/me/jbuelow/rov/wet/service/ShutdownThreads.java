@@ -1,10 +1,9 @@
 package me.jbuelow.rov.wet.service;
 
-public interface ShutdownThreads {
+import java.io.Serializable;
 
+public interface ShutdownThreads extends Serializable {
   Thread getSoftRebootThread();
-
   Thread getRebootThread();
-
   Thread getShutdownThread();
 }

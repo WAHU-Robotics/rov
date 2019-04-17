@@ -1,3 +1,6 @@
+/**
+ *
+ */
 package me.jbuelow.rov.dry.discovery;
 
 import java.io.IOException;
@@ -22,13 +25,13 @@ import org.springframework.stereotype.Service;
  */
 @Service
 @Slf4j
-class DiscoveryService implements DisposableBean {
+public class DiscoveryService implements DisposableBean {
 
-  private final ExecutorService executorService;
+  private ExecutorService executorService;
   private DiscoveryListener listener;
-  private final ApplicationEventPublisher eventPublisher;
+  private ApplicationEventPublisher eventPublisher;
 
-  private DiscoveryService(ExecutorService executorService,
+  public DiscoveryService(ExecutorService executorService,
       ApplicationEventPublisher eventPublisher) {
     this.executorService = executorService;
     this.eventPublisher = eventPublisher;
@@ -65,7 +68,6 @@ class DiscoveryService implements DisposableBean {
     private volatile boolean running = true;
 
 
-
     @Override
     public void run() {
       DatagramSocket socketIn = null;
@@ -86,6 +88,7 @@ class DiscoveryService implements DisposableBean {
 
             log.debug(
                 "Received beacon packet: " + new String(data.getData(), RovConstants.CHARSET));
+            log.debug("Beacon received from: " + data.getAddress().toString());
 
             if (Arrays.equals(data.getData(), RovConstants.DISCOVERY_BYTES)) {
               //We found a controller!
@@ -114,7 +117,7 @@ class DiscoveryService implements DisposableBean {
       log.debug("Discovery Service Stopped.");
     }
 
-    void stop() {
+    public void stop() {
       running = false;
     }
   }

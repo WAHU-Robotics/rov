@@ -29,12 +29,11 @@ import org.springframework.core.io.support.ResourcePatternUtils;
 /**
  * Handles assigning joysticks and retrieving values
  */
-@SuppressWarnings("ResultOfMethodCallIgnored")
 @Slf4j
 @org.springframework.stereotype.Component // Let Spring load this on startup!
 public class Control implements ResourceLoaderAware {
 
-  private static final String NATIVE_FOLDER_PATH_PREFIX = "nativeutils";
+  public static final String NATIVE_FOLDER_PATH_PREFIX = "nativeutils";
 
   /**
    * Temporary directory which will contain the DLLs.
@@ -53,21 +52,51 @@ public class Control implements ResourceLoaderAware {
   private Controller secondaryController;
 
   @Getter
-  private final List<Controller> selectedControllers = new ArrayList<>(
-      Collections.nCopies(2, null));
+  private List<Controller> selectedControllers = new ArrayList<>(Collections.nCopies(2, null));
 
-  private final List<Controller> selectableControllers = new ArrayList<>(20);
+  private List<Controller> selectableControllers = new ArrayList<>(20);
 
-  public enum Controllers {
-    PRIMARY(0), SECONDARY(1);
-
-    Controllers(int id) {
-    }
-  }
-
-  private Control() throws JinputNativesNotFoundException {
+  public Control() throws JinputNativesNotFoundException {
     ensureAccessToNatives();
     refreshList();
+  }
+
+  /**
+   * Loads library from current JAR archive to a temporary directory
+   */
+  public void loadLibraryFromJar(Resource resource) throws IOException {
+
+    // Prepare temporary file
+    if (temporaryDir == null) {
+      temporaryDir = createTempDirectory(NATIVE_FOLDER_PATH_PREFIX);
+      temporaryDir.deleteOnExit();
+      log.debug("Setting net.java.games.input.librarypath: " + temporaryDir);
+      System.setProperty("net.java.games.input.librarypath", temporaryDir.getAbsolutePath());
+    }
+
+    String outputFileName = resource.getFilename();
+    if (OSType.MAC.equals(OSUtils.getOsType())) {
+      //OSX uses different file extensions depending on the version
+      //Let the System determine the correct extension
+      String testLibName = System.mapLibraryName("test");
+
+      if (testLibName.endsWith(".dylib")) {
+        outputFileName = outputFileName.replace(".jnilib", ".dylib");
+      }
+    }
+
+    File temp = new File(temporaryDir, outputFileName);
+
+    try (InputStream is = resource.getInputStream()) {
+      Files.copy(is, temp.toPath(), StandardCopyOption.REPLACE_EXISTING);
+      temp.deleteOnExit();
+    } catch (IOException e) {
+      temp.delete();
+      throw e;
+    } catch (NullPointerException e) {
+      temp.delete();
+      throw new FileNotFoundException("File " + resource.getURL() + " was not found inside JAR.");
+    }
   }
 
   private void ensureAccessToNatives() {
@@ -110,47 +139,7 @@ public class Control implements ResourceLoaderAware {
     }
   }
 
-
-  /**
-   * Loads library from current JAR archive to a temporary directory
-   */
-  private void loadLibraryFromJar(Resource resource) throws IOException {
-
-      // Prepare temporary file
-      if (temporaryDir == null) {
-          temporaryDir = createTempDirectory(NATIVE_FOLDER_PATH_PREFIX);
-          temporaryDir.deleteOnExit();
-          log.debug("Setting net.java.games.input.librarypath: " + temporaryDir);
-          System.setProperty("net.java.games.input.librarypath", temporaryDir.getAbsolutePath());
-      }
-
-      String outputFileName = resource.getFilename();
-      if (OSType.MAC.equals(OSUtils.getOsType())) {
-        //OSX uses different file extensions depending on the version
-        //Let the System determine the correct extension
-        String testLibName = System.mapLibraryName("test");
-        
-        if (testLibName.endsWith(".dylib")) {
-          outputFileName = outputFileName.replace(".jnilib", ".dylib");
-        }
-      }
-      
-      File temp = new File(temporaryDir, outputFileName);
-
-      try (InputStream is = resource.getInputStream()) {
-          Files.copy(is, temp.toPath(), StandardCopyOption.REPLACE_EXISTING);
-          temp.deleteOnExit();
-      } catch (IOException e) {
-          temp.delete();
-          throw e;
-      } catch (NullPointerException e) {
-          temp.delete();
-          throw new FileNotFoundException("File " + resource.getURL() + " was not found inside JAR.");
-      }
-  }
-
-  private File createTempDirectory(@SuppressWarnings("SameParameterValue") String prefix)
-      throws IOException {
+  private File createTempDirectory(String prefix) throws IOException {
     String tempDir = System.getProperty("java.io.tmpdir");
     File generatedDir = new File(tempDir, prefix + System.nanoTime());
 
@@ -158,6 +147,16 @@ public class Control implements ResourceLoaderAware {
       throw new IOException("Failed to create temp directory " + generatedDir.getName());
 
     return generatedDir;
+  }
+
+  public enum Controllers {
+    PRIMARY(0), SECONDARY(1);
+
+    private int id;
+
+    Controllers(int id) {
+      this.id = id;
+    }
   }
 
   private void refreshList() throws JinputNativesNotFoundException {

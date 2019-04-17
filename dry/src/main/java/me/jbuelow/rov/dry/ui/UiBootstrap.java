@@ -34,14 +34,15 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
-class UiBootstrap {
+public class UiBootstrap {
 
-  private final Control control;
-  private final VehicleControlService vehicleControlService;
+  private Control control;
+  private VehicleControlService vehicleControlService;
+  private VideoStreamAddress video;
   private Gui gui;
   private UUID vehicleId;
 
-  private UiBootstrap(Control control, VehicleControlService vehicleControlService) {
+  public UiBootstrap(Control control, VehicleControlService vehicleControlService) {
     this.control = control;
     this.vehicleControlService = vehicleControlService;
     
@@ -69,10 +70,10 @@ class UiBootstrap {
   @Order()
   public void startMainUI(VehicleDiscoveryEvent event) {
     vehicleId = event.getVehicleID();
-    VideoStreamAddress video = (VideoStreamAddress) vehicleControlService
+    video = (VideoStreamAddress) vehicleControlService
         .sendCommand(vehicleId, new OpenVideo(event.getVehicleAddress()));
 
-    gui = new Gui("");
+    gui = new Gui("", vehicleControlService);
     log.info("Opening Mplayer instance...");
     //player = new Mplayer(video.url);
 
@@ -89,6 +90,8 @@ class UiBootstrap {
 
   private class Loop extends Thread {
 
+    private boolean running = true;
+
     private double gt() {
       return System.currentTimeMillis();
     }
@@ -96,7 +99,7 @@ class UiBootstrap {
     /**
      * Round to certain number of decimals
      */
-    private float round(float number, @SuppressWarnings("SameParameterValue") int scale) {
+    private float round(float number, int scale) {
       int pow = 10;
       for (int i = 1; i < scale; i++) {
         pow *= 10;
@@ -116,7 +119,6 @@ class UiBootstrap {
       return (float) ((int) (sum * 10f)) / 10f;
     }
 
-    @SuppressWarnings("LoopConditionNotUpdatedInsideLoop")
     @Override
     public void run() {
       try {
@@ -139,7 +141,6 @@ class UiBootstrap {
         SetMotion previousMotion = null;
         SetServo previousServo = null;
 
-        boolean running = true;
         while (running) {
           lastTime = time;
           time = gt();
@@ -235,7 +236,6 @@ class UiBootstrap {
             protoMap.put(Tool.CUP, (cupState ^ Config.CUP_INVERT) ? 1000 : -1000);
             prevCupState = cupState;
           }
-          //noinspection PointlessArithmeticExpression
           protoMap.put(Tool.CAMERA_X,  (Config.CAMERA_X_INVERT ? -1 : 1) * cameraPosition);
 
           servoCommand.setServoValues(protoMap);

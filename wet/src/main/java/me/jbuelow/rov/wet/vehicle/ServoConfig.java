@@ -1,3 +1,6 @@
+/**
+ *
+ */
 package me.jbuelow.rov.wet.vehicle;
 
 import lombok.Data;
@@ -25,6 +28,6 @@ public class ServoConfig extends Servo implements ActuatorConfig {
   @Override
   public void validateConfigurtion() {
     // TODO Auto-generated method stub
-    
+
   }
 }

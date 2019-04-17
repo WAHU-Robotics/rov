@@ -11,11 +11,11 @@ public class Motor {
   private static final float POWER_TO_PULSE_FACTOR = 2000f;
   private static final float CENTER_PULSE = 1.5f;
 
-  private final boolean armed = false;
-  private final PwmChannel pwmChannel;
+  private boolean armed = false;
+  private PwmChannel pwmChannel;
   private Integer power;
 
-  public Motor(PwmChannel pwmChannel) {
+  public Motor(PwmChannel pwmChannel) throws IOException {
     this.pwmChannel = pwmChannel;
   }
   
@@ -49,7 +49,7 @@ public class Motor {
     return ((float) power / POWER_TO_PULSE_FACTOR) + CENTER_PULSE;
   }
 
-  private void delay(@SuppressWarnings("SameParameterValue") long millis) {
+  private void delay(long millis) {
     try {
       Thread.sleep(millis);
     } catch (InterruptedException e) {

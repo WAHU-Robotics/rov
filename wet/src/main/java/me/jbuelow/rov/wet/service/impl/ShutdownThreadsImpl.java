@@ -1,6 +1,7 @@
 package me.jbuelow.rov.wet.service.impl;
 
 import java.io.IOException;
+import java.io.Serializable;
 import me.jbuelow.rov.wet.service.ShutdownThreads;
 
 public class ShutdownThreadsImpl implements ShutdownThreads {
@@ -32,7 +33,7 @@ public class ShutdownThreadsImpl implements ShutdownThreads {
     return new ShutdownThread();
   }
 
-  class BaseShutdownThread extends Thread {
+  class BaseShutdownThread extends Thread implements Serializable {
     @SuppressWarnings("deprecation")
     public void run() {
       try {

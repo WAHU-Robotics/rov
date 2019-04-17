@@ -12,9 +12,9 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class SetMotionHandler implements CommandHandler<SetMotion> {
 
-  private final MotionService motionService;
+  private MotionService motionService;
 
-  private SetMotionHandler(MotionService motionService) {
+  public SetMotionHandler(MotionService motionService) {
     this.motionService = motionService;
   }
   

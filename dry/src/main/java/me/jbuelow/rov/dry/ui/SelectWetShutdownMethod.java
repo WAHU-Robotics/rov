@@ -1,51 +1,54 @@
 package me.jbuelow.rov.dry.ui;
 
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
-import javax.swing.UIManager;
+import me.jbuelow.rov.common.command.Shutdown;
+import me.jbuelow.rov.common.command.Shutdown.Option;
+import me.jbuelow.rov.common.response.Goodbye;
 import me.jbuelow.rov.dry.service.VehicleControlService;
+import me.jbuelow.rov.dry.ui.error.ErrorIcon;
+import me.jbuelow.rov.dry.ui.error.GeneralError;
+import org.springframework.stereotype.Service;
 
-public class CloseApplicationConfirmation extends JDialog {
-
-  private JPanel contentPane;
-  private JButton buttonYes;
-  private JButton buttonNo;
+@Service
+public class SelectWetShutdownMethod extends JDialog {
 
   private final VehicleControlService vehicleControlService;
+  private JPanel contentPane;
+  private JButton buttonOK;
+  private JButton buttonCancel;
+  private JComboBox<Option> comboBox1;
 
-  public CloseApplicationConfirmation() {
-    this(null);
+  public SelectWetShutdownMethod(VehicleControlService vehicleControlService) {
+    this.vehicleControlService = vehicleControlService;
   }
 
-  public CloseApplicationConfirmation(VehicleControlService vehicleControlService) {
-    this.vehicleControlService = vehicleControlService;
+  public void display() {
     setContentPane(contentPane);
-    setModal(false);
-    getRootPane().setDefaultButton(buttonYes);
+    setModal(true);
+    getRootPane().setDefaultButton(buttonOK);
 
-    UIManager.put("Button.select",new Color(49, 49, 97));
-    buttonYes.updateUI();
-    buttonYes.setBorder(BorderFactory.createEmptyBorder(5,25,5,25));
-    buttonNo.updateUI();
-    buttonNo.setBorder(BorderFactory.createEmptyBorder(5,25,5,25));
+    for (Option option : Option.values()) {
+      comboBox1.addItem(option);
+    }
+    comboBox1.setSelectedItem(Option.REBOOT);
 
-    buttonYes.addActionListener(new ActionListener() {
+    buttonOK.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
         onOK();
       }
     });
 
-    buttonNo.addActionListener(new ActionListener() {
+    buttonCancel.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
         onCancel();
       }
@@ -66,7 +69,6 @@ public class CloseApplicationConfirmation extends JDialog {
                                          }
                                        }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
         JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
-
     pack();
     setLocationRelativeTo(null);
     setVisible(true);
@@ -74,21 +76,21 @@ public class CloseApplicationConfirmation extends JDialog {
     requestFocus();
   }
 
-  public static void requestExit(VehicleControlService vehicleControlService) {
-    CloseApplicationConfirmation dialog = new CloseApplicationConfirmation(vehicleControlService);
-  }
-
-  public static void requestExit() {
-    CloseApplicationConfirmation dialog = new CloseApplicationConfirmation();
-  }
-
   private void onOK() {
-    if (vehicleControlService != null) {
-      SelectWetShutdownMethod selectWetShutdownMethod = new SelectWetShutdownMethod(
-          vehicleControlService);
-      selectWetShutdownMethod.display();
+    // add your code here
+    if (comboBox1.getSelectedItem() == Option.NOTHING) {
+      dispose();
+      return;
     }
-    System.exit(0);
+    Goodbye response = (Goodbye) vehicleControlService
+        .sendCommand(vehicleControlService.getAttatchedVehicles().get(0).getId(),
+            new Shutdown((Option) comboBox1.getSelectedItem()));
+    if (!response.isSafe()) {
+      GeneralError.display(
+          "<html>WARNING!<br>Wet side may not have been able to failsafe motors.<br>Motors may be powered up. Use Caution.</html>",
+          ErrorIcon.WARNING);
+    }
+    dispose();
   }
 
   private void onCancel() {

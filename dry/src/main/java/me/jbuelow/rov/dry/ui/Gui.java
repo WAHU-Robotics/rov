@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.WindowConstants;
 import me.jbuelow.rov.dry.controller.PolledValues;
+import me.jbuelow.rov.dry.service.VehicleControlService;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -26,7 +27,7 @@ import uk.co.caprica.vlcj.player.MediaPlayer;
 /**
  * Main graphical user interface for rov software
  */
-class Gui extends JFrame implements ApplicationContextAware {
+public class Gui extends JFrame implements ApplicationContextAware {
 
   //private final EmbeddedMediaPlayerComponent mediaPlayerComponent;
   private JPanel panel1;
@@ -60,9 +61,12 @@ class Gui extends JFrame implements ApplicationContextAware {
   private JSlider sliderJoyBY;
   private JSlider sliderJoyBZ;
 
-  private MediaPlayer player;
+  MediaPlayer player;
+  ApplicationContext ctx;
+  private final VehicleControlService vehicleControlService;
 
-  public Gui(String streamURL) {
+  public Gui(String streamURL, VehicleControlService vehicleControlService) {
+    this.vehicleControlService = vehicleControlService;
     try {
       add(panel1);
     } catch (Exception e) {
@@ -72,7 +76,7 @@ class Gui extends JFrame implements ApplicationContextAware {
     setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
     addWindowListener(new WindowAdapter() {
       public void windowClosing(WindowEvent e) {
-        CloseApplicationConfirmation.requestExit();
+        CloseApplicationConfirmation.requestExit(vehicleControlService);
       }
     });
 
@@ -209,12 +213,8 @@ class Gui extends JFrame implements ApplicationContextAware {
     }
   }
 
-  public static void main(String[] args) {
-    //for testing the main gui without starting everything
-    Gui gui = new Gui("lol");
-  }
-
   @Override
   public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+    ctx = applicationContext;
   }
 }

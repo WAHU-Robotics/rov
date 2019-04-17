@@ -60,9 +60,7 @@ public class ControlLogic {
 
     vectors.put(ThrustAxis.SURGE, m.getAxis(Config.SURGE_AXIS) * (Config.SURGE_INVERT ? -1 : 1));
     vectors.put(ThrustAxis.SWAY, m.getAxis(Config.SWAY_AXIS) * (Config.SWAY_INVERT ? -1 : 1));
-    //noinspection PointlessArithmeticExpression
     vectors.put(ThrustAxis.HEAVE, m.getAxis(Config.HEAVE_AXIS) * (Config.HEAVE_INVERT ? -1 : 1));
-    //noinspection PointlessArithmeticExpression
     vectors.put(ThrustAxis.YAW, m.getAxis(Config.YAW_AXIS) * (Config.YAW_INVERT ? -1 : 1));
     
     return command;
