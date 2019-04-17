@@ -86,6 +86,7 @@ class DiscoveryService implements DisposableBean {
 
             log.debug(
                 "Received beacon packet: " + new String(data.getData(), RovConstants.CHARSET));
+            log.debug("Beacon received from: " + data.getAddress().toString());
 
             if (Arrays.equals(data.getData(), RovConstants.DISCOVERY_BYTES)) {
               //We found a controller!
