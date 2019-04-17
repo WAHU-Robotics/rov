@@ -5,7 +5,9 @@
     <constraints>
       <xy x="48" y="54" width="403" height="199"/>
     </constraints>
-    <properties/>
+    <properties>
+      <background color="-12171706"/>
+    </properties>
     <border type="none"/>
     <children>
       <grid id="94766" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
@@ -13,7 +15,9 @@
         <constraints>
           <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
-        <properties/>
+        <properties>
+          <background color="-12171706"/>
+        </properties>
         <border type="none"/>
         <children>
           <hspacer id="98af6">
@@ -26,7 +30,10 @@
             <constraints>
               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
             </constraints>
-            <properties/>
+            <properties>
+              <background color="-12171706"/>
+              <foreground color="-3092263"/>
+            </properties>
             <border type="none"/>
             <children>
               <component id="e7465" class="javax.swing.JButton" binding="buttonOK">
@@ -34,6 +41,8 @@
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
+                  <background color="-12171706"/>
+                  <foreground color="-3092263"/>
                   <text value="OK"/>
                 </properties>
               </component>
@@ -42,6 +51,8 @@
                   <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
+                  <background color="-12171706"/>
+                  <foreground color="-3092263"/>
                   <text value="Cancel"/>
                 </properties>
               </component>
@@ -54,7 +65,10 @@
         <constraints>
           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
-        <properties/>
+        <properties>
+          <background color="-12171706"/>
+          <foreground color="-3092263"/>
+        </properties>
         <border type="none"/>
         <children>
           <component id="2c87e" class="javax.swing.JLabel">
@@ -62,8 +76,9 @@
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
+              <background color="-12171706"/>
               <enabled value="true"/>
-              <foreground color="-4342339"/>
+              <foreground color="-3092263"/>
               <icon value="questionmark.png"/>
               <text value=""/>
             </properties>
@@ -73,7 +88,10 @@
             <constraints>
               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
             </constraints>
-            <properties/>
+            <properties>
+              <background color="-12171706"/>
+              <foreground color="-3092263"/>
+            </properties>
             <border type="none"/>
             <children>
               <component id="c60ac" class="javax.swing.JLabel">
@@ -81,6 +99,8 @@
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="10" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
+                  <background color="-12171706"/>
+                  <foreground color="-3092263"/>
                   <text value="Please select shutdown method for wet side:"/>
                   <verticalAlignment value="3"/>
                   <verticalTextPosition value="3"/>
@@ -90,7 +110,10 @@
                 <constraints>
                   <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="9" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
-                <properties/>
+                <properties>
+                  <background color="-12171706"/>
+                  <foreground color="-3092263"/>
+                </properties>
               </component>
             </children>
           </grid>

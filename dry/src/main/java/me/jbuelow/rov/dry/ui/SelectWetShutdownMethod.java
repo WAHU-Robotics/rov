@@ -70,11 +70,18 @@ public class SelectWetShutdownMethod extends JDialog {
                                        }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
         JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
     pack();
+    setLocationRelativeTo(null);
     setVisible(true);
+    toFront();
+    requestFocus();
   }
 
   private void onOK() {
     // add your code here
+    if (comboBox1.getSelectedItem() == Option.NOTHING) {
+      dispose();
+      return;
+    }
     Goodbye response = (Goodbye) vehicleControlService
         .sendCommand(vehicleControlService.getAttatchedVehicles().get(0).getId(),
             new Shutdown((Option) comboBox1.getSelectedItem()));

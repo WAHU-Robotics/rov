@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.WindowConstants;
 import me.jbuelow.rov.dry.controller.PolledValues;
+import me.jbuelow.rov.dry.service.VehicleControlService;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -62,8 +63,10 @@ public class Gui extends JFrame implements ApplicationContextAware {
 
   MediaPlayer player;
   ApplicationContext ctx;
+  private final VehicleControlService vehicleControlService;
 
-  public Gui(String streamURL) {
+  public Gui(String streamURL, VehicleControlService vehicleControlService) {
+    this.vehicleControlService = vehicleControlService;
     try {
       add(panel1);
     } catch (Exception e) {
@@ -73,7 +76,7 @@ public class Gui extends JFrame implements ApplicationContextAware {
     setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
     addWindowListener(new WindowAdapter() {
       public void windowClosing(WindowEvent e) {
-        CloseApplicationConfirmation.requestExit();
+        CloseApplicationConfirmation.requestExit(vehicleControlService);
       }
     });
 
@@ -208,11 +211,6 @@ public class Gui extends JFrame implements ApplicationContextAware {
     } catch (IOException | IllegalArgumentException | NullPointerException e) {
       e.printStackTrace();
     }
-  }
-
-  public static void main(String[] args) {
-    //for testing the main gui without starting everything
-    Gui gui = new Gui("lol");
   }
 
   @Override

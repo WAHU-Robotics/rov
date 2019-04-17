@@ -73,7 +73,7 @@ public class UiBootstrap {
     video = (VideoStreamAddress) vehicleControlService
         .sendCommand(vehicleId, new OpenVideo(event.getVehicleAddress()));
 
-    gui = new Gui("");
+    gui = new Gui("", vehicleControlService);
     log.info("Opening Mplayer instance...");
     //player = new Mplayer(video.url);
 

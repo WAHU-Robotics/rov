@@ -13,6 +13,7 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import javax.swing.UIManager;
+import me.jbuelow.rov.dry.service.VehicleControlService;
 
 public class CloseApplicationConfirmation extends JDialog {
 
@@ -20,7 +21,14 @@ public class CloseApplicationConfirmation extends JDialog {
   private JButton buttonYes;
   private JButton buttonNo;
 
+  private final VehicleControlService vehicleControlService;
+
   public CloseApplicationConfirmation() {
+    this(null);
+  }
+
+  public CloseApplicationConfirmation(VehicleControlService vehicleControlService) {
+    this.vehicleControlService = vehicleControlService;
     setContentPane(contentPane);
     setModal(false);
     getRootPane().setDefaultButton(buttonYes);
@@ -66,22 +74,25 @@ public class CloseApplicationConfirmation extends JDialog {
     requestFocus();
   }
 
+  public static void requestExit(VehicleControlService vehicleControlService) {
+    CloseApplicationConfirmation dialog = new CloseApplicationConfirmation(vehicleControlService);
+  }
+
   public static void requestExit() {
     CloseApplicationConfirmation dialog = new CloseApplicationConfirmation();
   }
 
   private void onOK() {
-    //TODO OPEN THE SelectWetShutdownMethod GUI
-
+    if (vehicleControlService != null) {
+      SelectWetShutdownMethod selectWetShutdownMethod = new SelectWetShutdownMethod(
+          vehicleControlService);
+      selectWetShutdownMethod.display();
+    }
     System.exit(0);
   }
 
   private void onCancel() {
     // add your code here if necessary
     dispose();
-  }
-
-  public static void main(String[] args) {
-    CloseApplicationConfirmation dialog = new CloseApplicationConfirmation();
   }
 }

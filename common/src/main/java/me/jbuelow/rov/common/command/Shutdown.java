@@ -18,6 +18,7 @@ public class Shutdown extends Command {
   }
 
   public enum Option {
+    NOTHING("Do Nothing"), //Does nothing
     SOFT_REBOOT(
         "Software Reboot"), //Exits wet side software. Its considered a reboot because the OS on wet side should be set up to restart software on exit
     REBOOT("Reboot"), //Reboots wet side OS
@@ -26,6 +27,11 @@ public class Shutdown extends Command {
 
     Option(String readable) {
       this.readable = readable;
+    }
+
+    @Override
+    public String toString() {
+      return readable;
     }
   }
 }
