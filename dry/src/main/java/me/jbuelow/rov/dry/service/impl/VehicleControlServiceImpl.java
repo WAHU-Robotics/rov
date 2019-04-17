@@ -14,6 +14,7 @@ import me.jbuelow.rov.common.command.Command;
 import me.jbuelow.rov.common.response.Response;
 import me.jbuelow.rov.common.response.VehicleCapabilities;
 import me.jbuelow.rov.dry.discovery.VehicleDiscoveryEvent;
+import me.jbuelow.rov.dry.exception.JinputNativesNotFoundException;
 import me.jbuelow.rov.dry.service.VehicleControlService;
 import org.springframework.context.event.EventListener;
 import org.springframework.core.Ordered;
@@ -97,6 +98,8 @@ public class VehicleControlServiceImpl implements VehicleControlService {
       event.setVehicleID(handler.getId());
     } catch (ClassNotFoundException | IOException e) {
       log.error("Error opening communications to vehicle", e);
+    } catch (JinputNativesNotFoundException e) {
+      e.printStackTrace();
     }
   }
 }
