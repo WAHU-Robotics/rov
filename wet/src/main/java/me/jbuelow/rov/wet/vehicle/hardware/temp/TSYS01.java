@@ -28,7 +28,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
-@Profile("!noHardware")
+@Profile("!noHardwareTemp")
 public class TSYS01 implements TempDevice {
   private final int address;
   private final I2CDevice i2cDevice;
