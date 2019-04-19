@@ -21,7 +21,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 @Component
-@Profile("noHardwareTemp")
+@Profile("!useTemp")
 public class MockTemperatureSensor implements TempDevice{
   @Override
   public float getTemp() throws IOException {
