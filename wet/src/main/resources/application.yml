@@ -12,33 +12,33 @@ vehicle:
     motorOrientation: MULTI_AXIS
     pwm-port: 0
     thrustFactors:
-      SWAY: -0.707
-      SURGE: 0.707
-      YAW: 1.000
+      SWAY: 1.000
+      SURGE: 1.000
+      YAW: 0.707
   - name: "Bow Starboard Thruster"
     motorType: THRUSTER
     motorOrientation: MULTI_AXIS
     pwm-port: 1
     thrustFactors:
-      SWAY: 0.707 #inverted
-      SURGE: 0.707 #inverted
-      YAW: 1.000 #inverted
+      SWAY: 1.000 #inverted
+      SURGE: -1.000 #inverted
+      YAW: 0.707 #inverted
   - name: "Stern Port Thruster"
     motorType: THRUSTER
     motorOrientation: MULTI_AXIS
     pwm-port: 2
     thrustFactors:
-      SWAY: 0.707 #inverted
-      SURGE: 0.707 #inverted
-      YAW: 1.000 #inverted
+      SWAY: 1.000 #inverted
+      SURGE: -1.000 #inverted
+      YAW: -0.707 #inverted
   - name: "Stern Starboard Thruster"
     motorType: THRUSTER
     motorOrientation: MULTI_AXIS
     pwm-port: 3
     thrustFactors:
-      SWAY: -0.707
-      SURGE: 0.707
-      YAW: 1.000
+      SWAY: 1.000
+      SURGE: 1.000
+      YAW: -0.707
   - name: "Mid Port Thruster"
     motorType: THRUSTER
     motorOrientation: Z_AXIS

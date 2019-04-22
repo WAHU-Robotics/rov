@@ -165,6 +165,7 @@ public class UiBootstrap {
           if (fpsLog.size() > 30) {
             fpsLog.remove(0);
           }
+
           PolledValues joyA = control.getPolledValues(0);
           PolledValues joyB = control.getPolledValues(1);
           gui.setJoyA(joyA);

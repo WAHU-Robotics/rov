@@ -31,8 +31,8 @@ public class ControlLogic {
   public static SetMotion genMotorValues(PolledValues rawPrimaryJoy, PolledValues rawSecondaryJoy) {
     //int[] powerLevels = new int[6];
 
-    PolledValues primaryJoy = computeDeadzones(rawPrimaryJoy, Config.JOY_DEADZONE);
-    PolledValues secondaryJoy = computeDeadzones(rawSecondaryJoy, Config.JOY_DEADZONE);
+    PolledValues primaryJoy = computeNonLinearity(computeDeadzones(rawPrimaryJoy, Config.JOY_DEADZONE));
+    PolledValues secondaryJoy = computeNonLinearity(computeDeadzones(rawSecondaryJoy, Config.JOY_DEADZONE));
 
     /*
       // really old and bad code. dont use it.
