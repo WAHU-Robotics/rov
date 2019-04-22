@@ -3,14 +3,14 @@
   <grid id="27dc6" binding="panel1" default-binding="true" layout-manager="GridLayoutManager" row-count="6" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="10" left="10" bottom="10" right="10"/>
     <constraints>
-      <xy x="20" y="20" width="2254" height="1473"/>
+      <xy x="20" y="20" width="2254" height="1482"/>
     </constraints>
     <properties>
       <background color="-12171706"/>
     </properties>
     <border type="none"/>
     <children>
-      <grid id="969a3" binding="sensorsPanel" layout-manager="GridLayoutManager" row-count="16" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="969a3" binding="sensorsPanel" layout-manager="GridLayoutManager" row-count="17" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="10" left="10" bottom="10" right="10"/>
         <constraints>
           <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="1" anchor="1" fill="0" indent="1" use-parent-layout="false">
@@ -307,7 +307,10 @@
             <properties>
               <background color="-12171706"/>
             </properties>
-            <border type="bevel-lowered" title="SURGE"/>
+            <border type="bevel-lowered" title="SURGE">
+              <font/>
+              <title-color color="-4342339"/>
+            </border>
             <children>
               <component id="ba157" class="javax.swing.JSlider" binding="sliderSurge">
                 <constraints>
@@ -334,7 +337,10 @@
             <properties>
               <background color="-12171706"/>
             </properties>
-            <border type="bevel-lowered" title="SWAY"/>
+            <border type="bevel-lowered" title="SWAY">
+              <font/>
+              <title-color color="-4342339"/>
+            </border>
             <children>
               <component id="7cf2f" class="javax.swing.JSlider" binding="sliderSway">
                 <constraints>
@@ -361,7 +367,9 @@
             <properties>
               <background color="-12171706"/>
             </properties>
-            <border type="bevel-lowered" title="HEAVE"/>
+            <border type="bevel-lowered" title="HEAVE">
+              <title-color color="-4342339"/>
+            </border>
             <children>
               <component id="d188" class="javax.swing.JSlider" binding="sliderHeave">
                 <constraints>
@@ -388,7 +396,9 @@
             <properties>
               <background color="-12171706"/>
             </properties>
-            <border type="bevel-lowered" title="YAW"/>
+            <border type="bevel-lowered" title="YAW">
+              <title-color color="-4342339"/>
+            </border>
             <children>
               <component id="b1005" class="javax.swing.JSlider" binding="sliderYaw">
                 <constraints>
@@ -415,7 +425,9 @@
             <properties>
               <background color="-12171706"/>
             </properties>
-            <border type="bevel-lowered" title="ROLL"/>
+            <border type="bevel-lowered" title="ROLL">
+              <title-color color="-4342339"/>
+            </border>
             <children>
               <component id="b80ed" class="javax.swing.JSlider" binding="sliderRoll">
                 <constraints>
@@ -442,7 +454,9 @@
             <properties>
               <background color="-12171706"/>
             </properties>
-            <border type="bevel-lowered" title="PITCH"/>
+            <border type="bevel-lowered" title="PITCH">
+              <title-color color="-4342339"/>
+            </border>
             <children>
               <component id="4cbc0" class="javax.swing.JSlider" binding="sliderPitch">
                 <constraints>
@@ -457,6 +471,31 @@
                   <paintLabels value="false"/>
                   <paintTicks value="false"/>
                   <value value="0"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <grid id="d57b2" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="16" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-12171706"/>
+            </properties>
+            <border type="none">
+              <font/>
+              <title-color color="-4342339"/>
+            </border>
+            <children>
+              <component id="756cf" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <icon value="Ranger-ROV-Logo-Cropped-256wide.png"/>
+                  <requestFocusEnabled value="true"/>
+                  <text value=""/>
                 </properties>
               </component>
             </children>
