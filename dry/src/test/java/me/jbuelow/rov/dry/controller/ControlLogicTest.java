@@ -50,4 +50,22 @@ public class ControlLogicTest {
     assertThat(polledValues1.t, equalTo(-100));
   }
 
+  @Test
+  public void genMotorValues() {
+    //TODO Generate test
+  }
+
+  @Test
+  public void computeNonLinearity() {
+    PolledValues inVals = new PolledValues(100, 200, -200, -100, 0f);
+    Object polledValues = ControlLogic.computeNonLinearity(inVals);
+
+    assertThat(polledValues, instanceOf(PolledValues.class));
+    PolledValues polledValues1 = (PolledValues) polledValues;
+    assertThat(polledValues1.x, equalTo(10));
+    assertThat(polledValues1.y, equalTo(40));
+    assertThat(polledValues1.z, equalTo(-40));
+    assertThat(polledValues1.t, equalTo(-100));
+    assertThat(polledValues1.hat, equalTo(0f));
+  }
 }

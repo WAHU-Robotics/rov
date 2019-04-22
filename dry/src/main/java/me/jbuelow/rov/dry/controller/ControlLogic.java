@@ -95,4 +95,16 @@ public class ControlLogic {
     return new PolledValues(vals.get(0), vals.get(1), vals.get(2), controllerValues.t,
         controllerValues.hat);
   }
+
+  public static PolledValues computeNonLinearity(PolledValues controllerValues) {
+    List<Integer> vals = new ArrayList<>();
+
+    for (Integer axis : controllerValues.getArray()) {
+      int val = ((axis * axis) / 1000);
+      vals.add(axis < 0 ? val * -1 : val);
+    }
+
+    return new PolledValues(vals.get(0), vals.get(1), vals.get(2), controllerValues.t,
+        controllerValues.hat);
+  }
 }
