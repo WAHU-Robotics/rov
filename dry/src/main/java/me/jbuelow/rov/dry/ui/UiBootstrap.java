@@ -191,6 +191,7 @@ public class UiBootstrap {
           }
 
           SetMotion motion = ControlLogic.genMotorValues(joyA, joyB);
+          gui.setMotionVector(motion);
 
           //Don't flood the ROV with unnecessary movement commands
           if (!motion.equals(previousMotion)) {

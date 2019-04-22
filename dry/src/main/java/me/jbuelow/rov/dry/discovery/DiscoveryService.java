@@ -77,7 +77,7 @@ public class DiscoveryService implements DisposableBean {
   private class DiscoveryListener implements Runnable {
 
     private static final long SLEEP_TIME = 1000;
-    private static final int SOCKET_READ_TIMEOUT = 100;
+    private static final int SOCKET_READ_TIMEOUT = 500;
     private volatile boolean running = true;
 
 

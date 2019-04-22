@@ -25,6 +25,7 @@ import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Map;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -32,6 +33,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.WindowConstants;
+import lombok.extern.slf4j.Slf4j;
+import me.jbuelow.rov.common.capabilities.ThrustAxis;
+import me.jbuelow.rov.common.command.SetMotion;
 import me.jbuelow.rov.dry.controller.PolledValues;
 import me.jbuelow.rov.dry.service.VehicleControlService;
 import org.springframework.beans.BeansException;
@@ -43,6 +47,7 @@ import uk.co.caprica.vlcj.player.MediaPlayer;
 /**
  * Main graphical user interface for rov software
  */
+@Slf4j
 public class Gui extends JFrame implements ApplicationContextAware {
 
   //private final EmbeddedMediaPlayerComponent mediaPlayerComponent;
@@ -76,6 +81,13 @@ public class Gui extends JFrame implements ApplicationContextAware {
   private JSlider sliderJoyBT;
   private JSlider sliderJoyBY;
   private JSlider sliderJoyBZ;
+  private JLabel Motion;
+  private JSlider sliderSurge;
+  private JSlider sliderSway;
+  private JSlider sliderHeave;
+  private JSlider sliderYaw;
+  private JSlider sliderRoll;
+  private JSlider sliderPitch;
 
   MediaPlayer player;
   ApplicationContext ctx;
@@ -165,10 +177,6 @@ public class Gui extends JFrame implements ApplicationContextAware {
   }
 
   public void setJoyA(PolledValues values) {
-    this.joyAAxisXValue.setText(String.valueOf(values.x));
-    this.joyAAxisYValue.setText(String.valueOf(values.y));
-    this.joyAAxisZValue.setText(String.valueOf(values.z));
-    this.joyAAxisTValue.setText(String.valueOf(values.t));
     this.joyAHatXValue.setText(String.valueOf(values.hatS));
 
     this.sliderJoyAX.setValue(values.x);
@@ -178,16 +186,29 @@ public class Gui extends JFrame implements ApplicationContextAware {
   }
 
   public void setJoyB(PolledValues values) {
-    this.joyBAxisXValue.setText(String.valueOf(values.x));
-    this.joyBAxisYValue.setText(String.valueOf(values.y));
-    this.joyBAxisZValue.setText(String.valueOf(values.z));
-    this.joyBAxisTValue.setText(String.valueOf(values.t));
     this.joyBHatXValue.setText(String.valueOf(values.hatS));
 
     this.sliderJoyBX.setValue(values.x);
     this.sliderJoyBY.setValue(values.y);
     this.sliderJoyBZ.setValue(values.z);
     this.sliderJoyBT.setValue(values.t);
+  }
+
+  public void setMotionVector(SetMotion motionVector) {
+    try {
+      Map<ThrustAxis, Integer> vectors = motionVector.getThrustVectors();
+      this.sliderSurge.setValue(vectors.get(ThrustAxis.SURGE));
+      this.sliderSway.setValue(vectors.get(ThrustAxis.SWAY));
+      this.sliderHeave.setValue(vectors.get(ThrustAxis.HEAVE));
+      this.sliderYaw.setValue(vectors.get(ThrustAxis.YAW));
+      this.sliderRoll.setValue(vectors.get(ThrustAxis.ROLL));
+      this.sliderPitch.setValue(vectors.get(ThrustAxis.PITCH));
+    } catch (NullPointerException e) {
+      // don't even bother flooding console with this error
+    } catch (Exception e) {
+      // Not a critical function. eat any errors
+      log.debug("Ate exception:", e);
+    }
   }
 
   public void setFps(Object fps) {

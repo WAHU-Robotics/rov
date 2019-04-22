@@ -10,7 +10,7 @@
     </properties>
     <border type="none"/>
     <children>
-      <grid id="969a3" binding="sensorsPanel" layout-manager="GridLayoutManager" row-count="17" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="969a3" binding="sensorsPanel" layout-manager="GridLayoutManager" row-count="16" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="10" left="10" bottom="10" right="10"/>
         <constraints>
           <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="1" anchor="1" fill="0" indent="1" use-parent-layout="false">
@@ -55,36 +55,6 @@
               <text value="Water Temp:"/>
             </properties>
           </component>
-          <component id="47f4a" class="javax.swing.JLabel">
-            <constraints>
-              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <font name="Fira Code" size="20" style="1"/>
-              <foreground color="-4342339"/>
-              <text value="JoyA AxisX:"/>
-            </properties>
-          </component>
-          <component id="5e87e" class="javax.swing.JLabel">
-            <constraints>
-              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <font name="Fira Code" size="20" style="1"/>
-              <foreground color="-4342339"/>
-              <text value="JoyA AxisY:"/>
-            </properties>
-          </component>
-          <component id="ef41f" class="javax.swing.JLabel" binding="joyAAxisXValue">
-            <constraints>
-              <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <font name="Fira Code" size="20" style="1"/>
-              <foreground color="-4342339"/>
-              <text value="Label"/>
-            </properties>
-          </component>
           <component id="1bf15" class="javax.swing.JLabel" binding="waterTempValue">
             <constraints>
               <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
@@ -95,59 +65,9 @@
               <text value="Label"/>
             </properties>
           </component>
-          <component id="ca950" class="javax.swing.JLabel" binding="joyAAxisYValue">
-            <constraints>
-              <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <font name="Fira Code" size="20" style="1"/>
-              <foreground color="-4342339"/>
-              <text value="Label"/>
-            </properties>
-          </component>
-          <component id="5402f" class="javax.swing.JLabel" binding="joyAAxisZValue">
-            <constraints>
-              <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <font name="Fira Code" size="20" style="1"/>
-              <foreground color="-4342339"/>
-              <text value="Label"/>
-            </properties>
-          </component>
-          <component id="57f4a" class="javax.swing.JLabel">
-            <constraints>
-              <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <font name="Fira Code" size="20" style="1"/>
-              <foreground color="-4342339"/>
-              <text value="JoyA AxisZ:"/>
-            </properties>
-          </component>
-          <component id="8c612" class="javax.swing.JLabel" binding="joyAAxisTValue">
-            <constraints>
-              <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <font name="Fira Code" size="20" style="1"/>
-              <foreground color="-4342339"/>
-              <text value="Label"/>
-            </properties>
-          </component>
-          <component id="9557c" class="javax.swing.JLabel">
-            <constraints>
-              <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <font name="Fira Code" size="20" style="1"/>
-              <foreground color="-4342339"/>
-              <text value="JoyA AxisT:"/>
-            </properties>
-          </component>
           <component id="2c29" class="javax.swing.JLabel" binding="joyAHatXValue">
             <constraints>
-              <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <font name="Fira Code" size="20" style="1"/>
@@ -157,7 +77,7 @@
           </component>
           <component id="981eb" class="javax.swing.JLabel">
             <constraints>
-              <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <font name="Fira Code" size="20" style="1"/>
@@ -165,89 +85,9 @@
               <text value="JoyA Hat:"/>
             </properties>
           </component>
-          <component id="c27a8" class="javax.swing.JLabel">
-            <constraints>
-              <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <font name="Fira Code" size="20" style="1"/>
-              <foreground color="-4342339"/>
-              <text value="JoyB AxisX:"/>
-            </properties>
-          </component>
-          <component id="17b34" class="javax.swing.JLabel">
-            <constraints>
-              <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <font name="Fira Code" size="20" style="1"/>
-              <foreground color="-4342339"/>
-              <text value="JoyB AxisY:"/>
-            </properties>
-          </component>
-          <component id="760ed" class="javax.swing.JLabel" binding="joyBAxisXValue">
-            <constraints>
-              <grid row="7" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <font name="Fira Code" size="20" style="1"/>
-              <foreground color="-4342339"/>
-              <text value="Label"/>
-            </properties>
-          </component>
-          <component id="a52f1" class="javax.swing.JLabel" binding="joyBAxisYValue">
-            <constraints>
-              <grid row="8" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <font name="Fira Code" size="20" style="1"/>
-              <foreground color="-4342339"/>
-              <text value="Label"/>
-            </properties>
-          </component>
-          <component id="b2275" class="javax.swing.JLabel" binding="joyBAxisZValue">
-            <constraints>
-              <grid row="9" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <font name="Fira Code" size="20" style="1"/>
-              <foreground color="-4342339"/>
-              <text value="Label"/>
-            </properties>
-          </component>
-          <component id="3d21b" class="javax.swing.JLabel">
-            <constraints>
-              <grid row="9" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <font name="Fira Code" size="20" style="1"/>
-              <foreground color="-4342339"/>
-              <text value="JoyB AxisZ:"/>
-            </properties>
-          </component>
-          <component id="f55bc" class="javax.swing.JLabel" binding="joyBAxisTValue">
-            <constraints>
-              <grid row="10" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <font name="Fira Code" size="20" style="1"/>
-              <foreground color="-4342339"/>
-              <text value="Label"/>
-            </properties>
-          </component>
-          <component id="98c7d" class="javax.swing.JLabel">
-            <constraints>
-              <grid row="10" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <font name="Fira Code" size="20" style="1"/>
-              <foreground color="-4342339"/>
-              <text value="JoyB AxisT:"/>
-            </properties>
-          </component>
           <component id="73ced" class="javax.swing.JLabel" binding="joyBHatXValue">
             <constraints>
-              <grid row="11" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <font name="Fira Code" size="20" style="1"/>
@@ -257,7 +97,7 @@
           </component>
           <component id="25493" class="javax.swing.JLabel">
             <constraints>
-              <grid row="11" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <font name="Fira Code" size="20" style="1"/>
@@ -267,7 +107,7 @@
           </component>
           <component id="87caa" class="javax.swing.JLabel">
             <constraints>
-              <grid row="12" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <font name="Fira Code" size="20" style="1"/>
@@ -277,7 +117,7 @@
           </component>
           <component id="39b1" class="javax.swing.JLabel" binding="fpsValue">
             <constraints>
-              <grid row="12" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <font name="Fira Code" size="20" style="1"/>
@@ -287,7 +127,7 @@
           </component>
           <component id="1eae2" class="javax.swing.JLabel">
             <constraints>
-              <grid row="13" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="1" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="1" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <font name="Dialog" size="24"/>
@@ -298,7 +138,7 @@
           <grid id="87005" layout-manager="GridLayoutManager" row-count="2" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
-              <grid row="14" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+              <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <background color="-12237498"/>
@@ -367,7 +207,7 @@
           </grid>
           <component id="444b9" class="javax.swing.JLabel">
             <constraints>
-              <grid row="15" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="1" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="1" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <font name="Dialog" size="24"/>
@@ -378,7 +218,7 @@
           <grid id="33237" layout-manager="GridLayoutManager" row-count="2" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
-              <grid row="16" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+              <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <background color="-12237498"/>
@@ -435,6 +275,178 @@
               <component id="7d60a" class="javax.swing.JSlider" binding="sliderJoyBZ">
                 <constraints>
                   <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <background color="-12237498"/>
+                  <foreground color="-4342339"/>
+                  <majorTickSpacing value="10"/>
+                  <maximum value="1000"/>
+                  <minimum value="-1000"/>
+                  <paintLabels value="false"/>
+                  <paintTicks value="false"/>
+                  <value value="0"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <component id="b5e46" class="javax.swing.JLabel" binding="Motion">
+            <constraints>
+              <grid row="9" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="1" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font name="Dialog" size="24"/>
+              <foreground color="-4342339"/>
+              <text value="Motion:"/>
+            </properties>
+          </component>
+          <grid id="decc1" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="10" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-12171706"/>
+            </properties>
+            <border type="bevel-lowered" title="SURGE"/>
+            <children>
+              <component id="ba157" class="javax.swing.JSlider" binding="sliderSurge">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <background color="-12237498"/>
+                  <foreground color="-4342339"/>
+                  <majorTickSpacing value="10"/>
+                  <maximum value="1000"/>
+                  <minimum value="-1000"/>
+                  <paintLabels value="false"/>
+                  <paintTicks value="false"/>
+                  <value value="0"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <grid id="6eee0" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="11" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-12171706"/>
+            </properties>
+            <border type="bevel-lowered" title="SWAY"/>
+            <children>
+              <component id="7cf2f" class="javax.swing.JSlider" binding="sliderSway">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <background color="-12237498"/>
+                  <foreground color="-4342339"/>
+                  <majorTickSpacing value="10"/>
+                  <maximum value="1000"/>
+                  <minimum value="-1000"/>
+                  <paintLabels value="false"/>
+                  <paintTicks value="false"/>
+                  <value value="0"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <grid id="8b684" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="12" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-12171706"/>
+            </properties>
+            <border type="bevel-lowered" title="HEAVE"/>
+            <children>
+              <component id="d188" class="javax.swing.JSlider" binding="sliderHeave">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <background color="-12237498"/>
+                  <foreground color="-4342339"/>
+                  <majorTickSpacing value="10"/>
+                  <maximum value="1000"/>
+                  <minimum value="-1000"/>
+                  <paintLabels value="false"/>
+                  <paintTicks value="false"/>
+                  <value value="0"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <grid id="e75e6" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="13" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-12171706"/>
+            </properties>
+            <border type="bevel-lowered" title="YAW"/>
+            <children>
+              <component id="b1005" class="javax.swing.JSlider" binding="sliderYaw">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <background color="-12237498"/>
+                  <foreground color="-4342339"/>
+                  <majorTickSpacing value="10"/>
+                  <maximum value="1000"/>
+                  <minimum value="-1000"/>
+                  <paintLabels value="false"/>
+                  <paintTicks value="false"/>
+                  <value value="0"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <grid id="a5609" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="14" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-12171706"/>
+            </properties>
+            <border type="bevel-lowered" title="ROLL"/>
+            <children>
+              <component id="b80ed" class="javax.swing.JSlider" binding="sliderRoll">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <background color="-12237498"/>
+                  <foreground color="-4342339"/>
+                  <majorTickSpacing value="10"/>
+                  <maximum value="1000"/>
+                  <minimum value="-1000"/>
+                  <paintLabels value="false"/>
+                  <paintTicks value="false"/>
+                  <value value="0"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <grid id="1eca6" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="15" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-12171706"/>
+            </properties>
+            <border type="bevel-lowered" title="PITCH"/>
+            <children>
+              <component id="4cbc0" class="javax.swing.JSlider" binding="sliderPitch">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <background color="-12237498"/>

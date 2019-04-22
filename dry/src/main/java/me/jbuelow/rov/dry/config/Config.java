@@ -16,10 +16,10 @@ package me.jbuelow.rov.dry.config;
  * along with WAHU ROV Software.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+import static me.jbuelow.rov.dry.controller.JoystickAxis.PRIMARY_T;
 import static me.jbuelow.rov.dry.controller.JoystickAxis.PRIMARY_X;
 import static me.jbuelow.rov.dry.controller.JoystickAxis.PRIMARY_Y;
 import static me.jbuelow.rov.dry.controller.JoystickAxis.PRIMARY_Z;
-import static me.jbuelow.rov.dry.controller.JoystickAxis.SECONDARY_T;
 import static me.jbuelow.rov.dry.controller.JoystickAxis.SECONDARY_X;
 import static me.jbuelow.rov.dry.controller.JoystickAxis.SECONDARY_Y;
 import static me.jbuelow.rov.dry.controller.JoystickButton.PRIMARY_0;
@@ -35,7 +35,7 @@ import me.jbuelow.rov.dry.controller.JoystickButton;
  */
 public abstract class Config {
   // Joystick deadzone
-  public static final int JOY_DEADZONE = 20;
+  public static final int JOY_DEADZONE = 50;
 
   // Joystick axis mapping
   public static final JoystickAxis SURGE_AXIS = PRIMARY_Y;
@@ -45,12 +45,12 @@ public abstract class Config {
   public static final JoystickAxis PITCH_AXIS = null;
   public static final JoystickAxis ROLL_AXIS = SECONDARY_X;
 
-  public static final JoystickAxis CAMERA_X_AXIS = SECONDARY_T;
+  public static final JoystickAxis CAMERA_X_AXIS = PRIMARY_T;
 
   // Axis inversions
   public static final boolean SURGE_INVERT = true;
-  public static final boolean SWAY_INVERT = true;
-  public static final boolean HEAVE_INVERT = false;
+  public static final boolean SWAY_INVERT = false;
+  public static final boolean HEAVE_INVERT = true;
   public static final boolean YAW_INVERT = false;
   public static final boolean PITCH_INVERT = false;
   public static final boolean ROLL_INVERT = false;

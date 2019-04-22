@@ -49,7 +49,7 @@ import org.springframework.stereotype.Service;
 public class TcpConnectionService implements DisposableBean {
 
   public static final long IDLE_TIME = 10;  //One second
-  public static final int SOCKET_TIMEOUT = 100;
+  public static final int SOCKET_TIMEOUT = 500;
   public static String myIp;
 
   private CommandProcessorService commandProcessorService;
