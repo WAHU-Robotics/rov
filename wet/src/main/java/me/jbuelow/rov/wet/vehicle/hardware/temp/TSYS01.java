@@ -99,8 +99,8 @@ public class TSYS01 implements TempDevice {
       i2cDevice.read(prom, bytes, 0, 2);
 
       int value =
-        (bytes[1]<< 8)&0x0000ff00|
-            (bytes[2] << 0) & 0x000000ff;
+        (bytes[0]<< 8)&0x0000ff00|
+            (bytes[1] << 0) & 0x000000ff;
 
       k.add(value);
     }
