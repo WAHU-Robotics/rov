@@ -50,10 +50,10 @@ public abstract class Config {
   // Axis inversions
   public static final boolean SURGE_INVERT = true;
   public static final boolean SWAY_INVERT = false;
-  public static final boolean HEAVE_INVERT = true;
+  public static final boolean HEAVE_INVERT = false;
   public static final boolean YAW_INVERT = false;
   public static final boolean PITCH_INVERT = false;
-  public static final boolean ROLL_INVERT = false;
+  public static final boolean ROLL_INVERT = true;
 
   // Tool button mapping
   public static final JoystickButton GRIPPER_BUTTON = PRIMARY_0;
