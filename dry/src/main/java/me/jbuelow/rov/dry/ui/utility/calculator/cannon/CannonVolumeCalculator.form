@@ -50,12 +50,6 @@
                 <properties/>
                 <border type="bevel-lowered"/>
                 <children>
-                  <component id="66756" class="javax.swing.JSpinner" binding="smallEndRadiusSpinner">
-                    <constraints>
-                      <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties/>
-                  </component>
                   <component id="70aae" class="javax.swing.JLabel">
                     <constraints>
                       <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
@@ -63,6 +57,14 @@
                     <properties>
                       <text value="Small end radius"/>
                     </properties>
+                  </component>
+                  <component id="af2ac" class="javax.swing.JTextField" binding="smallEndRadiusSpinner">
+                    <constraints>
+                      <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="150" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties/>
                   </component>
                 </children>
               </grid>
@@ -74,12 +76,6 @@
                 <properties/>
                 <border type="bevel-lowered"/>
                 <children>
-                  <component id="e51ba" class="javax.swing.JSpinner" binding="boreRadiusSpinner">
-                    <constraints>
-                      <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties/>
-                  </component>
                   <component id="cb2ab" class="javax.swing.JLabel">
                     <constraints>
                       <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
@@ -87,6 +83,14 @@
                     <properties>
                       <text value="Bore radius"/>
                     </properties>
+                  </component>
+                  <component id="47c9d" class="javax.swing.JTextField" binding="boreRadiusSpinner">
+                    <constraints>
+                      <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="150" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties/>
                   </component>
                 </children>
               </grid>
@@ -108,12 +112,6 @@
                 <properties/>
                 <border type="bevel-lowered"/>
                 <children>
-                  <component id="2c104" class="javax.swing.JSpinner" binding="largeEndRadiusSpinner">
-                    <constraints>
-                      <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties/>
-                  </component>
                   <component id="63a13" class="javax.swing.JLabel">
                     <constraints>
                       <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
@@ -121,6 +119,14 @@
                     <properties>
                       <text value="Large end radius"/>
                     </properties>
+                  </component>
+                  <component id="701ae" class="javax.swing.JTextField" binding="largeEndRadiusSpinner">
+                    <constraints>
+                      <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="150" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties/>
                   </component>
                 </children>
               </grid>
@@ -132,12 +138,6 @@
                 <properties/>
                 <border type="bevel-lowered"/>
                 <children>
-                  <component id="e7e2f" class="javax.swing.JSpinner" binding="cannonLengthSpinner">
-                    <constraints>
-                      <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties/>
-                  </component>
                   <component id="cd53" class="javax.swing.JLabel">
                     <constraints>
                       <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
@@ -145,6 +145,14 @@
                     <properties>
                       <text value="Cannon length"/>
                     </properties>
+                  </component>
+                  <component id="a70d7" class="javax.swing.JTextField" binding="cannonLengthSpinner">
+                    <constraints>
+                      <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="150" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties/>
                   </component>
                 </children>
               </grid>

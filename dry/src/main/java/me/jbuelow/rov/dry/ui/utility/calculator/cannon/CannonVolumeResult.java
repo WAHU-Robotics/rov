@@ -44,6 +44,7 @@ public class CannonVolumeResult extends JDialog {
   public CannonVolumeResult() {
     setContentPane(contentPane);
     setModal(true);
+    setTitle("Result");
     getRootPane().setDefaultButton(buttonOK);
 
     buttonOK.addActionListener(new ActionListener() {

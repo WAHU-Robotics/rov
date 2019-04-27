@@ -21,6 +21,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.text.DecimalFormat;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
@@ -34,11 +35,11 @@ import javax.swing.KeyStroke;
 public class CannonVolumeCalculator extends JFrame {
 
   private JPanel contentPane;
-  private JSpinner smallEndRadiusSpinner;
+  private JTextField smallEndRadiusSpinner;
   private JButton calculateButton;
-  private JSpinner largeEndRadiusSpinner;
-  private JSpinner cannonLengthSpinner;
-  private JSpinner boreRadiusSpinner;
+  private JTextField largeEndRadiusSpinner;
+  private JTextField cannonLengthSpinner;
+  private JTextField boreRadiusSpinner;
 
   public CannonVolumeCalculator() {
     setContentPane(contentPane);
@@ -72,19 +73,30 @@ public class CannonVolumeCalculator extends JFrame {
   }
 
   private void calculate() {
-    Double result = CannonVolumeMath.calculate(
-        Double.valueOf(smallEndRadiusSpinner.getValue().toString()),
-        Double.valueOf(boreRadiusSpinner.getValue().toString()),
-        Double.valueOf(largeEndRadiusSpinner.getValue().toString()),
-        Double.valueOf(cannonLengthSpinner.getValue().toString()));
-    CannonVolumeResult resultGui = new CannonVolumeResult();
-    resultGui.setValue(result.toString());
-    resultGui.display();
-    dispose();
+    try {
+      Double result = CannonVolumeMath.calculate(
+          Double.valueOf(smallEndRadiusSpinner.getText()),
+          Double.valueOf(boreRadiusSpinner.getText()),
+          Double.valueOf(largeEndRadiusSpinner.getText()),
+          Double.valueOf(cannonLengthSpinner.getText()));
+      CannonVolumeResult resultGui = new CannonVolumeResult();
+      DecimalFormat df = new DecimalFormat("#.####");
+      resultGui.setValue(result.toString());
+      resultGui.display();
+      dispose();
+    } catch (NumberFormatException e) {
+      error();
+    }
   }
 
   private void cancel() {
     dispose();
+  }
+
+  private void error() {
+    CannonVolumeResult resultGui = new CannonVolumeResult();
+    resultGui.setValue("ERROR");
+    resultGui.display();
   }
 
   public static void main(String[] args) {
