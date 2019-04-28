@@ -20,6 +20,8 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
@@ -28,6 +30,7 @@ import java.io.IOException;
 import java.util.Map;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -38,6 +41,7 @@ import me.jbuelow.rov.common.capabilities.ThrustAxis;
 import me.jbuelow.rov.common.command.SetMotion;
 import me.jbuelow.rov.dry.controller.PolledValues;
 import me.jbuelow.rov.dry.service.VehicleControlService;
+import me.jbuelow.rov.dry.ui.utility.calculator.cannon.CannonVolumeCalculator;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -88,6 +92,7 @@ public class Gui extends JFrame implements ApplicationContextAware {
   private JSlider sliderYaw;
   private JSlider sliderRoll;
   private JSlider sliderPitch;
+  private JButton calcButton;
 
   MediaPlayer player;
   ApplicationContext ctx;
@@ -110,6 +115,12 @@ public class Gui extends JFrame implements ApplicationContextAware {
 
     //LiveJoystickXYIndicator xyIndc = new LiveJoystickXYIndicator();
     //sensorsPanel.add(xyIndc);
+
+    calcButton.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        new CannonVolumeCalculator();
+      }
+    });
 
     setVisible(true);
 
