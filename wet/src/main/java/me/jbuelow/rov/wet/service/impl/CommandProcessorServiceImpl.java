@@ -18,9 +18,13 @@ package me.jbuelow.rov.wet.service.impl;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 import javax.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
+import me.jbuelow.rov.common.capabilities.ThrustAxis;
 import me.jbuelow.rov.common.command.Command;
+import me.jbuelow.rov.common.command.SetMotion;
 import me.jbuelow.rov.common.response.Response;
 import me.jbuelow.rov.wet.service.CommandHandler;
 import me.jbuelow.rov.wet.service.CommandProcessorService;
@@ -41,6 +45,8 @@ public class CommandProcessorServiceImpl implements CommandProcessorService,
   private ApplicationContext applicationContext;
   @SuppressWarnings("rawtypes")
   private Map<Class, CommandHandler> handlerMap = new HashMap<>();
+  private Timer timer;
+  private SetMotion frickCommand;
 
 
   /**
@@ -59,7 +65,21 @@ public class CommandProcessorServiceImpl implements CommandProcessorService,
       log.warn("No response from " + command.getClass().getSimpleName() + " command");
     }
 
+    try {
+      timer.cancel();
+      timer.schedule(new FrickTask(), 2000);
+    } catch (IllegalStateException e) {
+    }
+
     return response;
+  }
+
+  private class FrickTask extends TimerTask {
+
+    @Override
+    public void run() {
+      handleCommand(frickCommand);
+    }
   }
 
   /**
@@ -90,6 +110,17 @@ public class CommandProcessorServiceImpl implements CommandProcessorService,
   @Override
   public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
     this.applicationContext = applicationContext;
+    this.timer = new Timer();
+
+    frickCommand = new SetMotion();
+    Map<ThrustAxis, Integer> vectors = frickCommand.getThrustVectors();
+
+    vectors.put(ThrustAxis.SURGE, 0);
+    vectors.put(ThrustAxis.SWAY, 0);
+    vectors.put(ThrustAxis.HEAVE, 0);
+    vectors.put(ThrustAxis.YAW, 0);
+    vectors.put(ThrustAxis.ROLL, 0);
+    vectors.put(ThrustAxis.PITCH, 0);
   }
 
   /**

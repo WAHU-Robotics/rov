@@ -45,10 +45,7 @@ public class PolledValues {
   public PolledValues(Controller controller) {
     Controller c = controller;
 
-    if (c.getName() == "False Controller") {
-      x = new Random().nextInt(joyPrecision);
-      return;
-    }
+
     try {
       x = (int) (c.getComponent(Axis.X).getPollData() * joyPrecision);
     } catch (NullPointerException ignored) {
