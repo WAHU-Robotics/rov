@@ -67,8 +67,12 @@ vehicle:
     pwm-port: 9
     tool: CAMERA_X
   video-configuration:
-  - name: "Front Camera"
-    videoStreamAddress: "localhost:1234"
+  - name: "USB Camera"
+    priority: true
+    port: null
+    fps: 30
+    bitrate: 12000000
+
     
   
    
