@@ -618,7 +618,12 @@
             <border type="etched" title="Camera">
               <title-color color="-4342339"/>
             </border>
-            <children/>
+            <children>
+              <component id="95de4" class="me.jbuelow.rov.dry.ui.video.VideoPane">
+                <constraints border-constraint="Center"/>
+                <properties/>
+              </component>
+            </children>
           </grid>
         </children>
       </grid>
