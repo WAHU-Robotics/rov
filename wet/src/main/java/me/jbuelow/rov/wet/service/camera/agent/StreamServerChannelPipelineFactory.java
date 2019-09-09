@@ -1,7 +1,8 @@
 package me.jbuelow.rov.wet.service.camera.agent;
 
 import java.awt.Dimension;
-import me.jbuelow.rov.wet.service.camera.agent.handler.StreamServerExceptionHandler;
+import me.jbuelow.rov.common.codec.StreamListener;
+import me.jbuelow.rov.common.codec.StreamExceptionHandler;
 import org.jboss.netty.channel.ChannelPipeline;
 import org.jboss.netty.channel.ChannelPipelineFactory;
 import org.jboss.netty.channel.Channels;
@@ -9,15 +10,15 @@ import org.jboss.netty.handler.codec.frame.LengthFieldPrepender;
 
 public class StreamServerChannelPipelineFactory implements ChannelPipelineFactory {
 
-  private final StreamServerListener streamServerListener;
+  private final StreamListener streamListener;
   private final Dimension resolution;
 
   public StreamServerChannelPipelineFactory (
-      StreamServerListener streamServerListener,
+      StreamListener streamListener,
       Dimension resolution
   ) {
     super();
-    this.streamServerListener = streamServerListener;
+    this.streamListener = streamListener;
     this.resolution = resolution;
   }
 
@@ -25,7 +26,7 @@ public class StreamServerChannelPipelineFactory implements ChannelPipelineFactor
   public ChannelPipeline getPipeline() throws Exception {
     ChannelPipeline pipeline = Channels.pipeline();
     pipeline.addLast("frame encoder", new LengthFieldPrepender(4,false));
-    pipeline.addLast("stream frame handler", new StreamServerExceptionHandler(streamServerListener));
+    pipeline.addLast("stream frame handler", new StreamExceptionHandler(streamListener));
 
     return pipeline;
   }

@@ -1,4 +1,4 @@
 logging:
   level:
     Root: info
-    me.jbuelow.rov: debug
+    me.jbuelow.rov: trace

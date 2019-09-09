@@ -2,7 +2,7 @@ logging:
   file: ROV.log
   level:
     Root: info
-    me.jbuelow.rov: debug
+    me.jbuelow.rov: trace
 
 vehicle:
   name: Nautilus

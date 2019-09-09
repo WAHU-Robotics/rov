@@ -11,7 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import me.jbuelow.rov.wet.service.camera.agent.impl.ServerAgent;
 import org.springframework.stereotype.Service;
 
-@Service
+//@Service
 @Slf4j
 public class CameraService {
   //TODO make start a server for many cameras

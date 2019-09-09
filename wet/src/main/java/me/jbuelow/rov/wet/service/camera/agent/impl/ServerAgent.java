@@ -15,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import me.jbuelow.rov.common.codec.IStreamAgent;
 import me.jbuelow.rov.common.codec.impl.H264Encoder;
 import me.jbuelow.rov.wet.service.camera.agent.StreamServerChannelPipelineFactory;
-import me.jbuelow.rov.wet.service.camera.agent.StreamServerListener;
+import me.jbuelow.rov.common.codec.StreamListener;
 import org.jboss.netty.bootstrap.ServerBootstrap;
 import org.jboss.netty.channel.Channel;
 import org.jboss.netty.channel.group.ChannelGroup;
@@ -85,10 +85,10 @@ public class ServerAgent implements IStreamAgent {
     serverBootstrap.releaseExternalResources();
   }
 
-  private class StreamServerListenerServiceImpl implements StreamServerListener {
+  private class StreamServerListenerServiceImpl implements StreamListener {
 
     @Override
-    public void onClientConnect(Channel channel) {
+    public void onConnect(Channel channel) {
       webcam.open();
       channelGroup.add(channel);
       if (!streaming) {
@@ -104,7 +104,7 @@ public class ServerAgent implements IStreamAgent {
     }
 
     @Override
-    public void onClientDisconnect(Channel channel) {
+    public void onDisconnect(Channel channel) {
       channelGroup.remove(channel);
       channel.close();
       int size = channelGroup.size();
@@ -122,7 +122,7 @@ public class ServerAgent implements IStreamAgent {
     @Override
     public void onException(Channel channel, Throwable throwable) {
       log.error("An exception occurred that led to the disconnect of client at {}", channel.getRemoteAddress(), throwable);
-      onClientDisconnect(channel);
+      onDisconnect(channel);
     }
   }
 

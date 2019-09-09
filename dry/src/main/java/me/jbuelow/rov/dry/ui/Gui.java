@@ -16,6 +16,7 @@ package me.jbuelow.rov.dry.ui;
  * along with WAHU ROV Software.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -42,6 +43,7 @@ import me.jbuelow.rov.common.command.SetMotion;
 import me.jbuelow.rov.dry.controller.PolledValues;
 import me.jbuelow.rov.dry.service.VehicleControlService;
 import me.jbuelow.rov.dry.ui.utility.calculator.cannon.CannonVolumeCalculator;
+import me.jbuelow.rov.dry.ui.video.VideoPane;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -72,7 +74,6 @@ public class Gui extends JFrame implements ApplicationContextAware {
   private JPanel mainPanel;
   private JLabel fpsValue;
   private JLabel magnet_indicator;
-  private JLabel cameraLabel;
   private JLabel light_indicator;
   private JLabel cup_indicator;
   private JPanel sensorsPanel;
@@ -93,6 +94,7 @@ public class Gui extends JFrame implements ApplicationContextAware {
   private JSlider sliderRoll;
   private JSlider sliderPitch;
   private JButton calcButton;
+  private VideoPane videoPane;
 
   MediaPlayer player;
   ApplicationContext ctx;
@@ -150,6 +152,8 @@ public class Gui extends JFrame implements ApplicationContextAware {
     }
     player.mute(true);
     */
+    this.videoPane = new VideoPane();
+    cameraPane.add(videoPane, BorderLayout.CENTER);
   }
 
   private Image getScaledImage(Image srcImg, int w, int h){
@@ -264,5 +268,9 @@ public class Gui extends JFrame implements ApplicationContextAware {
   @Override
   public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
     ctx = applicationContext;
+  }
+
+  public void updateVideoFrame(BufferedImage image) {
+    this.videoPane.update(image);
   }
 }
