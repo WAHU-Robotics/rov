@@ -29,4 +29,5 @@ public abstract class RovConstants {
   public static byte[] DISCOVERY_BYTES = "YEET".getBytes(CHARSET);
   public static final int DISCOVERY_PACKET_SIZE = DISCOVERY_BYTES.length;
   public static final int ROV_PORT = 8888;
+
 }
