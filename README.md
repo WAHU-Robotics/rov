@@ -12,7 +12,6 @@
 ![Code Climate maintainability](https://img.shields.io/codeclimate/maintainability/jbuelow1/rov)
 ![Code Climate issues](https://img.shields.io/codeclimate/issues/jbuelow1/rov)
 ![Code Climate technical debt](https://img.shields.io/codeclimate/tech-debt/jbuelow1/rov)
-![Code Climate coverage](https://img.shields.io/codeclimate/coverage/jbuelow1/rov)
 
 *The highly expandable and open source underwater robot control software solution*
 
