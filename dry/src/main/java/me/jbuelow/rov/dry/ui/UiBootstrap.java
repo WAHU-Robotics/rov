@@ -50,6 +50,7 @@ import net.java.games.input.Controller;
 import org.springframework.context.event.EventListener;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
+import tec.uom.se.unit.Units;
 
 @Service
 @Slf4j
@@ -197,17 +198,18 @@ public class UiBootstrap {
             DecimalFormat df = new DecimalFormat("#.## °C");
 
             SystemStats stat = (SystemStats) vehicleControlService.sendCommand(vehicleId, new GetSystemStats());
-            gui.setCpuTempValue(df.format(stat.getCpuTemp()));
-            if (stat.getCpuTemp() > 80) {
+            gui.setCpuTempValue(stat.getCpuTemp().to(Units.CELSIUS));
+            int tempC = stat.getCpuTemp().to(Units.CELSIUS).getValue().intValue();
+            if (tempC > 80) {
               gui.setCpuTempBadness(2);
-            } else if (stat.getCpuTemp() > 70) {
+            } else if (tempC > 70) {
               gui.setCpuTempBadness(1);
             } else {
               gui.setCpuTempBadness(0);
             }
 
             WaterTemp temp = (WaterTemp) vehicleControlService.sendCommand(vehicleId, new GetWaterTemp());
-            gui.setWaterTempValue(df.format(temp.getTemperature()));
+            gui.setWaterTempValue(temp.getTemperature().to(Units.CELSIUS));
 
             i = 0;
           }

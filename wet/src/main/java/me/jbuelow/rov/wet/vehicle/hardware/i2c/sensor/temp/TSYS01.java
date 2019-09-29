@@ -1,4 +1,4 @@
-package me.jbuelow.rov.wet.vehicle.hardware.temp;
+package me.jbuelow.rov.wet.vehicle.hardware.i2c.sensor.temp;
 
 /* This file is part of WAHU ROV Software.
  *
@@ -22,9 +22,13 @@ import com.pi4j.io.i2c.I2CFactory;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.measure.Quantity;
+import javax.measure.quantity.Temperature;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
+import tec.uom.se.quantity.Quantities;
+import tec.uom.se.unit.Units;
 
 @Component
 @Slf4j
@@ -54,7 +58,7 @@ public class TSYS01 implements TempDevice {
   }
 
   @Override
-  public float getTemp() throws IOException {
+  public Quantity<Temperature> getTemp() throws IOException {
     log.debug("Attempting to get temperature...");
     write(_TSYS01_CONVERT);
     sleep(10);
@@ -73,7 +77,13 @@ public class TSYS01 implements TempDevice {
           (data[2] << 0) & 0x000000ff; //Because Java! That's why.
 
     log.debug("Got ADC value: " + adc);
-    return calculateTemperature(adc, k);
+
+    float tempCelsius = calculateTemperature(adc, k);
+    Quantity<Temperature> temp = Quantities.getQuantity(tempCelsius, Units.CELSIUS);
+
+    log.debug("Calculated temperature to be {}", temp.toString());
+
+    return temp;
   }
 
   static float calculateTemperature(int adc24, List<Integer> k) {

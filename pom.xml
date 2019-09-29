@@ -58,6 +58,11 @@
       <artifactId>vlcj</artifactId>
       <version>3.12.1</version>
     </dependency>
+    <dependency>
+      <groupId>tec.uom</groupId>
+      <artifactId>uom-se</artifactId>
+      <version>1.0.10</version>
+    </dependency>
   </dependencies>
 
   <modules>

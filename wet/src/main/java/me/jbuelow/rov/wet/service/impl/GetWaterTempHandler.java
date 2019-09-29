@@ -20,7 +20,7 @@ import me.jbuelow.rov.common.command.GetWaterTemp;
 import me.jbuelow.rov.common.response.Response;
 import me.jbuelow.rov.common.response.WaterTemp;
 import me.jbuelow.rov.wet.service.CommandHandler;
-import me.jbuelow.rov.wet.service.SensorService;
+import me.jbuelow.rov.wet.service.TempSensorService;
 import org.springframework.stereotype.Service;
 
 /**
@@ -30,15 +30,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class GetWaterTempHandler implements CommandHandler<GetWaterTemp> {
 
-  private SensorService sensorService;
+  private TempSensorService tempSensorService;
 
-  public GetWaterTempHandler(SensorService sensorService) {
-    this.sensorService = sensorService;
+  public GetWaterTempHandler(TempSensorService tempSensorService) {
+    this.tempSensorService = tempSensorService;
   }
 
   @Override
   public Response execute(GetWaterTemp command) {
-    return new WaterTemp(sensorService.getTemp());
+    return new WaterTemp(tempSensorService.getTemp());
   }
 
   @Override

@@ -26,7 +26,7 @@ import java.net.SocketException;
 import java.util.Enumeration;
 import lombok.extern.slf4j.Slf4j;
 import me.jbuelow.rov.common.RovConstants;
-import me.jbuelow.rov.wet.vehicle.hardware.pwm.PwmDevice;
+import me.jbuelow.rov.wet.vehicle.hardware.i2c.pwm.PwmDevice;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;

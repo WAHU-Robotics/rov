@@ -1,4 +1,4 @@
-package me.jbuelow.rov.wet.service;
+package me.jbuelow.rov.wet.vehicle.hardware.i2c.pwm;
 
 /* This file is part of WAHU ROV Software.
  *
@@ -16,6 +16,14 @@ package me.jbuelow.rov.wet.service;
  * along with WAHU ROV Software.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-public interface SensorService {
-  float getTemp();
+import java.io.IOException;
+import me.jbuelow.rov.wet.vehicle.hardware.i2c.I2CDevice;
+
+public interface PwmDevice extends I2CDevice {
+
+	PwmChannel getChannel(int channel);
+
+	void setPWMFreqency(double frequency) throws IOException;
+
+	void setAllPWM(int on, int off) throws IOException;
 }

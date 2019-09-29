@@ -1,4 +1,4 @@
-package me.jbuelow.rov.wet.vehicle.hardware.temp;
+package me.jbuelow.rov.wet.vehicle.hardware.i2c.sensor.temp;
 
 /* This file is part of WAHU ROV Software.
  *
@@ -17,24 +17,13 @@ package me.jbuelow.rov.wet.vehicle.hardware.temp;
  */
 
 import java.io.IOException;
-import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
+import javax.measure.Quantity;
+import javax.measure.quantity.Temperature;
+import me.jbuelow.rov.wet.vehicle.hardware.i2c.I2CDevice;
+import me.jbuelow.rov.wet.vehicle.hardware.i2c.sensor.SensorDevice;
 
-@Component
-@Profile("!useTemp")
-public class MockTemperatureSensor implements TempDevice{
-  @Override
-  public float getTemp() throws IOException {
-    return 0;
-  }
+public interface TempDevice extends SensorDevice {
 
-  @Override
-  public int getBus() {
-    return 0;
-  }
+  Quantity<Temperature> getTemp() throws IOException;
 
-  @Override
-  public int getAddress() {
-    return 0;
-  }
 }

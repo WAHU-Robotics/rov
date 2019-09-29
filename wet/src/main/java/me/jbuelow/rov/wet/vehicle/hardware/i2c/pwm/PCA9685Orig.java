@@ -1,4 +1,4 @@
-package me.jbuelow.rov.wet.vehicle.hardware.pwm;
+package me.jbuelow.rov.wet.vehicle.hardware.i2c.pwm;
 
 import com.pi4j.io.i2c.I2CBus;
 import com.pi4j.io.i2c.I2CDevice;

@@ -23,9 +23,9 @@ import java.util.UUID;
 import me.jbuelow.rov.wet.service.MotorService;
 import me.jbuelow.rov.wet.vehicle.MotorConfig;
 import me.jbuelow.rov.wet.vehicle.VehicleConfiguration;
-import me.jbuelow.rov.wet.vehicle.hardware.pwm.Motor;
-import me.jbuelow.rov.wet.vehicle.hardware.pwm.PwmChannel;
-import me.jbuelow.rov.wet.vehicle.hardware.pwm.PwmDevice;
+import me.jbuelow.rov.wet.vehicle.hardware.i2c.pwm.Motor;
+import me.jbuelow.rov.wet.vehicle.hardware.i2c.pwm.PwmChannel;
+import me.jbuelow.rov.wet.vehicle.hardware.i2c.pwm.PwmDevice;
 import org.springframework.stereotype.Service;
 
 /**

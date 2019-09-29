@@ -1,4 +1,4 @@
-package me.jbuelow.rov.wet.vehicle.hardware.temp;
+package me.jbuelow.rov.wet.service;
 
 /* This file is part of WAHU ROV Software.
  *
@@ -16,26 +16,9 @@ package me.jbuelow.rov.wet.vehicle.hardware.temp;
  * along with WAHU ROV Software.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import javax.measure.Quantity;
+import javax.measure.quantity.Temperature;
 
-import java.util.ArrayList;
-import java.util.List;
-import org.junit.Test;
-
-public class TSYS01Test {
-
-  @Test
-  public void calculateTemperature() {
-    List<Integer> k = new ArrayList<>();
-
-    k.add(40781);
-    k.add(32791);
-    k.add(36016);
-    k.add(24926);
-    k.add(28446);
-
-    float result = TSYS01.calculateTemperature(9378708, k);
-    assertThat(result, is(10.577273f));
-  }
+public interface TempSensorService {
+  Quantity<Temperature> getTemp();
 }

@@ -27,9 +27,9 @@ import me.jbuelow.rov.common.capabilities.Tool;
 import me.jbuelow.rov.wet.service.ServoService;
 import me.jbuelow.rov.wet.vehicle.ServoConfig;
 import me.jbuelow.rov.wet.vehicle.VehicleConfiguration;
-import me.jbuelow.rov.wet.vehicle.hardware.pwm.PwmChannel;
-import me.jbuelow.rov.wet.vehicle.hardware.pwm.PwmDevice;
-import me.jbuelow.rov.wet.vehicle.hardware.pwm.Servo;
+import me.jbuelow.rov.wet.vehicle.hardware.i2c.pwm.PwmChannel;
+import me.jbuelow.rov.wet.vehicle.hardware.i2c.pwm.PwmDevice;
+import me.jbuelow.rov.wet.vehicle.hardware.i2c.pwm.Servo;
 import org.springframework.stereotype.Service;
 
 /**

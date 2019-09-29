@@ -1,4 +1,4 @@
-package me.jbuelow.rov.wet.vehicle.hardware.pwm;
+package me.jbuelow.rov.wet.vehicle.hardware.i2c.sensor.temp;
 
 /* This file is part of WAHU ROV Software.
  *
@@ -17,13 +17,28 @@ package me.jbuelow.rov.wet.vehicle.hardware.pwm;
  */
 
 import java.io.IOException;
-import me.jbuelow.rov.wet.vehicle.hardware.I2CDevice;
+import javax.measure.Quantity;
+import javax.measure.quantity.Temperature;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
+import tec.uom.se.quantity.Quantities;
+import tec.uom.se.unit.Units;
 
-public interface PwmDevice extends I2CDevice {
+@Component
+@Profile("!useTemp")
+public class MockTemperatureSensor implements TempDevice{
+  @Override
+  public Quantity<Temperature> getTemp() throws IOException {
+    return Quantities.getQuantity(0, Units.KELVIN);
+  }
 
-	PwmChannel getChannel(int channel);
+  @Override
+  public int getBus() {
+    return 0;
+  }
 
-	void setPWMFreqency(double frequency) throws IOException;
-
-	void setAllPWM(int on, int off) throws IOException;
+  @Override
+  public int getAddress() {
+    return 0;
+  }
 }
