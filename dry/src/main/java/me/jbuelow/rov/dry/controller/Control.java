@@ -202,11 +202,9 @@ public class Control implements ResourceLoaderAware {
   public void promptForControllers() throws JinputNativesNotFoundException {
     boolean unset = true;
     Object[] def = new Object[2];
-    if (selectableControllers.size() <= 0) {
-      if (Objects.equals(System.getenv("ROV_DEVMODE"), "true")) {
-        selectableControllers.add(new MockController());
-        selectableControllers.add(new ErrorMockController());
-      }
+    if (Objects.equals(System.getenv("ROV_DEVMODE"), "true")) {
+      selectableControllers.add(new MockController());
+      selectableControllers.add(new ErrorMockController());
     }
 
     while (unset) {
