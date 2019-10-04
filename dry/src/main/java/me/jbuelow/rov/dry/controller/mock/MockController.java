@@ -62,4 +62,9 @@ public class MockController implements Controller {
   public String getName() {
     return "Fake Controller";
   }
+
+  @Override
+  public String toString() {
+    return getName();
+  }
 }

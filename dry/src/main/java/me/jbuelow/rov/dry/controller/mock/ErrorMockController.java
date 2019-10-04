@@ -62,4 +62,9 @@ public class ErrorMockController implements Controller {
   public String getName() {
     return "Mock Errored Controller";
   }
+
+  @Override
+  public String toString() {
+    return getName();
+  }
 }
