@@ -1,4 +1,4 @@
-package me.jbuelow.rov.wet.vehicle.hardware.pwm;
+package me.jbuelow.rov.wet.vehicle.hardware.i2c.pwm;
 
 /* This file is part of WAHU ROV Software.
  *

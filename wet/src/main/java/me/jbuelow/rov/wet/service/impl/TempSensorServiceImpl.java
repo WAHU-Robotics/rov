@@ -17,30 +17,34 @@ package me.jbuelow.rov.wet.service.impl;
  */
 
 import java.io.IOException;
+import javax.measure.Quantity;
+import javax.measure.quantity.Temperature;
 import lombok.extern.slf4j.Slf4j;
-import me.jbuelow.rov.wet.service.SensorService;
-import me.jbuelow.rov.wet.vehicle.hardware.temp.TempDevice;
+import me.jbuelow.rov.wet.service.TempSensorService;
+import me.jbuelow.rov.wet.vehicle.hardware.i2c.sensor.temp.TempDevice;
 import org.springframework.stereotype.Service;
+import tec.uom.se.quantity.Quantities;
+import tec.uom.se.unit.Units;
 
 /**
  * Handles servos as a service.
  */
 @Service
 @Slf4j
-public class SensorServiceImpl implements SensorService {
+public class TempSensorServiceImpl implements TempSensorService {
 
   private TempDevice tempDevice;
 
-  public SensorServiceImpl(TempDevice tempDevice) {
+  public TempSensorServiceImpl(TempDevice tempDevice) {
     this.tempDevice = tempDevice;
   }
 
   @Override
-  public float getTemp() {
+  public Quantity<Temperature> getTemp() {
     try {
       return tempDevice.getTemp();
     } catch (IOException e) {
-      return -420f;
+      return Quantities.getQuantity(0, Units.KELVIN);
     }
   }
 }

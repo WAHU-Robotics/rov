@@ -2,9 +2,7 @@ package me.jbuelow.rov.dry.ui.video;
 
 import java.awt.Dimension;
 import java.net.InetSocketAddress;
-import java.net.SocketAddress;
 import lombok.extern.slf4j.Slf4j;
-import me.jbuelow.rov.common.RovConstants;
 import me.jbuelow.rov.common.codec.StreamFrameListener;
 import me.jbuelow.rov.dry.discovery.VehicleDiscoveryEvent;
 import me.jbuelow.rov.dry.ui.UiBootstrap;
@@ -31,8 +29,8 @@ public class CameraClientService {
   @EventListener
   @Order(1)
   public void initiateConnection(VehicleDiscoveryEvent event) {
-    //agent.start(new InetSocketAddress(event.getVehicleAddress(), 20000));
-    agent.start(new InetSocketAddress("127.0.0.1", 20000));
+    agent.start(new InetSocketAddress(event.getVehicleAddress(), 20000));
+    //agent.start(new InetSocketAddress("127.0.0.1", 20000));
   }
 
 }

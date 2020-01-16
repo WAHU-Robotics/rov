@@ -2,10 +2,12 @@ package me.jbuelow.rov.wet.service.camera;
 
 import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamException;
+import com.github.sarxos.webcam.ds.v4l4j.V4l4jDriver;
 import java.awt.Dimension;
 import java.net.InetSocketAddress;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
+import java.util.regex.Pattern;
 import javax.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import me.jbuelow.rov.wet.service.camera.agent.impl.ServerAgent;
@@ -27,6 +29,7 @@ public class CameraService {
 
   @PostConstruct
   public void initialize() {
+    setLibraryOptions();
     try {
       webcam = Webcam.getDefault();
     } catch (WebcamException e) {
@@ -44,4 +47,15 @@ public class CameraService {
     ServerAgent agent = new ServerAgent(webcam, resolution, fps, bitrate, quality, quick);
     agent.start(new InetSocketAddress("localhost", 20000)); //TODO make port a part of application.yml config
   }
+
+  private void setLibraryOptions() {
+    log.debug("Setting camera lib options");
+    String osName = System.getProperty("os.name");
+    boolean nix = Pattern.matches("^.*(nux)|(nix)|(aix).*$", osName);
+    if (nix) {
+      log.debug("This is a *nix system. Using v4l driver");
+      Webcam.setDriver(new V4l4jDriver());
+    }
+  }
+
 }

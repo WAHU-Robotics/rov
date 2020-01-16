@@ -29,6 +29,8 @@ import java.util.Objects;
 import javax.swing.JOptionPane;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+import me.jbuelow.rov.dry.controller.mock.ErrorMockController;
+import me.jbuelow.rov.dry.controller.mock.MockController;
 import me.jbuelow.rov.dry.exception.JinputNativesNotFoundException;
 import me.jbuelow.rov.dry.ui.setup.JoystickSelecter;
 import net.java.games.input.Component;
@@ -200,24 +202,9 @@ public class Control implements ResourceLoaderAware {
   public void promptForControllers() throws JinputNativesNotFoundException {
     boolean unset = true;
     Object[] def = new Object[2];
-    if (selectableControllers.size() <= 0) {
-      if (Objects.equals(System.getenv("ROV_DEVMODE"), "true")) {
-        selectableControllers.add(new FalseController());
-        selectableControllers.add(new BadController());
-      } else {
-        JOptionPane.showMessageDialog(null,
-            "No compatible joysticks connected.\nProgram will exit.", "Error",
-            JOptionPane.ERROR_MESSAGE);
-        System.exit(1);
-      }
-    }
-
-    for (int position = 0; position < 2; position++) {
-      if (position > (selectableControllers.size() - 1)) {
-        def[position] = selectableControllers.get(selectableControllers.size() - 1);
-      } else {
-        def[position] = selectableControllers.get(position);
-      }
+    if (Objects.equals(System.getenv("ROV_DEVMODE"), "true")) {
+      selectableControllers.add(new MockController());
+      selectableControllers.add(new ErrorMockController());
     }
 
     while (unset) {
@@ -259,132 +246,6 @@ public class Control implements ResourceLoaderAware {
     }
 
     return new PolledValues(c);
-  }
-
-  private class FalseController implements Controller {
-
-    @Override
-    public Controller[] getControllers() {
-      return new Controller[0];
-    }
-
-    @Override
-    public Type getType() {
-      return null;
-    }
-
-    @Override
-    public Component[] getComponents() {
-      return new Component[0];
-    }
-
-    @Override
-    public Component getComponent(Identifier identifier) {
-      return null;
-    }
-
-    @Override
-    public Rumbler[] getRumblers() {
-      return new Rumbler[0];
-    }
-
-    @Override
-    public boolean poll() {
-      return true;
-    }
-
-    @Override
-    public void setEventQueueSize(int i) {
-
-    }
-
-    @Override
-    public EventQueue getEventQueue() {
-      return null;
-    }
-
-    @Override
-    public PortType getPortType() {
-      return null;
-    }
-
-    @Override
-    public int getPortNumber() {
-      return 0;
-    }
-
-    @Override
-    public String getName() {
-      return "False Controller";
-    }
-
-    @Override
-    public String toString() {
-      return getName();
-    }
-  }
-
-  private class BadController implements Controller {
-
-    @Override
-    public Controller[] getControllers() {
-      return new Controller[0];
-    }
-
-    @Override
-    public Type getType() {
-      return null;
-    }
-
-    @Override
-    public Component[] getComponents() {
-      return new Component[0];
-    }
-
-    @Override
-    public Component getComponent(Identifier identifier) {
-      return null;
-    }
-
-    @Override
-    public Rumbler[] getRumblers() {
-      return new Rumbler[0];
-    }
-
-    @Override
-    public boolean poll() {
-      return false;
-    }
-
-    @Override
-    public void setEventQueueSize(int i) {
-
-    }
-
-    @Override
-    public EventQueue getEventQueue() {
-      return null;
-    }
-
-    @Override
-    public PortType getPortType() {
-      return null;
-    }
-
-    @Override
-    public int getPortNumber() {
-      return 0;
-    }
-
-    @Override
-    public String getName() {
-      return "Bad Controller";
-    }
-
-    @Override
-    public String toString() {
-      return getName();
-    }
   }
 
   @Override

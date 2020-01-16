@@ -1,4 +1,4 @@
-package me.jbuelow.rov.wet.vehicle.hardware.pwm;
+package me.jbuelow.rov.wet.vehicle.hardware.i2c.pwm;
 
 /* This file is part of WAHU ROV Software.
  *
@@ -23,32 +23,48 @@ import lombok.extern.slf4j.Slf4j;
  * Object used to represent a physical motor.
  */
 @Slf4j
-public class Servo {
-  private static final float VALUE_TO_PULSE_FACTOR = 2000f;
+public class Motor {
+  private static final float POWER_TO_PULSE_FACTOR = 2000f;
   private static final float CENTER_PULSE = 1.5f;
 
+  private boolean armed = false;
   private PwmChannel pwmChannel;
-  private Integer value;
+  private Integer power;
 
-  public Servo(PwmChannel pwmChannel) throws IOException {
+  public Motor(PwmChannel pwmChannel) throws IOException {
     this.pwmChannel = pwmChannel;
   }
   
-  public void setValue(int value) throws IOException {
-    if (this.value == null || !this.value.equals(value)) {
-      this.value = value;
-      pwmChannel.setServoPulse(convertToPulse(value));
+  public void setPower(int power) throws IOException {
+    if (this.power == null || !this.power.equals(power)) {
+      this.power = power;
+      pwmChannel.setServoPulse(convertToPulse(power));
     }
   }
   
-  public Integer getValue() {
-    return value;
+  public Integer getPower() {
+    return power;
+  }
+  
+  public boolean isArmed() {
+    return armed;
+  }
+  
+  public void arm() throws IOException {
+    if (!armed) {
+      //arm our Motors
+      log.debug("Arming motor on channel " + pwmChannel.getChannelNumber());
+      pwmChannel.setServoPulse(1.5f);
+      delay(1500);
+      setPower(0);
+      log.debug("Arming complete.");
+    }
   }
 
   private float convertToPulse(int power) {
-    return ((float) power / VALUE_TO_PULSE_FACTOR) + CENTER_PULSE;
+    return ((float) power / POWER_TO_PULSE_FACTOR) + CENTER_PULSE;
   }
-  
+
   private void delay(long millis) {
     try {
       Thread.sleep(millis);

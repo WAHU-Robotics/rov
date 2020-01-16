@@ -25,8 +25,8 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import java.io.IOException;
-import me.jbuelow.rov.wet.vehicle.hardware.pwm.Motor;
-import me.jbuelow.rov.wet.vehicle.hardware.pwm.PwmChannel;
+import me.jbuelow.rov.wet.vehicle.hardware.i2c.pwm.Motor;
+import me.jbuelow.rov.wet.vehicle.hardware.i2c.pwm.PwmChannel;
 import org.junit.Before;
 import org.junit.Test;
 
