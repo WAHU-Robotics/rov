@@ -3,10 +3,10 @@ package me.jbuelow.rov.dry.ui.video;
 import java.awt.Dimension;
 import java.net.ConnectException;
 import java.net.SocketAddress;
-import java.util.Objects;
 import java.util.concurrent.Executors;
 import lombok.extern.slf4j.Slf4j;
 import me.jbuelow.rov.common.codec.IStreamAgent;
+import me.jbuelow.rov.common.codec.StreamExceptionHandler;
 import me.jbuelow.rov.common.codec.StreamFrameListener;
 import me.jbuelow.rov.common.codec.StreamListener;
 import me.jbuelow.rov.common.codec.impl.H264Decoder;
@@ -17,7 +17,6 @@ import org.jboss.netty.channel.ChannelPipelineFactory;
 import org.jboss.netty.channel.Channels;
 import org.jboss.netty.channel.socket.nio.NioClientSocketChannelFactory;
 import org.jboss.netty.handler.codec.frame.LengthFieldBasedFrameDecoder;
-import me.jbuelow.rov.common.codec.StreamExceptionHandler;
 
 @Slf4j
 public class CameraClientAgent implements IStreamAgent {
