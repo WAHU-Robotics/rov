@@ -125,6 +125,7 @@ public class Gui extends JFrame implements ApplicationContextAware {
     });
 
     setVisible(true);
+    setTitle("ROV View");
 
     setMagnetState(false);
     setLightState(false);
