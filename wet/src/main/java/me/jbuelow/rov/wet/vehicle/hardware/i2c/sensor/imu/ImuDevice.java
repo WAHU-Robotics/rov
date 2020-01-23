@@ -9,8 +9,9 @@ import javax.measure.quantity.AngularVelocity;
 import javax.measure.quantity.MagneticFluxDensity;
 import javax.measure.quantity.Temperature;
 import me.jbuelow.rov.common.object.imu.Orientation;
+import me.jbuelow.rov.wet.vehicle.hardware.i2c.I2CDevice;
 
-public interface ImuDevice {
+public interface ImuDevice extends I2CDevice {
 
   void initialize() throws IOException, UnsupportedBusNumberException;
 

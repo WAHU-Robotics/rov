@@ -14,6 +14,7 @@ import javax.measure.quantity.Angle;
 import javax.measure.quantity.AngularVelocity;
 import javax.measure.quantity.MagneticFluxDensity;
 import javax.measure.quantity.Temperature;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import me.jbuelow.rov.common.object.imu.Orientation;
 import me.jbuelow.rov.wet.vehicle.hardware.i2c.sensor.imu.BNO055.constant.AccRange;
@@ -31,8 +32,12 @@ import tec.uom.se.unit.Units;
 @Profile("useIMU")
 public class BNO055 implements ImuDevice {
 
+  @Getter
   private final int bus;
+
+  @Getter
   private final int address;
+
   private I2CDevice device;
 
   public BNO055(int bus, int address) {
