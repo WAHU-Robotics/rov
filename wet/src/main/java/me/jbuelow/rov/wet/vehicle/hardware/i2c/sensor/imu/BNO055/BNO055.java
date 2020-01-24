@@ -2,6 +2,7 @@ package me.jbuelow.rov.wet.vehicle.hardware.i2c.sensor.imu.BNO055;
 
 import static me.jbuelow.rov.wet.vehicle.hardware.i2c.sensor.imu.BNO055.constant.Registers.*;
 
+import com.pi4j.io.i2c.I2CBus;
 import com.pi4j.io.i2c.I2CDevice;
 import com.pi4j.io.i2c.I2CFactory;
 import com.pi4j.io.i2c.I2CFactory.UnsupportedBusNumberException;
@@ -40,6 +41,12 @@ public class BNO055 implements ImuDevice {
 
   private I2CDevice device;
 
+  private static int DEFAULT_ADDRESS = 0x28;
+
+  public BNO055() {
+    this(I2CBus.BUS_1, DEFAULT_ADDRESS);
+  }
+
   public BNO055(int bus, int address) {
     this.bus = bus;
     this.address = address;
@@ -57,7 +64,7 @@ public class BNO055 implements ImuDevice {
   }
 
   /**
-   * Connects and checks if the device located at the target bus and address is a BNO055 chip   *
+   * Connects and checks if the device located at the target bus and address is a BNO055 chip
    * @return true if the device is identified as correct chip and active
    */
   public boolean isPresent() {
