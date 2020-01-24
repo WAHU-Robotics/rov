@@ -72,6 +72,36 @@ vehicle:
     port: null
     fps: 30
     bitrate: 12000000
+  sensors:
+#    water:
+#      - driver: TSYS01
+#        driverParameters:
+#          bus: 1
+#          address: 0x77
+#        primaryTypes:
+#          - THERMAL
+#      - driver: MS5837_02BA
+#        driverParameters:
+#          bus: 1
+#          address: 0x76
+#          mode: 1
+#        primaryTypes:
+#          - PRESSURE
+#          - DEPTH
+#    cpu:
+#      - driver: LinuxSysCpuTempDriver
+#        primarTypes:
+#          - THERMAL
+#    body:
+#      - driver: BNO055
+#        driverParameters:
+#          bus: 1
+#          address: 0x28
+#        primaryTypes:
+#          - ORIENTATION
+#          - THERMAL
+    water:
+      - driver: me.jbuelow.rov.wet.service.sensor.drivers.MockSensorDriver
 
     
   
