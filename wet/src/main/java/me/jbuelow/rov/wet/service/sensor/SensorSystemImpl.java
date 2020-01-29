@@ -2,10 +2,15 @@ package me.jbuelow.rov.wet.service.sensor;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import javax.annotation.PostConstruct;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import me.jbuelow.rov.common.sensor.Reading;
+import me.jbuelow.rov.common.sensor.Zone;
+import me.jbuelow.rov.common.sensor.Type;
 import me.jbuelow.rov.wet.service.sensor.config.Config;
 import me.jbuelow.rov.wet.service.sensor.config.SensorConfig;
 import me.jbuelow.rov.wet.service.sensor.drivers.SensorDriver;
@@ -13,6 +18,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 @Slf4j
 @Service
@@ -60,5 +66,13 @@ public class SensorSystemImpl implements SensorSystem, ApplicationContextAware {
     });
   }
 
+  @Override
+  public Reading<?,?> getReading(Type type, Zone zone){
+    List<Sensor> sensorCandidates = new ArrayList<>();
+    Collections.copy(sensors, sensorCandidates);
+    sensorCandidates.removeIf(sensor -> !Objects.equals(sensor.getZone(), zone.getName()));
+    Sensor s = sensorCandidates.get(0);
+    return null;
+  }
 
 }
