@@ -19,6 +19,8 @@ package me.jbuelow.rov.dry.ui;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
@@ -27,9 +29,11 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.filechooser.FileFilter;
 import lombok.extern.slf4j.Slf4j;
@@ -45,6 +49,8 @@ public class SnapshotViewer extends JFrame {
 
   private final BufferedImage bufImage;
 
+  private boolean savedImage = false;
+
   public SnapshotViewer(BufferedImage img) {
     this.bufImage = img;
     getContentPane().setLayout(new BorderLayout());
@@ -57,6 +63,35 @@ public class SnapshotViewer extends JFrame {
     }
 
     image = new JLabel(new ImageIcon(img), SwingConstants.CENTER);
+
+    addWindowListener(new WindowAdapter() {
+      @Override
+      public void windowClosing(WindowEvent e) {
+        if (!savedImage) {
+          Object[] options = {"Save Image","Discard Image","Cancel"};
+          int opt = JOptionPane.showOptionDialog(getContentPane(),
+              "Image has not been saved. Do you want to save or discard this image?",
+              "Confirm exit",
+              JOptionPane.YES_NO_CANCEL_OPTION,
+              JOptionPane.WARNING_MESSAGE,
+              null,
+              options,
+              options[2]);
+          switch (opt) {
+            case 0:
+              saveFile();
+              if (savedImage) {
+                super.windowClosing(e);
+              }
+              break;
+            case 1:
+              super.windowClosing(e);
+            default:
+              break;
+          }
+        }
+      }
+    });
 
     saveButton = new JButton("Save Image...");
     saveButton.addActionListener(new ActionListener() {
@@ -100,9 +135,13 @@ public class SnapshotViewer extends JFrame {
       log.info("Saving screenshot image to {}", fileToSave.getAbsolutePath());
       try {
         ImageIO.write(bufImage, "jpg", fileToSave);
+        savedImage = true;
       } catch (IOException ex) {
         log.error("Writing image file to {} failed.", fileToSave.getAbsolutePath(), ex);
         GeneralError.display("Could not write image to file.");
       }
-    }}
+    }
+  }
+
+
 }
