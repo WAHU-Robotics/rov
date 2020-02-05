@@ -246,6 +246,10 @@ public class UiBootstrap {
               if (ControlMapper.wasButtonPress(m, pm, Config.CUP_BUTTON)) {
                 cupState = !cupState;
               }
+              if (ControlMapper.wasButtonPress(m, pm, Config.SNAP_BUTTON)) {
+                SnapshotViewer viewer = new SnapshotViewer(gui.getVideoFrame());
+                viewer.setVisible(true);
+              }
 
               if (m.getAxis(Config.CAMERA_X_AXIS) > (pm.getAxis(Config.CAMERA_X_AXIS) + Config.JOY_DEADZONE) ||
                   m.getAxis(Config.CAMERA_X_AXIS) < (pm.getAxis(Config.CAMERA_X_AXIS) - Config.JOY_DEADZONE)) {
