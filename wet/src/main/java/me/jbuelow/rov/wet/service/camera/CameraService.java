@@ -47,7 +47,7 @@ public class CameraService {
     webcam.setViewSize(resolution);
 
     ServerAgent agent = new ServerAgent(webcam, resolution, fps, bitrate, quality, quick);
-    agent.start(new InetSocketAddress("localhost", 20000)); //TODO make port a part of application.yml config
+    agent.start(new InetSocketAddress("0.0.0.0", 20000)); //TODO make port a part of application.yml config
   }
 
   private void setLibraryOptions() {
@@ -59,5 +59,4 @@ public class CameraService {
       Webcam.setDriver(new V4l4jDriver());
     }
   }
-
 }

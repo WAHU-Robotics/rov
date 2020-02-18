@@ -30,7 +30,6 @@ public class CameraClientService {
   @Order(1)
   public void initiateConnection(VehicleDiscoveryEvent event) {
     agent.start(new InetSocketAddress(event.getVehicleAddress(), 20000));
-    //agent.start(new InetSocketAddress("127.0.0.1", 20000));
   }
 
 }
