@@ -82,6 +82,7 @@ public class H264Encoder extends VideoStreamEncoder {
   @Override
   public Object encode(BufferedImage imgIn) {
     log.trace("Encoding frame"); //trace to keep it from flooding console when not needed
+    long time = System.currentTimeMillis();
 
     //this part is kinda dumb but is necessary to use the ancient xuggler api
     BufferedImage img = new BufferedImage(imgIn.getWidth(), imgIn.getHeight(), BufferedImage.TYPE_3BYTE_BGR);
@@ -100,6 +101,7 @@ public class H264Encoder extends VideoStreamEncoder {
     frame.delete();
     converter.delete();
 
+    log.trace("Frame encode took {}ms", System.currentTimeMillis()-time);
     if (packet.isComplete()) {
       try {
         ByteBuffer bb = packet.getByteBuffer();
