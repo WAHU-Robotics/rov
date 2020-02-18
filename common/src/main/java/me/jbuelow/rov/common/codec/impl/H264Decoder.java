@@ -29,7 +29,7 @@ public class H264Decoder extends OneToOneDecoder {
   private final ExecutorService decodeWorker;
   private final Dimension resolution;
   private final StreamFrameListener streamFrameListener;
-  private final IStreamCoder codec = IStreamCoder.make(Direction.DECODING, ID.CODEC_ID_H264);
+  private final IStreamCoder codec = IStreamCoder.make(Direction.DECODING, ID.CODEC_ID_MPEG2VIDEO);
   private final Type converterType = ConverterFactory.findRegisteredConverter(ConverterFactory.XUGGLER_BGR_24);
 
   public H264Decoder(StreamFrameListener streamFrameListener, Dimension resolution) {

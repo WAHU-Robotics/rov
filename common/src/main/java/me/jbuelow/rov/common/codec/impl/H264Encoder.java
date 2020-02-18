@@ -15,6 +15,7 @@ import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import java.util.Timer;
 import lombok.extern.slf4j.Slf4j;
 import me.jbuelow.rov.common.codec.VideoStreamEncoder;
 import org.jboss.netty.buffer.ChannelBuffers;
@@ -22,7 +23,7 @@ import org.jboss.netty.buffer.ChannelBuffers;
 @Slf4j
 public class H264Encoder extends VideoStreamEncoder {
 
-  private final IStreamCoder codec = IStreamCoder.make(Direction.ENCODING, ID.CODEC_ID_H264);
+  private final IStreamCoder codec = IStreamCoder.make(Direction.ENCODING, ID.CODEC_ID_MPEG2VIDEO);
   private final IPacket packet = IPacket.make();
 
   private long startTime;
@@ -34,7 +35,7 @@ public class H264Encoder extends VideoStreamEncoder {
   private final boolean quick;
 
   private final int picturesInGroup = 10;
-  private final int bitrateTolerance = 100000;
+  private final int bitrateTolerance = 1000000;
   private final Type pixelType = Type.YUV420P;
 
   public H264Encoder(Dimension resolution, int fps, int bitrate, int quality, boolean quick) {
