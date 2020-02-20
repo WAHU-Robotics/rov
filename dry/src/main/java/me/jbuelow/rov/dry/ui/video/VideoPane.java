@@ -27,7 +27,7 @@ public class VideoPane extends JPanel {
       Font font = new Font("Dialog", Font.BOLD, 100);
       g2.setFont(font);
       g2.setColor(Color.RED);
-      g2.drawString("Camera Error", 50,100);
+      g2.drawString("Camera Error", g2.getClipBounds().width/2-g2.getFontMetrics().stringWidth("Camera Error")/2,g2.getClipBounds().height/2+g2.getFontMetrics().getHeight()/4);
     } else {
       g2.drawImage(image, 0, 0, null);
       g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
