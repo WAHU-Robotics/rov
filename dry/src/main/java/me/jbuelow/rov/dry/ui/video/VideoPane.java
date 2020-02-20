@@ -19,6 +19,12 @@ public class VideoPane extends JPanel {
   private BufferedImage image;
   private final ExecutorService worker = Executors.newSingleThreadExecutor();
 
+  public BufferedImage getScreencap() {
+    BufferedImage img = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_3BYTE_BGR);
+    this.paintComponent(img.createGraphics());
+    return img;
+  }
+
   @Override
   public void paintComponent(Graphics g) {
     Graphics2D g2 = (Graphics2D) g;
