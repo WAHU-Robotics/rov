@@ -19,6 +19,7 @@ import org.jboss.netty.channel.socket.nio.NioClientSocketChannelFactory;
 import org.jboss.netty.handler.codec.frame.LengthFieldBasedFrameDecoder;
 
 @Slf4j
+@Deprecated
 public class CameraClientAgent implements IStreamAgent {
 
   private final Dimension resolution;

@@ -8,10 +8,10 @@ import me.jbuelow.rov.dry.discovery.VehicleDiscoveryEvent;
 import me.jbuelow.rov.dry.ui.UiBootstrap;
 import org.springframework.context.event.EventListener;
 import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Service;
 
-@Service
+//@Service
 @Slf4j
+@Deprecated
 public class CameraClientService {
 
   private final Dimension resolution = new Dimension(1280, 720);
