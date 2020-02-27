@@ -2,3 +2,4 @@ logging:
   level:
     Root: info
     me.jbuelow.rov: trace
+    me.jbuelow.rov.dry.service.impl.ControllHandler: info

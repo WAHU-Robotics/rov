@@ -24,8 +24,9 @@ public class UdpStreamClientService {
   @EventListener
   @Order(1)
   public void initiateConnection(VehicleDiscoveryEvent event) {
+    log.debug("Starting udp stream handler...");
     streamHandler = new UdpStreamHandler(frameListener);
-    streamHandler.start("udp://239.0.0.1:1234", "h264");
+    new Thread(() -> streamHandler.start("udp://239.0.0.1:1234?multicast", "h264")).start();
   }
 
 }
