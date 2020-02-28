@@ -6,7 +6,6 @@ import com.github.sarxos.webcam.ds.v4l4j.V4l4jDriver;
 import java.awt.Dimension;
 import java.net.InetSocketAddress;
 import java.util.Objects;
-import java.util.concurrent.ExecutionException;
 import java.util.regex.Pattern;
 import javax.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
@@ -22,10 +21,10 @@ public class CameraService {
 
   //TODO make these values configurable from the config file
   private Webcam webcam;
-  private Dimension resolution = new Dimension(1280, 720);
-  private int fps = 30;
-  private int bitrate = 12000000;
-  private int quality = 10;
+  private Dimension resolution = new Dimension(640, 480);
+  private int fps = 24;
+  private int bitrate = 2099990000;
+  private int quality = 1;
   private boolean quick = true;
 
 
