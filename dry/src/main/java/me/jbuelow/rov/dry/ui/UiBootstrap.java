@@ -16,7 +16,6 @@ package me.jbuelow.rov.dry.ui;
  * along with WAHU ROV Software.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import java.awt.image.BufferedImage;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,7 +24,6 @@ import java.util.Map;
 import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
 import me.jbuelow.rov.common.capabilities.Tool;
-import me.jbuelow.rov.common.codec.StreamFrameListener;
 import me.jbuelow.rov.common.command.GetSystemStats;
 import me.jbuelow.rov.common.command.GetWaterTemp;
 import me.jbuelow.rov.common.command.OpenVideo;
@@ -44,7 +42,6 @@ import me.jbuelow.rov.dry.discovery.VehicleDiscoveryEvent;
 import me.jbuelow.rov.dry.exception.JinputNativesNotFoundException;
 import me.jbuelow.rov.dry.service.VehicleControlService;
 import me.jbuelow.rov.dry.ui.error.GeneralError;
-import me.jbuelow.rov.dry.ui.video.CameraClientService;
 import net.java.games.input.Component;
 import net.java.games.input.Controller;
 import org.springframework.context.event.EventListener;
@@ -105,24 +102,6 @@ public class UiBootstrap {
       e.printStackTrace();
       GeneralError.display();
       System.exit(69420); //kms
-    }
-  }
-
-  public Object getFrameListener() {
-    return new VideoFrameListener(this);
-  }
-
-  public class VideoFrameListener implements StreamFrameListener {
-
-    private final UiBootstrap bootstrap;
-
-    public VideoFrameListener(UiBootstrap bootstrap) {
-      this.bootstrap = bootstrap;
-    }
-
-    @Override
-    public void onFrameReceived(BufferedImage image) {
-      gui.updateVideoFrame(image);
     }
   }
 
