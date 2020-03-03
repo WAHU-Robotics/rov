@@ -28,7 +28,12 @@ public class VideoService {
   @EventListener
   @Order(1)
   public void initiateConnection(VehicleDiscoveryEvent event) {
-    new Thread(this::start).start();
+    new Thread() {
+      @Override
+      public void run() {
+        start();
+      }
+    };
   }
 
   private void start() {
