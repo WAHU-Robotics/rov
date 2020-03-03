@@ -16,6 +16,7 @@ package me.jbuelow.rov.dry.ui;
  * along with WAHU ROV Software.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+import java.awt.image.BufferedImage;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -85,7 +86,7 @@ public class UiBootstrap {
   }
 
   @EventListener
-  @Order()
+  @Order(1)
   public void startMainUI(VehicleDiscoveryEvent event) {
     vehicleId = event.getVehicleID();
     video = (VideoStreamAddress) vehicleControlService
@@ -106,8 +107,12 @@ public class UiBootstrap {
     }
   }
 
-  public VideoFrameReceiver getFrameReceiver() {
-    return gui.getVideoPane().getFrameReceiver();
+  @org.springframework.stereotype.Component
+  private class FrameReceiver extends VideoFrameReceiver {
+    @Override
+    public void newFrame(BufferedImage frame) {
+      gui.updateVideoFrame(frame);
+    }
   }
 
   private class Loop extends Thread {
