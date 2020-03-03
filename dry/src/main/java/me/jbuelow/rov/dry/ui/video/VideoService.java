@@ -1,13 +1,15 @@
 package me.jbuelow.rov.dry.ui.video;
 
+import javax.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import me.jbuelow.rov.dry.discovery.VehicleDiscoveryEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 
-@Slf4j
+
 @Service
+@Slf4j
 public class VideoService {
 
   private final VideoFrameReceiver frameReceiver;
@@ -17,11 +19,16 @@ public class VideoService {
   public VideoService(VideoFrameReceiver frameReceiver) {
     this.frameReceiver = frameReceiver;
   }
+  
+  @PostConstruct
+  public void init() {
+    log.info("Started camera service");
+  }
 
   @EventListener
   @Order(1)
   public void initiateConnection(VehicleDiscoveryEvent event) {
-    start();
+    new Thread(this::start).start();
   }
 
   private void start() {

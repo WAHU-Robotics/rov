@@ -86,7 +86,7 @@ public class UiBootstrap {
   }
 
   @EventListener
-  @Order(1)
+  @Order()
   public void startMainUI(VehicleDiscoveryEvent event) {
     vehicleId = event.getVehicleID();
     video = (VideoStreamAddress) vehicleControlService
