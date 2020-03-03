@@ -17,7 +17,7 @@ public class VideoService {
   private VideoTransport transport;
 
   @Value("${rov.camera.url}")
-  private String videoUrl = "udp://239.0.0.1:1234";
+  private String videoUrl;
 
   public VideoService(VideoFrameReceiver frameReceiver) {
     this.frameReceiver = frameReceiver;
@@ -34,12 +34,12 @@ public class VideoService {
     new Thread() {
       @Override
       public void run() {
-        start();
+        startStream();
       }
-    };
+    }.start();
   }
 
-  private void start() {
+  private void startStream() {
     log.info("Starting camera stream...");
     transport = new VideoTransport(videoUrl, frameReceiver);
     transport.start();
