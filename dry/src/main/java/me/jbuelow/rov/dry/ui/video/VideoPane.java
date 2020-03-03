@@ -34,4 +34,13 @@ public class VideoPane extends JPanel {
     });
   }
 
+  public VideoFrameReceiver getFrameReceiver() {
+    return new VideoFrameReceiver() {
+      @Override
+      public void newFrame(BufferedImage frame) {
+        update(frame);
+      }
+    };
+  }
+
 }

@@ -42,6 +42,7 @@ import me.jbuelow.rov.dry.discovery.VehicleDiscoveryEvent;
 import me.jbuelow.rov.dry.exception.JinputNativesNotFoundException;
 import me.jbuelow.rov.dry.service.VehicleControlService;
 import me.jbuelow.rov.dry.ui.error.GeneralError;
+import me.jbuelow.rov.dry.ui.video.VideoFrameReceiver;
 import net.java.games.input.Component;
 import net.java.games.input.Controller;
 import org.springframework.context.event.EventListener;
@@ -103,6 +104,10 @@ public class UiBootstrap {
       GeneralError.display();
       System.exit(69420); //kms
     }
+  }
+
+  public VideoFrameReceiver getFrameReceiver() {
+    return gui.getVideoPane().getFrameReceiver();
   }
 
   private class Loop extends Thread {
