@@ -5,6 +5,7 @@ import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import me.jbuelow.rov.common.RovConstants;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -29,6 +30,7 @@ public class NettyConnectionService {
         .childHandler(initializer)
         .option(ChannelOption.SO_BACKLOG, 128)
         .childOption(ChannelOption.SO_KEEPALIVE, true);
+    bootstrap.bind(RovConstants.ROV_PORT);
   }
 
 }
