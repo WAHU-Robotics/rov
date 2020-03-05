@@ -33,6 +33,8 @@ import me.jbuelow.rov.common.RovConstants;
 import me.jbuelow.rov.common.command.Command;
 import me.jbuelow.rov.common.response.InvalidCommandResponse;
 import me.jbuelow.rov.wet.service.CommandProcessorService;
+import me.jbuelow.rov.wet.service.connection.event.ControllerConnectedEvent;
+import me.jbuelow.rov.wet.service.connection.event.ControllerDisconnectedEvent;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.boot.context.event.ApplicationReadyEvent;

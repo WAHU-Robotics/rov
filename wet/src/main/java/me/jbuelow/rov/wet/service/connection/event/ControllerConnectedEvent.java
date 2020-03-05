@@ -1,4 +1,4 @@
-package me.jbuelow.rov.wet.service.impl;
+package me.jbuelow.rov.wet.service.connection.event;
 
 /* This file is part of WAHU ROV Software.
  *
@@ -22,14 +22,14 @@ import org.springframework.context.ApplicationEvent;
  * @author Jacob Buelow
  * @author Brian Wachsmuth
  */
-public class ControllerDisconnectedEvent extends ApplicationEvent {
+public class ControllerConnectedEvent extends ApplicationEvent {
 
   /**
    *
    */
-  private static final long serialVersionUID = 4337298704611297359L;
+  private static final long serialVersionUID = 6504651068190183804L;
 
-  public ControllerDisconnectedEvent(Object source) {
+  public ControllerConnectedEvent(Object source) {
     super(source);
   }
 }
