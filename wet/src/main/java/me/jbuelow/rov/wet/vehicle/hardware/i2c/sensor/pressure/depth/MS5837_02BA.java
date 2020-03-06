@@ -1,11 +1,17 @@
 package me.jbuelow.rov.wet.vehicle.hardware.i2c.sensor.pressure.depth;
 
 import java.io.IOException;
+import javax.annotation.PostConstruct;
 import javax.measure.Quantity;
 import javax.measure.quantity.Length;
 import javax.measure.quantity.Pressure;
 
 public class MS5837_02BA implements DepthDevice {
+
+  @PostConstruct
+  public void initialize() {
+
+  }
 
   @Override
   public Quantity<Length> getDepth() throws IOException {
