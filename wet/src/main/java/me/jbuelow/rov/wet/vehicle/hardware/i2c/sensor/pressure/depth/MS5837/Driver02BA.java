@@ -20,10 +20,14 @@ import javax.measure.quantity.Temperature;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import me.jbuelow.rov.wet.vehicle.hardware.i2c.sensor.pressure.depth.DepthDevice;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
 import tec.uom.se.quantity.Quantities;
 import tec.uom.se.unit.Units;
 
 @Slf4j
+@Component
+@Profile("useDepth")
 public class Driver02BA implements DepthDevice {
 
   private final I2CDevice device;
