@@ -17,19 +17,19 @@ package me.jbuelow.rov.wet.vehicle.hardware.i2c.sensor.temp;
  */
 
 import java.io.IOException;
-import javax.measure.Quantity;
+import javax.measure.Measurable;
+import javax.measure.Measure;
 import javax.measure.quantity.Temperature;
+import javax.measure.unit.SI;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
-import tec.uom.se.quantity.Quantities;
-import tec.uom.se.unit.Units;
 
 @Component
 @Profile("!useTemp")
 public class MockTemperatureSensor implements TempDevice{
   @Override
-  public Quantity<Temperature> getTemp() throws IOException {
-    return Quantities.getQuantity(0, Units.KELVIN);
+  public Measurable<Temperature> getTemp() throws IOException {
+    return Measure.valueOf(0, SI.KELVIN);
   }
 
   @Override

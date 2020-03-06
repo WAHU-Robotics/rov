@@ -17,13 +17,12 @@ package me.jbuelow.rov.wet.vehicle.hardware.i2c.sensor.temp;
  */
 
 import java.io.IOException;
-import javax.measure.Quantity;
+import javax.measure.Measurable;
 import javax.measure.quantity.Temperature;
-import me.jbuelow.rov.wet.vehicle.hardware.i2c.I2CDevice;
 import me.jbuelow.rov.wet.vehicle.hardware.i2c.sensor.SensorDevice;
 
 public interface TempDevice extends SensorDevice {
 
-  Quantity<Temperature> getTemp() throws IOException;
+  Measurable<Temperature> getTemp() throws IOException;
 
 }
