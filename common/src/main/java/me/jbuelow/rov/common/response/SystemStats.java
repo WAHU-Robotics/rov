@@ -18,11 +18,10 @@ package me.jbuelow.rov.common.response;
 
 import java.util.Map;
 import java.util.Properties;
-import javax.measure.Quantity;
+import javax.measure.Measurable;
 import javax.measure.quantity.Temperature;
 import lombok.Getter;
 import lombok.Setter;
-import tec.uom.se.quantity.Quantities;
 
 /**
  * @author Jacob Buelow
@@ -40,6 +39,6 @@ public class SystemStats extends Response {
 
   @Getter
   @Setter
-  private Quantity<Temperature> cpuTemp;
+  private Measurable<Temperature> cpuTemp;
 
 }

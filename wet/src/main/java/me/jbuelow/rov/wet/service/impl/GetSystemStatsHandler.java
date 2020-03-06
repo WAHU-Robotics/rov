@@ -20,16 +20,16 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import javax.measure.Quantity;
+import javax.measure.Measurable;
+import javax.measure.Measure;
 import javax.measure.quantity.Temperature;
+import javax.measure.unit.SI;
 import me.jbuelow.rov.common.command.GetSystemStats;
 import me.jbuelow.rov.common.response.Response;
 import me.jbuelow.rov.common.response.SystemStats;
 import me.jbuelow.rov.wet.service.CommandHandler;
 import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Service;
-import tec.uom.se.quantity.Quantities;
-import tec.uom.se.unit.Units;
 
 /**
  * @author Jacob Buelow
@@ -59,16 +59,16 @@ public class GetSystemStatsHandler implements CommandHandler<GetSystemStats> {
       response.setProperties(System.getProperties());
     }
 
-    Quantity<Temperature> temp;
+    Measurable<Temperature> temp;
     File file = new File("/sys/class/thermal/thermal_zone0/temp");
     BufferedReader reader = null;
     try {
       reader = new BufferedReader(new FileReader(file));
       int t = Integer.parseInt(reader.readLine());
       Number num = ((float) t) / 1000;
-      temp = Quantities.getQuantity(num, Units.CELSIUS);
+      temp = Measure.valueOf(num.doubleValue(), SI.CELSIUS);
     } catch (IOException e) {
-      temp = Quantities.getQuantity(0, Units.KELVIN);
+      temp = Measure.valueOf(0, SI.KELVIN);
     } finally {
       if (reader != null) {
         IOUtils.closeQuietly(reader);
