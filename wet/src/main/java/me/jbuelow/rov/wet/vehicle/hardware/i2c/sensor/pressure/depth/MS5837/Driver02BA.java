@@ -37,6 +37,9 @@ public class Driver02BA implements DepthDevice {
   private byte[] prom;
   private int[] calibration;
 
+  private Quantity<Pressure> zeroPoint = Quantities.getQuantity(101325, Units.PASCAL);
+  private Quantity<Length> zeroOffset = Quantities.getQuantity(0, Units.METRE);
+
   public Driver02BA() throws IOException, UnsupportedBusNumberException {
     this(I2CBus.BUS_1, DEFAULT_ADDRESS);
   }
@@ -75,17 +78,30 @@ public class Driver02BA implements DepthDevice {
 
   @Override
   public Quantity<Length> getDepth() throws IOException {
-    return null;
+    Quantity<Pressure> pressure = getPressure();
+
+    Quantity<Pressure> deltaP = pressure.subtract(zeroPoint);
+
+    double mms = deltaP.to(Units.PASCAL).getValue().doubleValue() / 10000;
+
+    Quantity<Length> distanceToZero = Quantities.getQuantity(mms, Units.METRE);
+
+    return distanceToZero.subtract(zeroOffset);
   }
 
   @Override
   public void setZero() {
-
+    setZero(Quantities.getQuantity(0, Units.METRE));
   }
 
   @Override
   public void setZero(Quantity<Length> offset) {
-
+    try {
+      zeroPoint = getPressure();
+      zeroOffset = offset;
+    } catch (IOException e) {
+      log.error("Exception getting pressure: ", e);
+    }
   }
 
   @Override
