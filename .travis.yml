@@ -14,7 +14,7 @@ deploy:
     - "wet/target/wet.jar"
   skip_cleanup: true
   on:
-    branch: master
+    branch: release
 
 after_success:
   - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
