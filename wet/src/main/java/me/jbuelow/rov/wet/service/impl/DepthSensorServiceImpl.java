@@ -1,13 +1,13 @@
 package me.jbuelow.rov.wet.service.impl;
 
 import java.io.IOException;
-import javax.measure.Quantity;
+import javax.measure.Measurable;
+import javax.measure.Measure;
 import javax.measure.quantity.Length;
+import javax.measure.unit.SI;
 import me.jbuelow.rov.wet.service.DepthSensorService;
 import me.jbuelow.rov.wet.vehicle.hardware.i2c.sensor.pressure.depth.DepthDevice;
 import org.springframework.stereotype.Service;
-import tec.uom.se.quantity.Quantities;
-import tec.uom.se.unit.Units;
 
 @Service
 public class DepthSensorServiceImpl implements DepthSensorService {
@@ -20,11 +20,11 @@ public class DepthSensorServiceImpl implements DepthSensorService {
   }
 
   @Override
-  public Quantity<Length> getDepth() {
+  public Measurable<Length> getDepth() {
     try {
       return depthDevice.getDepth();
     } catch (IOException e) {
-      return Quantities.getQuantity(0, Units.METRE);
+      return Measure.valueOf(0, SI.METER);
     }
   }
 

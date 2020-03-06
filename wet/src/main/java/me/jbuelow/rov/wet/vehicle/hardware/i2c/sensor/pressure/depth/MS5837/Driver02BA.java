@@ -13,17 +13,17 @@ import com.pi4j.io.i2c.I2CFactory;
 import com.pi4j.io.i2c.I2CFactory.UnsupportedBusNumberException;
 import java.io.IOException;
 import javax.annotation.PostConstruct;
-import javax.measure.Quantity;
+import javax.measure.Measurable;
+import javax.measure.Measure;
 import javax.measure.quantity.Length;
 import javax.measure.quantity.Pressure;
 import javax.measure.quantity.Temperature;
+import javax.measure.unit.SI;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import me.jbuelow.rov.wet.vehicle.hardware.i2c.sensor.pressure.depth.DepthDevice;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
-import tec.uom.se.quantity.Quantities;
-import tec.uom.se.unit.Units;
 
 @Slf4j
 @Component
@@ -41,8 +41,8 @@ public class Driver02BA implements DepthDevice {
   private byte[] prom;
   private int[] calibration;
 
-  private Quantity<Pressure> zeroPoint = Quantities.getQuantity(101325, Units.PASCAL);
-  private Quantity<Length> zeroOffset = Quantities.getQuantity(0, Units.METRE);
+  private Measurable<Pressure> zeroPoint = Measure.valueOf(101325, SI.PASCAL);
+  private Measurable<Length> zeroOffset = Measure.valueOf(0, SI.METRE);
 
   public Driver02BA() throws IOException, UnsupportedBusNumberException {
     this(I2CBus.BUS_1, DEFAULT_ADDRESS);
@@ -81,25 +81,24 @@ public class Driver02BA implements DepthDevice {
   }
 
   @Override
-  public Quantity<Length> getDepth() throws IOException {
-    Quantity<Pressure> pressure = getPressure();
+  public Measurable<Length> getDepth() throws IOException {
+    Measurable<Pressure> pressure = getPressure();
 
-    Quantity<Pressure> deltaP = pressure.subtract(zeroPoint);
+    Measurable<Pressure> deltaP = Measure.valueOf(pressure.doubleValue(SI.PASCAL) - zeroPoint.doubleValue(SI.PASCAL), SI.PASCAL);
+    double mms = deltaP.doubleValue(SI.PASCAL) / 10000;
 
-    double mms = deltaP.to(Units.PASCAL).getValue().doubleValue() / 10000;
+    Measurable<Length> distanceToZero = Measure.valueOf(mms, SI.MILLIMETER);
 
-    Quantity<Length> distanceToZero = Quantities.getQuantity(mms, Units.METRE);
-
-    return distanceToZero.subtract(zeroOffset);
+    return Measure.valueOf(distanceToZero.doubleValue(SI.MILLIMETER) - zeroOffset.doubleValue(SI.MILLIMETER), SI.MILLIMETER);
   }
 
   @Override
   public void setZero() {
-    setZero(Quantities.getQuantity(0, Units.METRE));
+    setZero(Measure.valueOf(0, SI.METER));
   }
 
   @Override
-  public void setZero(Quantity<Length> offset) {
+  public void setZero(Measurable<Length> offset) {
     try {
       zeroPoint = getPressure();
       zeroOffset = offset;
@@ -109,7 +108,7 @@ public class Driver02BA implements DepthDevice {
   }
 
   @Override
-  public Quantity<Pressure> getPressure() throws IOException {
+  public Measurable<Pressure> getPressure() throws IOException {
     log.debug("Getting pressure...");
 
     //Start T conversion
@@ -168,12 +167,12 @@ public class Driver02BA implements DepthDevice {
     log.trace("P    = {}", pressure);
 
     //Convert primitive numbers to Quantity objects for unitless data transfer
-    Quantity<Pressure> pressureQ = Quantities.getQuantity(pressure, Units.PASCAL);
-    log.debug("Pressure was measured at {}", pressureQ);
-    return pressureQ;
+    Measurable<Pressure> pressureMeasure = Measure.valueOf(pressure, SI.PASCAL);
+    log.debug("Pressure was measured at {}", pressureMeasure);
+    return pressureMeasure;
   }
 
-  public Quantity<Temperature> getTemperature() throws IOException {
+  public Measurable<Temperature> getTemperature() throws IOException {
     log.debug("Getting temperature...");
 
     //Start T conversion
@@ -197,9 +196,9 @@ public class Driver02BA implements DepthDevice {
     int temp = 2000 + dT * calibration[5] / (2^23);
 
     //Convert primitive numbers to Quantity objects for unitless data transfer
-    Quantity<Temperature> temperatureQ = Quantities.getQuantity((((double)temp)/100), Units.CELSIUS);
-    log.debug("Temperature was measured at {}", temperatureQ);
-    return temperatureQ;
+    Measurable<Temperature> temperatureMeasure = Measure.valueOf((((double) temp) / 100), SI.CELSIUS);
+    log.debug("Temperature was measured at {}", temperatureMeasure);
+    return temperatureMeasure;
   }
 
   private int calculateADC(byte[] rawData) {
