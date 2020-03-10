@@ -16,9 +16,9 @@ package me.jbuelow.rov.wet.service;
  * along with WAHU ROV Software.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import javax.measure.Quantity;
+import javax.measure.Measurable;
 import javax.measure.quantity.Temperature;
 
 public interface TempSensorService {
-  Quantity<Temperature> getTemp();
+  Measurable<Temperature> getTemp();
 }

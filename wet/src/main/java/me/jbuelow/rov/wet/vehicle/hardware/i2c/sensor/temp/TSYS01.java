@@ -22,13 +22,13 @@ import com.pi4j.io.i2c.I2CFactory;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.measure.Quantity;
+import javax.measure.Measurable;
+import javax.measure.Measure;
 import javax.measure.quantity.Temperature;
+import javax.measure.unit.SI;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
-import tec.uom.se.quantity.Quantities;
-import tec.uom.se.unit.Units;
 
 @Component
 @Slf4j
@@ -58,7 +58,7 @@ public class TSYS01 implements TempDevice {
   }
 
   @Override
-  public Quantity<Temperature> getTemp() throws IOException {
+  public Measurable<Temperature> getTemp() throws IOException {
     log.debug("Attempting to get temperature...");
     write(_TSYS01_CONVERT);
     sleep(10);
@@ -79,7 +79,7 @@ public class TSYS01 implements TempDevice {
     log.debug("Got ADC value: " + adc);
 
     float tempCelsius = calculateTemperature(adc, k);
-    Quantity<Temperature> temp = Quantities.getQuantity(tempCelsius, Units.CELSIUS);
+    Measurable<Temperature> temp = Measure.valueOf(tempCelsius, SI.CELSIUS);
 
     log.debug("Calculated temperature to be {}", temp.toString());
 
