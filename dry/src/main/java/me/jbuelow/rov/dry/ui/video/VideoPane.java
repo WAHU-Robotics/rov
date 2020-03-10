@@ -6,9 +6,11 @@ import java.awt.image.BufferedImage;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import javax.swing.JPanel;
+import lombok.Getter;
 
 public class VideoPane extends JPanel {
 
+  @Getter
   private BufferedImage image;
   private final ExecutorService worker = Executors.newSingleThreadExecutor();
 

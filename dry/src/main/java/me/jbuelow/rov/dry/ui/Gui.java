@@ -271,6 +271,10 @@ public class Gui extends JFrame implements ApplicationContextAware {
     ctx = applicationContext;
   }
 
+  public BufferedImage getVideoFrame() {
+    return this.videoPane.getImage();
+  }
+
   public void updateVideoFrame(BufferedImage image) {
     this.videoPane.update(image);
   }
