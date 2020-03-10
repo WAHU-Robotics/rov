@@ -47,6 +47,7 @@ import me.jbuelow.rov.dry.discovery.VehicleDiscoveryEvent;
 import me.jbuelow.rov.dry.exception.JinputNativesNotFoundException;
 import me.jbuelow.rov.dry.service.VehicleControlService;
 import me.jbuelow.rov.dry.ui.error.GeneralError;
+import me.jbuelow.rov.dry.ui.video.VideoFrameReceiver;
 import net.java.games.input.Component;
 import net.java.games.input.Controller;
 import org.springframework.context.event.EventListener;
@@ -109,21 +110,11 @@ public class UiBootstrap {
     }
   }
 
-  public Object getFrameListener() {
-    return new VideoFrameListener(this);
-  }
-
-  public class VideoFrameListener implements StreamFrameListener {
-
-    private final UiBootstrap bootstrap;
-
-    public VideoFrameListener(UiBootstrap bootstrap) {
-      this.bootstrap = bootstrap;
-    }
-
+  @org.springframework.stereotype.Component
+  private class FrameReceiver extends VideoFrameReceiver {
     @Override
-    public void onFrameReceived(BufferedImage image) {
-      gui.updateVideoFrame(image);
+    public void newFrame(BufferedImage frame) {
+      gui.updateVideoFrame(frame);
     }
   }
 
@@ -250,6 +241,10 @@ public class UiBootstrap {
               }
               if (ControlMapper.wasButtonPress(m, pm, Config.CUP_BUTTON)) {
                 cupState = !cupState;
+              }
+              if (ControlMapper.wasButtonPress(m, pm, Config.SNAP_BUTTON)) {
+                SnapshotViewer viewer = new SnapshotViewer(gui.getVideoFrame());
+                viewer.setVisible(true);
               }
 
               if (m.getAxis(Config.CAMERA_X_AXIS) > (pm.getAxis(Config.CAMERA_X_AXIS) + Config.JOY_DEADZONE) ||

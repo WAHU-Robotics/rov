@@ -37,6 +37,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.WindowConstants;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import me.jbuelow.rov.common.capabilities.ThrustAxis;
 import me.jbuelow.rov.common.command.SetMotion;
@@ -95,6 +96,7 @@ public class Gui extends JFrame implements ApplicationContextAware {
   private JSlider sliderRoll;
   private JSlider sliderPitch;
   private JButton calcButton;
+  @Getter
   private VideoPane videoPane;
 
   MediaPlayer player;
@@ -274,6 +276,10 @@ public class Gui extends JFrame implements ApplicationContextAware {
   @Override
   public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
     ctx = applicationContext;
+  }
+
+  public BufferedImage getVideoFrame() {
+    return this.videoPane.getImage();
   }
 
   public void updateVideoFrame(BufferedImage image) {
