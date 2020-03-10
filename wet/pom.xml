@@ -71,6 +71,11 @@
       <artifactId>webcam-capture-driver-v4l4j</artifactId>
       <version>0.3.12</version>
     </dependency>
+    <dependency>
+      <groupId>org.bytedeco</groupId>
+      <artifactId>javacv-platform</artifactId>
+      <version>1.5.2</version>
+    </dependency>
   </dependencies>
 
   <build>

@@ -26,7 +26,6 @@ import java.util.UUID;
 import javax.measure.unit.SI;
 import lombok.extern.slf4j.Slf4j;
 import me.jbuelow.rov.common.capabilities.Tool;
-import me.jbuelow.rov.common.codec.StreamFrameListener;
 import me.jbuelow.rov.common.command.GetSystemStats;
 import me.jbuelow.rov.common.command.GetWaterTemp;
 import me.jbuelow.rov.common.command.OpenVideo;
@@ -45,6 +44,7 @@ import me.jbuelow.rov.dry.discovery.VehicleDiscoveryEvent;
 import me.jbuelow.rov.dry.exception.JinputNativesNotFoundException;
 import me.jbuelow.rov.dry.service.VehicleControlService;
 import me.jbuelow.rov.dry.ui.error.GeneralError;
+import me.jbuelow.rov.dry.ui.video.VideoFrameReceiver;
 import net.java.games.input.Component;
 import net.java.games.input.Controller;
 import org.springframework.context.event.EventListener;
@@ -107,21 +107,11 @@ public class UiBootstrap {
     }
   }
 
-  public Object getFrameListener() {
-    return new VideoFrameListener(this);
-  }
-
-  public class VideoFrameListener implements StreamFrameListener {
-
-    private final UiBootstrap bootstrap;
-
-    public VideoFrameListener(UiBootstrap bootstrap) {
-      this.bootstrap = bootstrap;
-    }
-
+  @org.springframework.stereotype.Component
+  private class FrameReceiver extends VideoFrameReceiver {
     @Override
-    public void onFrameReceived(BufferedImage image) {
-      gui.updateVideoFrame(image);
+    public void newFrame(BufferedImage frame) {
+      gui.updateVideoFrame(frame);
     }
   }
 

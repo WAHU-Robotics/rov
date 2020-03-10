@@ -2,3 +2,6 @@ logging:
   level:
     Root: info
     me.jbuelow.rov: trace
+rov:
+  camera:
+    url: udp://239.0.0.1:1234
