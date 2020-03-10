@@ -3,18 +3,27 @@ jdk:
 - openjdk8
 
 before_deploy:
-  - export TRAVIS_TAG=$(git log --format=%h -1)
-  - git tag $TRAVIS_TAG
+  - cd dry/target/
+  - sha256sum dry.jar > dry.jar.sha256
+  - md5sum dry.jar > dry.jar.md5
+  - cd ../../wet/target
+  - sha256sum wet.jar > wet.jar.sha256
+  - md5sum wet.jar > wet.jar.md5
+  - cd ../../
 
 deploy:
   provider: releases
   api_key: $GITHUB_TOKEN
   file:
     - "dry/target/dry.jar"
+    - "dry/target/dry.jar.sha256"
+    - "dry/target/dry.jar.md5"
     - "wet/target/wet.jar"
+    - "wet/target/wet.jar.sha256"
+    - "wet/target/wet.jar.md5"
   skip_cleanup: true
   on:
-    branch: master
+    tags: true
 
 after_success:
   - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh

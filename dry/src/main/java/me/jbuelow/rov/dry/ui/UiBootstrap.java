@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import javax.measure.unit.SI;
 import lombok.extern.slf4j.Slf4j;
 import me.jbuelow.rov.common.capabilities.Tool;
 import me.jbuelow.rov.common.command.GetSystemStats;
@@ -49,7 +50,6 @@ import net.java.games.input.Controller;
 import org.springframework.context.event.EventListener;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
-import tec.uom.se.unit.Units;
 
 @Service
 @Slf4j
@@ -187,8 +187,8 @@ public class UiBootstrap {
             DecimalFormat df = new DecimalFormat("#.## °C");
 
             SystemStats stat = (SystemStats) vehicleControlService.sendCommand(vehicleId, new GetSystemStats());
-            gui.setCpuTempValue(stat.getCpuTemp().to(Units.CELSIUS));
-            int tempC = stat.getCpuTemp().to(Units.CELSIUS).getValue().intValue();
+            gui.setCpuTempValue(stat.getCpuTemp().doubleValue(SI.CELSIUS));
+            int tempC = (int) stat.getCpuTemp().doubleValue(SI.CELSIUS);
             if (tempC > 80) {
               gui.setCpuTempBadness(2);
             } else if (tempC > 70) {
@@ -198,7 +198,7 @@ public class UiBootstrap {
             }
 
             WaterTemp temp = (WaterTemp) vehicleControlService.sendCommand(vehicleId, new GetWaterTemp());
-            gui.setWaterTempValue(temp.getTemperature().to(Units.CELSIUS));
+            gui.setWaterTempValue(temp.getTemperature().doubleValue(SI.CELSIUS));
 
             i = 0;
           }
@@ -234,6 +234,10 @@ public class UiBootstrap {
               }
               if (ControlMapper.wasButtonPress(m, pm, Config.CUP_BUTTON)) {
                 cupState = !cupState;
+              }
+              if (ControlMapper.wasButtonPress(m, pm, Config.SNAP_BUTTON)) {
+                SnapshotViewer viewer = new SnapshotViewer(gui.getVideoFrame());
+                viewer.setVisible(true);
               }
 
               if (m.getAxis(Config.CAMERA_X_AXIS) > (pm.getAxis(Config.CAMERA_X_AXIS) + Config.JOY_DEADZONE) ||

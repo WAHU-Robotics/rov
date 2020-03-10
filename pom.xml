@@ -27,7 +27,7 @@
 
 
   <properties>
-    <revision>3.0.0</revision>
+    <revision>1.3.0</revision>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <spring-boot.version>1.5.18.RELEASE</spring-boot.version>
@@ -59,9 +59,9 @@
       <version>3.12.1</version>
     </dependency>
     <dependency>
-      <groupId>tec.uom</groupId>
-      <artifactId>uom-se</artifactId>
-      <version>1.0.10</version>
+      <groupId>org.jscience</groupId>
+      <artifactId>jscience</artifactId>
+      <version>4.3.1</version>
     </dependency>
   </dependencies>
 

@@ -26,6 +26,7 @@ import static me.jbuelow.rov.dry.controller.JoystickButton.PRIMARY_0;
 import static me.jbuelow.rov.dry.controller.JoystickButton.PRIMARY_1;
 import static me.jbuelow.rov.dry.controller.JoystickButton.PRIMARY_4;
 import static me.jbuelow.rov.dry.controller.JoystickButton.PRIMARY_5;
+import static me.jbuelow.rov.dry.controller.JoystickButton.PRIMARY_6;
 
 import me.jbuelow.rov.dry.controller.JoystickAxis;
 import me.jbuelow.rov.dry.controller.JoystickButton;
@@ -60,6 +61,7 @@ public abstract class Config {
   public static final JoystickButton MAGNET_BUTTON = PRIMARY_1;
   public static final JoystickButton LIGHT_BUTTON = PRIMARY_4;
   public static final JoystickButton CUP_BUTTON = PRIMARY_5;
+  public static final JoystickButton SNAP_BUTTON = PRIMARY_6;
 
   // Tool servo inversions
   public static final boolean GRIPPER_INVERT = false;
