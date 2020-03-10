@@ -2,8 +2,10 @@ package me.jbuelow.rov.wet.vehicle.hardware.i2c.sensor.pressure.depth;
 
 import java.io.IOException;
 import javax.measure.Measurable;
+import javax.measure.Measure;
 import javax.measure.quantity.Length;
 import javax.measure.quantity.Pressure;
+import javax.measure.unit.SI;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +15,7 @@ public class MockDepthDevice implements DepthDevice {
 
   @Override
   public Measurable<Length> getDepth() throws IOException {
-    return null;
+    return Measure.valueOf(0, SI.METER);
   }
 
   @Override
@@ -28,7 +30,7 @@ public class MockDepthDevice implements DepthDevice {
 
   @Override
   public Measurable<Pressure> getPressure() throws IOException {
-    return null;
+    return Measure.valueOf(0, SI.PASCAL);
   }
 
   @Override
