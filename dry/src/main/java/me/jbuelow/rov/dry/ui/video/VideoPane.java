@@ -10,20 +10,23 @@ import java.awt.RenderingHints;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class VideoPane extends JPanel {
 
   @Getter
   private BufferedImage image;
   private final ExecutorService worker = Executors.newSingleThreadExecutor();
+
+  @Getter
+  private double lastFrameTime = 0;
 
   public BufferedImage getScreencap() {
     BufferedImage img = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_3BYTE_BGR);
@@ -70,7 +73,11 @@ public class VideoPane extends JPanel {
       @Override
       public void run() {
         image = newImg;
+        long startTime = System.nanoTime();
         repaint();
+        long endTime = System.nanoTime();
+        lastFrameTime = (double)(endTime-startTime)/1000000;
+        log.trace("Compositor took {} ms to overlay frame.", lastFrameTime);
       }
     });
   }
@@ -276,7 +283,7 @@ public class VideoPane extends JPanel {
     frame.add(p);
     frame.setSize(1296, 759);
     frame.setVisible(true);
-    BufferedImage image = ImageIO.read(new File("C:\\Users\\jdbue\\IdeaProjects\\rov\\dry\\src\\main\\resources\\test_image_1080p.jpg"));
+    BufferedImage image = new BufferedImage(1920, 1080, BufferedImage.TYPE_3BYTE_BGR);
 
     p.update(image);
   }
