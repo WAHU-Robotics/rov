@@ -29,7 +29,7 @@
   <artifactId>dry</artifactId>
 
   <properties>
-    <jinput-version>2.0.7</jinput-version>
+    <jinput-version>2.0.9</jinput-version>
   </properties>
 
   <dependencies>
