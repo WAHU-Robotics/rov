@@ -40,13 +40,21 @@ public class CloseApplicationConfirmation extends JDialog {
   private final VehicleControlService vehicleControlService;
 
   public CloseApplicationConfirmation() {
-    this(null);
+    this(null, false);
+  }
+
+  public CloseApplicationConfirmation( boolean isModal) {
+    this(null, isModal);
   }
 
   public CloseApplicationConfirmation(VehicleControlService vehicleControlService) {
+    this(vehicleControlService, false);
+  }
+
+  public CloseApplicationConfirmation(VehicleControlService vehicleControlService, boolean isModal) {
     this.vehicleControlService = vehicleControlService;
     setContentPane(contentPane);
-    setModal(false);
+    setModal(isModal);
     getRootPane().setDefaultButton(buttonYes);
 
     UIManager.put("Button.select",new Color(49, 49, 97));
@@ -86,6 +94,7 @@ public class CloseApplicationConfirmation extends JDialog {
     pack();
     setLocationRelativeTo(null);
     setVisible(true);
+    setAlwaysOnTop(true);
     toFront();
     requestFocus();
   }
@@ -95,7 +104,7 @@ public class CloseApplicationConfirmation extends JDialog {
   }
 
   public static void requestExit() {
-    CloseApplicationConfirmation dialog = new CloseApplicationConfirmation();
+    CloseApplicationConfirmation dialog = new CloseApplicationConfirmation(true);
   }
 
   private void onOK() {
