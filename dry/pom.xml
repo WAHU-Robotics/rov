@@ -30,6 +30,7 @@
 
   <properties>
     <jinput-version>2.0.9</jinput-version>
+    <jinput-native-version>2.0.7</jinput-native-version>
   </properties>
 
   <dependencies>
@@ -137,21 +138,21 @@
                 <artifactItem>
                   <groupId>net.java.jinput</groupId>
                   <artifactId>jinput-platform</artifactId>
-                  <version>${jinput-version}</version>
+                  <version>${jinput-native-version}</version>
                   <classifier>natives-linux</classifier>
                   <outputDirectory>${project.build.directory}/generated-resources/linux</outputDirectory>
                 </artifactItem>
                 <artifactItem>
                   <groupId>net.java.jinput</groupId>
                   <artifactId>jinput-platform</artifactId>
-                  <version>${jinput-version}</version>
+                  <version>${jinput-native-version}</version>
                   <classifier>natives-windows</classifier>
                   <outputDirectory>${project.build.directory}/generated-resources/windows</outputDirectory>
                 </artifactItem>
                 <artifactItem>
                   <groupId>net.java.jinput</groupId>
                   <artifactId>jinput-platform</artifactId>
-                  <version>${jinput-version}</version>
+                  <version>${jinput-native-version}</version>
                   <classifier>natives-osx</classifier>
                   <outputDirectory>${project.build.directory}/generated-resources/osx</outputDirectory>
                 </artifactItem>
