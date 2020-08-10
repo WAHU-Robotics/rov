@@ -16,8 +16,8 @@ package me.jbuelow.rov.dry;
  * along with WAHU ROV Software.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 
 /**
  * @author Jacob Buelow
@@ -27,6 +27,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class Dry {
 
   public static void main(String[] args) {
-    SpringApplication.run(Dry.class, args);
+    SpringApplicationBuilder builder = new SpringApplicationBuilder(Dry.class);
+    builder.headless(false).run(args);
   }
 }
