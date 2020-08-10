@@ -120,7 +120,7 @@
           <debug>true</debug>
           <failOnError>true</failOnError>
         </configuration>
-      </plugin><!--
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-dependency-plugin</artifactId>
@@ -159,7 +159,7 @@
             </configuration>
           </execution>
         </executions>
-      </plugin>-->
+      </plugin>
       <plugin>
         <groupId>com.googlecode.mavennatives</groupId>
         <artifactId>maven-nativedependencies-plugin</artifactId>
