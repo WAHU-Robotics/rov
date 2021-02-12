@@ -27,7 +27,13 @@ import org.springframework.context.annotation.Configuration;
 /**
  * @author Jacob Buelow
  *
- * Loads our vehicles capability configurtion from our properties file(s)
+ * Loads our vehicles capability configurtion from our properties file(s).
+ *
+ * Unless otherwise specified at launch using spring boot arguments, this
+ * will load the rov/wet/src/main/resources/application.yml configuration file.
+ *
+ * An alternative application.yml file can be loaded using the following JVM arg:
+ * -Dspring.config.location=<PATH_TO_application.yml>
  */
 @Configuration
 @ConfigurationProperties(prefix = "vehicle")
