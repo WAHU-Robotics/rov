@@ -26,11 +26,14 @@ import java.util.UUID;
 import javax.measure.unit.SI;
 import lombok.extern.slf4j.Slf4j;
 import me.jbuelow.rov.common.capabilities.Tool;
+import me.jbuelow.rov.common.codec.StreamFrameListener;
+import me.jbuelow.rov.common.command.GetDepth;
 import me.jbuelow.rov.common.command.GetSystemStats;
 import me.jbuelow.rov.common.command.GetWaterTemp;
 import me.jbuelow.rov.common.command.OpenVideo;
 import me.jbuelow.rov.common.command.SetMotion;
 import me.jbuelow.rov.common.command.SetServo;
+import me.jbuelow.rov.common.response.Depth;
 import me.jbuelow.rov.common.response.Response;
 import me.jbuelow.rov.common.response.SystemStats;
 import me.jbuelow.rov.common.response.VideoStreamAddress;
@@ -187,7 +190,7 @@ public class UiBootstrap {
             DecimalFormat df = new DecimalFormat("#.## °C");
 
             SystemStats stat = (SystemStats) vehicleControlService.sendCommand(vehicleId, new GetSystemStats());
-            gui.setCpuTempValue(stat.getCpuTemp().doubleValue(SI.CELSIUS));
+            gui.setCpuTempValue(df.format(stat.getCpuTemp().doubleValue(SI.CELSIUS)));
             int tempC = (int) stat.getCpuTemp().doubleValue(SI.CELSIUS);
             if (tempC > 80) {
               gui.setCpuTempBadness(2);
@@ -198,7 +201,11 @@ public class UiBootstrap {
             }
 
             WaterTemp temp = (WaterTemp) vehicleControlService.sendCommand(vehicleId, new GetWaterTemp());
-            gui.setWaterTempValue(temp.getTemperature().doubleValue(SI.CELSIUS));
+            gui.setWaterTempValue(df.format(temp.getTemperature().doubleValue(SI.CELSIUS)));
+
+            df = new DecimalFormat("#.## cm");
+            Depth depth = (Depth) vehicleControlService.sendCommand(vehicleId, new GetDepth());
+            gui.setDepthValue(df.format(depth.getDepth().doubleValue(SI.CENTIMETER)));
 
             i = 0;
           }

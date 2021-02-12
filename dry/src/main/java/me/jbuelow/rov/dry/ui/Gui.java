@@ -71,6 +71,7 @@ public class Gui extends JFrame implements ApplicationContextAware {
   private JLabel joyBAxisTValue;
   private JLabel joyBHatXValue;
   private JLabel waterTempValue;
+  private JLabel depthValue;
   private JPanel cameraPane;
   private JPanel mainPanel;
   private JLabel fpsValue;
@@ -192,6 +193,10 @@ public class Gui extends JFrame implements ApplicationContextAware {
 
   public void setWaterTempValue(Object text) {
     this.waterTempValue.setText(String.valueOf(text));
+  }
+
+  public void setDepthValue(Object text) {
+    this.depthValue.setText(String.valueOf(text));
   }
 
   public void setJoyA(PolledValues values) {
