@@ -21,7 +21,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>me.jbuelow.rov</groupId>
+    <groupId>org.snapshotscience.rov</groupId>
     <artifactId>rov</artifactId>
     <version>${revision}</version>
   </parent>
