@@ -47,7 +47,7 @@ public class WebCam {
     recorder.setVideoCodecName("copy");
     recorder.setFormat("mpegts");
     recorder.setOption("tune", "zerolatency");
-    recorder.setOption("ffflags", "nobuffer");
+    recorder.setOption("fflags", "nobuffer");
     recorder.setOption("flags", "low_delay");
     recorder.setFrameRate(30);
     recorder.setVideoBitrate(100000000);

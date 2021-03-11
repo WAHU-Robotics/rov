@@ -26,7 +26,7 @@ public class VideoTransport {
       log.info("Starting frame grabber...");
       streamFrameGrabber.setOption("flags", "low_delay");
       streamFrameGrabber.setOption("tune", "zerolatency");
-      streamFrameGrabber.setOption("ffflags", "nobuffer");
+      streamFrameGrabber.setOption("fflags", "nobuffer");
 
       streamFrameGrabber.start();
       log.info("Scheduling timer...");
