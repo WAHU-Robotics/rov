@@ -30,7 +30,6 @@ public class WebCam {
     grabber = new OpenCVFrameGrabber(0);
     grabber.setImageHeight(height);
     grabber.setImageWidth(width);
-    grabber.setVideoCodecName("h264");
     try {
       grabber.start();
     } catch (java.lang.Exception e) {
@@ -39,14 +38,14 @@ public class WebCam {
     }
     log.debug("Opened camera frame grabber");
 
-    recorder = new FFmpegFrameRecorder("udp://239.0.0.1:1234?ttl=130", width, height);
+    recorder = new FFmpegFrameRecorder("udp://239.0.0.1:1234?ttl=130&pkt_size=1316", width, height);
     recorder.setVideoCodecName("copy");
     recorder.setFormat("mpegts");
     recorder.setOption("tune", "zerolatency");
     recorder.setOption("ffflags", "nobuffer");
     recorder.setOption("flags", "low_delay");
     recorder.setFrameRate(30);
-    recorder.setVideoBitrate(10000000);
+    recorder.setVideoBitrate(100000000);
     try {
       recorder.start();
     } catch (java.lang.Exception e) {
