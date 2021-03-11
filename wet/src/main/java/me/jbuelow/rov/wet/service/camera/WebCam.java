@@ -12,6 +12,11 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 
+/**
+ * Handles opening and reading from the camera and streaming it to a UDP multicast using javacv/ffmpeg
+ *
+ * @author Jacob Buelow
+ */
 @Slf4j
 @Service
 public class WebCam {
@@ -60,6 +65,9 @@ public class WebCam {
     log.info("Camera stream started!");
   }
 
+  /**
+   * Helper thread class to loop the process of grabbing frames and handing them off to ffmpeg to stream them
+   */
   private class StreamThread extends Thread {
 
     @Override
