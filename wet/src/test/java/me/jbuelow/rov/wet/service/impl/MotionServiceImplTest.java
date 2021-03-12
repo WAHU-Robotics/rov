@@ -184,7 +184,7 @@ public class MotionServiceImplTest {
     motionService.setMotion(motion);
     
     collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Bow Port Thruster")), is(707));
-    collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Bow Starboard Thruster")), is(-707));
+    collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Bow Starboard Thruster")), is(707));
     collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Mid Port Thruster")), is(0));
     collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Mid Starboard Thruster")), is(0));
     collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Stern Port Thruster")), is(-707));
@@ -200,7 +200,7 @@ public class MotionServiceImplTest {
     motionService.setMotion(motion);
     
     collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Bow Port Thruster")), is(-707));
-    collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Bow Starboard Thruster")), is(707));
+    collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Bow Starboard Thruster")), is(-707));
     collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Mid Port Thruster")), is(0));
     collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Mid Starboard Thruster")), is(0));
     collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Stern Port Thruster")), is(707));
@@ -219,7 +219,7 @@ public class MotionServiceImplTest {
     collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Bow Port Thruster")), is(1000));
     collector.checkThat(
         motorService.getMotorPower(motorService.getMotorByName("Bow Starboard Thruster")),
-        is(-1000));
+        is(-171));
     collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Mid Port Thruster")), is(0));
     collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Mid Starboard Thruster")), is(0));
     collector.checkThat(motorService.getMotorPower(motorService.getMotorByName("Stern Port Thruster")), is(-1000));
