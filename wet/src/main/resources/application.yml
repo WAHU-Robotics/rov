@@ -22,7 +22,7 @@ vehicle:
     thrustFactors:
       SWAY: 1.000 #inverted
       SURGE: -1.000 #inverted
-      YAW: 0.707 #inverted
+      YAW: -0.707
   - name: "Stern Port Thruster"
     motorType: THRUSTER
     motorOrientation: MULTI_AXIS
@@ -38,7 +38,7 @@ vehicle:
     thrustFactors:
       SWAY: 1.000
       SURGE: 1.000
-      YAW: -0.707
+      YAW: 0.707
   - name: "Mid Port Thruster"
     motorType: THRUSTER
     motorOrientation: Z_AXIS
