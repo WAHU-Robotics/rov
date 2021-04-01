@@ -1,6 +1,7 @@
 package me.jbuelow.rov.wet.service.camera;
 
 import lombok.extern.slf4j.Slf4j;
+import org.bytedeco.ffmpeg.global.avcodec;
 import org.bytedeco.javacv.CanvasFrame;
 import org.bytedeco.javacv.FFmpegFrameRecorder;
 import org.bytedeco.javacv.Frame;
@@ -23,6 +24,7 @@ public class WebCam {
 
   final int width = 1280;
   final int height = 720;
+  final int framerate = 30;
 
   private FrameGrabber grabber;
   private FFmpegFrameRecorder recorder;
@@ -33,8 +35,13 @@ public class WebCam {
     log.info("Starting camera stream...");
 
     grabber = new OpenCVFrameGrabber(0);
+    if (System.getProperty("os.name").contains("nux")) {
+      grabber.setFormat("video4linux2");
+    }
+    grabber.setVideoCodec(avcodec.AV_CODEC_ID_H264);
     grabber.setImageHeight(height);
     grabber.setImageWidth(width);
+    grabber.setFrameRate(framerate);
     try {
       grabber.start();
     } catch (java.lang.Exception e) {
@@ -46,11 +53,6 @@ public class WebCam {
     recorder = new FFmpegFrameRecorder("udp://239.0.0.1:1234?ttl=130&pkt_size=1316", width, height);
     recorder.setVideoCodecName("copy");
     recorder.setFormat("mpegts");
-    recorder.setOption("tune", "zerolatency");
-    recorder.setOption("fflags", "nobuffer");
-    recorder.setOption("flags", "low_delay");
-    recorder.setFrameRate(30);
-    recorder.setVideoBitrate(100000000);
     try {
       recorder.start();
     } catch (java.lang.Exception e) {
