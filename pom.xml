@@ -20,14 +20,14 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>me.jbuelow.rov</groupId>
+  <groupId>org.snapshotscience.rov</groupId>
   <artifactId>rov</artifactId>
   <version>${revision}</version>
   <packaging>pom</packaging>
 
 
   <properties>
-    <revision>1.4.1</revision>
+    <revision>1.4.2</revision>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <spring-boot.version>1.5.18.RELEASE</spring-boot.version>

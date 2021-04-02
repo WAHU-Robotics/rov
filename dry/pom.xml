@@ -21,7 +21,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>me.jbuelow.rov</groupId>
+    <groupId>org.snapshotscience.rov</groupId>
     <artifactId>rov</artifactId>
     <version>${revision}</version>
   </parent>
@@ -30,6 +30,7 @@
 
   <properties>
     <jinput-version>2.0.9</jinput-version>
+    <jinput-native-version>2.0.7</jinput-native-version>
   </properties>
 
   <dependencies>
@@ -120,6 +121,45 @@
           <debug>true</debug>
           <failOnError>true</failOnError>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <version>3.1.1</version>
+        <executions>
+          <execution>
+            <id>unpack</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>unpack</goal>
+            </goals>
+            <configuration>
+              <artifactItems>
+                <artifactItem>
+                  <groupId>net.java.jinput</groupId>
+                  <artifactId>jinput-platform</artifactId>
+                  <version>${jinput-native-version}</version>
+                  <classifier>natives-linux</classifier>
+                  <outputDirectory>${project.build.directory}/generated-resources/linux</outputDirectory>
+                </artifactItem>
+                <artifactItem>
+                  <groupId>net.java.jinput</groupId>
+                  <artifactId>jinput-platform</artifactId>
+                  <version>${jinput-native-version}</version>
+                  <classifier>natives-windows</classifier>
+                  <outputDirectory>${project.build.directory}/generated-resources/windows</outputDirectory>
+                </artifactItem>
+                <artifactItem>
+                  <groupId>net.java.jinput</groupId>
+                  <artifactId>jinput-platform</artifactId>
+                  <version>${jinput-native-version}</version>
+                  <classifier>natives-osx</classifier>
+                  <outputDirectory>${project.build.directory}/generated-resources/osx</outputDirectory>
+                </artifactItem>
+              </artifactItems>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
       <plugin>
         <groupId>com.googlecode.mavennatives</groupId>
