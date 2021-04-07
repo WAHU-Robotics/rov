@@ -67,11 +67,13 @@ vehicle:
     pwm-port: 9
     tool: CAMERA_X
   video-configuration:
-  - name: "USB Camera"
-    priority: true
-    port: null
-    fps: 30
-    bitrate: 12000000
+  - name: "Primary Camera"
+    streamClass: org.snapshotscience.rov.wet.service.camera.impl.FfmpegUdpCopyCameraStreamer
+    width: 1280
+    height: 720
+    framerate: 30
+    device: /dev/video0
+    outputURL: udp://239.0.0.1:1234?ttl=130&pkt_size=1316
 
     
   
