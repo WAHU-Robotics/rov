@@ -13,6 +13,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author Jacob Buelow
+ *
+ * Handles reading the configuration, setting up, and starting of video streamers
+ */
 @Slf4j
 @Service
 public class StreamingService {

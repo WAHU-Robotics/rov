@@ -1,5 +1,10 @@
 package org.snapshotscience.rov.wet.service.camera;
 
+/**
+ * @author Jacob Buelow
+ *
+ * Interface used to generify different ways of streaming a camera or other video device
+ */
 public interface CameraStreamer {
 
     void start();

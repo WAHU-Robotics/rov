@@ -8,6 +8,11 @@ import org.snapshotscience.rov.wet.service.camera.CameraStreamer;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * @author Jacob Buelow
+ *
+ * Camera streamer implementation that uses ffmpeg as a subprocess
+ */
 @Slf4j
 public class FfmpegUdpCopyCameraStreamer implements CameraStreamer {
 
