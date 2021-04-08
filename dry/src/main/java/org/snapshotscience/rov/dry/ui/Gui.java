@@ -28,6 +28,7 @@ import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.Map;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -102,6 +103,8 @@ public class Gui extends JFrame implements ApplicationContextAware {
   ApplicationContext ctx;
   private final VehicleControlService vehicleControlService;
 
+  private DecimalFormat tempFormat = new DecimalFormat("0.00°C");
+
   public Gui(String streamURL, VehicleControlService vehicleControlService) {
     this.vehicleControlService = vehicleControlService;
     try {
@@ -170,8 +173,8 @@ public class Gui extends JFrame implements ApplicationContextAware {
     return resizedImg;
   }
 
-  public void setCpuTempValue(Object text) {
-    this.cpuTempValue.setText(String.valueOf(text));
+  public void setCpuTempValue(double val) {
+    this.cpuTempValue.setText(tempFormat.format(val));
   }
 
   public void setCpuTempBadness(int badness) {
@@ -190,8 +193,8 @@ public class Gui extends JFrame implements ApplicationContextAware {
     }
   }
 
-  public void setWaterTempValue(Object text) {
-    this.waterTempValue.setText(String.valueOf(text));
+  public void setWaterTempValue(double val) {
+    this.waterTempValue.setText(tempFormat.format(val));
   }
 
   public void setJoyA(PolledValues values) {
