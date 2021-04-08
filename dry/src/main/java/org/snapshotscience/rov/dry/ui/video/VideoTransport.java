@@ -25,9 +25,7 @@ public class VideoTransport {
   public void start() {
     try {
       log.info("Starting frame grabber...");
-      streamFrameGrabber.setOption("flags", "low_delay");
-      streamFrameGrabber.setOption("fflags", "nobuffer");
-      streamFrameGrabber.setOption("probesize", "32");
+      streamFrameGrabber.setVideoOption("threads", "1"); //reduces latency from ~700ms to ~180ms
 
       streamFrameGrabber.start();
       log.info("Scheduling timer...");

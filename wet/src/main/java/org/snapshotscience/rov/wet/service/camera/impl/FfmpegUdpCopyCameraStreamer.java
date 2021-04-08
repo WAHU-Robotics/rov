@@ -55,7 +55,7 @@ public class FfmpegUdpCopyCameraStreamer implements CameraStreamer {
             nullDevice = new File("/dev/null");
         }
 
-            pb.redirectOutput(nullDevice).redirectErrorStream(true);
+        pb.redirectOutput(nullDevice).redirectErrorStream(true);
 
         try {
             ffmpeg = pb.start();
