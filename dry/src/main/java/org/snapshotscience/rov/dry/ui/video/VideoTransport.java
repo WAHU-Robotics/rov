@@ -1,12 +1,13 @@
 package org.snapshotscience.rov.dry.ui.video;
 
-import java.util.Timer;
-import java.util.TimerTask;
 import lombok.extern.slf4j.Slf4j;
 import org.bytedeco.javacv.FFmpegFrameGrabber;
 import org.bytedeco.javacv.Frame;
 import org.bytedeco.javacv.FrameGrabber.Exception;
 import org.bytedeco.javacv.Java2DFrameConverter;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 @Slf4j
 public class VideoTransport {
@@ -25,8 +26,8 @@ public class VideoTransport {
     try {
       log.info("Starting frame grabber...");
       streamFrameGrabber.setOption("flags", "low_delay");
-      streamFrameGrabber.setOption("tune", "zerolatency");
       streamFrameGrabber.setOption("fflags", "nobuffer");
+      streamFrameGrabber.setOption("probesize", "32");
 
       streamFrameGrabber.start();
       log.info("Scheduling timer...");

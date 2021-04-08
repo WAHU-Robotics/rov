@@ -1,10 +1,10 @@
 package org.snapshotscience.rov.wet.service.camera.impl;
 
-import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.snapshotscience.rov.wet.service.camera.CameraStreamer;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
@@ -44,12 +44,27 @@ public class FfmpegUdpCopyCameraStreamer implements CameraStreamer {
         log.info("Starting ffmpeg camera stream for device '{}'...", device);
         log.debug("Using '{}' as ffmpeg command", String.join(" ", command));
 
+        ProcessBuilder pb = new ProcessBuilder(command);
+
+        File nullDevice;
+        if (System.getProperty("os.name").contains("win")) {
+            //Windows
+            nullDevice = new File("NUL");
+        } else {
+            //Assume Linux/Mac
+            nullDevice = new File("/dev/null");
+        }
+
+            pb.redirectOutput(nullDevice).redirectErrorStream(true);
+
         try {
-            ffmpeg = Runtime.getRuntime().exec(command);
+            ffmpeg = pb.start();
         } catch (IOException e) {
             log.error("Failed to start ffmpeg!", e);
             throw new RuntimeException(e);
         }
+
+
 
         running = true;
     }
