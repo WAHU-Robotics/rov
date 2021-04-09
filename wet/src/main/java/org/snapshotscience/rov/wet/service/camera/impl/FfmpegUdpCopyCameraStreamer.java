@@ -47,7 +47,7 @@ public class FfmpegUdpCopyCameraStreamer implements CameraStreamer {
         ProcessBuilder pb = new ProcessBuilder(command);
 
         File nullDevice;
-        if (System.getProperty("os.name").contains("win")) {
+        if (System.getProperty("os.name").contains("Win")) {
             //Windows
             nullDevice = new File("NUL");
         } else {
