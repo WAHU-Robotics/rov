@@ -4,14 +4,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.snapshotscience.rov.wet.service.camera.impl.FfmpegUdpCopyCameraStreamer;
 import org.snapshotscience.rov.wet.vehicle.VehicleConfiguration;
 import org.snapshotscience.rov.wet.vehicle.VideoConfig;
-import org.springframework.boot.autoconfigure.web.JspTemplateAvailabilityProvider;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author Jacob Buelow
@@ -20,6 +18,7 @@ import java.util.Map;
  */
 @Slf4j
 @Service
+@Profile("enableCamera")
 public class StreamingService {
 
     private List<VideoConfig> videoConfigs;
