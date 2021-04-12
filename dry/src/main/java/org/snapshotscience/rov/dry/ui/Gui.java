@@ -16,28 +16,6 @@ package org.snapshotscience.rov.dry.ui;
  * along with WAHU ROV Software.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.RenderingHints;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.text.DecimalFormat;
-import java.util.Map;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JSlider;
-import javax.swing.WindowConstants;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.snapshotscience.rov.common.capabilities.ThrustAxis;
@@ -50,7 +28,18 @@ import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.core.io.ClassPathResource;
-import uk.co.caprica.vlcj.player.MediaPlayer;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.Map;
 
 /**
  * Main graphical user interface for rov software
@@ -99,11 +88,8 @@ public class Gui extends JFrame implements ApplicationContextAware {
   @Getter
   private VideoPane videoPane;
 
-  MediaPlayer player;
   ApplicationContext ctx;
   private final VehicleControlService vehicleControlService;
-
-  private DecimalFormat tempFormat = new DecimalFormat("0.00°C");
 
   public Gui(String streamURL, VehicleControlService vehicleControlService) {
     this.vehicleControlService = vehicleControlService;
@@ -173,8 +159,8 @@ public class Gui extends JFrame implements ApplicationContextAware {
     return resizedImg;
   }
 
-  public void setCpuTempValue(double val) {
-    this.cpuTempValue.setText(tempFormat.format(val));
+  public void setCpuTempValue(Object text) {
+    this.cpuTempValue.setText(String.valueOf(text));
   }
 
   public void setCpuTempBadness(int badness) {
@@ -193,8 +179,8 @@ public class Gui extends JFrame implements ApplicationContextAware {
     }
   }
 
-  public void setWaterTempValue(double val) {
-    this.waterTempValue.setText(tempFormat.format(val));
+  public void setWaterTempValue(Object text) {
+    this.waterTempValue.setText(String.valueOf(text));
   }
 
   public void setJoyA(PolledValues values) {
@@ -237,8 +223,8 @@ public class Gui extends JFrame implements ApplicationContextAware {
   }
 
   public void takeScreenshot() {
-    BufferedImage img = player.getSnapshot();
-    new SnapshotViewer(img);
+    //BufferedImage img = player.getSnapshot();
+    //new SnapshotViewer(img); //TODO: Fix this
   }
 
   public void setGripperState(Boolean state) {
