@@ -18,7 +18,6 @@ package org.snapshotscience.rov.wet.vehicle;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.bytedeco.opencv.presets.opencv_core;
 import org.hibernate.validator.constraints.NotBlank;
 import org.snapshotscience.rov.common.capabilities.Video;
 import org.snapshotscience.rov.wet.service.camera.CameraStreamer;
