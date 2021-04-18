@@ -18,7 +18,9 @@ package org.snapshotscience.rov.wet.vehicle;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.validator.constraints.NotBlank;
 import org.snapshotscience.rov.common.capabilities.Video;
+import org.snapshotscience.rov.wet.service.camera.CameraStreamer;
 
 /**
  * @author Jacob Buelow
@@ -29,6 +31,14 @@ import org.snapshotscience.rov.common.capabilities.Video;
 public class VideoConfig extends Video implements AccessoryConfig {
 
   private static final long serialVersionUID = -7260327768559672636L;
+
+  @NotBlank private String name;
+  @NotBlank private Class<CameraStreamer> streamClass;
+  @NotBlank private int width;
+  @NotBlank private int height;
+  @NotBlank private double framerate;
+  @NotBlank private String device;
+  @NotBlank private String outputURL;
 
   @Override
   public void validateConfigurtion() {
