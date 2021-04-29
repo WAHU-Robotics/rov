@@ -28,6 +28,7 @@ import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.core.io.ClassPathResource;
+import uk.co.caprica.vlcj.player.MediaPlayer;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -39,6 +40,7 @@ import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.Map;
 
 /**
@@ -88,8 +90,11 @@ public class Gui extends JFrame implements ApplicationContextAware {
   @Getter
   private VideoPane videoPane;
 
+  MediaPlayer player;
   ApplicationContext ctx;
   private final VehicleControlService vehicleControlService;
+
+  private DecimalFormat tempFormat = new DecimalFormat("0.00°C");
 
   public Gui(String streamURL, VehicleControlService vehicleControlService) {
     this.vehicleControlService = vehicleControlService;
@@ -159,8 +164,8 @@ public class Gui extends JFrame implements ApplicationContextAware {
     return resizedImg;
   }
 
-  public void setCpuTempValue(Object text) {
-    this.cpuTempValue.setText(String.valueOf(text));
+  public void setCpuTempValue(double val) {
+    this.cpuTempValue.setText(tempFormat.format(val));
   }
 
   public void setCpuTempBadness(int badness) {
@@ -179,8 +184,8 @@ public class Gui extends JFrame implements ApplicationContextAware {
     }
   }
 
-  public void setWaterTempValue(Object text) {
-    this.waterTempValue.setText(String.valueOf(text));
+  public void setWaterTempValue(double val) {
+    this.waterTempValue.setText(tempFormat.format(val));
   }
 
   public void setJoyA(PolledValues values) {
@@ -223,8 +228,8 @@ public class Gui extends JFrame implements ApplicationContextAware {
   }
 
   public void takeScreenshot() {
-    //BufferedImage img = player.getSnapshot();
-    //new SnapshotViewer(img); //TODO: Fix this
+    BufferedImage img = player.getSnapshot();
+    new SnapshotViewer(img);
   }
 
   public void setGripperState(Boolean state) {
