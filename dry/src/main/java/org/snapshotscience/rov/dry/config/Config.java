@@ -48,9 +48,9 @@ public abstract class Config {
   public static final double SURGE_SENS = 1.0;
   public static final double SWAY_SENS = 1.0;
   public static final double HEAVE_SENS = 1.0;
-  public static final double YAW_SENS = 1.0;
+  public static final double YAW_SENS = 0.75;
   public static final double PITCH_SENS = 1.0;
-  public static final double ROLL_SENS = 1.0;
+  public static final double ROLL_SENS = 0.75;
 
   // Tool button mapping
   public static final JoystickButton GRIPPER_BUTTON = JoystickButton.PRIMARY_0;
